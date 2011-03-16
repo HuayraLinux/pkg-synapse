@@ -1,0 +1,48 @@
+Source: synapse
+Section: utils
+Priority: optional
+Maintainer: Julien Lavergne <julien.lavergne@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~),
+ intltool (>= 0.35),
+ pkg-config,
+ valac-0.10 (>= 0.10.4) | valac (>= 0.10.4),
+ libzeitgeist-dev (>= 0.2.14),
+ libdbus-glib-1-dev,
+ libgtk2.0-dev (>= 2.20.0),
+ libglib2.0-dev (>= 2.22.0),
+ libgee-dev (>= 0.5.2),
+ libjson-glib-dev (>= 0.10.0),
+ libunique-dev,
+ libgtkhotkey-dev,
+ librest-dev,
+ libnotify-dev
+Vcs-Bzr: http://bazaar.launchpad.net/~gilir/synapse-project/debian-packaging
+Vcs-Browser: http://bazaar.launchpad.net/~gilir/synapse-project/debian-packaging/files
+Homepage: https://launchpad.net/synapse-project
+Standards-Version: 3.9.1
+
+Package: synapse
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+Recommends: zeitgeist (>= 0.6.0~) | zeitgeist-core (>= 0.6.0~),
+            zeitgeist-fts-extension | zeitgeist-extension-fts,
+            pastebinit
+Description: semantic file launcher
+ Synapse is a graphical launcher enabling you to start applications and also
+ to quickly find and access relevant documents and files (by making use of the
+ Zeitgeist engine).
+
+Package: synapse-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: synapse (= ${binary:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Description: semantic file launcher - debug package
+ Synapse is a graphical launcher enabling you to start applications and also
+ to quickly find and access relevant documents and files (by making use of the
+ Zeitgeist engine).
+ .
+ This package contains the debug symbols.

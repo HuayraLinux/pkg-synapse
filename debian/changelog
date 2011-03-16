@@ -1,0 +1,5 @@
+synapse (0.2.4.1-1) unstable; urgency=low
+
+  * Initial upload to Debian. (Closes: #605629)
+
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 16 Mar 2011 23:58:12 +0100
