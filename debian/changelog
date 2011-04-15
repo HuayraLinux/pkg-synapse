@@ -1,3 +1,15 @@
+synapse (0.2.6-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+   - Bump build-depends on vala >= 0.11.5
+   - Add build-depends on libvala-0.12-dev
+   - Bump Standards-Version to 3.9.2.0 (no change needed).
+  * debian/copyright:
+   - Update with new files.
+
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Fri, 15 Apr 2011 23:19:38 +0200
+
 synapse (0.2.4.1-1) unstable; urgency=low
 
   * Initial upload to Debian. (Closes: #605629)

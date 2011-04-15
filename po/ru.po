@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-02-22 22:40+0100\n"
-"PO-Revision-Date: 2011-02-23 14:54+0000\n"
-"Last-Translator: Aksuk Vladimir <Unknown>\n"
+"POT-Creation-Date: 2011-03-24 01:57+0100\n"
+"PO-Revision-Date: 2011-04-01 19:45+0000\n"
+"Last-Translator: Pavel <kitchenknif@Gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-02-24 06:13+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-02 06:45+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Search everything you do."
@@ -27,75 +27,77 @@ msgstr "Искать всё"
 msgid "Synapse"
 msgstr "Synapse"
 
-#: ../src/synapse-main.vala:93 ../src/ui-settings.vala:365
+#. activate has to stay in first position!
+#: ../src/synapse-main.vala:97 ../src/ui-settings.vala:244
 msgid "Activate"
 msgstr "Показать"
 
-#: ../src/ui-cairo-gtk-base.vala:66
+#: ../src/ui-cairo-gtk-base.vala:102
 msgid "Actions"
 msgstr "Действия"
 
-#: ../src/ui-cairo-gtk-base.vala:67
+#: ../src/ui-cairo-gtk-base.vala:103
 msgid "Audio"
 msgstr "Аудио"
 
-#: ../src/ui-cairo-gtk-base.vala:68
+#: ../src/ui-cairo-gtk-base.vala:104
 msgid "Applications"
 msgstr "Приложения"
 
-#: ../src/ui-cairo-gtk-base.vala:69
+#: ../src/ui-cairo-gtk-base.vala:105
 msgid "All"
-msgstr "Все"
+msgstr "Всё"
 
-#: ../src/ui-cairo-gtk-base.vala:70
+#: ../src/ui-cairo-gtk-base.vala:106
 msgid "Documents"
 msgstr "Документы"
 
-#: ../src/ui-cairo-gtk-base.vala:71
+#: ../src/ui-cairo-gtk-base.vala:107
 msgid "Images"
 msgstr "Изображения"
 
-#: ../src/ui-cairo-gtk-base.vala:72
+#: ../src/ui-cairo-gtk-base.vala:108
 msgid "Video"
 msgstr "Видео"
 
-#: ../src/ui-cairo-gtk-base.vala:73
+#: ../src/ui-cairo-gtk-base.vala:109
 msgid "Internet"
 msgstr "Интернет"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:358 ../src/ui-cairo-gtk-virgilio.vala:378
-#: ../src/ui-widgets.vala:743
+#: ../src/ui-cairo-gtk-virgilio.vala:356 ../src/ui-cairo-gtk-virgilio.vala:375
+#: ../src/ui-widgets-matchlistview.vala:855
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d из %d</b>"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:388 ../src/ui-widgets.vala:729
+#: ../src/ui-cairo-gtk-virgilio.vala:385
+#: ../src/ui-widgets-matchlistview.vala:842
 msgid "Home"
 msgstr "Home"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:393 ../src/ui-cairo-gtk-virgilio.vala:425
-#: ../src/ui-widgets.vala:736
+#: ../src/ui-cairo-gtk-virgilio.vala:390 ../src/ui-cairo-gtk-virgilio.vala:421
+#: ../src/ui-widgets-matchlistview.vala:849
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 из %d</b>"
 
-#: ../src/ui-interface.vala:352
+#: ../src/ui-interface.vala:552
 msgid "Searching..."
 msgstr "Поиск…"
 
-#: ../src/ui-interface.vala:353
+#: ../src/ui-interface.vala:553
 msgid "No results found."
 msgstr "Ничего не найдено."
 
-#: ../src/ui-interface.vala:354
+#: ../src/ui-interface.vala:554
 msgid "No recent activities found."
 msgstr "Не найдено"
 
-#: ../src/ui-interface.vala:355
+#: ../src/ui-interface.vala:555
 msgid "Type to search..."
 msgstr "Введите слово для поиска"
 
-#: ../src/ui-interface.vala:438
+#: ../src/ui-interface.vala:653
 msgid "...or press down key to browse recent activities"
 msgstr ""
 "Или нажмите клавишу «Стрелка вниз», чтобы просмотреть недавние действия"
@@ -116,11 +118,11 @@ msgstr "Выключить этот плагин"
 msgid "About this plugin"
 msgstr "О этом плагине"
 
-#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:208
+#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:211
 msgid "Configure plugin"
 msgstr "Настроить плагин"
 
-#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:415
+#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:463
 msgid "Disabled"
 msgstr "Выключено"
 
@@ -128,71 +130,136 @@ msgstr "Выключено"
 msgid "Enabled"
 msgstr "Включено"
 
-#: ../src/ui-settings.vala:145
+#: ../src/ui-settings.vala:146
 msgid "Synapse - Settings"
 msgstr "Synapse - Настройки"
 
-#: ../src/ui-settings.vala:166
+#: ../src/ui-settings.vala:168
 msgid "Default"
 msgstr "По умолчанию"
 
-#: ../src/ui-settings.vala:167
+#: ../src/ui-settings.vala:169
 msgid "Mini"
 msgstr "Mini"
 
-#: ../src/ui-settings.vala:168
+#: ../src/ui-settings.vala:170
 msgid "Dual"
 msgstr "Dual"
 
-#: ../src/ui-settings.vala:169
+#: ../src/ui-settings.vala:171
 msgid "Virgilio"
 msgstr "Virgilio"
 
-#: ../src/ui-settings.vala:275
+#: ../src/ui-settings.vala:172
+msgid "Do-ish"
+msgstr "Do-подбно"
+
+#: ../src/ui-settings.vala:245
+msgid "Execute"
+msgstr "Выполнить"
+
+#: ../src/ui-settings.vala:246
+msgid "Execute without hiding"
+msgstr "Выполнить не исчезая"
+
+#: ../src/ui-settings.vala:247
+msgid "Alternative Delete"
+msgstr "Альтернативное Удаление"
+
+#: ../src/ui-settings.vala:248
+msgid "Next Result"
+msgstr "Следующий результат"
+
+#: ../src/ui-settings.vala:249
+msgid "Previous Result"
+msgstr "Предыдущий результат"
+
+#: ../src/ui-settings.vala:250
+msgid "First Result"
+msgstr "Первый результат"
+
+#: ../src/ui-settings.vala:251
+msgid "Last Result"
+msgstr "Последний результат"
+
+#: ../src/ui-settings.vala:252
+msgid "Next 5 Results"
+msgstr "Следующие 5 результатов"
+
+#: ../src/ui-settings.vala:253
+msgid "Previous 5 Results"
+msgstr "Предыдущие 5 результатов"
+
+#: ../src/ui-settings.vala:254
+msgid "Next Category"
+msgstr "Следующая категория"
+
+#: ../src/ui-settings.vala:255
+msgid "Previous Category"
+msgstr "Предыдущая категория"
+
+#: ../src/ui-settings.vala:256
+msgid "Next Pane"
+msgstr "Следущая панель"
+
+#: ../src/ui-settings.vala:257
+msgid "Previous Pane"
+msgstr "Предыдущая панель"
+
+#: ../src/ui-settings.vala:258
+msgid "Paste"
+msgstr "Вставить"
+
+#: ../src/ui-settings.vala:272
+msgid "Shortcut already in use"
+msgstr "Ярлык уже используется"
+
+#: ../src/ui-settings.vala:298
 msgid "General"
 msgstr "Общие"
 
-#: ../src/ui-settings.vala:276
+#: ../src/ui-settings.vala:299
 msgid "Plugins"
-msgstr "Дополнения"
+msgstr "Плагины"
 
-#: ../src/ui-settings.vala:282
+#: ../src/ui-settings.vala:305
 msgid "Behavior & Look"
 msgstr "Поведение и вид"
 
-#: ../src/ui-settings.vala:294
+#: ../src/ui-settings.vala:317
 msgid "Theme:"
 msgstr "Тема:"
 
 #. Autostart checkbox
-#: ../src/ui-settings.vala:299
+#: ../src/ui-settings.vala:322
 msgid "Startup on login"
 msgstr "Запускаться при загрузке"
 
 #. Notification icon
-#: ../src/ui-settings.vala:305
+#: ../src/ui-settings.vala:328
 msgid "Show notification icon"
 msgstr "Показать иконку в области уведомлений."
 
-#: ../src/ui-settings.vala:320
+#: ../src/ui-settings.vala:343
 msgid "Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: ../src/ui-settings.vala:342
+#: ../src/ui-settings.vala:365
 msgid "Action"
 msgstr "Действие"
 
-#: ../src/ui-settings.vala:359
+#: ../src/ui-settings.vala:402
 msgid "Shortcut"
 msgstr "Комбинация клавиш"
 
-#: ../src/ui-settings.vala:373
+#: ../src/ui-settings.vala:421
 msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr ""
 "Щелкните по комбинации клавиш, которую вы хотите изменить, и нажмите новую "
 "комбинацию"
 
-#: ../src/ui-widgets.vala:714 ../src/ui-widgets.vala:734
+#: ../src/ui-widgets-matchlistview.vala:827
+#: ../src/ui-widgets-matchlistview.vala:847
 msgid "No results."
 msgstr "Нет результатов."
 
@@ -385,7 +452,7 @@ msgstr "Gnome Screen Saver не найден"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
 msgid "Improve results returned by the Zeitgeist plugin by looking "
-msgstr ""
+msgstr "Улучшить результаты выдаваемые плагином Zeitgeist при помощи поиска "
 
 #: ../src/plugins/imgur-plugin.vala:50
 msgid "Upload to imgur"
@@ -445,7 +512,7 @@ msgstr "Искать ошибки и"
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
-msgstr ""
+msgstr "Launchpad: Ветви Bazaar для %s"
 
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
@@ -455,7 +522,7 @@ msgstr "Launchpad: Серия %s для проекта %s"
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
-msgstr ""
+msgstr "Launchpad: Ветвь Bazaar %s"
 
 #: ../src/plugins/launchpad-plugin.vala:341
 #, c-format
@@ -505,7 +572,7 @@ msgstr "Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:43
 msgid "Pastebin selection"
-msgstr ""
+msgstr "Выбор Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:169
 msgid "Synapse - Pastebin"
@@ -567,6 +634,19 @@ msgstr "Действия для выделенного текста"
 #: ../src/plugins/selection-plugin.vala:81
 msgid "Selected text"
 msgstr "Выделенный текст"
+
+#. Plugin title
+#: ../src/plugins/ssh-plugin.vala:50
+msgid "Connect to host with SSH"
+msgstr "Соедениться с хостом при помощи SSH"
+
+#: ../src/plugins/ssh-plugin.vala:55
+msgid "ssh is not installed"
+msgstr "ssh не установлено"
+
+#: ../src/plugins/ssh-plugin.vala:167
+msgid "Connect with SSH"
+msgstr "Соединиться с SSH"
 
 #: ../src/plugins/system-management.vala:89
 msgid "Suspend"

@@ -101,8 +101,6 @@ namespace Synapse.Gui
       match_icon_container_overlayed = new ContainerOverlayed();
       match_icon_thumb = new NamedIcon();
       match_icon_thumb.set_pixel_size (ICON_SIZE / 2);
-      match_icon_thumb.update_timeout = 400;
-      match_icon_thumb.stop_prev_timeout = true;
       match_icon = new NamedIcon ();
       match_icon.set_alignment (0.0f, 0.5f);
       match_icon.set_pixel_size (ICON_SIZE);
@@ -114,7 +112,9 @@ namespace Synapse.Gui
             (match_icon_thumb, ContainerOverlayed.Position.BOTTOM_LEFT);
       match_icon_container_overlayed.set_widget_in_position 
             (action_icon, ContainerOverlayed.Position.BOTTOM_RIGHT);
-      container_top.pack_start (match_icon_container_overlayed, false);
+      var sensitive = new SensitiveWidget (match_icon_container_overlayed);
+      this.make_draggable (sensitive);
+      container_top.pack_start (sensitive, false);
       
       /* Throbber */
       throbber = new Throbber ();
@@ -135,14 +135,6 @@ namespace Synapse.Gui
         fakeinput.add (hbox);
       }
       
-      /* Query flag selector  */
-      flag_selector = new HTextSelector();
-      foreach (string s in this.categories)
-      {
-        flag_selector.add_text (s);
-      }
-      flag_selector.selected = 3;
-      
       /* Description */
       main_label_description = new ShrinkingLabel ();
       main_label_description.set_alignment (0.0f, 1.0f);
@@ -156,7 +148,6 @@ namespace Synapse.Gui
       /* MenuThrobber item */
       menu = new MenuButton ();
       menu.button_scale = 1.0;
-      menu.settings_clicked.connect (()=>{this.show_settings_clicked ();});
       menu.set_size_request (10, 10);
       {
         var main_vbox = new VBox (false, 0);
@@ -188,6 +179,10 @@ namespace Synapse.Gui
       
       results_match = new ResultBox (UI_WIDTH - 2);
       results_action = new ResultBox (UI_WIDTH - 2);
+      results_match.get_match_list_view ().selected_index_changed.connect (this.set_selection_match);
+      results_action.get_match_list_view ().selected_index_changed.connect (this.set_selection_action);
+      results_match.get_match_list_view ().fire_item.connect (command_execute);
+      results_action.get_match_list_view ().fire_item.connect (command_execute);
       results_container.add (results_match);
       results_container.add (results_action);
 
@@ -327,6 +322,7 @@ namespace Synapse.Gui
                          req.height - (y + h));
           ctx.fill ();
         }
+        add_kde_compatibility (window, req.width, req.height);
       }
       else
       {
@@ -411,9 +407,9 @@ namespace Synapse.Gui
           if (match.description != "")
           {
             main_label_description.set_markup (
-              Utils.markup_string_with_search (Utils.replace_home_path_with (match.description, "Home", " > "),
-                                             get_match_search (),
-                                             DESCRIPTION_TEXT_SIZE));
+              Utils.markup_string_with_search (Utils.get_printable_description (match),
+                                               get_match_search (),
+                                               DESCRIPTION_TEXT_SIZE));
           }
           else
           {

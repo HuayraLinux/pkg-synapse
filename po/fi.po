@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-02-22 22:40+0100\n"
-"PO-Revision-Date: 2011-03-03 14:50+0000\n"
-"Last-Translator: Jiri Grönroos <Unknown>\n"
+"POT-Creation-Date: 2011-03-24 01:57+0100\n"
+"PO-Revision-Date: 2011-03-27 16:09+0000\n"
+"Last-Translator: Tommi Saira <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-03-04 06:22+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-03-28 05:23+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Search everything you do."
@@ -26,75 +26,77 @@ msgstr "Etsi kaikesta tekemästäsi."
 msgid "Synapse"
 msgstr "Synapse"
 
-#: ../src/synapse-main.vala:93 ../src/ui-settings.vala:365
+#. activate has to stay in first position!
+#: ../src/synapse-main.vala:97 ../src/ui-settings.vala:244
 msgid "Activate"
-msgstr "Etsi"
+msgstr "Aktivoi"
 
-#: ../src/ui-cairo-gtk-base.vala:66
+#: ../src/ui-cairo-gtk-base.vala:102
 msgid "Actions"
 msgstr "Toiminnot"
 
-#: ../src/ui-cairo-gtk-base.vala:67
+#: ../src/ui-cairo-gtk-base.vala:103
 msgid "Audio"
 msgstr "Ääni"
 
-#: ../src/ui-cairo-gtk-base.vala:68
+#: ../src/ui-cairo-gtk-base.vala:104
 msgid "Applications"
 msgstr "Sovellukset"
 
-#: ../src/ui-cairo-gtk-base.vala:69
+#: ../src/ui-cairo-gtk-base.vala:105
 msgid "All"
 msgstr "Kaikki"
 
-#: ../src/ui-cairo-gtk-base.vala:70
+#: ../src/ui-cairo-gtk-base.vala:106
 msgid "Documents"
 msgstr "Asiakirjat"
 
-#: ../src/ui-cairo-gtk-base.vala:71
+#: ../src/ui-cairo-gtk-base.vala:107
 msgid "Images"
 msgstr "Kuvat"
 
-#: ../src/ui-cairo-gtk-base.vala:72
+#: ../src/ui-cairo-gtk-base.vala:108
 msgid "Video"
 msgstr "Videot"
 
-#: ../src/ui-cairo-gtk-base.vala:73
+#: ../src/ui-cairo-gtk-base.vala:109
 msgid "Internet"
 msgstr "Internet"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:358 ../src/ui-cairo-gtk-virgilio.vala:378
-#: ../src/ui-widgets.vala:743
+#: ../src/ui-cairo-gtk-virgilio.vala:356 ../src/ui-cairo-gtk-virgilio.vala:375
+#: ../src/ui-widgets-matchlistview.vala:855
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d / %d</b>"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:388 ../src/ui-widgets.vala:729
+#: ../src/ui-cairo-gtk-virgilio.vala:385
+#: ../src/ui-widgets-matchlistview.vala:842
 msgid "Home"
 msgstr "Koti"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:393 ../src/ui-cairo-gtk-virgilio.vala:425
-#: ../src/ui-widgets.vala:736
+#: ../src/ui-cairo-gtk-virgilio.vala:390 ../src/ui-cairo-gtk-virgilio.vala:421
+#: ../src/ui-widgets-matchlistview.vala:849
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 / %d</b>"
 
-#: ../src/ui-interface.vala:352
+#: ../src/ui-interface.vala:552
 msgid "Searching..."
 msgstr "Etsitään..."
 
-#: ../src/ui-interface.vala:353
+#: ../src/ui-interface.vala:553
 msgid "No results found."
 msgstr "Hakua vastaavia tuloksia ei löytynyt."
 
-#: ../src/ui-interface.vala:354
+#: ../src/ui-interface.vala:554
 msgid "No recent activities found."
 msgstr "Viimeisimpiä aktiviteetteja ei löytynyt."
 
-#: ../src/ui-interface.vala:355
+#: ../src/ui-interface.vala:555
 msgid "Type to search..."
 msgstr "Etsi kirjoittamalla..."
 
-#: ../src/ui-interface.vala:438
+#: ../src/ui-interface.vala:653
 msgid "...or press down key to browse recent activities"
 msgstr "...tai selaa viimeisimpiä aktiviteetteja painamalla nuolinäppäintä"
 
@@ -114,11 +116,11 @@ msgstr "Poista liitännäinen käytöstä"
 msgid "About this plugin"
 msgstr "Tietoja liitännäisestä"
 
-#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:208
+#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:211
 msgid "Configure plugin"
 msgstr "Muokkaa liitännäisen asetuksia"
 
-#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:415
+#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:463
 msgid "Disabled"
 msgstr "Ei käytössä"
 
@@ -126,69 +128,134 @@ msgstr "Ei käytössä"
 msgid "Enabled"
 msgstr "Käytössä"
 
-#: ../src/ui-settings.vala:145
+#: ../src/ui-settings.vala:146
 msgid "Synapse - Settings"
 msgstr "Synapse - Asetukset"
 
-#: ../src/ui-settings.vala:166
+#: ../src/ui-settings.vala:168
 msgid "Default"
 msgstr "Oletus"
 
-#: ../src/ui-settings.vala:167
+#: ../src/ui-settings.vala:169
 msgid "Mini"
 msgstr "Mini"
 
-#: ../src/ui-settings.vala:168
+#: ../src/ui-settings.vala:170
 msgid "Dual"
 msgstr "Dual"
 
-#: ../src/ui-settings.vala:169
+#: ../src/ui-settings.vala:171
 msgid "Virgilio"
 msgstr "Virgilio"
 
-#: ../src/ui-settings.vala:275
+#: ../src/ui-settings.vala:172
+msgid "Do-ish"
+msgstr ""
+
+#: ../src/ui-settings.vala:245
+msgid "Execute"
+msgstr "Suorita"
+
+#: ../src/ui-settings.vala:246
+msgid "Execute without hiding"
+msgstr ""
+
+#: ../src/ui-settings.vala:247
+msgid "Alternative Delete"
+msgstr "Vaihtoehtoinen poisto"
+
+#: ../src/ui-settings.vala:248
+msgid "Next Result"
+msgstr "Seuraava tulos"
+
+#: ../src/ui-settings.vala:249
+msgid "Previous Result"
+msgstr "Edellinen tulos"
+
+#: ../src/ui-settings.vala:250
+msgid "First Result"
+msgstr "Ensimmäinen tulos"
+
+#: ../src/ui-settings.vala:251
+msgid "Last Result"
+msgstr "Viimeinen tulos"
+
+#: ../src/ui-settings.vala:252
+msgid "Next 5 Results"
+msgstr "Seuraavat viisi tulosta"
+
+#: ../src/ui-settings.vala:253
+msgid "Previous 5 Results"
+msgstr "Edelliset viisi tulosta"
+
+#: ../src/ui-settings.vala:254
+msgid "Next Category"
+msgstr "Seuraava luokka"
+
+#: ../src/ui-settings.vala:255
+msgid "Previous Category"
+msgstr "Edellinen luokka"
+
+#: ../src/ui-settings.vala:256
+msgid "Next Pane"
+msgstr ""
+
+#: ../src/ui-settings.vala:257
+msgid "Previous Pane"
+msgstr ""
+
+#: ../src/ui-settings.vala:258
+msgid "Paste"
+msgstr "Liitä"
+
+#: ../src/ui-settings.vala:272
+msgid "Shortcut already in use"
+msgstr ""
+
+#: ../src/ui-settings.vala:298
 msgid "General"
 msgstr "Yleiset"
 
-#: ../src/ui-settings.vala:276
+#: ../src/ui-settings.vala:299
 msgid "Plugins"
 msgstr "Liitännäiset"
 
-#: ../src/ui-settings.vala:282
+#: ../src/ui-settings.vala:305
 msgid "Behavior & Look"
 msgstr "Toiminta ja ulkoasu"
 
-#: ../src/ui-settings.vala:294
+#: ../src/ui-settings.vala:317
 msgid "Theme:"
 msgstr "Teema:"
 
 #. Autostart checkbox
-#: ../src/ui-settings.vala:299
+#: ../src/ui-settings.vala:322
 msgid "Startup on login"
 msgstr "Käynnistä kirjautumisen yhteydessä"
 
 #. Notification icon
-#: ../src/ui-settings.vala:305
+#: ../src/ui-settings.vala:328
 msgid "Show notification icon"
-msgstr "Näytä ilmoitinkuvake"
+msgstr "Näytä ilmaisinkuvake"
 
-#: ../src/ui-settings.vala:320
+#: ../src/ui-settings.vala:343
 msgid "Shortcuts"
 msgstr "Pikanäppäimet"
 
-#: ../src/ui-settings.vala:342
+#: ../src/ui-settings.vala:365
 msgid "Action"
 msgstr "Toiminto"
 
-#: ../src/ui-settings.vala:359
+#: ../src/ui-settings.vala:402
 msgid "Shortcut"
 msgstr "Näppäinyhdistelmä"
 
-#: ../src/ui-settings.vala:373
+#: ../src/ui-settings.vala:421
 msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr "Vaihda näppäinyhdistelmä napsauttamalla sitä ja antamalla uusi."
 
-#: ../src/ui-widgets.vala:714 ../src/ui-widgets.vala:734
+#: ../src/ui-widgets-matchlistview.vala:827
+#: ../src/ui-widgets-matchlistview.vala:847
 msgid "No results."
 msgstr "Ei tuloksia."
 
@@ -420,17 +487,19 @@ msgstr "Jaa kuvia käyttäen imgur-palvelua."
 
 #: ../src/plugins/launchpad-plugin.vala:45
 msgid "Authorize with Launchpad"
-msgstr ""
+msgstr "Valtuuta Launchpadin kanssa"
 
 #: ../src/plugins/launchpad-plugin.vala:52
 msgid ""
 "Please press the Finish button once you login to Launchpad with your web "
 "browser"
 msgstr ""
+"Napsauta Viimeistele-painiketta, kun olet kirjautunut Launchpadiin "
+"internetselaimella"
 
 #: ../src/plugins/launchpad-plugin.vala:55
 msgid "Finish authorization"
-msgstr ""
+msgstr "Viimeistele valtuutus"
 
 #: ../src/plugins/launchpad-plugin.vala:261
 msgid "Find bugs and branches on Launchpad."
@@ -557,11 +626,24 @@ msgstr "Valinta"
 #. plugin title
 #: ../src/plugins/selection-plugin.vala:56
 msgid "Provides actions for currently selected text."
-msgstr ""
+msgstr "Tarjoaa toimintoja valittuna olevalle tekstille."
 
 #: ../src/plugins/selection-plugin.vala:81
 msgid "Selected text"
 msgstr "Valittu teksti"
+
+#. Plugin title
+#: ../src/plugins/ssh-plugin.vala:50
+msgid "Connect to host with SSH"
+msgstr "Yhdistä palvelimeen käyttäen SSH:ta"
+
+#: ../src/plugins/ssh-plugin.vala:55
+msgid "ssh is not installed"
+msgstr "ssh:ta ei ole asennettu"
+
+#: ../src/plugins/ssh-plugin.vala:167
+msgid "Connect with SSH"
+msgstr "Yhdistä käyttäen SSH:ta"
 
 #: ../src/plugins/system-management.vala:89
 msgid "Suspend"

@@ -23,6 +23,11 @@ Copyright:
  2010 Alberto Aldegheri <albyrock87+dev@gmail.com>
 License: GPL-2+
 
+Files: src/plugins/ssh-plugin.vala
+Copyright:
+ 2011 Antono Vasiljev <self@antono.info>
+License: GPL-3+
+
 Files: debian/*
 Copyright: 
  2010, Michal Hruby <michal.mhr@gmail.com>,

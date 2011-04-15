@@ -66,14 +66,14 @@ namespace Synapse.Gui
     protected HSelectionContainer status_selector = null;
     protected Label codename_label = null;
     
-    protected ListView<Match> list_view_matches = null;
-    protected MatchRenderer list_view_matches_renderer = null;
+    protected MatchListView list_view_matches = null;
+    protected MatchViewRenderer list_view_matches_renderer = null;
     protected NamedIcon thumb_icon = null;
     
     private TypeToSearchMatch tts;
 
-    protected ListView<Match> list_view_actions = null;
-    protected MatchRenderer list_view_actions_renderer = null;
+    protected MatchListView list_view_actions = null;
+    protected MatchViewRenderer list_view_actions_renderer = null;
     
     protected MenuThrobber menuthrobber = null;
 
@@ -133,7 +133,6 @@ namespace Synapse.Gui
         menuthrobber = new MenuThrobber ();
         menu = (MenuButton) menuthrobber;
         menuthrobber.set_size_request (24, 24);
-        menuthrobber.settings_clicked.connect (()=>{this.show_settings_clicked ();});
         
         var left_spacer = new Label (null);
         left_spacer.set_size_request (24, 24);
@@ -155,34 +154,34 @@ namespace Synapse.Gui
       /* Building Matches part */
       container_for_matches.pack_start (new HSeparator (), false);
       {
-        list_view_matches_renderer = new MatchRenderer ();
+        list_view_matches_renderer = new MatchViewRenderer ();
         list_view_matches_renderer.icon_size = 48;
         list_view_matches_renderer.cell_vpadding = 1;
-        list_view_matches_renderer.title_markup = "<span size=\"large\"><b>%s</b></span>";
-        list_view_matches_renderer.description_markup = "<span size=\"medium\">%s</span>";
-        list_view_matches_renderer.set_width_request (100);
         list_view_matches_renderer.hilight_on_selected = true;
         list_view_matches_renderer.hide_extended_on_selected = true;
-        list_view_matches = new ListView<Match> (list_view_matches_renderer);
+        list_view_matches = new MatchListView (list_view_matches_renderer);
         list_view_matches.min_visible_rows = 5;
-        list_view_matches.use_base_background = false;
+        list_view_matches.use_base_colors = false;
+        list_view_matches.selected_index_changed.connect (this.set_selection_match);
+        list_view_matches.fire_item.connect (command_execute);
+        //TODO: fire item
         container_for_matches.pack_start (list_view_matches, false);
       }
 
       container.pack_start (container_for_matches, false);
 
       {
-        list_view_actions_renderer = new MatchRenderer ();
+        list_view_actions_renderer = new MatchViewRenderer ();
         list_view_actions_renderer.icon_size = 36;
         list_view_actions_renderer.cell_vpadding = 1;
-        list_view_actions_renderer.title_markup = "<span size=\"medium\"><b>%s</b></span>";
-        list_view_actions_renderer.description_markup = "<span size=\"small\">%s</span>";
-        list_view_actions_renderer.set_width_request (100);
         list_view_actions_renderer.hilight_on_selected = true;
         list_view_actions_renderer.show_extended_info = false;
-        list_view_actions = new ListView<Match> (list_view_actions_renderer);
+        list_view_actions = new MatchListView (list_view_actions_renderer);
         list_view_actions.min_visible_rows = 5;
-        list_view_actions.use_base_background = false;
+        list_view_actions.use_base_colors = false;
+        list_view_actions.selected_index_changed.connect (this.set_selection_action);
+        list_view_actions.fire_item.connect (command_execute);
+        //TODO: fire item
 
         thumb_icon = new NamedIcon ();
         thumb_icon.set_pixel_size (THUMB_SIZE);
@@ -237,13 +236,39 @@ namespace Synapse.Gui
       search_label.set_markup (Markup.printf_escaped ("<span size=\"medium\"><b>%s </b></span>", s));
     }
     
+    protected override void set_input_mask ()
+    {
+      Requisition req = {0, 0};
+      window.size_request (out req);
+      bool composited = window.is_composited ();
+      var bitmap = new Gdk.Pixmap (null, req.width, req.height, 1);
+      var ctx = Gdk.cairo_create (bitmap);
+      ctx.set_operator (Cairo.Operator.CLEAR);
+      ctx.paint ();
+      ctx.set_source_rgba (0, 0, 0, 1);
+      ctx.set_operator (Cairo.Operator.SOURCE);
+      if (composited)
+      {
+        Utils.cairo_rounded_rect (ctx, 0, 0, req.width, req.height, BORDER_RADIUS);
+        ctx.fill ();
+        add_kde_compatibility (window, req.width, req.height);
+      }
+      else
+      {
+        ctx.set_operator (Cairo.Operator.SOURCE);
+        ctx.paint ();
+      }
+      window.input_shape_combine_mask (null, 0, 0);
+      window.input_shape_combine_mask ((Gdk.Bitmap*)bitmap, 0, 0);
+    }
+    
     private void visual_update_search_for ()
     {
       if (searching_for_matches)
       {
         container_for_actions.hide ();
-        list_view_matches.scroll_mode = ListView.ScrollMode.MIDDLE;
-        list_view_matches.set_inhibit_focus (false);
+        list_view_matches.behavior = MatchListView.Behavior.CENTER;
+        list_view_matches.selection_enabled = true;
         if (is_in_initial_status ())
           list_view_matches.min_visible_rows = 1;
         else
@@ -252,12 +277,13 @@ namespace Synapse.Gui
       else
       {
         container_for_actions.show ();
-        list_view_matches.set_inhibit_focus (true);
-        list_view_matches.scroll_mode = ListView.ScrollMode.TOP_FORCED;
+        list_view_matches.selection_enabled = false;
+        list_view_matches.behavior = MatchListView.Behavior.TOP_FORCED;
         list_view_matches.min_visible_rows = 1;
       }
       status_selector.select (searching_for_matches ? 0 : 1);
       update_search_label ();
+      set_input_mask ();
       window.queue_draw ();
     }
     
@@ -344,7 +370,9 @@ namespace Synapse.Gui
       list_view_matches.min_visible_rows = 1;
       update_match_result_list (null, 0, null);
       update_search_label ();
-      window.show ();
+      window.summon ();
+      set_input_mask ();
+      window.queue_draw ();
     }
 
     protected override void focus_match ( int index, Match? match )
@@ -352,8 +380,7 @@ namespace Synapse.Gui
       var matches = get_match_results ();
       if (matches == null || matches.size == 0) {list_view_matches_renderer.pattern = ""; return;}
       list_view_matches_renderer.pattern = get_match_search ();
-      list_view_matches.scroll_to (index);
-      list_view_matches.selected = index;
+      list_view_matches.set_indexes (index, index);
       if (searching_for_matches)
         matches_status_label.set_markup (Markup.printf_escaped (_("<b>%d of %d</b>"), index + 1, matches.size));
       if (match.has_thumbnail)
@@ -372,24 +399,21 @@ namespace Synapse.Gui
       if (actions == null || actions.size == 0) {list_view_actions_renderer.pattern = ""; list_view_matches_renderer.action = null; return;}
       list_view_matches_renderer.action = action;
       list_view_actions_renderer.pattern = get_action_search ();
-      list_view_actions.scroll_to (index);
-      list_view_actions.selected = index;
+      list_view_actions.set_indexes (index, index);
       if (!searching_for_matches)
         actions_status_label.set_markup (Markup.printf_escaped (_("<b>%d of %d</b>"), index + 1, actions.size));
 
     }
     protected override void update_match_result_list (Gee.List<Match>? matches, int index, Match? match)
     {
+      bool update_mask = false;
       if (list_view_matches == null) return;
       if (matches != null && matches.size > 0)
       {
-        foreach (Match m in matches)
-        {
-          m.description = Utils.replace_home_path_with (m.description, _("Home"), " > ");
-        }
         list_view_matches.set_list (matches);
+        if (list_view_matches.min_visible_rows != 5) update_mask = true;
         list_view_matches.min_visible_rows = 5;
-        list_view_matches.set_inhibit_focus (false);
+        list_view_matches.selection_enabled = true;
         matches_status_label.set_markup (Markup.printf_escaped (_("<b>1 of %d</b>"), matches.size));
         focus_match ( index, match );
       }
@@ -398,22 +422,24 @@ namespace Synapse.Gui
         matches_status_label.set_markup ("");
         if (get_match_search () == "" && matches == null)
         {
+          if (list_view_matches.min_visible_rows != 1) update_mask = true;
           list_view_matches.min_visible_rows = 1;
           list_view_matches.set_list (tts_list);
-          list_view_matches.set_inhibit_focus (true);
+          list_view_matches.selection_enabled = false;
         }
         else
         {
+          if (list_view_matches.min_visible_rows != 5) update_mask = true;
           list_view_matches.min_visible_rows = 5;
           list_view_matches.set_list (nores_list);
-          list_view_matches.set_inhibit_focus (true);
+          list_view_matches.selection_enabled = false;
           list_view_matches_renderer.action = null;
         }
 
-        list_view_matches.scroll_to (0);
-        list_view_matches.selected = 0;
+        list_view_matches.set_indexes (0, 0);
         focus_match ( 0, null );
       }
+      if (update_mask) set_input_mask ();
       window.queue_draw ();
     }
     protected override void update_action_result_list (Gee.List<Match>? actions, int index, Match? action)
@@ -437,8 +463,7 @@ namespace Synapse.Gui
           list_view_actions.set_list (nores_list);
         }
 
-        list_view_actions.scroll_to (0);
-        list_view_actions.selected = -1;
+        list_view_actions.set_indexes (0, -1);
       }
       window.queue_draw ();
     }

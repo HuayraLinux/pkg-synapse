@@ -138,7 +138,7 @@ namespace Synapse
               icon_name.has_suffix (".svg") ||
               icon_name.has_suffix (".xpm")))
           {
-            icon_name = icon_name.ndup (icon_name.size () - 4);
+            icon_name = icon_name.substring (0, icon_name.length - 4);
           }
         }
         if (keyfile.has_key (GROUP, "MimeType"))
@@ -224,6 +224,11 @@ namespace Synapse
       DesktopFileInfo.EnvironmentType.GNOME;
     private string session_type_str = "GNOME";
     
+    public DesktopFileInfo.EnvironmentType get_environment ()
+    {
+      return this.session_type;
+    }
+    
     private void get_environment_type ()
     {
       unowned string? session_var = Environment.get_variable ("DESKTOP_SESSION");
@@ -270,8 +275,14 @@ namespace Synapse
       {
         string path = directory.get_path ();
         if (path != null && path.has_suffix ("menu-xdg")) return; // lp:686624
+        Synapse.Utils.Logger.debug (this, "Searching for desktop files in: %s", path);
         bool exists = yield Utils.query_exists_async (directory);
         if (!exists) return;
+        /* Check if we already scanned this directory // lp:686624 */
+        foreach (var scanned_dir in monitored_dirs)
+        {
+          if (path == scanned_dir.get_path ()) return;
+        }
         monitored_dirs.add (directory);
         var enumerator = yield directory.enumerate_children_async (
           FILE_ATTRIBUTE_STANDARD_NAME + "," + FILE_ATTRIBUTE_STANDARD_TYPE,
@@ -416,7 +427,16 @@ namespace Synapse
 
       foreach (var dfi in all_desktop_files)
       {
-        var exec = exec_re.replace_literal (dfi.exec, -1, 0, "").strip ();
+        string exec = "";
+        try
+        {
+          exec = exec_re.replace_literal (dfi.exec, -1, 0, "");
+        }
+        catch (RegexError err)
+        {
+          Utils.Logger.error (this, "%s", err.message);
+        }
+        exec = exec.strip ();
         // update exec map
         Gee.List<DesktopFileInfo>? exec_list = exec_map[exec];
         if (exec_list == null)

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-02-22 22:40+0100\n"
-"PO-Revision-Date: 2011-02-23 22:35+0000\n"
-"Last-Translator: Stefano <Unknown>\n"
+"POT-Creation-Date: 2011-03-24 01:57+0100\n"
+"PO-Revision-Date: 2011-03-24 01:08+0000\n"
+"Last-Translator: Alberto <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-02-24 06:13+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-03-25 06:11+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Search everything you do."
@@ -26,75 +26,77 @@ msgstr "Cerca tutto ciò che fai."
 msgid "Synapse"
 msgstr "Synapse"
 
-#: ../src/synapse-main.vala:93 ../src/ui-settings.vala:365
+#. activate has to stay in first position!
+#: ../src/synapse-main.vala:97 ../src/ui-settings.vala:244
 msgid "Activate"
 msgstr "Attiva"
 
-#: ../src/ui-cairo-gtk-base.vala:66
+#: ../src/ui-cairo-gtk-base.vala:102
 msgid "Actions"
 msgstr "Azioni"
 
-#: ../src/ui-cairo-gtk-base.vala:67
+#: ../src/ui-cairo-gtk-base.vala:103
 msgid "Audio"
 msgstr "Audio"
 
-#: ../src/ui-cairo-gtk-base.vala:68
+#: ../src/ui-cairo-gtk-base.vala:104
 msgid "Applications"
 msgstr "Applicazioni"
 
-#: ../src/ui-cairo-gtk-base.vala:69
+#: ../src/ui-cairo-gtk-base.vala:105
 msgid "All"
 msgstr "Tutto"
 
-#: ../src/ui-cairo-gtk-base.vala:70
+#: ../src/ui-cairo-gtk-base.vala:106
 msgid "Documents"
 msgstr "Documenti"
 
-#: ../src/ui-cairo-gtk-base.vala:71
+#: ../src/ui-cairo-gtk-base.vala:107
 msgid "Images"
 msgstr "Immagini"
 
-#: ../src/ui-cairo-gtk-base.vala:72
+#: ../src/ui-cairo-gtk-base.vala:108
 msgid "Video"
 msgstr "Video"
 
-#: ../src/ui-cairo-gtk-base.vala:73
+#: ../src/ui-cairo-gtk-base.vala:109
 msgid "Internet"
 msgstr "Internet"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:358 ../src/ui-cairo-gtk-virgilio.vala:378
-#: ../src/ui-widgets.vala:743
+#: ../src/ui-cairo-gtk-virgilio.vala:356 ../src/ui-cairo-gtk-virgilio.vala:375
+#: ../src/ui-widgets-matchlistview.vala:855
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d di %d</b>"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:388 ../src/ui-widgets.vala:729
+#: ../src/ui-cairo-gtk-virgilio.vala:385
+#: ../src/ui-widgets-matchlistview.vala:842
 msgid "Home"
 msgstr "Home"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:393 ../src/ui-cairo-gtk-virgilio.vala:425
-#: ../src/ui-widgets.vala:736
+#: ../src/ui-cairo-gtk-virgilio.vala:390 ../src/ui-cairo-gtk-virgilio.vala:421
+#: ../src/ui-widgets-matchlistview.vala:849
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 di %d</b>"
 
-#: ../src/ui-interface.vala:352
+#: ../src/ui-interface.vala:552
 msgid "Searching..."
 msgstr "Ricerca in corso..."
 
-#: ../src/ui-interface.vala:353
+#: ../src/ui-interface.vala:553
 msgid "No results found."
 msgstr "Nessun risultato trovato."
 
-#: ../src/ui-interface.vala:354
+#: ../src/ui-interface.vala:554
 msgid "No recent activities found."
 msgstr "Nessuna attività recente trovata."
 
-#: ../src/ui-interface.vala:355
+#: ../src/ui-interface.vala:555
 msgid "Type to search..."
 msgstr "Digita per cercare..."
 
-#: ../src/ui-interface.vala:438
+#: ../src/ui-interface.vala:653
 msgid "...or press down key to browse recent activities"
 msgstr "...o premi giù per vedere le attività recenti"
 
@@ -112,13 +114,13 @@ msgstr "Disattiva questa estensione"
 
 #: ../src/ui-settings.vala:57
 msgid "About this plugin"
-msgstr ""
+msgstr "Informazioni sul Plugin"
 
-#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:208
+#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:211
 msgid "Configure plugin"
 msgstr "Configura plugin"
 
-#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:415
+#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:463
 msgid "Disabled"
 msgstr "Disattivato"
 
@@ -126,71 +128,136 @@ msgstr "Disattivato"
 msgid "Enabled"
 msgstr "Attivato"
 
-#: ../src/ui-settings.vala:145
+#: ../src/ui-settings.vala:146
 msgid "Synapse - Settings"
 msgstr "Synapse - Impostazioni"
 
-#: ../src/ui-settings.vala:166
+#: ../src/ui-settings.vala:168
 msgid "Default"
 msgstr "Predefinito"
 
-#: ../src/ui-settings.vala:167
+#: ../src/ui-settings.vala:169
 msgid "Mini"
 msgstr "Compatto"
 
-#: ../src/ui-settings.vala:168
+#: ../src/ui-settings.vala:170
 msgid "Dual"
 msgstr "Duale"
 
-#: ../src/ui-settings.vala:169
+#: ../src/ui-settings.vala:171
 msgid "Virgilio"
 msgstr "Virgilio"
 
-#: ../src/ui-settings.vala:275
+#: ../src/ui-settings.vala:172
+msgid "Do-ish"
+msgstr "Do-ish"
+
+#: ../src/ui-settings.vala:245
+msgid "Execute"
+msgstr "Esegui"
+
+#: ../src/ui-settings.vala:246
+msgid "Execute without hiding"
+msgstr "Esegui stando aperto"
+
+#: ../src/ui-settings.vala:247
+msgid "Alternative Delete"
+msgstr "Cancella (Alternativo)"
+
+#: ../src/ui-settings.vala:248
+msgid "Next Result"
+msgstr "Risultato successivo"
+
+#: ../src/ui-settings.vala:249
+msgid "Previous Result"
+msgstr "Risultato precedente"
+
+#: ../src/ui-settings.vala:250
+msgid "First Result"
+msgstr "Primo risultato"
+
+#: ../src/ui-settings.vala:251
+msgid "Last Result"
+msgstr "Ultimo risultato"
+
+#: ../src/ui-settings.vala:252
+msgid "Next 5 Results"
+msgstr "Successivi 5 risultati"
+
+#: ../src/ui-settings.vala:253
+msgid "Previous 5 Results"
+msgstr "Precedenti 5 risultati"
+
+#: ../src/ui-settings.vala:254
+msgid "Next Category"
+msgstr "Prossima categoria"
+
+#: ../src/ui-settings.vala:255
+msgid "Previous Category"
+msgstr "Precedente categoria"
+
+#: ../src/ui-settings.vala:256
+msgid "Next Pane"
+msgstr "Pannello successivo"
+
+#: ../src/ui-settings.vala:257
+msgid "Previous Pane"
+msgstr "Pannello precedente"
+
+#: ../src/ui-settings.vala:258
+msgid "Paste"
+msgstr "Incolla"
+
+#: ../src/ui-settings.vala:272
+msgid "Shortcut already in use"
+msgstr "Scorciatoia già in uso"
+
+#: ../src/ui-settings.vala:298
 msgid "General"
 msgstr "Generale"
 
-#: ../src/ui-settings.vala:276
+#: ../src/ui-settings.vala:299
 msgid "Plugins"
 msgstr "Estensioni"
 
-#: ../src/ui-settings.vala:282
+#: ../src/ui-settings.vala:305
 msgid "Behavior & Look"
 msgstr "Comportamento e Aspetto"
 
-#: ../src/ui-settings.vala:294
+#: ../src/ui-settings.vala:317
 msgid "Theme:"
 msgstr "Tema:"
 
 #. Autostart checkbox
-#: ../src/ui-settings.vala:299
+#: ../src/ui-settings.vala:322
 msgid "Startup on login"
 msgstr "Avvia all'accesso"
 
 #. Notification icon
-#: ../src/ui-settings.vala:305
+#: ../src/ui-settings.vala:328
 msgid "Show notification icon"
 msgstr "Mostra l'icona nell'area di notifica"
 
-#: ../src/ui-settings.vala:320
+#: ../src/ui-settings.vala:343
 msgid "Shortcuts"
 msgstr "Scorciatoie da tastiera"
 
-#: ../src/ui-settings.vala:342
+#: ../src/ui-settings.vala:365
 msgid "Action"
 msgstr "Azione"
 
-#: ../src/ui-settings.vala:359
+#: ../src/ui-settings.vala:402
 msgid "Shortcut"
 msgstr "Scorciatoia da tastiera"
 
-#: ../src/ui-settings.vala:373
+#: ../src/ui-settings.vala:421
 msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr ""
 "Clicca la scorciatoia da tastiera che desideri modificare e digita la nuova "
 "scorciatoia."
 
-#: ../src/ui-widgets.vala:714 ../src/ui-widgets.vala:734
+#: ../src/ui-widgets-matchlistview.vala:827
+#: ../src/ui-widgets-matchlistview.vala:847
 msgid "No results."
 msgstr "Nessun risultato."
 
@@ -383,7 +450,7 @@ msgstr "Gnome Screen Saver non è stato trovato"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
 msgid "Improve results returned by the Zeitgeist plugin by looking "
-msgstr ""
+msgstr "Migliora i risultati riportati dal plugin Zeitgeist cercando "
 
 #: ../src/plugins/imgur-plugin.vala:50
 msgid "Upload to imgur"
@@ -391,13 +458,15 @@ msgstr "Carica su imgur"
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload selection to imgur image sharer"
-msgstr ""
+msgstr "Carica la selezione sulla condivisione immagini di imgur"
 
 #: ../src/plugins/imgur-plugin.vala:171
 #: ../src/plugins/pastebin-plugin.vala:157
 msgid ""
 "The selection was successfully uploaded and its URL was copied to clipboard."
 msgstr ""
+"La selezione è stata caricata con successo e il suo URL è stato copiato "
+"negli appunti"
 
 #: ../src/plugins/imgur-plugin.vala:175
 #: ../src/plugins/pastebin-plugin.vala:161
@@ -428,29 +497,31 @@ msgid ""
 "Please press the Finish button once you login to Launchpad with your web "
 "browser"
 msgstr ""
+"Per favore premere il pulsante Fine una volta loggato su Launchpad con il "
+"tuo browser web"
 
 #: ../src/plugins/launchpad-plugin.vala:55
 msgid "Finish authorization"
-msgstr ""
+msgstr "Completa l'autorizzazione"
 
 #: ../src/plugins/launchpad-plugin.vala:261
 msgid "Find bugs and branches on Launchpad."
-msgstr ""
+msgstr "Trova bugs e branches su Launchpad."
 
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
-msgstr ""
+msgstr "Launchpad: Bazaar branches per %s"
 
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
-msgstr ""
+msgstr "Launchpad: Serie %s per il Progetto %s"
 
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
-msgstr ""
+msgstr "Launchpad: Bazaar branch %s"
 
 #: ../src/plugins/launchpad-plugin.vala:341
 #, c-format
@@ -459,11 +530,11 @@ msgstr "Launchpad: Bug #%s"
 
 #: ../src/plugins/locate-plugin.vala:94 ../src/plugins/locate-plugin.vala:104
 msgid "Locate"
-msgstr "trova"
+msgstr "Trova"
 
 #: ../src/plugins/locate-plugin.vala:95
 msgid "Locate files with this name on the filesystem"
-msgstr "trova i file con questo nome nel filesystem"
+msgstr "Trova i file con questo nome nel filesystem"
 
 #: ../src/plugins/locate-plugin.vala:105
 msgid "Runs locate command to find files on the filesystem."
@@ -471,7 +542,7 @@ msgstr "Esegue il comando locate per trovare file nel computer."
 
 #: ../src/plugins/locate-plugin.vala:109
 msgid "Unable to find \"locate\" binary"
-msgstr "impossibile trovare il binario di \"locate\""
+msgstr "Impossibile trovare il binario di \"locate\""
 
 #: ../src/plugins/opensearch.vala:252
 msgid "Search the web."
@@ -483,7 +554,7 @@ msgstr "Google"
 
 #: ../src/plugins/opensearch.vala:265
 msgid "Search the web using google.com"
-msgstr "cerca nel web con google.com"
+msgstr "Cerca nel web con google.it"
 
 #: ../src/plugins/opensearch.vala:266
 msgid "Google Maps"
@@ -496,7 +567,7 @@ msgstr "Cerca in Google Mappe"
 #: ../src/plugins/pastebin-plugin.vala:42
 #: ../src/plugins/pastebin-plugin.vala:233
 msgid "Pastebin"
-msgstr ""
+msgstr "Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:43
 msgid "Pastebin selection"
@@ -562,6 +633,19 @@ msgstr "Fornisce azioni per il testo correntemente selezionato."
 #: ../src/plugins/selection-plugin.vala:81
 msgid "Selected text"
 msgstr "Testo selezionato"
+
+#. Plugin title
+#: ../src/plugins/ssh-plugin.vala:50
+msgid "Connect to host with SSH"
+msgstr "Permette la connessione agli host con SSH"
+
+#: ../src/plugins/ssh-plugin.vala:55
+msgid "ssh is not installed"
+msgstr "SSH non è installato"
+
+#: ../src/plugins/ssh-plugin.vala:167
+msgid "Connect with SSH"
+msgstr "Connettersi con SSH"
 
 #: ../src/plugins/system-management.vala:89
 msgid "Suspend"
