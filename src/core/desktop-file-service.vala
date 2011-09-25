@@ -160,6 +160,14 @@ namespace Synapse
                                                                   "NotShowIn"));
           show_in = EnvironmentType.ALL ^ not_show;
         }
+        
+        // special case these, people are using them quite often and wonder
+        // why they don't appear
+        if (filename.has_suffix ("gconf-editor.desktop") ||
+            filename.has_suffix ("dconf-editor.desktop"))
+        {
+          is_hidden = false;
+        }
       }
       catch (Error err)
       {
@@ -214,8 +222,12 @@ namespace Synapse
     {
       get_environment_type ();
       DesktopAppInfo.set_desktop_env (session_type_str);
+
+      Idle.add_full (Priority.LOW, initialize.callback);
+      yield;
+
       yield load_all_desktop_files ();
-      
+
       initialized = true;
       initialization_done ();
     }
@@ -267,6 +279,20 @@ namespace Synapse
         warning ("Desktop session type is not recognized, assuming GNOME.");
       }
     }
+
+    private string? get_cache_file_name (string dir_name)
+    {
+      // FIXME: should we use this? it's Ubuntu-specific
+      string? locale = Intl.setlocale (LocaleCategory.MESSAGES, null);
+      if (locale == null) return null;
+
+      // even though this is what the patch in gnome-menus does, the name 
+      // of the file is different here (utf is uppercase)
+      string filename = "desktop.%s.cache".printf (
+        locale.replace (".UTF-8", ".utf8"));
+
+      return Path.build_filename (dir_name, filename, null);
+    }
     
     private async void process_directory (File directory,
                                           Gee.Set<File> monitored_dirs)
@@ -274,8 +300,12 @@ namespace Synapse
       try
       {
         string path = directory.get_path ();
-        if (path != null && path.has_suffix ("menu-xdg")) return; // lp:686624
-        Synapse.Utils.Logger.debug (this, "Searching for desktop files in: %s", path);
+        // we need to skip menu-xdg directory, see lp:686624
+        if (path != null && path.has_suffix ("menu-xdg")) return;
+        // screensavers don't interest us, skip those
+        if (path != null && path.has_suffix ("/screensavers")) return;
+
+        Utils.Logger.debug (this, "Searching for desktop files in: %s", path);
         bool exists = yield Utils.query_exists_async (directory);
         if (!exists) return;
         /* Check if we already scanned this directory // lp:686624 */
@@ -377,6 +407,15 @@ namespace Synapse
     {
       try
       {
+#if VALA_0_14
+        uint8[] file_contents;
+        bool success = yield file.load_contents_async (null, out file_contents);
+        if (success)
+        {
+          var keyfile = new KeyFile ();
+          keyfile.load_from_data ((string) file_contents,
+                                  file_contents.length, 0);
+#else
         size_t len;
         string contents;
         bool success = yield file.load_contents_async (null, 
@@ -385,6 +424,7 @@ namespace Synapse
         {
           var keyfile = new KeyFile ();
           keyfile.load_from_data (contents, len, 0);
+#endif
           var dfi = new DesktopFileInfo.for_keyfile (file.get_path (), keyfile);
           if (dfi.is_valid)
           {

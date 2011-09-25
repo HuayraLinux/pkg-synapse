@@ -15,6 +15,7 @@ synapse_VALAFLAGS = \
 	--pkg gee-1.0 \
 	--pkg json-glib-1.0 \
 	--pkg unique-1.0 \
+	--pkg libnotify \
 	--vapidir $(top_builddir)/src/core \
 	--pkg synapse-core \
 	--vapidir $(top_builddir)/src/plugins \
@@ -63,13 +64,17 @@ endif
 
 synapse_VALASOURCES = \
 	synapse-main.vala \
-	cairo-gtk-base.vala \
-	cairo-gtk.vala \
-	cairo-gtk-doish.vala \
-	cairo-gtk-mini.vala \
-	cairo-gtk-two-lines.vala \
-	cairo-gtk-virgilio.vala \
-	ui-interface.vala \
+	keybindings.vala \
+	category.vala \
+	interfaces.vala \
+	controller.vala \
+	model.vala \
+	view-base.vala \
+	view-default.vala \
+	view-essential.vala \
+	view-doish.vala \
+	view-side-doish.vala \
+	view-virgilio.vala \
 	widgets.vala \
 	widgets-matchlistview.vala \
 	icon-cache-service.vala \

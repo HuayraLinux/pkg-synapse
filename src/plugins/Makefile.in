@@ -36,7 +36,7 @@ build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.common
-@HAVE_ZEITGEIST_TRUE@am__append_1 = zeitgeist-plugin.vala
+@HAVE_ZEITGEIST_TRUE@am__append_1 = zeitgeist-plugin.vala zeitgeist-related.vala
 @HAVE_ZEITGEIST_TRUE@am__append_2 = --pkg zeitgeist-1.0 -D HAVE_ZEITGEIST
 @HAVE_ZEITGEIST_TRUE@am__append_3 = $(ZEITGEIST_CFLAGS)
 @HAVE_ZEITGEIST_TRUE@am__append_4 = $(ZEITGEIST_LIBS)
@@ -47,9 +47,6 @@ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 subdir = src/plugins
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/as-ac-expand.m4 \
-	$(top_srcdir)/m4/intltool.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -65,19 +62,24 @@ libplugins_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(top_builddir)/src/core/libsynapsecore.la \
 	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_3)
 am__libplugins_la_SOURCES_DIST = banshee-plugin.c calculator-plugin.c \
-	command-plugin.c desktop-file-plugin.c devhelp-search.c \
-	ssh-plugin.c dictionary.c directory-plugin.c \
-	gnome-session-plugin.c gnome-screensaver-plugin.c \
-	hello-world-plugin.c hybrid-search-plugin.c launchpad-plugin.c \
-	locate-plugin.c opensearch.c pastebin-plugin.c \
+	chat-actions-plugin.c command-plugin.c file-op-plugin.c \
+	desktop-file-plugin.c devhelp-search.c ssh-plugin.c \
+	dictionary.c directory-plugin.c gnome-session-plugin.c \
+	gnome-screensaver-plugin.c hello-world-plugin.c \
+	hybrid-search-plugin.c launchpad-plugin.c locate-plugin.c \
+	opensearch.c pastebin-plugin.c pidgin-plugin.c \
 	rhythmbox-plugin.c selection-plugin.c test-slow-plugin.c \
-	system-management.c zeitgeist-plugin.c imgur-plugin.c
+	system-management.c zeitgeist-plugin.c zeitgeist-related.c \
+	imgur-plugin.c
 @HAVE_ZEITGEIST_TRUE@am__objects_1 =  \
-@HAVE_ZEITGEIST_TRUE@	libplugins_la-zeitgeist-plugin.lo
+@HAVE_ZEITGEIST_TRUE@	libplugins_la-zeitgeist-plugin.lo \
+@HAVE_ZEITGEIST_TRUE@	libplugins_la-zeitgeist-related.lo
 @HAVE_LIBREST_TRUE@am__objects_2 = libplugins_la-imgur-plugin.lo
 am__objects_3 = libplugins_la-banshee-plugin.lo \
 	libplugins_la-calculator-plugin.lo \
+	libplugins_la-chat-actions-plugin.lo \
 	libplugins_la-command-plugin.lo \
+	libplugins_la-file-op-plugin.lo \
 	libplugins_la-desktop-file-plugin.lo \
 	libplugins_la-devhelp-search.lo libplugins_la-ssh-plugin.lo \
 	libplugins_la-dictionary.lo libplugins_la-directory-plugin.lo \
@@ -88,6 +90,7 @@ am__objects_3 = libplugins_la-banshee-plugin.lo \
 	libplugins_la-launchpad-plugin.lo \
 	libplugins_la-locate-plugin.lo libplugins_la-opensearch.lo \
 	libplugins_la-pastebin-plugin.lo \
+	libplugins_la-pidgin-plugin.lo \
 	libplugins_la-rhythmbox-plugin.lo \
 	libplugins_la-selection-plugin.lo \
 	libplugins_la-test-slow-plugin.lo \
@@ -208,6 +211,8 @@ PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PKGDATADIR = @PKGDATADIR@
 PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 POFILES = @POFILES@
 POSUB = @POSUB@
 PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
@@ -301,13 +306,14 @@ libplugins_la_LIBADD = $(SYNAPSE_MODULES_LIBS) \
 	$(top_builddir)/src/core/libsynapsecore.la $(NULL) \
 	$(am__append_4) $(am__append_8)
 libplugins_la_VALASOURCES = banshee-plugin.vala calculator-plugin.vala \
-	command-plugin.vala desktop-file-plugin.vala \
+	chat-actions-plugin.vala command-plugin.vala \
+	file-op-plugin.vala desktop-file-plugin.vala \
 	devhelp-search.vala ssh-plugin.vala dictionary.vala \
 	directory-plugin.vala gnome-session-plugin.vala \
 	gnome-screensaver-plugin.vala hello-world-plugin.vala \
 	hybrid-search-plugin.vala launchpad-plugin.vala \
 	locate-plugin.vala opensearch.vala pastebin-plugin.vala \
-	rhythmbox-plugin.vala selection-plugin.vala \
+	pidgin-plugin.vala rhythmbox-plugin.vala selection-plugin.vala \
 	test-slow-plugin.vala system-management.vala $(NULL) \
 	$(am__append_1) $(am__append_5)
 GENERATED_C_FILES = $(libplugins_la_VALASOURCES:.vala=.c)
@@ -382,11 +388,13 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-banshee-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-calculator-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-chat-actions-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-command-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-desktop-file-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-devhelp-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-dictionary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-directory-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-file-op-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-gnome-screensaver-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-gnome-session-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-hello-world-plugin.Plo@am__quote@
@@ -396,12 +404,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-locate-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-opensearch.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-pastebin-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-pidgin-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-rhythmbox-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-selection-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-ssh-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-system-management.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-test-slow-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-zeitgeist-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-zeitgeist-related.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -443,6 +453,14 @@ libplugins_la-calculator-plugin.lo: calculator-plugin.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-calculator-plugin.lo `test -f 'calculator-plugin.c' || echo '$(srcdir)/'`calculator-plugin.c
 
+libplugins_la-chat-actions-plugin.lo: chat-actions-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-chat-actions-plugin.lo -MD -MP -MF $(DEPDIR)/libplugins_la-chat-actions-plugin.Tpo -c -o libplugins_la-chat-actions-plugin.lo `test -f 'chat-actions-plugin.c' || echo '$(srcdir)/'`chat-actions-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libplugins_la-chat-actions-plugin.Tpo $(DEPDIR)/libplugins_la-chat-actions-plugin.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='chat-actions-plugin.c' object='libplugins_la-chat-actions-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-chat-actions-plugin.lo `test -f 'chat-actions-plugin.c' || echo '$(srcdir)/'`chat-actions-plugin.c
+
 libplugins_la-command-plugin.lo: command-plugin.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-command-plugin.lo -MD -MP -MF $(DEPDIR)/libplugins_la-command-plugin.Tpo -c -o libplugins_la-command-plugin.lo `test -f 'command-plugin.c' || echo '$(srcdir)/'`command-plugin.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libplugins_la-command-plugin.Tpo $(DEPDIR)/libplugins_la-command-plugin.Plo
@@ -450,6 +468,14 @@ libplugins_la-command-plugin.lo: command-plugin.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='command-plugin.c' object='libplugins_la-command-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-command-plugin.lo `test -f 'command-plugin.c' || echo '$(srcdir)/'`command-plugin.c
+
+libplugins_la-file-op-plugin.lo: file-op-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-file-op-plugin.lo -MD -MP -MF $(DEPDIR)/libplugins_la-file-op-plugin.Tpo -c -o libplugins_la-file-op-plugin.lo `test -f 'file-op-plugin.c' || echo '$(srcdir)/'`file-op-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libplugins_la-file-op-plugin.Tpo $(DEPDIR)/libplugins_la-file-op-plugin.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='file-op-plugin.c' object='libplugins_la-file-op-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-file-op-plugin.lo `test -f 'file-op-plugin.c' || echo '$(srcdir)/'`file-op-plugin.c
 
 libplugins_la-desktop-file-plugin.lo: desktop-file-plugin.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-desktop-file-plugin.lo -MD -MP -MF $(DEPDIR)/libplugins_la-desktop-file-plugin.Tpo -c -o libplugins_la-desktop-file-plugin.lo `test -f 'desktop-file-plugin.c' || echo '$(srcdir)/'`desktop-file-plugin.c
@@ -555,6 +581,14 @@ libplugins_la-pastebin-plugin.lo: pastebin-plugin.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-pastebin-plugin.lo `test -f 'pastebin-plugin.c' || echo '$(srcdir)/'`pastebin-plugin.c
 
+libplugins_la-pidgin-plugin.lo: pidgin-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-pidgin-plugin.lo -MD -MP -MF $(DEPDIR)/libplugins_la-pidgin-plugin.Tpo -c -o libplugins_la-pidgin-plugin.lo `test -f 'pidgin-plugin.c' || echo '$(srcdir)/'`pidgin-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libplugins_la-pidgin-plugin.Tpo $(DEPDIR)/libplugins_la-pidgin-plugin.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pidgin-plugin.c' object='libplugins_la-pidgin-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-pidgin-plugin.lo `test -f 'pidgin-plugin.c' || echo '$(srcdir)/'`pidgin-plugin.c
+
 libplugins_la-rhythmbox-plugin.lo: rhythmbox-plugin.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-rhythmbox-plugin.lo -MD -MP -MF $(DEPDIR)/libplugins_la-rhythmbox-plugin.Tpo -c -o libplugins_la-rhythmbox-plugin.lo `test -f 'rhythmbox-plugin.c' || echo '$(srcdir)/'`rhythmbox-plugin.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libplugins_la-rhythmbox-plugin.Tpo $(DEPDIR)/libplugins_la-rhythmbox-plugin.Plo
@@ -594,6 +628,14 @@ libplugins_la-zeitgeist-plugin.lo: zeitgeist-plugin.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='zeitgeist-plugin.c' object='libplugins_la-zeitgeist-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-zeitgeist-plugin.lo `test -f 'zeitgeist-plugin.c' || echo '$(srcdir)/'`zeitgeist-plugin.c
+
+libplugins_la-zeitgeist-related.lo: zeitgeist-related.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-zeitgeist-related.lo -MD -MP -MF $(DEPDIR)/libplugins_la-zeitgeist-related.Tpo -c -o libplugins_la-zeitgeist-related.lo `test -f 'zeitgeist-related.c' || echo '$(srcdir)/'`zeitgeist-related.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libplugins_la-zeitgeist-related.Tpo $(DEPDIR)/libplugins_la-zeitgeist-related.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='zeitgeist-related.c' object='libplugins_la-zeitgeist-related.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-zeitgeist-related.lo `test -f 'zeitgeist-related.c' || echo '$(srcdir)/'`zeitgeist-related.c
 
 libplugins_la-imgur-plugin.lo: imgur-plugin.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-imgur-plugin.lo -MD -MP -MF $(DEPDIR)/libplugins_la-imgur-plugin.Tpo -c -o libplugins_la-imgur-plugin.lo `test -f 'imgur-plugin.c' || echo '$(srcdir)/'`imgur-plugin.c

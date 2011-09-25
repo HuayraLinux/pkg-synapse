@@ -5,7 +5,7 @@ Maintainer: Julien Lavergne <julien.lavergne@gmail.com>
 Build-Depends: debhelper (>= 7.0.50~),
  intltool (>= 0.35),
  pkg-config,
- valac-0.12 (>= 0.11.5) | valac (>= 0.11.5),
+ valac-0.12 (>= 0.12.0) | valac (>= 0.12.0),
  libvala-0.12-dev,
  libzeitgeist-dev (>= 0.2.14),
  libdbus-glib-1-dev,
@@ -21,6 +21,7 @@ Vcs-Bzr: http://bazaar.launchpad.net/~gilir/synapse-project/debian-packaging
 Vcs-Browser: http://bazaar.launchpad.net/~gilir/synapse-project/debian-packaging/files
 Homepage: https://launchpad.net/synapse-project
 Standards-Version: 3.9.2.0
+DM-Upload-Allowed: yes
 
 Package: synapse
 Architecture: any

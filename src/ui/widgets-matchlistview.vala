@@ -215,11 +215,12 @@ namespace Synapse.Gui
         layout.set_width (Pango.SCALE * width_for_description);
         int w = 0, h = 0;
         layout.get_pixel_size (out w, out h);
+        w += _cell_hpadding * 2;
         
         width_for_description -= w;
         
         if (rtl == Gtk.TextDirection.RTL) 
-          ctx.translate (0, text_height - h);
+          ctx.translate (- width + w, text_height - h);
         else
           ctx.translate (width - w, text_height - h);
         Pango.cairo_show_layout (ctx, layout);
@@ -248,7 +249,8 @@ namespace Synapse.Gui
   {
     /* Animation stuffs */
     private uint tid;
-    private static const int ANIM_TIMEOUT = 1000 / 26;
+    private static const int ANIM_TIMEOUT = 1000 / 25;
+    private static const int ANIM_STEPS = 180 / ANIM_TIMEOUT;
     public bool animation_enabled {
       get; set; default = true;
     }
@@ -258,6 +260,9 @@ namespace Synapse.Gui
 
     private int soffset; //current selection offset
     private int tsoffset; //target selection offset
+    
+    private int astep; // animation step for offset
+    private int sstep; // animation step for selection
     
     private int row_height; //fixed row height (usually icon_size + 4)
 
@@ -402,8 +407,14 @@ namespace Synapse.Gui
       
     }
     
-    private MatchViewRendererBase renderer;
+    protected MatchViewRendererBase renderer;
     private Utils.ColorHelper ch;
+    
+    public MatchViewRendererBase get_renderer ()
+    {
+      return renderer;
+    }
+    
     public MatchListView (MatchViewRendererBase mr)
     {
       ch = new Utils.ColorHelper (this);
@@ -430,6 +441,7 @@ namespace Synapse.Gui
       this.visible_window = false;
       this.offset = this.toffset = 0;
       this.soffset = this.tsoffset = 0;
+      this.astep = this.sstep = 1;
       this.goto_index = 0;
       this.select_index = -1;
       this.row_height = renderer.get_row_height_request ();
@@ -471,18 +483,20 @@ namespace Synapse.Gui
 
     private bool _select (int i)
     {
-      if (this.items == null) return false;
-      if (i < -1 || i >= this.items.size) return false;
-      if (i == this.select_index) return false;
+      if (i == this.select_index ||
+          this.items == null ||
+          i < -1 ||
+          i >= this.items.size) return false;
       this.select_index = i;
       return true;
     }
     
     private bool _goto (int i)
     {
-      if (this.items == null) return false;
-      if (i < 0 || i >= this.items.size) return false;
-      if (i == this.goto_index) return false;
+      if (i == this.goto_index ||
+          this.items == null ||
+          i < 0 ||
+          i >= this.items.size) return false;
       this.goto_index = i;
       return true;
     }
@@ -499,32 +513,40 @@ namespace Synapse.Gui
       }
       if (inhibit_move) return false;
       bool needs_animation = false;
+      /* Offset animation */
       if (this.offset != this.toffset)
       {
         needs_animation = true;
-        int inc = (int) Math.fabs (this.toffset - this.offset);
-        if (inc < 4)
+        int diff = (int)Math.fabs (this.offset - this.toffset);
+        if (this.astep > 0)
         {
-          this.offset = this.toffset;
+          if (diff < this.astep)
+          {
+            this.offset = this.toffset;
+          }
+          else
+          {
+            this.offset += this.offset < this.toffset ? this.astep : - this.astep;
+          }
         }
         else
         {
-          inc = int.max (1, inc >> 1);
-          this.offset += this.toffset > this.offset ? inc : - inc;
+          diff = int.max (1, diff >> 2);
+          this.offset += this.toffset > this.offset ? diff : - diff;
         }
       }
+      /* Selection animation */
       if (this.soffset != this.tsoffset && this.selection_enabled)
       {
         needs_animation = true;
-        int inc = (int) Math.fabs (this.tsoffset - this.soffset);
-        if (inc < 4)
+        int diff = (int)Math.fabs (this.soffset - this.tsoffset);
+        if (diff < this.sstep)
         {
           this.soffset = this.tsoffset;
         }
         else
         {
-          inc = int.max (1, inc >> 1);
-          this.soffset += this.tsoffset > this.soffset ? inc : - inc;
+          this.soffset += this.soffset < this.tsoffset ? this.sstep : - this.sstep;
         }
       }
       if (needs_animation)
@@ -566,14 +588,23 @@ namespace Synapse.Gui
       }
       // update also selection
       this.tsoffset = this.select_index * this.row_height - this.toffset;
+      int diff = (int) Math.fabs (this.toffset - this.offset);
+      if (diff < this.row_height * 3)
+        this.astep = int.max (1, diff / ANIM_STEPS );
+      else // use special animation if the diff is too much
+        this.astep = -1;
+      this.sstep = int.max (1, (int) (Math.fabs (this.tsoffset - this.soffset) / ANIM_STEPS ));
+      
       update_current_offsets ();
     }
     
-    public void set_list (Gee.List<Match>? list, int targetted_index = 0, int selected_index = -1)
+    public virtual void set_list (Gee.List<Match>? list, int targetted_index = 0, int selected_index = -1)
     {
       this.items = list;
       this.select_index = selected_index;
       this.goto_index = targetted_index;
+      int maxoffset = list == null ? 0 : this.row_height * list.size;
+      if (this.offset > maxoffset) this.offset = maxoffset;
       inhibit_move = false;
       this.update_target_offsets ();
       this.queue_draw ();
@@ -586,7 +617,6 @@ namespace Synapse.Gui
     
     public override bool expose_event (Gdk.EventExpose event)
     {
-      if (this.items == null || this.items.size == 0) return true;
       /* Clip */
       Cairo.Context ctx = Gdk.cairo_create (this.window);
       ctx.translate (this.allocation.x, this.allocation.y);
@@ -599,6 +629,8 @@ namespace Synapse.Gui
         ch.set_source_rgba (ctx, 1.0, ch.StyleType.BASE, Gtk.StateType.NORMAL);
         ctx.paint ();
       }
+      
+      if (this.items == null || this.items.size == 0) return true;
 
       ctx.set_font_options (this.get_screen().get_font_options());
 
@@ -671,6 +703,8 @@ namespace Synapse.Gui
     public signal void fire_item ();
     
     private int dragdrop_target_item = 0;
+    private string dragdrop_name = "";
+    private string dragdrop_uri = "";
     public override bool button_press_event (Gdk.EventButton event)
     {
       if (this.tid != 0) return true;
@@ -679,6 +713,8 @@ namespace Synapse.Gui
       
       if (this.items == null || this.items.size <= this.dragdrop_target_item)
       {
+        dragdrop_name = "";
+        dragdrop_uri = "";
         Gtk.drag_source_set_target_list (this, tl);
         Gtk.drag_source_set_icon_stock (this, Gtk.Stock.MISSING_IMAGE);
         return true;
@@ -714,11 +750,15 @@ namespace Synapse.Gui
       {
         Gtk.drag_source_set_target_list (this, tl);
         Gtk.drag_source_set_icon_stock (this, Gtk.Stock.MISSING_IMAGE);
+        dragdrop_name = "";
+        dragdrop_uri = "";
         return true;
       }
 
       tl.add_text_targets (0);
       tl.add_uri_targets (1);
+      dragdrop_name = um.title;
+      dragdrop_uri = um.uri;
       Gtk.drag_source_set_target_list (this, tl);
       
       try {
@@ -739,11 +779,9 @@ namespace Synapse.Gui
     
     public override void drag_data_get (Gdk.DragContext context, SelectionData selection_data, uint info, uint time_)
     {
-      /* Chiamato al momento del drop, imposto i vari dati di rilascio */
-      UriMatch? um = items.get (this.dragdrop_target_item) as UriMatch;
-      return_if_fail (um != null);
-      selection_data.set_text (um.title, -1);
-      selection_data.set_uris ({um.uri});
+      /* Called at drop time */
+      selection_data.set_text (dragdrop_name, -1);
+      selection_data.set_uris ({dragdrop_uri});
     }
   }
   
@@ -759,6 +797,16 @@ namespace Synapse.Gui
     
     private Utils.ColorHelper ch;
     
+    public bool use_base_colors
+    {
+      get; set; default = true;
+    }
+    
+    public bool show_no_results
+    {
+      get; set; default = true;
+    }
+    
     public ResultBox (int width, int nrows = 5)
     {
       this.mwidth = width;
@@ -768,34 +816,55 @@ namespace Synapse.Gui
       this.visible_window = false;
       ch = new Utils.ColorHelper (this);
       build_ui();
+      this.notify["use-base-colors"].connect (()=>{
+        view.use_base_colors = use_base_colors;
+        if (use_base_colors)
+        {
+          set_state (Gtk.StateType.SELECTED);
+        }
+        else
+        {
+          set_state (Gtk.StateType.NORMAL);
+        }
+        this.queue_draw ();
+      });
     }
 
 		private MatchListView view;
 		private MatchViewRenderer rend;
 		private Label status;
+		private Label logo;
+		
+		public new void set_state (Gtk.StateType state)
+		{
+		  base.set_state (state);
+		  status.set_state (state);
+		  logo.set_state (state);
+		}
 		
 		public override bool expose_event (Gdk.EventExpose event)
 		{
+		  if (_use_base_colors)
+		  {
         var ctx = Gdk.cairo_create (this.get_window ());
         ctx.set_operator (Cairo.Operator.OVER);
-        ctx.translate (this.allocation.x, this.allocation.y);
-        ctx.rectangle (0, 0, this.allocation.width, this.allocation.height);
+        ctx.translate (this.allocation.x, status.allocation.y);
+        ctx.rectangle (0, 0, this.allocation.width, status.allocation.height);
         ctx.clip ();
         /* Prepare bg's colors using GtkStyle */
-        Pattern pat = new Pattern.linear(0, 0, 0, this.allocation.height);
-
-        double status_bar_pct = 15.0 / this.allocation.height;
-        ch.add_color_stop_rgba (pat, 1.0 - status_bar_pct, 0.95, ch.StyleType.BASE, StateType.NORMAL);
-        ch.add_color_stop_rgba (pat, 1.0 - 0.85 * status_bar_pct, 0.95, ch.StyleType.BG, StateType.NORMAL);
-        ch.add_color_stop_rgba (pat, 1.0, 0.95, ch.StyleType.BG, StateType.NORMAL, ch.Mod.DARKER);
+        Pattern pat = new Pattern.linear(0, 0, 0, status.allocation.height);
+        
+        StateType t = this.get_state ();
+        ch.add_color_stop_rgba (pat, 0.0, 0.95, ch.StyleType.BG, t);
+        ch.add_color_stop_rgba (pat, 1.0, 0.95, ch.StyleType.BG, t, ch.Mod.DARKER);
         /* Prepare and draw top bg's rect */
         ctx.set_source (pat);
         ctx.paint ();
-
-        /* Propagate Expose */               
-        this.propagate_expose (this.get_child(), event);
-        
-        return true;
+      }
+      /* Propagate Expose */               
+      this.propagate_expose (this.get_child(), event);
+      
+      return true;
     }
     
     public MatchListView get_match_list_view ()
@@ -825,7 +894,7 @@ namespace Synapse.Gui
       status = new Label (null);
       status.set_alignment (0, 0);
       status.set_markup (Markup.printf_escaped ("<b>%s</b>", _("No results.")));
-      var logo = new Label (null);
+      logo = new Label (null);
       logo.set_alignment (1, 0);
       logo.set_markup (Markup.printf_escaped ("<i>%s</i>", Config.RELEASE_NAME));
       status_box.pack_start (status, false, false, 10);
@@ -837,15 +906,147 @@ namespace Synapse.Gui
     {
       view.set_list (rs);
       if (rs==null || rs.size == 0)
+      {
         status.set_markup (Markup.printf_escaped ("<b>%s</b>", _("No results.")));
+        status.visible = _show_no_results;
+      }
       else
+      {
         status.set_markup (Markup.printf_escaped (_("<b>1 of %d</b>"), view.get_list_size ()));
+        status.visible = true;
+      }
     }
     
     public void move_selection_to_index (int i)
     {
       view.set_indexes (i, i);
       status.set_markup (Markup.printf_escaped (_("<b>%d of %d</b>"), i + 1, view.get_list_size ()));
+    }
+  }
+  
+  public class SpecificMatchList: MatchListView
+  {
+    protected IController controller;
+    protected Model model;
+    protected SearchingFor sf;
+    
+    private class LabelMatch : GLib.Object, Match
+    {
+      // for Match interface
+      public string title { get; construct set; }
+      public string description { get; set; default = ""; }
+      public string icon_name { get; construct set; default = ""; }
+      public bool has_thumbnail { get; construct set; default = false; }
+      public string thumbnail_path { get; construct set; }
+      public MatchType match_type { get; construct set; }
+
+      public LabelMatch (string title, string description, string icon_name)
+      {
+        GLib.Object (match_type: MatchType.ACTION,
+                     title: title,
+                     description: description,
+                     icon_name: icon_name,
+                     has_thumbnail: false);
+      }
+    }
+    
+    private static bool lists_initialized = false;
+    private static Gee.List<Match>? tts = null;
+    private static Gee.List<Match>? nores = null;
+    private static Gee.List<Match>? noact = null;
+
+
+    private bool has_results = false;
+    private MatchViewRenderer rend;
+    public MatchViewRenderer get_match_renderer () {return rend;}
+    
+    public SpecificMatchList (IController controller, Model model, SearchingFor sf)
+    {
+      base (new MatchViewRenderer ());
+      this.rend = renderer as MatchViewRenderer;
+      this.rend.hilight_on_selected = true;
+      this.sf = sf;
+      this.controller = controller;
+      this.model = model;
+      if (!lists_initialized)
+      {
+        lists_initialized = true;
+        
+        tts = new Gee.ArrayList<Match>();
+        nores = new Gee.ArrayList<Match>();
+        noact = new Gee.ArrayList<Match>();
+        Match m = null;
+        m = new LabelMatch (controller.NO_RESULTS,
+                            "",
+                            "missing-image");
+        nores.add (m);
+        m = new LabelMatch (controller.NO_RECENT_ACTIVITIES,
+                            "",
+                            "missing-image");
+        noact.add (m);
+        m = new LabelMatch (controller.TYPE_TO_SEARCH,
+                            controller.DOWN_TO_SEE_RECENT,
+                            "search");
+        tts.add (m);
+        this.controller.handle_recent_activities.connect ((b)=>{
+          m.description = controller.DOWN_TO_SEE_RECENT;
+          queue_draw ();
+        });
+      }
+    }
+    
+    public void update_searching_for ()
+    {
+      if (controller.is_in_initial_state ())
+      {
+        this.selection_enabled = false;
+        this.min_visible_rows = sf == SearchingFor.SOURCES ? 1 : 0;
+      }
+      else if (model.searching_for == sf)
+      {
+        this.min_visible_rows = 5;
+        this.selection_enabled = has_results;
+      }
+      else
+      {
+        this.selection_enabled = false;
+        this.min_visible_rows = sf != SearchingFor.TARGETS ? 1 : has_results ? 1 : 0;
+      }
+    }
+
+    public override void set_list (Gee.List<Match>? list, int targetted_index = 0, int selected_index = -1)
+    {
+      if (list == null || list.size == 0)
+      {
+        has_results = false;
+        switch (this.sf)
+        {
+          case SearchingFor.SOURCES:
+            if (controller.is_in_initial_state ()) base.set_list (tts);
+            else if (controller.searched_for_recent ()) base.set_list (noact);
+            else base.set_list (nores);
+            break;
+          case SearchingFor.ACTIONS:
+            if (model.focus[SearchingFor.SOURCES].value != null)
+              base.set_list (nores);
+            else
+              base.set_list (null);
+            break;
+          default: //TARGETS
+            if (!model.needs_target ()) base.set_list (null);
+            else if (controller.searched_for_recent ()) base.set_list (noact);
+            else base.set_list (nores);
+            break;
+        }
+        this.rend.pattern = "";
+      }
+      else
+      {
+        has_results = true;
+        base.set_list (list, targetted_index, selected_index);
+        this.rend.pattern = model.query[sf];
+      }
+      update_searching_for ();
     }
   }
 }

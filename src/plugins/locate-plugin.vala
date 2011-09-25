@@ -71,6 +71,7 @@ namespace Synapse
 
       public int default_relevancy { get; set; default = Match.Score.INCREMENT_SMALL; }
       // for SearchMatch interface
+      public Match search_source { get; set; }
       public async Gee.List<Match> search (string query,
                                            QueryFlags flags,
                                            ResultSet? dest_result_set,

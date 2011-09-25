@@ -49,9 +49,6 @@ bin_PROGRAMS = synapse$(EXEEXT)
 subdir = src/ui
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/as-ac-expand.m4 \
-	$(top_srcdir)/m4/intltool.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -62,12 +59,13 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__objects_1 = synapse-synapse-main.$(OBJEXT) \
-	synapse-cairo-gtk-base.$(OBJEXT) synapse-cairo-gtk.$(OBJEXT) \
-	synapse-cairo-gtk-doish.$(OBJEXT) \
-	synapse-cairo-gtk-mini.$(OBJEXT) \
-	synapse-cairo-gtk-two-lines.$(OBJEXT) \
-	synapse-cairo-gtk-virgilio.$(OBJEXT) \
-	synapse-ui-interface.$(OBJEXT) synapse-widgets.$(OBJEXT) \
+	synapse-keybindings.$(OBJEXT) synapse-category.$(OBJEXT) \
+	synapse-interfaces.$(OBJEXT) synapse-controller.$(OBJEXT) \
+	synapse-model.$(OBJEXT) synapse-view-base.$(OBJEXT) \
+	synapse-view-default.$(OBJEXT) \
+	synapse-view-essential.$(OBJEXT) synapse-view-doish.$(OBJEXT) \
+	synapse-view-side-doish.$(OBJEXT) \
+	synapse-view-virgilio.$(OBJEXT) synapse-widgets.$(OBJEXT) \
 	synapse-widgets-matchlistview.$(OBJEXT) \
 	synapse-icon-cache-service.$(OBJEXT) synapse-utils.$(OBJEXT) \
 	synapse-settings.$(OBJEXT) synapse-inspector.$(OBJEXT)
@@ -196,6 +194,8 @@ PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PKGDATADIR = @PKGDATADIR@
 PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 POFILES = @POFILES@
 POSUB = @POSUB@
 PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
@@ -273,9 +273,9 @@ am__v_VALA_0 = @echo "  VALAC " $@;
 VAPIDIR = $(top_srcdir)/vapi
 synapse_VALAFLAGS = --pkg dbus-glib-1 --pkg gtk+-2.0 --pkg gdk-x11-2.0 \
 	--pkg gio-2.0 --pkg gio-unix-2.0 --pkg zeitgeist-1.0 --pkg \
-	gee-1.0 --pkg json-glib-1.0 --pkg unique-1.0 --vapidir \
-	$(top_builddir)/src/core --pkg synapse-core --vapidir \
-	$(top_builddir)/src/plugins --pkg plugins --vapidir \
+	gee-1.0 --pkg json-glib-1.0 --pkg unique-1.0 --pkg libnotify \
+	--vapidir $(top_builddir)/src/core --pkg synapse-core \
+	--vapidir $(top_builddir)/src/plugins --pkg plugins --vapidir \
 	$(top_builddir)/src/tile-view --pkg tile-view --vapidir \
 	$(VAPIDIR) --pkg gtkhotkey-1.0 $(VAPIDIR)/keysyms.vapi \
 	$(VAPIDIR)/cancellable-fix.vapi $(VAPIDIR)/config.vapi $(NULL) \
@@ -291,13 +291,17 @@ synapse_LDADD = $(SYNAPSE_MODULES_LIBS) \
 	$(am__append_3) $(am__append_6) $(am__append_9)
 synapse_VALASOURCES = \
 	synapse-main.vala \
-	cairo-gtk-base.vala \
-	cairo-gtk.vala \
-	cairo-gtk-doish.vala \
-	cairo-gtk-mini.vala \
-	cairo-gtk-two-lines.vala \
-	cairo-gtk-virgilio.vala \
-	ui-interface.vala \
+	keybindings.vala \
+	category.vala \
+	interfaces.vala \
+	controller.vala \
+	model.vala \
+	view-base.vala \
+	view-default.vala \
+	view-essential.vala \
+	view-doish.vala \
+	view-side-doish.vala \
+	view-virgilio.vala \
 	widgets.vala \
 	widgets-matchlistview.vala \
 	icon-cache-service.vala \
@@ -399,18 +403,22 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-cairo-gtk-base.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-cairo-gtk-doish.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-cairo-gtk-mini.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-cairo-gtk-two-lines.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-cairo-gtk-virgilio.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-cairo-gtk.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-category.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-controller.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-icon-cache-service.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-inspector.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-interfaces.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-keybindings.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-model.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-settings.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-synapse-main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-ui-interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-utils.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-view-base.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-view-default.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-view-doish.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-view-essential.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-view-side-doish.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-view-virgilio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-widgets-matchlistview.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/synapse-widgets.Po@am__quote@
 
@@ -454,117 +462,181 @@ synapse-synapse-main.obj: synapse-main.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-synapse-main.obj `if test -f 'synapse-main.c'; then $(CYGPATH_W) 'synapse-main.c'; else $(CYGPATH_W) '$(srcdir)/synapse-main.c'; fi`
 
-synapse-cairo-gtk-base.o: cairo-gtk-base.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-base.o -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-base.Tpo -c -o synapse-cairo-gtk-base.o `test -f 'cairo-gtk-base.c' || echo '$(srcdir)/'`cairo-gtk-base.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-base.Tpo $(DEPDIR)/synapse-cairo-gtk-base.Po
+synapse-keybindings.o: keybindings.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-keybindings.o -MD -MP -MF $(DEPDIR)/synapse-keybindings.Tpo -c -o synapse-keybindings.o `test -f 'keybindings.c' || echo '$(srcdir)/'`keybindings.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-keybindings.Tpo $(DEPDIR)/synapse-keybindings.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-base.c' object='synapse-cairo-gtk-base.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='keybindings.c' object='synapse-keybindings.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-base.o `test -f 'cairo-gtk-base.c' || echo '$(srcdir)/'`cairo-gtk-base.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-keybindings.o `test -f 'keybindings.c' || echo '$(srcdir)/'`keybindings.c
 
-synapse-cairo-gtk-base.obj: cairo-gtk-base.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-base.obj -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-base.Tpo -c -o synapse-cairo-gtk-base.obj `if test -f 'cairo-gtk-base.c'; then $(CYGPATH_W) 'cairo-gtk-base.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-base.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-base.Tpo $(DEPDIR)/synapse-cairo-gtk-base.Po
+synapse-keybindings.obj: keybindings.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-keybindings.obj -MD -MP -MF $(DEPDIR)/synapse-keybindings.Tpo -c -o synapse-keybindings.obj `if test -f 'keybindings.c'; then $(CYGPATH_W) 'keybindings.c'; else $(CYGPATH_W) '$(srcdir)/keybindings.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-keybindings.Tpo $(DEPDIR)/synapse-keybindings.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-base.c' object='synapse-cairo-gtk-base.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='keybindings.c' object='synapse-keybindings.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-base.obj `if test -f 'cairo-gtk-base.c'; then $(CYGPATH_W) 'cairo-gtk-base.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-base.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-keybindings.obj `if test -f 'keybindings.c'; then $(CYGPATH_W) 'keybindings.c'; else $(CYGPATH_W) '$(srcdir)/keybindings.c'; fi`
 
-synapse-cairo-gtk.o: cairo-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk.o -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk.Tpo -c -o synapse-cairo-gtk.o `test -f 'cairo-gtk.c' || echo '$(srcdir)/'`cairo-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk.Tpo $(DEPDIR)/synapse-cairo-gtk.Po
+synapse-category.o: category.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-category.o -MD -MP -MF $(DEPDIR)/synapse-category.Tpo -c -o synapse-category.o `test -f 'category.c' || echo '$(srcdir)/'`category.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-category.Tpo $(DEPDIR)/synapse-category.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk.c' object='synapse-cairo-gtk.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='category.c' object='synapse-category.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk.o `test -f 'cairo-gtk.c' || echo '$(srcdir)/'`cairo-gtk.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-category.o `test -f 'category.c' || echo '$(srcdir)/'`category.c
 
-synapse-cairo-gtk.obj: cairo-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk.obj -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk.Tpo -c -o synapse-cairo-gtk.obj `if test -f 'cairo-gtk.c'; then $(CYGPATH_W) 'cairo-gtk.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk.Tpo $(DEPDIR)/synapse-cairo-gtk.Po
+synapse-category.obj: category.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-category.obj -MD -MP -MF $(DEPDIR)/synapse-category.Tpo -c -o synapse-category.obj `if test -f 'category.c'; then $(CYGPATH_W) 'category.c'; else $(CYGPATH_W) '$(srcdir)/category.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-category.Tpo $(DEPDIR)/synapse-category.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk.c' object='synapse-cairo-gtk.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='category.c' object='synapse-category.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk.obj `if test -f 'cairo-gtk.c'; then $(CYGPATH_W) 'cairo-gtk.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-category.obj `if test -f 'category.c'; then $(CYGPATH_W) 'category.c'; else $(CYGPATH_W) '$(srcdir)/category.c'; fi`
 
-synapse-cairo-gtk-doish.o: cairo-gtk-doish.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-doish.o -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-doish.Tpo -c -o synapse-cairo-gtk-doish.o `test -f 'cairo-gtk-doish.c' || echo '$(srcdir)/'`cairo-gtk-doish.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-doish.Tpo $(DEPDIR)/synapse-cairo-gtk-doish.Po
+synapse-interfaces.o: interfaces.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-interfaces.o -MD -MP -MF $(DEPDIR)/synapse-interfaces.Tpo -c -o synapse-interfaces.o `test -f 'interfaces.c' || echo '$(srcdir)/'`interfaces.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-interfaces.Tpo $(DEPDIR)/synapse-interfaces.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-doish.c' object='synapse-cairo-gtk-doish.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='interfaces.c' object='synapse-interfaces.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-doish.o `test -f 'cairo-gtk-doish.c' || echo '$(srcdir)/'`cairo-gtk-doish.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-interfaces.o `test -f 'interfaces.c' || echo '$(srcdir)/'`interfaces.c
 
-synapse-cairo-gtk-doish.obj: cairo-gtk-doish.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-doish.obj -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-doish.Tpo -c -o synapse-cairo-gtk-doish.obj `if test -f 'cairo-gtk-doish.c'; then $(CYGPATH_W) 'cairo-gtk-doish.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-doish.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-doish.Tpo $(DEPDIR)/synapse-cairo-gtk-doish.Po
+synapse-interfaces.obj: interfaces.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-interfaces.obj -MD -MP -MF $(DEPDIR)/synapse-interfaces.Tpo -c -o synapse-interfaces.obj `if test -f 'interfaces.c'; then $(CYGPATH_W) 'interfaces.c'; else $(CYGPATH_W) '$(srcdir)/interfaces.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-interfaces.Tpo $(DEPDIR)/synapse-interfaces.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-doish.c' object='synapse-cairo-gtk-doish.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='interfaces.c' object='synapse-interfaces.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-doish.obj `if test -f 'cairo-gtk-doish.c'; then $(CYGPATH_W) 'cairo-gtk-doish.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-doish.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-interfaces.obj `if test -f 'interfaces.c'; then $(CYGPATH_W) 'interfaces.c'; else $(CYGPATH_W) '$(srcdir)/interfaces.c'; fi`
 
-synapse-cairo-gtk-mini.o: cairo-gtk-mini.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-mini.o -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-mini.Tpo -c -o synapse-cairo-gtk-mini.o `test -f 'cairo-gtk-mini.c' || echo '$(srcdir)/'`cairo-gtk-mini.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-mini.Tpo $(DEPDIR)/synapse-cairo-gtk-mini.Po
+synapse-controller.o: controller.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-controller.o -MD -MP -MF $(DEPDIR)/synapse-controller.Tpo -c -o synapse-controller.o `test -f 'controller.c' || echo '$(srcdir)/'`controller.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-controller.Tpo $(DEPDIR)/synapse-controller.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-mini.c' object='synapse-cairo-gtk-mini.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='controller.c' object='synapse-controller.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-mini.o `test -f 'cairo-gtk-mini.c' || echo '$(srcdir)/'`cairo-gtk-mini.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-controller.o `test -f 'controller.c' || echo '$(srcdir)/'`controller.c
 
-synapse-cairo-gtk-mini.obj: cairo-gtk-mini.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-mini.obj -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-mini.Tpo -c -o synapse-cairo-gtk-mini.obj `if test -f 'cairo-gtk-mini.c'; then $(CYGPATH_W) 'cairo-gtk-mini.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-mini.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-mini.Tpo $(DEPDIR)/synapse-cairo-gtk-mini.Po
+synapse-controller.obj: controller.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-controller.obj -MD -MP -MF $(DEPDIR)/synapse-controller.Tpo -c -o synapse-controller.obj `if test -f 'controller.c'; then $(CYGPATH_W) 'controller.c'; else $(CYGPATH_W) '$(srcdir)/controller.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-controller.Tpo $(DEPDIR)/synapse-controller.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-mini.c' object='synapse-cairo-gtk-mini.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='controller.c' object='synapse-controller.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-mini.obj `if test -f 'cairo-gtk-mini.c'; then $(CYGPATH_W) 'cairo-gtk-mini.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-mini.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-controller.obj `if test -f 'controller.c'; then $(CYGPATH_W) 'controller.c'; else $(CYGPATH_W) '$(srcdir)/controller.c'; fi`
 
-synapse-cairo-gtk-two-lines.o: cairo-gtk-two-lines.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-two-lines.o -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-two-lines.Tpo -c -o synapse-cairo-gtk-two-lines.o `test -f 'cairo-gtk-two-lines.c' || echo '$(srcdir)/'`cairo-gtk-two-lines.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-two-lines.Tpo $(DEPDIR)/synapse-cairo-gtk-two-lines.Po
+synapse-model.o: model.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-model.o -MD -MP -MF $(DEPDIR)/synapse-model.Tpo -c -o synapse-model.o `test -f 'model.c' || echo '$(srcdir)/'`model.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-model.Tpo $(DEPDIR)/synapse-model.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-two-lines.c' object='synapse-cairo-gtk-two-lines.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='model.c' object='synapse-model.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-two-lines.o `test -f 'cairo-gtk-two-lines.c' || echo '$(srcdir)/'`cairo-gtk-two-lines.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-model.o `test -f 'model.c' || echo '$(srcdir)/'`model.c
 
-synapse-cairo-gtk-two-lines.obj: cairo-gtk-two-lines.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-two-lines.obj -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-two-lines.Tpo -c -o synapse-cairo-gtk-two-lines.obj `if test -f 'cairo-gtk-two-lines.c'; then $(CYGPATH_W) 'cairo-gtk-two-lines.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-two-lines.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-two-lines.Tpo $(DEPDIR)/synapse-cairo-gtk-two-lines.Po
+synapse-model.obj: model.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-model.obj -MD -MP -MF $(DEPDIR)/synapse-model.Tpo -c -o synapse-model.obj `if test -f 'model.c'; then $(CYGPATH_W) 'model.c'; else $(CYGPATH_W) '$(srcdir)/model.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-model.Tpo $(DEPDIR)/synapse-model.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-two-lines.c' object='synapse-cairo-gtk-two-lines.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='model.c' object='synapse-model.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-two-lines.obj `if test -f 'cairo-gtk-two-lines.c'; then $(CYGPATH_W) 'cairo-gtk-two-lines.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-two-lines.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-model.obj `if test -f 'model.c'; then $(CYGPATH_W) 'model.c'; else $(CYGPATH_W) '$(srcdir)/model.c'; fi`
 
-synapse-cairo-gtk-virgilio.o: cairo-gtk-virgilio.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-virgilio.o -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-virgilio.Tpo -c -o synapse-cairo-gtk-virgilio.o `test -f 'cairo-gtk-virgilio.c' || echo '$(srcdir)/'`cairo-gtk-virgilio.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-virgilio.Tpo $(DEPDIR)/synapse-cairo-gtk-virgilio.Po
+synapse-view-base.o: view-base.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-base.o -MD -MP -MF $(DEPDIR)/synapse-view-base.Tpo -c -o synapse-view-base.o `test -f 'view-base.c' || echo '$(srcdir)/'`view-base.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-base.Tpo $(DEPDIR)/synapse-view-base.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-virgilio.c' object='synapse-cairo-gtk-virgilio.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-base.c' object='synapse-view-base.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-virgilio.o `test -f 'cairo-gtk-virgilio.c' || echo '$(srcdir)/'`cairo-gtk-virgilio.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-base.o `test -f 'view-base.c' || echo '$(srcdir)/'`view-base.c
 
-synapse-cairo-gtk-virgilio.obj: cairo-gtk-virgilio.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-cairo-gtk-virgilio.obj -MD -MP -MF $(DEPDIR)/synapse-cairo-gtk-virgilio.Tpo -c -o synapse-cairo-gtk-virgilio.obj `if test -f 'cairo-gtk-virgilio.c'; then $(CYGPATH_W) 'cairo-gtk-virgilio.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-virgilio.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-cairo-gtk-virgilio.Tpo $(DEPDIR)/synapse-cairo-gtk-virgilio.Po
+synapse-view-base.obj: view-base.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-base.obj -MD -MP -MF $(DEPDIR)/synapse-view-base.Tpo -c -o synapse-view-base.obj `if test -f 'view-base.c'; then $(CYGPATH_W) 'view-base.c'; else $(CYGPATH_W) '$(srcdir)/view-base.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-base.Tpo $(DEPDIR)/synapse-view-base.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cairo-gtk-virgilio.c' object='synapse-cairo-gtk-virgilio.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-base.c' object='synapse-view-base.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-cairo-gtk-virgilio.obj `if test -f 'cairo-gtk-virgilio.c'; then $(CYGPATH_W) 'cairo-gtk-virgilio.c'; else $(CYGPATH_W) '$(srcdir)/cairo-gtk-virgilio.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-base.obj `if test -f 'view-base.c'; then $(CYGPATH_W) 'view-base.c'; else $(CYGPATH_W) '$(srcdir)/view-base.c'; fi`
 
-synapse-ui-interface.o: ui-interface.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-ui-interface.o -MD -MP -MF $(DEPDIR)/synapse-ui-interface.Tpo -c -o synapse-ui-interface.o `test -f 'ui-interface.c' || echo '$(srcdir)/'`ui-interface.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-ui-interface.Tpo $(DEPDIR)/synapse-ui-interface.Po
+synapse-view-default.o: view-default.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-default.o -MD -MP -MF $(DEPDIR)/synapse-view-default.Tpo -c -o synapse-view-default.o `test -f 'view-default.c' || echo '$(srcdir)/'`view-default.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-default.Tpo $(DEPDIR)/synapse-view-default.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ui-interface.c' object='synapse-ui-interface.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-default.c' object='synapse-view-default.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-ui-interface.o `test -f 'ui-interface.c' || echo '$(srcdir)/'`ui-interface.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-default.o `test -f 'view-default.c' || echo '$(srcdir)/'`view-default.c
 
-synapse-ui-interface.obj: ui-interface.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-ui-interface.obj -MD -MP -MF $(DEPDIR)/synapse-ui-interface.Tpo -c -o synapse-ui-interface.obj `if test -f 'ui-interface.c'; then $(CYGPATH_W) 'ui-interface.c'; else $(CYGPATH_W) '$(srcdir)/ui-interface.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-ui-interface.Tpo $(DEPDIR)/synapse-ui-interface.Po
+synapse-view-default.obj: view-default.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-default.obj -MD -MP -MF $(DEPDIR)/synapse-view-default.Tpo -c -o synapse-view-default.obj `if test -f 'view-default.c'; then $(CYGPATH_W) 'view-default.c'; else $(CYGPATH_W) '$(srcdir)/view-default.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-default.Tpo $(DEPDIR)/synapse-view-default.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ui-interface.c' object='synapse-ui-interface.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-default.c' object='synapse-view-default.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-ui-interface.obj `if test -f 'ui-interface.c'; then $(CYGPATH_W) 'ui-interface.c'; else $(CYGPATH_W) '$(srcdir)/ui-interface.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-default.obj `if test -f 'view-default.c'; then $(CYGPATH_W) 'view-default.c'; else $(CYGPATH_W) '$(srcdir)/view-default.c'; fi`
+
+synapse-view-essential.o: view-essential.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-essential.o -MD -MP -MF $(DEPDIR)/synapse-view-essential.Tpo -c -o synapse-view-essential.o `test -f 'view-essential.c' || echo '$(srcdir)/'`view-essential.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-essential.Tpo $(DEPDIR)/synapse-view-essential.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-essential.c' object='synapse-view-essential.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-essential.o `test -f 'view-essential.c' || echo '$(srcdir)/'`view-essential.c
+
+synapse-view-essential.obj: view-essential.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-essential.obj -MD -MP -MF $(DEPDIR)/synapse-view-essential.Tpo -c -o synapse-view-essential.obj `if test -f 'view-essential.c'; then $(CYGPATH_W) 'view-essential.c'; else $(CYGPATH_W) '$(srcdir)/view-essential.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-essential.Tpo $(DEPDIR)/synapse-view-essential.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-essential.c' object='synapse-view-essential.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-essential.obj `if test -f 'view-essential.c'; then $(CYGPATH_W) 'view-essential.c'; else $(CYGPATH_W) '$(srcdir)/view-essential.c'; fi`
+
+synapse-view-doish.o: view-doish.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-doish.o -MD -MP -MF $(DEPDIR)/synapse-view-doish.Tpo -c -o synapse-view-doish.o `test -f 'view-doish.c' || echo '$(srcdir)/'`view-doish.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-doish.Tpo $(DEPDIR)/synapse-view-doish.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-doish.c' object='synapse-view-doish.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-doish.o `test -f 'view-doish.c' || echo '$(srcdir)/'`view-doish.c
+
+synapse-view-doish.obj: view-doish.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-doish.obj -MD -MP -MF $(DEPDIR)/synapse-view-doish.Tpo -c -o synapse-view-doish.obj `if test -f 'view-doish.c'; then $(CYGPATH_W) 'view-doish.c'; else $(CYGPATH_W) '$(srcdir)/view-doish.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-doish.Tpo $(DEPDIR)/synapse-view-doish.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-doish.c' object='synapse-view-doish.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-doish.obj `if test -f 'view-doish.c'; then $(CYGPATH_W) 'view-doish.c'; else $(CYGPATH_W) '$(srcdir)/view-doish.c'; fi`
+
+synapse-view-side-doish.o: view-side-doish.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-side-doish.o -MD -MP -MF $(DEPDIR)/synapse-view-side-doish.Tpo -c -o synapse-view-side-doish.o `test -f 'view-side-doish.c' || echo '$(srcdir)/'`view-side-doish.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-side-doish.Tpo $(DEPDIR)/synapse-view-side-doish.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-side-doish.c' object='synapse-view-side-doish.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-side-doish.o `test -f 'view-side-doish.c' || echo '$(srcdir)/'`view-side-doish.c
+
+synapse-view-side-doish.obj: view-side-doish.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-side-doish.obj -MD -MP -MF $(DEPDIR)/synapse-view-side-doish.Tpo -c -o synapse-view-side-doish.obj `if test -f 'view-side-doish.c'; then $(CYGPATH_W) 'view-side-doish.c'; else $(CYGPATH_W) '$(srcdir)/view-side-doish.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-side-doish.Tpo $(DEPDIR)/synapse-view-side-doish.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-side-doish.c' object='synapse-view-side-doish.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-side-doish.obj `if test -f 'view-side-doish.c'; then $(CYGPATH_W) 'view-side-doish.c'; else $(CYGPATH_W) '$(srcdir)/view-side-doish.c'; fi`
+
+synapse-view-virgilio.o: view-virgilio.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-virgilio.o -MD -MP -MF $(DEPDIR)/synapse-view-virgilio.Tpo -c -o synapse-view-virgilio.o `test -f 'view-virgilio.c' || echo '$(srcdir)/'`view-virgilio.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-virgilio.Tpo $(DEPDIR)/synapse-view-virgilio.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-virgilio.c' object='synapse-view-virgilio.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-virgilio.o `test -f 'view-virgilio.c' || echo '$(srcdir)/'`view-virgilio.c
+
+synapse-view-virgilio.obj: view-virgilio.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-view-virgilio.obj -MD -MP -MF $(DEPDIR)/synapse-view-virgilio.Tpo -c -o synapse-view-virgilio.obj `if test -f 'view-virgilio.c'; then $(CYGPATH_W) 'view-virgilio.c'; else $(CYGPATH_W) '$(srcdir)/view-virgilio.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/synapse-view-virgilio.Tpo $(DEPDIR)/synapse-view-virgilio.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='view-virgilio.c' object='synapse-view-virgilio.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -c -o synapse-view-virgilio.obj `if test -f 'view-virgilio.c'; then $(CYGPATH_W) 'view-virgilio.c'; else $(CYGPATH_W) '$(srcdir)/view-virgilio.c'; fi`
 
 synapse-widgets.o: widgets.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(synapse_CFLAGS) $(CFLAGS) -MT synapse-widgets.o -MD -MP -MF $(DEPDIR)/synapse-widgets.Tpo -c -o synapse-widgets.o `test -f 'widgets.c' || echo '$(srcdir)/'`widgets.c
