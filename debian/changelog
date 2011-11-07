@@ -1,3 +1,10 @@
+synapse (0.2.8.2-1) unstable; urgency=low
+
+  * New upstream release.
+   - Include the transltions (Closes: #644716)
+
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Mon, 07 Nov 2011 11:40:22 +0100
+
 synapse (0.2.8.1-1) unstable; urgency=low
 
   * New upstream release.
