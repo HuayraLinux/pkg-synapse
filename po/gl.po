@@ -2,29 +2,30 @@
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the synapse-project package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
-#
+# J. Luis Juncal Pérez <jluisjuncal.trad@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-09-18 21:36+0200\n"
-"PO-Revision-Date: 2011-01-31 07:40+0000\n"
-"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
-"Language-Team: Galician <gl@li.org>\n"
+"POT-Creation-Date: 2012-03-04 23:39+0000\n"
+"PO-Revision-Date: 2011-12-26 10:17+0000\n"
+"Last-Translator: J. Luis Juncal <Unknown>\n"
+"Language-Team: Trasno.net\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-09-19 04:51+0000\n"
-"X-Generator: Launchpad (build 13955)\n"
+"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
+"X-Generator: Launchpad (build 14900)\n"
+"Language: gl\n"
 
 #: ../data/synapse.desktop.in.h:1
-msgid "Search everything you do."
-msgstr "Buscar en todo o que vostede fai."
-
-#: ../data/synapse.desktop.in.h:2
 msgid "Synapse"
 msgstr "Synapse"
+
+#: ../data/synapse.desktop.in.h:2
+msgid "Search everything you do."
+msgstr "Buscar en todo o que vostede fai."
 
 #. activate has to stay in first position!
 #: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
@@ -50,7 +51,7 @@ msgstr "Aplicativos"
 
 #: ../src/ui/category.vala:73 ../src/ui/category.vala:113
 msgid "Places"
-msgstr ""
+msgstr "Lugares"
 
 #: ../src/ui/category.vala:74 ../src/ui/category.vala:116
 msgid "Documents"
@@ -71,12 +72,12 @@ msgstr "Internet"
 #. _labels.set (QueryFlags.ALL, _("All")); // Do not remove!
 #: ../src/ui/category.vala:111
 msgid "Include remote content"
-msgstr ""
+msgstr "Incluír contido remoto"
 
 #. _labels.set (QueryFlags.FILES, _("Files"));
 #: ../src/ui/category.vala:121
 msgid "Uncategorized"
-msgstr ""
+msgstr "Sen clasificar"
 
 #: ../src/ui/controller.vala:30
 msgid "Searching..."
@@ -117,11 +118,11 @@ msgstr "Desactivar este engadido"
 
 #: ../src/ui/settings.vala:57
 msgid "About this plugin"
-msgstr ""
+msgstr "Sobre o módulo"
 
 #: ../src/ui/settings.vala:72 ../src/ui/settings.vala:211
 msgid "Configure plugin"
-msgstr ""
+msgstr "Configuralo módulo"
 
 #: ../src/ui/settings.vala:88 ../src/ui/settings.vala:465
 msgid "Disabled"
@@ -141,87 +142,87 @@ msgstr "Por defecto"
 
 #: ../src/ui/settings.vala:169
 msgid "Essential"
-msgstr ""
+msgstr "Esencial"
 
 #: ../src/ui/settings.vala:170
 msgid "Doish"
-msgstr ""
+msgstr "Tema Doish"
 
 #: ../src/ui/settings.vala:171
 msgid "Side Doish"
-msgstr ""
+msgstr "Tema Doish Estreito"
 
 #: ../src/ui/settings.vala:172
 msgid "Virgilio"
-msgstr ""
+msgstr "Virgilio"
 
 #: ../src/ui/settings.vala:245
 msgid "Execute"
-msgstr ""
+msgstr "Executar"
 
 #: ../src/ui/settings.vala:246
 msgid "Execute without hiding"
-msgstr ""
+msgstr "Executar sen esconder"
 
 #: ../src/ui/settings.vala:247
 msgid "Alternative Delete"
-msgstr ""
+msgstr "Borrado alternativo"
 
 #: ../src/ui/settings.vala:248
 msgid "Next Result"
-msgstr ""
+msgstr "Seguinte resultado"
 
 #: ../src/ui/settings.vala:249
 msgid "Previous Result"
-msgstr ""
+msgstr "Resultado anterior"
 
 #: ../src/ui/settings.vala:250
 msgid "First Result"
-msgstr ""
+msgstr "Primeiro resultado"
 
 #: ../src/ui/settings.vala:251
 msgid "Last Result"
-msgstr ""
+msgstr "Ultimo resultado"
 
 #: ../src/ui/settings.vala:252
 msgid "Next 5 Results"
-msgstr ""
+msgstr "Seguintes 5 resultados"
 
 #: ../src/ui/settings.vala:253
 msgid "Previous 5 Results"
-msgstr ""
+msgstr "Anteriores 5 resultados"
 
 #: ../src/ui/settings.vala:254
 msgid "Next Category"
-msgstr ""
+msgstr "Seguinte categoría"
 
 #: ../src/ui/settings.vala:255
 msgid "Previous Category"
-msgstr ""
+msgstr "Categoría anterior"
 
 #: ../src/ui/settings.vala:256
 msgid "Next Pane"
-msgstr ""
+msgstr "Seguinte panel"
 
 #: ../src/ui/settings.vala:257
 msgid "Previous Pane"
-msgstr ""
+msgstr "Panel anterior"
 
 #: ../src/ui/settings.vala:258
 msgid "Paste"
-msgstr ""
+msgstr "Pegar"
 
 #: ../src/ui/settings.vala:259
 msgid "Paste current selection"
-msgstr ""
+msgstr "Pegala selección"
 
 #: ../src/ui/settings.vala:260
 msgid "Quit"
-msgstr ""
+msgstr "Saír"
 
 #: ../src/ui/settings.vala:274
 msgid "Shortcut already in use"
-msgstr ""
+msgstr "O atallo xa está en uso"
 
 #: ../src/ui/settings.vala:300
 msgid "General"
@@ -282,7 +283,7 @@ msgstr "Cartafol persoal"
 
 #: ../src/ui/utils.vala:129
 msgid "Root"
-msgstr ""
+msgstr "Raíz"
 
 #: ../src/core/common-actions.vala:77
 msgid "Run"
@@ -318,71 +319,71 @@ msgstr "Abrir o cartafol que contén este ficheiro"
 
 #: ../src/core/common-actions.vala:290
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Copiar no Portapapeis"
 
 #: ../src/core/common-actions.vala:291
 msgid "Copy selection to clipboard"
-msgstr ""
+msgstr "Copiala selección ó portarretallos"
 
-#: ../src/plugins/banshee-plugin.vala:73
+#: ../src/plugins/banshee-plugin.vala:70
 msgid "Control Banshee and add items to playlists."
 msgstr "Controle Banshee e engada elementos ás listas de reprodución."
 
 #. DBusService.get_default ().name_is_activatable (BansheePlaybackController.UNIQUE_NAME), // doesn't work for banshee
-#: ../src/plugins/banshee-plugin.vala:79
+#: ../src/plugins/banshee-plugin.vala:76
 msgid "Banshee is not installed"
 msgstr "Banshee non está instalado"
 
-#: ../src/plugins/banshee-plugin.vala:144
-#: ../src/plugins/rhythmbox-plugin.vala:155
+#: ../src/plugins/banshee-plugin.vala:141
+#: ../src/plugins/rhythmbox-plugin.vala:153
 msgid "Play"
 msgstr "Reproducir"
 
-#: ../src/plugins/banshee-plugin.vala:145
+#: ../src/plugins/banshee-plugin.vala:142
 msgid "Start playback in Banshee"
 msgstr "Comezar a reprodución en Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:172
-#: ../src/plugins/rhythmbox-plugin.vala:206
+#: ../src/plugins/banshee-plugin.vala:169
+#: ../src/plugins/rhythmbox-plugin.vala:204
 msgid "Pause"
 msgstr "Pausar"
 
-#: ../src/plugins/banshee-plugin.vala:173
+#: ../src/plugins/banshee-plugin.vala:170
 msgid "Pause playback in Banshee"
 msgstr "Pausar a reprodución en Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:194
-#: ../src/plugins/rhythmbox-plugin.vala:222
+#: ../src/plugins/banshee-plugin.vala:190
+#: ../src/plugins/rhythmbox-plugin.vala:220
 msgid "Next"
 msgstr "Seguinte"
 
-#: ../src/plugins/banshee-plugin.vala:195
+#: ../src/plugins/banshee-plugin.vala:191
 msgid "Plays the next song in Banshee's playlist"
 msgstr "Reproduce a seguinte canción na lista de reproducción de Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:217
-#: ../src/plugins/rhythmbox-plugin.vala:245
+#: ../src/plugins/banshee-plugin.vala:213
+#: ../src/plugins/rhythmbox-plugin.vala:243
 msgid "Previous"
 msgstr "Anterior"
 
-#: ../src/plugins/banshee-plugin.vala:218
+#: ../src/plugins/banshee-plugin.vala:214
 msgid "Plays the previous song in Banshee's playlist"
 msgstr "Reproduce a canción anterior na lista de reproducción de Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:241
+#: ../src/plugins/banshee-plugin.vala:236
 msgid "Enqueue in Banshee"
 msgstr "Engadir á lista de reprodución de Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:242
+#: ../src/plugins/banshee-plugin.vala:237
 msgid "Add the song to Banshee playlist"
 msgstr "Engadir a canción á lista de reprodución de Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:284
+#: ../src/plugins/banshee-plugin.vala:279
 msgid "Play in Banshee"
 msgstr "Reproducir en Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:285
-#: ../src/plugins/rhythmbox-plugin.vala:318
+#: ../src/plugins/banshee-plugin.vala:280
+#: ../src/plugins/rhythmbox-plugin.vala:317
 msgid "Clears the current playlist and plays the song"
 msgstr "Limpa a lista de reprodución actual e reproduce a canción"
 
@@ -392,7 +393,7 @@ msgstr "Calculadora"
 
 #: ../src/plugins/calculator-plugin.vala:64
 msgid "Calculate basic expressions."
-msgstr ""
+msgstr "Calcular expresións básicas."
 
 #: ../src/plugins/calculator-plugin.vala:68
 msgid "bc is not installed"
@@ -400,35 +401,35 @@ msgstr "bc non está instalado"
 
 #: ../src/plugins/chat-actions-plugin.vala:42
 msgid "Open chat"
-msgstr ""
+msgstr "Abrir un chat"
 
 #: ../src/plugins/chat-actions-plugin.vala:43
 msgid "Open a chat with selected contact"
-msgstr ""
+msgstr "Abrir un chat co contacto seleccionado"
 
 #: ../src/plugins/chat-actions-plugin.vala:66
 msgid "Send a message"
-msgstr ""
+msgstr "Enviar unha mensaxe"
 
 #: ../src/plugins/chat-actions-plugin.vala:67
 msgid "Send a message to the contact"
-msgstr ""
+msgstr "Enviar unha mensaxe ó contacto"
 
 #: ../src/plugins/chat-actions-plugin.vala:100
 msgid "Send message to.."
-msgstr ""
+msgstr "Enviar unha mensaxe a ..."
 
 #: ../src/plugins/chat-actions-plugin.vala:101
 msgid "Send a message to a contact"
-msgstr ""
+msgstr "Enviar unha mensaxe a un contacto"
 
 #: ../src/plugins/chat-actions-plugin.vala:136
 msgid "Chat actions"
-msgstr ""
+msgstr "Accións de chat"
 
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
-msgstr ""
+msgstr "Abrir un chat, ou enviar unha mensaxe co teu IM favorito"
 
 #: ../src/plugins/command-plugin.vala:56
 msgid "Run command"
@@ -490,127 +491,129 @@ msgstr "Abrir os dicionarios usados comúns."
 
 #: ../src/plugins/file-op-plugin.vala:77
 msgid "Rename to"
-msgstr ""
+msgstr "Renomear como"
 
 #: ../src/plugins/file-op-plugin.vala:78
 msgid "Rename the file to..."
-msgstr ""
+msgstr "Renomear o ficheiro como..."
 
-#: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:186
+#: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:185
 #, c-format
 msgid "File \"%s\"does not exist."
-msgstr ""
+msgstr "O ficheiro \"%s\" non existe."
 
 #: ../src/plugins/file-op-plugin.vala:107
 #, c-format
 msgid "Cannot move \"%s\" to \"%s\""
-msgstr ""
+msgstr "Non se puido mover \"%s\" a \"%s\""
 
 #: ../src/plugins/file-op-plugin.vala:137
 msgid "File Operations"
-msgstr ""
+msgstr "Operacións de ficheiro"
 
 #: ../src/plugins/file-op-plugin.vala:138
 msgid "Copy, Cut, Paste and Delete files"
-msgstr ""
+msgstr "Copiar, cortar, pegar e eliminar ficheiros"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:60
+#: ../src/plugins/gnome-screensaver-plugin.vala:59
 msgid "Lock Screen"
 msgstr "Bloquear a pantalla"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:61
+#: ../src/plugins/gnome-screensaver-plugin.vala:60
 msgid "Locks screen and starts screensaver."
 msgstr "Bloquea a pantalla e inicia o salvapantallas"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:88
+#: ../src/plugins/gnome-screensaver-plugin.vala:84
 msgid "Lock screen of your computer."
 msgstr "Bloquear a pantalla do seu computador"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:92
+#: ../src/plugins/gnome-screensaver-plugin.vala:88
 msgid "Gnome Screen Saver wasn't found"
 msgstr "Non se atopou o Salvapantallas de Gnome"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
 msgid "Improve results returned by the Zeitgeist plugin by looking "
-msgstr ""
+msgstr "Melloralos resultados devoltos polo módulo Zeitgeist buscando "
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload to imgur"
-msgstr ""
+msgstr "Subir a imgur"
 
 #: ../src/plugins/imgur-plugin.vala:52
 msgid "Upload selection to imgur image sharer"
-msgstr ""
+msgstr "Subir selección ó servicio de compartición de imaxes Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:164
 #: ../src/plugins/pastebin-plugin.vala:152
 msgid ""
 "The selection was successfully uploaded and its URL was copied to clipboard."
 msgstr ""
+"A selección foi cargada con éxito e o seu URL foi copiado ó portapapeis."
 
 #: ../src/plugins/imgur-plugin.vala:168
 #: ../src/plugins/pastebin-plugin.vala:156
 msgid ""
 "An error occurred during upload, please check the log for more information."
 msgstr ""
+"Ocorreu un erro durante a carga, comprobe os logs para máis infomación."
 
 #: ../src/plugins/imgur-plugin.vala:176
 msgid "Synapse - Imgur"
-msgstr ""
+msgstr "Synapse - Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:232
 msgid "Upload to imgur to contact.."
-msgstr ""
+msgstr "Cargar en imgur ó contacto..."
 
 #: ../src/plugins/imgur-plugin.vala:233
 msgid "Upload selection to imgur image sharer, and send the link to contact"
-msgstr ""
+msgstr "Cargala selección a imgur, e envialo vínculo ó contacto"
 
 #: ../src/plugins/imgur-plugin.vala:266
 msgid "Imgur"
-msgstr ""
+msgstr "Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:267
 msgid "Share images using imgur."
-msgstr ""
+msgstr "Compartir imaxes utilizando imgur."
 
 #: ../src/plugins/launchpad-plugin.vala:45
 msgid "Authorize with Launchpad"
-msgstr ""
+msgstr "Autorizar con Launchpad"
 
 #: ../src/plugins/launchpad-plugin.vala:52
 msgid ""
 "Please press the Finish button once you login to Launchpad with your web "
 "browser"
-msgstr ""
+msgstr "Pulse o botón Rematar un vez que entre no Launchpad"
 
 #: ../src/plugins/launchpad-plugin.vala:55
 msgid "Finish authorization"
-msgstr ""
+msgstr "Rematala autorización"
 
 #: ../src/plugins/launchpad-plugin.vala:261
 msgid "Find bugs and branches on Launchpad."
-msgstr ""
+msgstr "Atopar bugs e ramas de desenrolo no Launchpad"
 
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
-msgstr ""
+msgstr "Launchpad: Ramas de desenrolo de Bazaar para %s"
 
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
-msgstr ""
+msgstr "Launchpad: Serie %s para o proxecto %s"
 
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
-msgstr ""
+msgstr "Launchpad: Ramas de desenrolo de bazaar %s"
 
 #: ../src/plugins/launchpad-plugin.vala:341
 #, c-format
 msgid "Launchpad: Bug #%s"
-msgstr ""
+msgstr "Launchpad: Bug #%s"
 
 #: ../src/plugins/locate-plugin.vala:95 ../src/plugins/locate-plugin.vala:105
 msgid "Locate"
@@ -651,120 +654,120 @@ msgstr "Buscar usando Google Maps"
 #: ../src/plugins/pastebin-plugin.vala:42
 #: ../src/plugins/pastebin-plugin.vala:262
 msgid "Pastebin"
-msgstr ""
+msgstr "Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:43
 #: ../src/plugins/pastebin-plugin.vala:229
 msgid "Pastebin selection"
-msgstr ""
+msgstr "Selección Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:164
 msgid "Synapse - Pastebin"
-msgstr ""
+msgstr "Synapse - Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:228
 msgid "Pastebin to contact.."
-msgstr ""
+msgstr "Pastebin para o contacto.."
 
 #: ../src/plugins/pastebin-plugin.vala:263
 msgid "Upload files to pastebin."
-msgstr ""
+msgstr "Cargar ficheiros a pastebin."
 
 #: ../src/plugins/pastebin-plugin.vala:267
 msgid "Unable to find \"pastebinit\" program"
-msgstr ""
+msgstr "Non foi posible atopalo programa \"pastebinit\""
 
-#: ../src/plugins/pidgin-plugin.vala:78
+#: ../src/plugins/pidgin-plugin.vala:77
 msgid "Get access to your Pidgin contacts"
-msgstr ""
+msgstr "Dar acceso ós seus contactos do Pidgin"
 
-#: ../src/plugins/pidgin-plugin.vala:82
+#: ../src/plugins/pidgin-plugin.vala:81
 msgid "Pidgin is not installed."
-msgstr ""
+msgstr "Pidgin non está instalado"
+
+#: ../src/plugins/pidgin-plugin.vala:94
+msgid "Send in chat to.."
+msgstr "Unviar un chata a..."
 
 #: ../src/plugins/pidgin-plugin.vala:95
-msgid "Send in chat to.."
-msgstr ""
-
-#: ../src/plugins/pidgin-plugin.vala:96
 msgid "Send selected file within Pidgin"
-msgstr ""
+msgstr "Enviar ficheiro seleccionado usando Pidgin"
 
-#: ../src/plugins/rhythmbox-plugin.vala:86
+#: ../src/plugins/rhythmbox-plugin.vala:84
 msgid "Control Rhythmbox and add items to playlists."
 msgstr "Controle Rhythmbox e engada elementos á lista de reprodución."
 
-#: ../src/plugins/rhythmbox-plugin.vala:90
+#: ../src/plugins/rhythmbox-plugin.vala:88
 msgid "Rhythmbox is not installed"
 msgstr "Rhythmbox non está instalado"
 
-#: ../src/plugins/rhythmbox-plugin.vala:156
+#: ../src/plugins/rhythmbox-plugin.vala:154
 msgid "Start playback in Rhythmbox"
 msgstr "Iniciar a reprodución en Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:207
+#: ../src/plugins/rhythmbox-plugin.vala:205
 msgid "Pause playback in Rhythmbox"
 msgstr "Pausar a reprodución en Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:223
+#: ../src/plugins/rhythmbox-plugin.vala:221
 msgid "Plays the next song in Rhythmbox's playlist"
 msgstr "Reproduce a seguinte canción na lista de reproducción de Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:246
+#: ../src/plugins/rhythmbox-plugin.vala:244
 msgid "Plays the previous song in Rhythmbox's playlist"
 msgstr "Reproduce a canción anterior da lista de reprodución de Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:270
+#: ../src/plugins/rhythmbox-plugin.vala:268
 msgid "Enqueue in Rhythmbox"
 msgstr "Engadir á cola de reprodución en Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:271
+#: ../src/plugins/rhythmbox-plugin.vala:269
 msgid "Add the song to Rhythmbox playlist"
 msgstr "Engadir a canción á lista de reproducción de Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:317
+#: ../src/plugins/rhythmbox-plugin.vala:316
 msgid "Play in Rhythmbox"
 msgstr "Reproducir en Rhythmbox"
 
 #: ../src/plugins/selection-plugin.vala:55
 msgid "Selection"
-msgstr ""
+msgstr "Selección"
 
 #. plugin title
 #: ../src/plugins/selection-plugin.vala:56
 msgid "Provides actions for currently selected text."
-msgstr ""
+msgstr "Proporciona accións para texto escollido."
 
 #: ../src/plugins/selection-plugin.vala:81
 msgid "Selected text"
-msgstr ""
+msgstr "Texto escollido"
 
 #. Plugin title
-#: ../src/plugins/ssh-plugin.vala:53
+#: ../src/plugins/ssh-plugin.vala:67
 msgid "Connect to host with SSH"
-msgstr ""
+msgstr "Conectar ó anfitrión con SSH"
 
-#: ../src/plugins/ssh-plugin.vala:58
+#: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
-msgstr ""
+msgstr "ssh non está instalado"
 
-#: ../src/plugins/ssh-plugin.vala:174
+#: ../src/plugins/ssh-plugin.vala:198
 msgid "Connect with SSH"
-msgstr ""
+msgstr "Conectar con SSH"
 
-#: ../src/plugins/system-management.vala:89
+#: ../src/plugins/system-management.vala:87
 msgid "Suspend"
 msgstr "Suspender"
 
-#: ../src/plugins/system-management.vala:90
+#: ../src/plugins/system-management.vala:88
 msgid "Put your computer into suspend mode"
 msgstr "Pon o seu computador en modo de suspensión"
 
-#: ../src/plugins/system-management.vala:159
+#: ../src/plugins/system-management.vala:158
 msgid "Hibernate"
 msgstr "Hibernar"
 
-#: ../src/plugins/system-management.vala:160
+#: ../src/plugins/system-management.vala:159
 msgid "Put your computer into hibernation mode"
 msgstr "Pon o seu computador en modo de hibernación"
 
@@ -776,19 +779,19 @@ msgstr "Apagar"
 msgid "Turn your computer off"
 msgstr "Apagar o computador"
 
-#: ../src/plugins/system-management.vala:286
+#: ../src/plugins/system-management.vala:283
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: ../src/plugins/system-management.vala:287
+#: ../src/plugins/system-management.vala:284
 msgid "Restart your computer"
 msgstr "Reiniciar o computador"
 
-#: ../src/plugins/system-management.vala:345
+#: ../src/plugins/system-management.vala:339
 msgid "Suspend, hibernate, restart or shutdown your computer."
 msgstr "Suspender, hibernar, reiniciar ou apagar o seu computador."
 
-#: ../src/plugins/system-management.vala:349
+#: ../src/plugins/system-management.vala:343
 msgid "ConsoleKit wasn't found"
 msgstr "Non se puido atopar ConsoleKit"
 
@@ -835,16 +838,17 @@ msgstr "Zeitgeist non está instalado"
 
 #: ../src/plugins/zeitgeist-related.vala:97
 msgid "Find related"
-msgstr ""
+msgstr "Atopar relacionado"
 
 #: ../src/plugins/zeitgeist-related.vala:98
 msgid "Find resources related to this result"
-msgstr ""
+msgstr "Atopalos recursos relacionados con este resultado"
 
 #: ../src/plugins/zeitgeist-related.vala:107
 msgid "Related files"
-msgstr ""
+msgstr "Ficheiros relacionados"
 
 #: ../src/plugins/zeitgeist-related.vala:108
 msgid "Finds files related to other search results using Zeitgeist."
 msgstr ""
+"Atopalos ficheiros relacionados con outra procura utilizando Zeitgeist."

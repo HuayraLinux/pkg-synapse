@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-09-18 21:36+0200\n"
+"POT-Creation-Date: 2012-03-04 23:39+0000\n"
 "PO-Revision-Date: 2011-09-22 12:49+0000\n"
 "Last-Translator: Nicola Moretto <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -15,16 +15,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-09-23 04:56+0000\n"
-"X-Generator: Launchpad (build 14012)\n"
+"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
+"X-Generator: Launchpad (build 14900)\n"
 
 #: ../data/synapse.desktop.in.h:1
-msgid "Search everything you do."
-msgstr "Cerca tutto ciò che fai."
-
-#: ../data/synapse.desktop.in.h:2
 msgid "Synapse"
 msgstr "Synapse"
+
+#: ../data/synapse.desktop.in.h:2
+msgid "Search everything you do."
+msgstr "Cerca tutto ciò che fai."
 
 #. activate has to stay in first position!
 #: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
@@ -325,65 +325,65 @@ msgstr "Copia negli Appunti"
 msgid "Copy selection to clipboard"
 msgstr "Copia la selezione negli appunti"
 
-#: ../src/plugins/banshee-plugin.vala:73
+#: ../src/plugins/banshee-plugin.vala:70
 msgid "Control Banshee and add items to playlists."
 msgstr "Controlla Banshee e aggiungi elementi alle playlists."
 
 #. DBusService.get_default ().name_is_activatable (BansheePlaybackController.UNIQUE_NAME), // doesn't work for banshee
-#: ../src/plugins/banshee-plugin.vala:79
+#: ../src/plugins/banshee-plugin.vala:76
 msgid "Banshee is not installed"
 msgstr "Banshee non è installato"
 
-#: ../src/plugins/banshee-plugin.vala:144
-#: ../src/plugins/rhythmbox-plugin.vala:155
+#: ../src/plugins/banshee-plugin.vala:141
+#: ../src/plugins/rhythmbox-plugin.vala:153
 msgid "Play"
 msgstr "Riproduci"
 
-#: ../src/plugins/banshee-plugin.vala:145
+#: ../src/plugins/banshee-plugin.vala:142
 msgid "Start playback in Banshee"
 msgstr "Inizia la riproduzione in Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:172
-#: ../src/plugins/rhythmbox-plugin.vala:206
+#: ../src/plugins/banshee-plugin.vala:169
+#: ../src/plugins/rhythmbox-plugin.vala:204
 msgid "Pause"
 msgstr "Pausa"
 
-#: ../src/plugins/banshee-plugin.vala:173
+#: ../src/plugins/banshee-plugin.vala:170
 msgid "Pause playback in Banshee"
 msgstr "Pausa la riproduzione in Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:194
-#: ../src/plugins/rhythmbox-plugin.vala:222
+#: ../src/plugins/banshee-plugin.vala:190
+#: ../src/plugins/rhythmbox-plugin.vala:220
 msgid "Next"
 msgstr "Successivo"
 
-#: ../src/plugins/banshee-plugin.vala:195
+#: ../src/plugins/banshee-plugin.vala:191
 msgid "Plays the next song in Banshee's playlist"
 msgstr "Riproduce il brano successivo nella playlist di Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:217
-#: ../src/plugins/rhythmbox-plugin.vala:245
+#: ../src/plugins/banshee-plugin.vala:213
+#: ../src/plugins/rhythmbox-plugin.vala:243
 msgid "Previous"
 msgstr "Precedente"
 
-#: ../src/plugins/banshee-plugin.vala:218
+#: ../src/plugins/banshee-plugin.vala:214
 msgid "Plays the previous song in Banshee's playlist"
 msgstr "Riproduce il brano precedente nella playlist di Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:241
+#: ../src/plugins/banshee-plugin.vala:236
 msgid "Enqueue in Banshee"
 msgstr "Accoda in Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:242
+#: ../src/plugins/banshee-plugin.vala:237
 msgid "Add the song to Banshee playlist"
 msgstr "Aggiungi il brano nella playlist di Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:284
+#: ../src/plugins/banshee-plugin.vala:279
 msgid "Play in Banshee"
 msgstr "Riproduci in Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:285
-#: ../src/plugins/rhythmbox-plugin.vala:318
+#: ../src/plugins/banshee-plugin.vala:280
+#: ../src/plugins/rhythmbox-plugin.vala:317
 msgid "Clears the current playlist and plays the song"
 msgstr "Svuota la playlist corrente e riproduce il brano"
 
@@ -497,7 +497,7 @@ msgstr "Rinomina in"
 msgid "Rename the file to..."
 msgstr "Rinomina il file in..."
 
-#: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:186
+#: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:185
 #, c-format
 msgid "File \"%s\"does not exist."
 msgstr "Il file \"%s\" non esiste."
@@ -515,19 +515,19 @@ msgstr "Operazioni sui file"
 msgid "Copy, Cut, Paste and Delete files"
 msgstr "Copia, Taglia, Incolla ed Elimina i files"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:60
+#: ../src/plugins/gnome-screensaver-plugin.vala:59
 msgid "Lock Screen"
 msgstr "Blocca schermo"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:61
+#: ../src/plugins/gnome-screensaver-plugin.vala:60
 msgid "Locks screen and starts screensaver."
 msgstr "Blocca lo schermo e fa partire lo screensaver."
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:88
+#: ../src/plugins/gnome-screensaver-plugin.vala:84
 msgid "Lock screen of your computer."
 msgstr "Blocca lo schermo del tuo computer."
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:92
+#: ../src/plugins/gnome-screensaver-plugin.vala:88
 msgid "Gnome Screen Saver wasn't found"
 msgstr "Gnome Screen Saver non è stato trovato"
 
@@ -681,55 +681,55 @@ msgstr "Carica i file su pastebin."
 msgid "Unable to find \"pastebinit\" program"
 msgstr "Non è stato trovato il programma \"pastebinit\""
 
-#: ../src/plugins/pidgin-plugin.vala:78
+#: ../src/plugins/pidgin-plugin.vala:77
 msgid "Get access to your Pidgin contacts"
 msgstr "Accedi ai tuoi contatti Pidgin"
 
-#: ../src/plugins/pidgin-plugin.vala:82
+#: ../src/plugins/pidgin-plugin.vala:81
 msgid "Pidgin is not installed."
 msgstr "Pidgin non è installato."
 
-#: ../src/plugins/pidgin-plugin.vala:95
+#: ../src/plugins/pidgin-plugin.vala:94
 msgid "Send in chat to.."
 msgstr "Invia in chat a.."
 
-#: ../src/plugins/pidgin-plugin.vala:96
+#: ../src/plugins/pidgin-plugin.vala:95
 msgid "Send selected file within Pidgin"
 msgstr "Invia il file selezionato con Pidgin al contatto"
 
-#: ../src/plugins/rhythmbox-plugin.vala:86
+#: ../src/plugins/rhythmbox-plugin.vala:84
 msgid "Control Rhythmbox and add items to playlists."
 msgstr "Controlla Rhythmbox e aggiungi elementi alle playlists."
 
-#: ../src/plugins/rhythmbox-plugin.vala:90
+#: ../src/plugins/rhythmbox-plugin.vala:88
 msgid "Rhythmbox is not installed"
 msgstr "Rhythmbox non è installato"
 
-#: ../src/plugins/rhythmbox-plugin.vala:156
+#: ../src/plugins/rhythmbox-plugin.vala:154
 msgid "Start playback in Rhythmbox"
 msgstr "Inizia la riproduzione in Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:207
+#: ../src/plugins/rhythmbox-plugin.vala:205
 msgid "Pause playback in Rhythmbox"
 msgstr "Pausa la riproduzione in Rhytmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:223
+#: ../src/plugins/rhythmbox-plugin.vala:221
 msgid "Plays the next song in Rhythmbox's playlist"
 msgstr "Riproduce il brano successivo nella playlist di Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:246
+#: ../src/plugins/rhythmbox-plugin.vala:244
 msgid "Plays the previous song in Rhythmbox's playlist"
 msgstr "Riproduce il brano precedente nella playlist di Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:270
+#: ../src/plugins/rhythmbox-plugin.vala:268
 msgid "Enqueue in Rhythmbox"
 msgstr "Accoda in Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:271
+#: ../src/plugins/rhythmbox-plugin.vala:269
 msgid "Add the song to Rhythmbox playlist"
 msgstr "Aggiungi il brano nella playlist di Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:317
+#: ../src/plugins/rhythmbox-plugin.vala:316
 msgid "Play in Rhythmbox"
 msgstr "Riproduci in Rhythmbox"
 
@@ -747,31 +747,31 @@ msgid "Selected text"
 msgstr "Testo selezionato"
 
 #. Plugin title
-#: ../src/plugins/ssh-plugin.vala:53
+#: ../src/plugins/ssh-plugin.vala:67
 msgid "Connect to host with SSH"
 msgstr "Permette la connessione agli host con SSH"
 
-#: ../src/plugins/ssh-plugin.vala:58
+#: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr "SSH non è installato"
 
-#: ../src/plugins/ssh-plugin.vala:174
+#: ../src/plugins/ssh-plugin.vala:198
 msgid "Connect with SSH"
 msgstr "Connettersi con SSH"
 
-#: ../src/plugins/system-management.vala:89
+#: ../src/plugins/system-management.vala:87
 msgid "Suspend"
 msgstr "Sospendi"
 
-#: ../src/plugins/system-management.vala:90
+#: ../src/plugins/system-management.vala:88
 msgid "Put your computer into suspend mode"
 msgstr "Imposta il computer nella modalità di sospensione"
 
-#: ../src/plugins/system-management.vala:159
+#: ../src/plugins/system-management.vala:158
 msgid "Hibernate"
 msgstr "Iberna"
 
-#: ../src/plugins/system-management.vala:160
+#: ../src/plugins/system-management.vala:159
 msgid "Put your computer into hibernation mode"
 msgstr "Imposta in modalità di ibernazione"
 
@@ -783,19 +783,19 @@ msgstr "Arresta"
 msgid "Turn your computer off"
 msgstr "Spegni il computer"
 
-#: ../src/plugins/system-management.vala:286
+#: ../src/plugins/system-management.vala:283
 msgid "Restart"
 msgstr "Riavvia"
 
-#: ../src/plugins/system-management.vala:287
+#: ../src/plugins/system-management.vala:284
 msgid "Restart your computer"
 msgstr "Riavvia il computer"
 
-#: ../src/plugins/system-management.vala:345
+#: ../src/plugins/system-management.vala:339
 msgid "Suspend, hibernate, restart or shutdown your computer."
 msgstr "sospendi, iberna, riavvia o spegni il tuo computer"
 
-#: ../src/plugins/system-management.vala:349
+#: ../src/plugins/system-management.vala:343
 msgid "ConsoleKit wasn't found"
 msgstr "ConsoleKit non è stato trovato"
 

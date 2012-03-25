@@ -1,3 +1,19 @@
+synapse (0.2.10-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/patches:
+   - 90_check_xdg_current_desktop.patch: From upstream, detect XFCE system
+     applications (Closes: #659316)
+  * debian/control:
+   - Update build-depends on vala 0.14 (Closes: #663322)
+   - Update to Standards-Version 3.9.3 (no change needed).
+  * debian/watch:
+   - Update launchpad link.
+  * debian/copyright:
+   - Update to copyright-format 1.0.
+
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Sun, 25 Mar 2012 13:56:07 +0200
+
 synapse (0.2.8.2-1) unstable; urgency=low
 
   * New upstream release.

@@ -1,5 +1,5 @@
-AC_INIT([synapse], [0.2.8.2])
-AC_DEFINE(RELEASE_NAME, "Bombesin", "Codename of this release")
+AC_INIT([synapse], [0.2.10])
+AC_DEFINE(RELEASE_NAME, "Cholecystokinin", "Codename of this release")
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([.])
@@ -37,7 +37,7 @@ AC_STDC_HEADERS
 dnl ==============================================
 dnl Check for Vala
 dnl ==============================================
-AM_PROG_VALAC([0.12.0])
+AM_PROG_VALAC([0.14.0])
 if test "x$VALAC" = "x"; then
 	AC_MSG_ERROR([You need Vala compiler])
 fi
@@ -47,9 +47,9 @@ AM_SILENT_RULES([yes])
 dnl ==============================================
 dnl Check that we meet the dependencies
 dnl ==============================================
-MIN_GLIB_VERSION=2.22.0
+MIN_GLIB_VERSION=2.26.0
 MIN_GTK_VERSION=2.20.0
-MIN_ZEITGEIST_VERSION=0.2.14
+MIN_ZEITGEIST_VERSION=0.3.14
 MIN_GEE_VERSION=0.5.2
 MIN_JSON_VERSION=0.10.0
 APPINDICATOR_REQUIRED=0.0.7
@@ -61,7 +61,6 @@ PKG_CHECK_MODULES(SYNAPSE_MODULES, \
   gobject-2.0 \
   gee-1.0 >= $MIN_GEE_VERSION \
   gio-unix-2.0 \
-  dbus-glib-1 \
   json-glib-1.0 >= $MIN_JSON_VERSION \
   libnotify \
   unique-1.0 \
@@ -114,12 +113,6 @@ if test "x$enable_librest" = "xauto" ; then
 	PKG_CHECK_EXISTS([$REST_PKG_NAME],
 	                 enable_librest="yes",
 	                 enable_librest="no")
-	if test "x$enable_librest" = "xno" ; then
-		REST_PKG_NAME=rest-0.6
-		PKG_CHECK_EXISTS([$REST_PKG_NAME],
-		                 enable_librest="yes",
-		                 enable_librest="no")
-	fi
 fi
 
 if test "x$enable_librest" = "xyes" ; then
@@ -162,7 +155,7 @@ ${PACKAGE}-${VERSION}
     Zeitgeist support:  ${enable_zeitgeist}
 
   Optional dependencies
-    Rest:               ${enable_librest} (${REST_PKG_NAME})
+    Rest:               ${enable_librest}
     AppIndicator:       ${enable_indicator}
 
 EOF

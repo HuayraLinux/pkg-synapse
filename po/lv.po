@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-09-18 21:36+0200\n"
+"POT-Creation-Date: 2012-03-04 23:39+0000\n"
 "PO-Revision-Date: 2011-04-15 11:03+0000\n"
 "Last-Translator: Kārlis Lukstiņš <Unknown>\n"
 "Language-Team: Latvian <lv@li.org>\n"
@@ -15,16 +15,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-09-19 04:51+0000\n"
-"X-Generator: Launchpad (build 13955)\n"
+"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
+"X-Generator: Launchpad (build 14900)\n"
 
 #: ../data/synapse.desktop.in.h:1
-msgid "Search everything you do."
-msgstr ""
-
-#: ../data/synapse.desktop.in.h:2
 msgid "Synapse"
 msgstr "Synapse"
+
+#: ../data/synapse.desktop.in.h:2
+msgid "Search everything you do."
+msgstr ""
 
 #. activate has to stay in first position!
 #: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
@@ -323,65 +323,65 @@ msgstr ""
 msgid "Copy selection to clipboard"
 msgstr ""
 
-#: ../src/plugins/banshee-plugin.vala:73
+#: ../src/plugins/banshee-plugin.vala:70
 msgid "Control Banshee and add items to playlists."
 msgstr ""
 
 #. DBusService.get_default ().name_is_activatable (BansheePlaybackController.UNIQUE_NAME), // doesn't work for banshee
-#: ../src/plugins/banshee-plugin.vala:79
+#: ../src/plugins/banshee-plugin.vala:76
 msgid "Banshee is not installed"
 msgstr ""
 
-#: ../src/plugins/banshee-plugin.vala:144
-#: ../src/plugins/rhythmbox-plugin.vala:155
+#: ../src/plugins/banshee-plugin.vala:141
+#: ../src/plugins/rhythmbox-plugin.vala:153
 msgid "Play"
 msgstr "Sākt"
 
-#: ../src/plugins/banshee-plugin.vala:145
+#: ../src/plugins/banshee-plugin.vala:142
 msgid "Start playback in Banshee"
 msgstr ""
 
-#: ../src/plugins/banshee-plugin.vala:172
-#: ../src/plugins/rhythmbox-plugin.vala:206
+#: ../src/plugins/banshee-plugin.vala:169
+#: ../src/plugins/rhythmbox-plugin.vala:204
 msgid "Pause"
 msgstr "Apturēt"
 
-#: ../src/plugins/banshee-plugin.vala:173
+#: ../src/plugins/banshee-plugin.vala:170
 msgid "Pause playback in Banshee"
 msgstr ""
 
-#: ../src/plugins/banshee-plugin.vala:194
-#: ../src/plugins/rhythmbox-plugin.vala:222
+#: ../src/plugins/banshee-plugin.vala:190
+#: ../src/plugins/rhythmbox-plugin.vala:220
 msgid "Next"
 msgstr "Nākamais"
 
-#: ../src/plugins/banshee-plugin.vala:195
+#: ../src/plugins/banshee-plugin.vala:191
 msgid "Plays the next song in Banshee's playlist"
 msgstr ""
 
-#: ../src/plugins/banshee-plugin.vala:217
-#: ../src/plugins/rhythmbox-plugin.vala:245
+#: ../src/plugins/banshee-plugin.vala:213
+#: ../src/plugins/rhythmbox-plugin.vala:243
 msgid "Previous"
 msgstr "Iepriekšējais"
 
-#: ../src/plugins/banshee-plugin.vala:218
+#: ../src/plugins/banshee-plugin.vala:214
 msgid "Plays the previous song in Banshee's playlist"
 msgstr ""
 
-#: ../src/plugins/banshee-plugin.vala:241
+#: ../src/plugins/banshee-plugin.vala:236
 msgid "Enqueue in Banshee"
 msgstr ""
 
-#: ../src/plugins/banshee-plugin.vala:242
+#: ../src/plugins/banshee-plugin.vala:237
 msgid "Add the song to Banshee playlist"
 msgstr ""
 
-#: ../src/plugins/banshee-plugin.vala:284
+#: ../src/plugins/banshee-plugin.vala:279
 msgid "Play in Banshee"
 msgstr ""
 
-#: ../src/plugins/banshee-plugin.vala:285
-#: ../src/plugins/rhythmbox-plugin.vala:318
+#: ../src/plugins/banshee-plugin.vala:280
+#: ../src/plugins/rhythmbox-plugin.vala:317
 msgid "Clears the current playlist and plays the song"
 msgstr ""
 
@@ -495,7 +495,7 @@ msgstr ""
 msgid "Rename the file to..."
 msgstr ""
 
-#: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:186
+#: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:185
 #, c-format
 msgid "File \"%s\"does not exist."
 msgstr ""
@@ -513,19 +513,19 @@ msgstr ""
 msgid "Copy, Cut, Paste and Delete files"
 msgstr ""
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:60
+#: ../src/plugins/gnome-screensaver-plugin.vala:59
 msgid "Lock Screen"
 msgstr "Bloķēt ekrānu"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:61
+#: ../src/plugins/gnome-screensaver-plugin.vala:60
 msgid "Locks screen and starts screensaver."
 msgstr "Bloķēt ekrānu un palaist ekrānsaudzētāju."
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:88
+#: ../src/plugins/gnome-screensaver-plugin.vala:84
 msgid "Lock screen of your computer."
 msgstr "Bloķēt jūsu datora ekrānu."
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:92
+#: ../src/plugins/gnome-screensaver-plugin.vala:88
 msgid "Gnome Screen Saver wasn't found"
 msgstr ""
 
@@ -673,55 +673,55 @@ msgstr ""
 msgid "Unable to find \"pastebinit\" program"
 msgstr ""
 
-#: ../src/plugins/pidgin-plugin.vala:78
+#: ../src/plugins/pidgin-plugin.vala:77
 msgid "Get access to your Pidgin contacts"
 msgstr ""
 
-#: ../src/plugins/pidgin-plugin.vala:82
+#: ../src/plugins/pidgin-plugin.vala:81
 msgid "Pidgin is not installed."
 msgstr ""
 
-#: ../src/plugins/pidgin-plugin.vala:95
+#: ../src/plugins/pidgin-plugin.vala:94
 msgid "Send in chat to.."
 msgstr ""
 
-#: ../src/plugins/pidgin-plugin.vala:96
+#: ../src/plugins/pidgin-plugin.vala:95
 msgid "Send selected file within Pidgin"
 msgstr ""
 
-#: ../src/plugins/rhythmbox-plugin.vala:86
+#: ../src/plugins/rhythmbox-plugin.vala:84
 msgid "Control Rhythmbox and add items to playlists."
 msgstr ""
 
-#: ../src/plugins/rhythmbox-plugin.vala:90
+#: ../src/plugins/rhythmbox-plugin.vala:88
 msgid "Rhythmbox is not installed"
 msgstr ""
 
-#: ../src/plugins/rhythmbox-plugin.vala:156
+#: ../src/plugins/rhythmbox-plugin.vala:154
 msgid "Start playback in Rhythmbox"
 msgstr ""
 
-#: ../src/plugins/rhythmbox-plugin.vala:207
+#: ../src/plugins/rhythmbox-plugin.vala:205
 msgid "Pause playback in Rhythmbox"
 msgstr ""
 
-#: ../src/plugins/rhythmbox-plugin.vala:223
+#: ../src/plugins/rhythmbox-plugin.vala:221
 msgid "Plays the next song in Rhythmbox's playlist"
 msgstr ""
 
-#: ../src/plugins/rhythmbox-plugin.vala:246
+#: ../src/plugins/rhythmbox-plugin.vala:244
 msgid "Plays the previous song in Rhythmbox's playlist"
 msgstr ""
 
-#: ../src/plugins/rhythmbox-plugin.vala:270
+#: ../src/plugins/rhythmbox-plugin.vala:268
 msgid "Enqueue in Rhythmbox"
 msgstr ""
 
-#: ../src/plugins/rhythmbox-plugin.vala:271
+#: ../src/plugins/rhythmbox-plugin.vala:269
 msgid "Add the song to Rhythmbox playlist"
 msgstr ""
 
-#: ../src/plugins/rhythmbox-plugin.vala:317
+#: ../src/plugins/rhythmbox-plugin.vala:316
 msgid "Play in Rhythmbox"
 msgstr ""
 
@@ -739,31 +739,31 @@ msgid "Selected text"
 msgstr "Iezīmētais teksts"
 
 #. Plugin title
-#: ../src/plugins/ssh-plugin.vala:53
+#: ../src/plugins/ssh-plugin.vala:67
 msgid "Connect to host with SSH"
 msgstr ""
 
-#: ../src/plugins/ssh-plugin.vala:58
+#: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr "ssh nav instalēts"
 
-#: ../src/plugins/ssh-plugin.vala:174
+#: ../src/plugins/ssh-plugin.vala:198
 msgid "Connect with SSH"
 msgstr ""
 
-#: ../src/plugins/system-management.vala:89
+#: ../src/plugins/system-management.vala:87
 msgid "Suspend"
 msgstr "Iesnaudināt"
 
-#: ../src/plugins/system-management.vala:90
+#: ../src/plugins/system-management.vala:88
 msgid "Put your computer into suspend mode"
 msgstr ""
 
-#: ../src/plugins/system-management.vala:159
+#: ../src/plugins/system-management.vala:158
 msgid "Hibernate"
 msgstr "Iemidzināt"
 
-#: ../src/plugins/system-management.vala:160
+#: ../src/plugins/system-management.vala:159
 msgid "Put your computer into hibernation mode"
 msgstr ""
 
@@ -775,19 +775,19 @@ msgstr "Izslēgt"
 msgid "Turn your computer off"
 msgstr "Izslēgt datoru"
 
-#: ../src/plugins/system-management.vala:286
+#: ../src/plugins/system-management.vala:283
 msgid "Restart"
 msgstr "Pārstartēt"
 
-#: ../src/plugins/system-management.vala:287
+#: ../src/plugins/system-management.vala:284
 msgid "Restart your computer"
 msgstr "Pārstartē savu datoru"
 
-#: ../src/plugins/system-management.vala:345
+#: ../src/plugins/system-management.vala:339
 msgid "Suspend, hibernate, restart or shutdown your computer."
 msgstr "Iesnaudināt, iemidzināt, pārstartēt vai izslēgt datoru."
 
-#: ../src/plugins/system-management.vala:349
+#: ../src/plugins/system-management.vala:343
 msgid "ConsoleKit wasn't found"
 msgstr ""
 

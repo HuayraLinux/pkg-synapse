@@ -17,7 +17,6 @@ libplugins_la_VALAFLAGS = \
 	--pkg synapse-core \
 	--vapidir $(VAPIDIR) \
 	$(VAPIDIR)/config.vapi \
-	$(VAPIDIR)/cancellable-fix.vapi \
 	$(NULL)
 
 libplugins_la_CFLAGS = \
@@ -52,6 +51,7 @@ libplugins_la_VALASOURCES = \
 	rhythmbox-plugin.vala \
 	selection-plugin.vala \
 	test-slow-plugin.vala \
+	xnoise-media-player-plugin.vala \
 	system-management.vala \
 	$(NULL)
 
