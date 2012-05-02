@@ -1,3 +1,11 @@
+synapse (0.2.10-2) unstable; urgency=low
+
+  * debian/patches:
+   - 91_check_null_exec.patch: From upstream, don't crash on empty Exec field
+     (Closes: #668972)
+
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 02 May 2012 13:19:11 +0200
+
 synapse (0.2.10-1) unstable; urgency=low
 
   * New upstream release.

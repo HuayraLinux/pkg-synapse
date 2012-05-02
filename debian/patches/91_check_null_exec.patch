@@ -1,0 +1,21 @@
+Subject: don't crash on empty Exec field
+Origin: http://bazaar.launchpad.net/~synapse-core/synapse-project/trunk/revision/502
+
+Index: synapse-0.2.10.orig/src/core/desktop-file-service.vala
+===================================================================
+--- synapse-0.2.10.orig/src/core/desktop-file-service.vala	2012-03-18 18:31:33 +0000
++++ synapse-0.2.10/src/core/desktop-file-service.vala	2012-03-18 20:03:30 +0000
+@@ -125,7 +125,11 @@
+         }
+ 
+         name = app_info.get_name ();
+-        exec = app_info.get_executable ();
++        exec = app_info.get_commandline ();
++        if (exec == null)
++        {
++          throw new DesktopFileError.UNINTERESTING_ENTRY ("Unable to get exec for %s".printf (name));
++        }
+ 
+         // check for hidden desktop files
+         if (keyfile.has_key (GROUP, "Hidden") &&
+
