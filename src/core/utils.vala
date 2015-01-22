@@ -94,10 +94,13 @@ namespace Synapse
       private static void log_internal (Object? obj, LogLevelFlags level, string format, va_list args)
       {
         if (!initialized) initialize ();
-        Type obj_type = obj != null ? obj.get_type () : typeof (Logger);
-        string obj_class = extract_type_name (obj_type);
-        string pretty_obj = "%s[%s]%s ".printf (MAGENTA, obj_class, RESET);
-        logv ("Synapse", level, pretty_obj + format, args);
+        string desc = "";
+        if (obj != null)
+        {
+          string obj_class = extract_type_name (obj.get_type ());
+          desc = "%s[%s]%s ".printf (MAGENTA, obj_class, RESET);
+        }
+        logv ("Synapse", level, desc + format, args);
       }
       
       private static void initialize ()
@@ -105,8 +108,25 @@ namespace Synapse
         var levels = LogLevelFlags.LEVEL_DEBUG | LogLevelFlags.LEVEL_INFO |
             LogLevelFlags.LEVEL_WARNING | LogLevelFlags.LEVEL_CRITICAL |
             LogLevelFlags.LEVEL_ERROR;
-        Log.set_handler ("Synapse", levels, handler);
-        
+
+        string[] domains = 
+        {
+          "Synapse",
+          "Gtk",
+          "Gdk",
+          "GLib",
+          "GLib-GObject",
+          "Pango",
+          "GdkPixbuf",
+          "GLib-GIO",
+          "GtkHotkey"
+        };
+        foreach (unowned string domain in domains)
+        {
+          Log.set_handler (domain, levels, handler);
+        }
+        Log.set_handler (null, levels, handler);
+
         show_debug = Environment.get_variable ("SYNAPSE_DEBUG") != null;
         initialized = true;
       }
@@ -145,23 +165,25 @@ namespace Synapse
       protected static void handler (string? domain, LogLevelFlags level, string msg)
       {
         string header;
+        string domain_str = "";
+        if (domain != null && domain != "Synapse") domain_str = domain + "-";
         string cur_time = TimeVal ().to_iso8601 ().substring (11, 15);
         if (level == LogLevelFlags.LEVEL_DEBUG)
         {
-          if (!show_debug) return;
-          header = @"$(GREEN)[$(cur_time) Debug]$(RESET)";
+          if (!show_debug && domain_str == "") return;
+          header = @"$(GREEN)[$(cur_time) $(domain_str)Debug]$(RESET)";
         }
         else if (level == LogLevelFlags.LEVEL_INFO)
         {
-          header = @"$(BLUE)[$(cur_time) Info]$(RESET)";
+          header = @"$(BLUE)[$(cur_time) $(domain_str)Info]$(RESET)";
         }
         else if (level == LogLevelFlags.LEVEL_WARNING)
         {
-          header = @"$(RED)[$(cur_time) Warning]$(RESET)";
+          header = @"$(RED)[$(cur_time) $(domain_str)Warning]$(RESET)";
         }
         else if (level == LogLevelFlags.LEVEL_CRITICAL || level == LogLevelFlags.LEVEL_ERROR)
         {
-          header = @"$(RED)[$(cur_time) Critical]$(RESET)";
+          header = @"$(RED)[$(cur_time) $(domain_str)Critical]$(RESET)";
         }
         else
         {
@@ -169,6 +191,15 @@ namespace Synapse
         }
 
         stdout.printf ("%s %s\n", header, msg);
+#if 0
+        void* buffer[10];
+        int num = Linux.backtrace (&buffer, 10);
+        string[] symbols = Linux.backtrace_symbols (buffer, num);
+        if (symbols != null)
+        {
+          for (int i = 0; i < num; i++) stdout.printf ("%s\n", symbols[i]);
+        }
+#endif
       }
     }
 

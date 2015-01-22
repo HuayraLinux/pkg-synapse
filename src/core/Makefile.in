@@ -43,9 +43,6 @@ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 subdir = src/core
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/as-ac-expand.m4 \
-	$(top_srcdir)/m4/intltool.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -61,7 +58,7 @@ libsynapsecore_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 am__libsynapsecore_la_SOURCES_DIST = common-actions.c config-service.c \
 	data-sink.c dbus-service.c desktop-file-service.c match.c \
 	plugin.c query.c relevancy-service.c result-set.c utils.c \
-	relevancy-backend-zg.c
+	volume-service.c relevancy-backend-zg.c
 @HAVE_ZEITGEIST_TRUE@am__objects_1 = libsynapsecore_la-relevancy-backend-zg.lo
 am__objects_2 = libsynapsecore_la-common-actions.lo \
 	libsynapsecore_la-config-service.lo \
@@ -72,7 +69,7 @@ am__objects_2 = libsynapsecore_la-common-actions.lo \
 	libsynapsecore_la-query.lo \
 	libsynapsecore_la-relevancy-service.lo \
 	libsynapsecore_la-result-set.lo libsynapsecore_la-utils.lo \
-	$(am__objects_1)
+	libsynapsecore_la-volume-service.lo $(am__objects_1)
 am_libsynapsecore_la_OBJECTS = $(am__objects_2)
 libsynapsecore_la_OBJECTS = $(am_libsynapsecore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
@@ -189,6 +186,8 @@ PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PKGDATADIR = @PKGDATADIR@
 PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 POFILES = @POFILES@
 POSUB = @POSUB@
 PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
@@ -277,8 +276,8 @@ libsynapsecore_la_LIBADD = $(SYNAPSE_MODULES_LIBS) $(am__append_4)
 libsynapsecore_la_VALASOURCES = common-actions.vala \
 	config-service.vala data-sink.vala dbus-service.vala \
 	desktop-file-service.vala match.vala plugin.vala query.vala \
-	relevancy-service.vala result-set.vala utils.vala $(NULL) \
-	$(am__append_1)
+	relevancy-service.vala result-set.vala utils.vala \
+	volume-service.vala $(NULL) $(am__append_1)
 GENERATED_C_FILES = $(libsynapsecore_la_VALASOURCES:.vala=.c)
 libsynapsecore_la_SOURCES = \
 	$(libsynapsecore_la_VALASOURCES:.vala=.c) \
@@ -362,6 +361,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsynapsecore_la-relevancy-service.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsynapsecore_la-result-set.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsynapsecore_la-utils.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsynapsecore_la-volume-service.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -474,6 +474,14 @@ libsynapsecore_la-utils.lo: utils.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='utils.c' object='libsynapsecore_la-utils.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsynapsecore_la_CFLAGS) $(CFLAGS) -c -o libsynapsecore_la-utils.lo `test -f 'utils.c' || echo '$(srcdir)/'`utils.c
+
+libsynapsecore_la-volume-service.lo: volume-service.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsynapsecore_la_CFLAGS) $(CFLAGS) -MT libsynapsecore_la-volume-service.lo -MD -MP -MF $(DEPDIR)/libsynapsecore_la-volume-service.Tpo -c -o libsynapsecore_la-volume-service.lo `test -f 'volume-service.c' || echo '$(srcdir)/'`volume-service.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsynapsecore_la-volume-service.Tpo $(DEPDIR)/libsynapsecore_la-volume-service.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='volume-service.c' object='libsynapsecore_la-volume-service.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsynapsecore_la_CFLAGS) $(CFLAGS) -c -o libsynapsecore_la-volume-service.lo `test -f 'volume-service.c' || echo '$(srcdir)/'`volume-service.c
 
 libsynapsecore_la-relevancy-backend-zg.lo: relevancy-backend-zg.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsynapsecore_la_CFLAGS) $(CFLAGS) -MT libsynapsecore_la-relevancy-backend-zg.lo -MD -MP -MF $(DEPDIR)/libsynapsecore_la-relevancy-backend-zg.Tpo -c -o libsynapsecore_la-relevancy-backend-zg.lo `test -f 'relevancy-backend-zg.c' || echo '$(srcdir)/'`relevancy-backend-zg.c

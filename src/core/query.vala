@@ -24,6 +24,7 @@ namespace Synapse
   public enum QueryFlags
   {
     /* HowTo create categories (32bit).
+     * Authored by Alberto Aldegheri <albyrock87+dev@gmail.com>
      * Categories are "stored" in 3 Levels:
      *  Super-Category
      *  -> Category
@@ -44,6 +45,7 @@ namespace Synapse
      * Remember: 
      *   if you add or remove a category, 
      *   change labels in UIInterface.CategoryConfig.init_labels
+     *
      */
     INCLUDE_REMOTE  = 1 << 0,
     UNCATEGORIZED   = 1 << 1,
@@ -58,9 +60,15 @@ namespace Synapse
       IMAGES          = 1 << 7,
     FILES           = AUDIO | VIDEO | DOCUMENTS | IMAGES,
     
-    FOLDERS         = 1 << 8,
+    PLACES          = 1 << 8,
 
+    // FIXME: shouldn't this be FILES | INCLUDE_REMOTE?
     INTERNET        = 1 << 9,
+    
+    // FIXME: Text Query flag? kinda weird, why do we have this here?
+    TEXT            = 1 << 10,
+    
+    CONTACTS        = 1 << 11,
 
     ALL           = 0xFFFFFFFF,
     LOCAL_CONTENT = ALL ^ QueryFlags.INCLUDE_REMOTE

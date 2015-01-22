@@ -165,11 +165,11 @@ namespace Synapse.Gui
     {
       themes = new Gee.HashMap<string, Theme?>();
 
-      themes["default"] = Theme (_("Default"), "", typeof (SynapseWindow));
-      themes["mini"] = Theme (_("Mini"), "", typeof (SynapseWindowMini));
-      themes["dual"] = Theme (_("Dual"), "", typeof (SynapseWindowTwoLines));
-      themes["virgilio"] = Theme (_("Virgilio"), "", typeof (SynapseWindowVirgilio));
-      themes["doish"] = Theme (_("Do-ish"), "", typeof (SynapseWindowDoish));
+      themes["default"] = Theme (_("Default"), "", typeof (Synapse.Gui.ViewDefault));
+      themes["essential"] = Theme (_("Essential"), "", typeof (Synapse.Gui.ViewEssential));
+      themes["doish"] = Theme (_("Doish"), "", typeof (Synapse.Gui.ViewDoish));
+      themes["side-doish"] = Theme (_("Side Doish"), "", typeof (Synapse.Gui.ViewSideDoish));
+      themes["virgilio"] = Theme (_("Virgilio"), "", typeof (Synapse.Gui.ViewVirgilio));
 
       selected_theme = config.ui_type;
     }
@@ -255,7 +255,9 @@ namespace Synapse.Gui
         {"prev-category", _("Previous Category")},
         {"next-search-type", _("Next Pane")},
         {"prev-search-type", _("Previous Pane")},
-        {"paste", _("Paste")}
+        {"paste", _("Paste")},
+        {"alt_paste", _("Paste current selection")},
+        {"exit", _("Quit")}
       };
 
     private UI.Widgets.TileView tile_view;
@@ -478,6 +480,7 @@ namespace Synapse.Gui
       cb_themes.pack_start (ctxt, true);
       cb_themes.set_attributes (ctxt, "text", 1);
       /* Pack data into the model and select current theme */
+      if (!themes.has_key (selected_theme)) selected_theme = "default";
       TreeIter iter;
       foreach (Gee.Map.Entry<string,Theme?> e in themes.entries)
       {
