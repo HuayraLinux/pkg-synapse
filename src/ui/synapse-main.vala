@@ -42,6 +42,8 @@ namespace Synapse
     private UIInterface? ui;
     private SettingsWindow settings;
     private DataSink data_sink;
+    private Gui.KeyComboConfig key_combo_config;
+    private Gui.CategoryConfig category_config;
     private GtkHotkey.Info? hotkey;
     private ConfigService config;
 #if HAVE_INDICATOR
@@ -55,8 +57,11 @@ namespace Synapse
       ui = null;
       config = ConfigService.get_default ();
       data_sink = new DataSink ();
+      key_combo_config = (Gui.KeyComboConfig) config.bind_config ("ui", "shortcuts", typeof (Gui.KeyComboConfig));
+      category_config = (Gui.CategoryConfig) config.get_config ("ui", "categories", typeof (Gui.CategoryConfig));
+      key_combo_config.update_bindings ();
       register_plugins ();
-      settings = new SettingsWindow (data_sink);
+      settings = new SettingsWindow (data_sink, key_combo_config);
       settings.keybinding_changed.connect (this.change_keyboard_shortcut);
       
       bind_keyboard_shortcut ();
@@ -75,7 +80,9 @@ namespace Synapse
     
     private void init_ui (Type t)
     {
-      ui = GLib.Object.new (t, "data-sink", data_sink) as UIInterface;
+      ui = GLib.Object.new (t, "data-sink", data_sink,
+                               "key-combo-config", key_combo_config,
+                               "category-config", category_config) as UIInterface;
       ui.show_settings_clicked.connect (()=>{
         settings.show ();
         uint32 timestamp = Gtk.get_current_event_time ();
@@ -84,6 +91,7 @@ namespace Synapse
         settings.present_with_time (timestamp);
         settings.get_window ().raise ();
         settings.get_window ().focus (timestamp);
+        ui.hide ();
       });
     }
     
@@ -91,17 +99,17 @@ namespace Synapse
     {
       var indicator_menu = new Menu ();
       var activate_item = new ImageMenuItem.with_label (_ ("Activate"));
-      activate_item.set_image (new Gtk.Image.from_stock (Gtk.STOCK_EXECUTE, Gtk.IconSize.MENU));
+      activate_item.set_image (new Gtk.Image.from_stock (Gtk.Stock.EXECUTE, Gtk.IconSize.MENU));
       activate_item.activate.connect (() =>
       {
         show_ui (Gtk.get_current_event_time ());
       });
       indicator_menu.append (activate_item);
-      var settings_item = new ImageMenuItem.from_stock (Gtk.STOCK_PREFERENCES, null);
+      var settings_item = new ImageMenuItem.from_stock (Gtk.Stock.PREFERENCES, null);
       settings_item.activate.connect (() => { settings.show (); });
       indicator_menu.append (settings_item);
       indicator_menu.append (new SeparatorMenuItem ());
-      var quit_item = new ImageMenuItem.from_stock (Gtk.STOCK_QUIT, null);
+      var quit_item = new ImageMenuItem.from_stock (Gtk.Stock.QUIT, null);
       quit_item.activate.connect (Gtk.main_quit);
       indicator_menu.append (quit_item);
       indicator_menu.show_all ();
@@ -162,6 +170,7 @@ namespace Synapse
         typeof (LaunchpadPlugin),
         typeof (CalculatorPlugin),
         typeof (SelectionPlugin),
+        typeof (SshPlugin),
 #if HAVE_ZEITGEIST
         typeof (ZeitgeistPlugin),
 #endif

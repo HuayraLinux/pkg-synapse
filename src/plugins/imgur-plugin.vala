@@ -75,22 +75,14 @@ namespace Synapse
         int save = 0;
         var encoded = new StringBuilder ();
 
-#if VALA_0_12
         read_bytes = yield input.read_async (buffer);
-#else
-        read_bytes = yield input.read_async (buffer, buffer.length, Priority.DEFAULT);
-#endif
         while (read_bytes != 0)
         {
           buffer.length = (int) read_bytes;
           size_t enc_len = Base64.encode_step ((uchar[]) buffer, false, encode_buffer,
                                                ref state, ref save);
           encoded.append_len ((string) encode_buffer, (ssize_t) enc_len);
-#if VALA_0_12
           read_bytes = yield input.read_async (buffer);
-#else
-          read_bytes = yield input.read_async (buffer, buffer.length, Priority.DEFAULT);
-#endif
         }
         size_t enc_close = Base64.encode_close (false, encode_buffer, ref state, ref save);
         encoded.append_len ((string) encode_buffer, (ssize_t) enc_close);
@@ -120,8 +112,8 @@ namespace Synapse
         {
           if (limit_remaining != null && reset_time != null)
           {
-            int remaining = limit_remaining.to_int ();
-            long reset = reset_time.to_long ();
+            int remaining = int.parse (limit_remaining);
+            long reset = long.parse (reset_time);
             if (remaining < 10 && reset > 0)
             {
               var cur_time = TimeVal ();
@@ -225,7 +217,7 @@ namespace Synapse
             // FIXME: maybe we shouldn't care about the real path?
             var f = File.new_for_uri (um.uri);
             if (f.get_path () == null) return false;
-            return g_content_type_is_a (um.mime_type, "image/*");
+            return ContentType.is_a (um.mime_type, "image/*");
           default:
             return false;
         }

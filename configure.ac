@@ -1,5 +1,5 @@
-AC_INIT([synapse], [0.2.4.1])
-AC_DEFINE(RELEASE_NAME, "Anandamide", "Codename of this release")
+AC_INIT([synapse], [0.2.6])
+AC_DEFINE(RELEASE_NAME, "Aspartate", "Codename of this release")
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([.])
@@ -37,7 +37,7 @@ AC_STDC_HEADERS
 dnl ==============================================
 dnl Check for Vala
 dnl ==============================================
-AM_PROG_VALAC([0.10.4])
+AM_PROG_VALAC([0.11.5])
 if test "x$VALAC" = "x"; then
 	AC_MSG_ERROR([You need Vala compiler])
 fi
@@ -146,6 +146,7 @@ src/Makefile
 src/core/Makefile
 src/plugins/Makefile
 src/tile-view/Makefile
+src/ui/Makefile
 po/Makefile.in
 vapi/Makefile
 ])

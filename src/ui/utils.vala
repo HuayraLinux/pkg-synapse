@@ -59,22 +59,14 @@ namespace Synapse.Gui
           StringBuilder res = new StringBuilder ();
           for (int i = 1; i < cnt; i++)
           {
-            // fetch_pos doesn't return utf8 offsets, so we can't use 
-            // string.substring ()
             mi.fetch_pos (i, out start_pos, out end_pos);
             warn_if_fail (start_pos >= 0 && end_pos >= 0);
-            char* str_ptr = text;
-            str_ptr += last_pos;
-            unowned string non_matched = (string) str_ptr;
-            res.append (Markup.escape_text (non_matched.ndup (start_pos - last_pos)));
+            res.append (Markup.escape_text (text.substring (last_pos, start_pos - last_pos)));
             last_pos = end_pos;
             res.append (Markup.printf_escaped ("<u><b>%s</b></u>", mi.fetch (i)));
             if (i == cnt - 1)
             {
-              str_ptr = text;
-              str_ptr += last_pos;
-              non_matched = (string) str_ptr;
-              res.append (Markup.escape_text (non_matched));
+              res.append (Markup.escape_text (text.substring (last_pos)));
             }
           }
           highlighted = res.str;
@@ -94,22 +86,46 @@ namespace Synapse.Gui
       }
     }
     
-    public static string replace_home_path_with (string path, string replace,
-                                                 string delimiter)
+    public static string get_printable_description (Match match)
     {
-    	if (home_directory == null)
+      UriMatch? m = match as UriMatch;
+      
+      if (m == null) return match.description; // not an UriMatch
+      
+      if (!m.uri.has_prefix("file://")) return m.uri; //fix only local files
+      
+      unowned string? desc = m.get_data<string> ("printable-description");
+      if (desc != null) return desc; // already fixed
+
+      string desc_fixed = m.description;
+      
+      /* // remove filename from path if the title is equal
+      if (m.description.has_suffix(m.title))
+      {
+        desc_fixed = m.description.substring (0, m.description.length - m.title.length);
+      } */
+
+      if (home_directory == null)
     	{
     		home_directory = Environment.get_home_dir ();
     		home_directory_length = home_directory.length;
     	}
-      if (path.has_prefix (home_directory))
-      {
-        string rem = path.substring (home_directory_length);
-        string[] parts = Regex.split_simple ("/", rem);
-        return replace + string.joinv (delimiter, parts);
-      }
-      else
-      	return path;
+    	if (desc_fixed.has_prefix (home_directory)) //if is home dir
+    	{
+    	  desc_fixed = _("Home") + desc_fixed.substring (home_directory_length);
+    	}
+    	else // is root
+    	{
+    	  desc_fixed = _("Root") + desc_fixed;
+    	}
+    	
+    	// convert "/" to " > "
+    	string[] parts = Regex.split_simple ("/", desc_fixed);
+    	desc_fixed = string.joinv (" > ", parts);
+
+    	m.set_data<string> ("printable-description", desc_fixed);
+
+    	return desc_fixed;
     }
     
     public static void update_layout_rtl (Pango.Layout layout, Gtk.TextDirection rtl)
@@ -348,7 +364,9 @@ namespace Synapse.Gui
       {
         NORMAL,
         LIGHTER,
+        LIGHTEST,
         DARKER,
+        DARKEST,
         INVERTED
       }
 
@@ -363,6 +381,18 @@ namespace Synapse.Gui
           colormap.clear ();
         });
       }
+      
+      public void get_color_colorized (ref double red, ref double green, ref double blue,
+                                       StyleType t, Gtk.StateType st, Mod mod = Mod.NORMAL)
+      {
+        Color col = get_color_from_map (t, st, mod);
+        double r = red, g = green, b = blue;
+        Color.colorize (&r, &g, &b, col.r, col.g, col.b);
+        red = r;
+        green = g;
+        blue = b;
+      }
+      
 			private Color get_color_from_map (StyleType t, Gtk.StateType st, Mod mod)
 			{
 				Color col;
@@ -439,14 +469,23 @@ namespace Synapse.Gui
         {
           gdk_color_to_rgb (col, out this.r, out this.g, out this.b);
         }
-
+        
+        /*
+        public void clone (Color col)
+        {
+          this.r = col.r;
+          this.g = col.g;
+          this.b = col.b;
+        }
+        
         public void init_from_rgb (double r, double g, double b)
         {
           this.r = r;
           this.g = g;
           this.b = b;
         }
-        
+        */
+
         public void mix (Color target, double mix_pct, out double r, out double g, out double b)
         {
           r = target.r - this.r;
@@ -457,13 +496,6 @@ namespace Synapse.Gui
           b = this.b + b * mix_pct;
         }
 
-        public void clone (Color col)
-        {
-          this.r = col.r;
-          this.g = col.g;
-          this.b = col.b;
-        }
-        
         public void apply_mod (Mod k)
         {
           switch (k)
@@ -476,6 +508,12 @@ namespace Synapse.Gui
             	break;
            	case Mod.DARKER:
            		shade (ref this.r, ref this.g, ref this.b, 0.92);
+           		break;
+           	case Mod.LIGHTEST:
+            	shade (ref this.r, ref this.g, ref this.b, 1.2);
+            	break;
+           	case Mod.DARKEST:
+           		shade (ref this.r, ref this.g, ref this.b, 0.8);
            		break;
             default:
               break;
@@ -496,12 +534,25 @@ namespace Synapse.Gui
 	        return l < 0.40;
         }
         
+        public static void colorize (double *r, double *g, double *b,
+                                     double cr, double cg, double cb)
+        {
+          if (!(*r == *g && *g == *b)) return; //nothing to do
+          murrine_rgb_to_hls (r, g, b);
+          murrine_rgb_to_hls (&cr, &cg, &cb);
+          
+          *r = cr;
+          *b = *b * 0.25 + cb * 0.85;
+          *g = *g * 0.4 + cg * 0.6;
+          
+          murrine_hls_to_rgb (r, g, b);
+        }        
         /* RGB / HLS utils - from Murrine gtk-engine:
          * Copyright (C) 2006-2007-2008-2009 Andrea Cimitan
          */
-        private static void murrine_rgb_to_hls (double *r,
-								                                double *g,
-								                                double *b)
+        public static void murrine_rgb_to_hls (double *r,
+								                               double *g,
+								                               double *b)
         {
 	        double min;
 	        double max;
@@ -571,9 +622,9 @@ namespace Synapse.Gui
 	        *b = s;
         }
 
-        private static void murrine_hls_to_rgb (double *h,
-								                                double *l,
-								                                double *s)
+        public static void murrine_hls_to_rgb (double *h,
+								                               double *l,
+								                               double *s)
         {
 	        double hue;
 	        double lightness;
@@ -686,6 +737,77 @@ namespace Synapse.Gui
         }
       }
     }
+    
+    public static bool is_point_in_mask (Gtk.Widget w, int x, int y)
+    {
+      if (x < 0 || y < 0 || x >= w.allocation.width || y >= w.allocation.height) return false;
+      if (!w.is_composited ()) return true;
+      
+      // create an image surface to hold the rendered window
+      Cairo.ImageSurface mask = new Cairo.ImageSurface (Cairo.Format.ARGB32, w.allocation.width, w.allocation.height);
+      Cairo.Context cr = new Cairo.Context (mask);
+      cr.set_operator (Cairo.Operator.SOURCE);
+      // copy the window content into the mask
+      Cairo.Context ctx = Gdk.cairo_create (w.window);
+      cr.set_source_surface (ctx.get_target (), 0 ,0);
+      cr.paint ();
+      // check if the point alpha is != 0
+      uchar *data = mask.get_data ();
+      return data[3 + x * 4 + mask.get_stride () * y] != 0;
+    }
+
+    /* Code from Gnome-Do */
+    public static void present_window (Gtk.Window window)
+    {
+      // raise without grab
+      uint32 timestamp = Gtk.get_current_event_time();
+      window.present_with_time (timestamp);
+      window.get_window ().raise ();
+      window.get_window ().focus (timestamp);
+
+      if (Synapse.Utils.Logger.debug_enabled ()) return;
+      // grab
+      int i = 0;
+      Timeout.add (100, ()=>{
+        if (i >= 100)
+          return false;
+        ++i;
+        return !try_grab_window (window);
+      });
+    }
+    /* Code from Gnome-Do */
+    public static void unpresent_window (Gtk.Window window)
+    {
+      if (Synapse.Utils.Logger.debug_enabled ()) return;
+      uint32 time = Gtk.get_current_event_time();
+
+      Gdk.pointer_ungrab (time);
+      Gdk.keyboard_ungrab (time);
+      Gtk.grab_remove (window);
+    }
+    /* Code from Gnome-Do */
+    private static bool try_grab_window (Gtk.Window window)
+    {
+      uint time = Gtk.get_current_event_time();
+      if (Gdk.pointer_grab (window.get_window(),
+            true,
+            Gdk.EventMask.BUTTON_PRESS_MASK |
+            Gdk.EventMask.BUTTON_RELEASE_MASK |
+            Gdk.EventMask.POINTER_MOTION_MASK,
+            null,
+            null,
+            time) == Gdk.GrabStatus.SUCCESS)
+      {
+        if (Gdk.keyboard_grab (window.get_window(), true, time) == Gdk.GrabStatus.SUCCESS) {
+          Gtk.grab_add (window);
+          return true;
+        } else {
+          Gdk.pointer_ungrab (time);
+          return false;
+        }
+      }
+      return false;
+    }
+
   }
 }
-

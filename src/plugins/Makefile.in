@@ -62,16 +62,16 @@ am__DEPENDENCIES_1 =
 @HAVE_ZEITGEIST_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
 @HAVE_LIBREST_TRUE@am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1)
 libplugins_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	../core/libsynapsecore.la $(am__DEPENDENCIES_2) \
-	$(am__DEPENDENCIES_3)
+	$(top_builddir)/src/core/libsynapsecore.la \
+	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_3)
 am__libplugins_la_SOURCES_DIST = banshee-plugin.c calculator-plugin.c \
 	command-plugin.c desktop-file-plugin.c devhelp-search.c \
-	dictionary.c directory-plugin.c gnome-session-plugin.c \
-	gnome-screensaver-plugin.c hello-world-plugin.c \
-	hybrid-search-plugin.c launchpad-plugin.c locate-plugin.c \
-	opensearch.c pastebin-plugin.c rhythmbox-plugin.c \
-	selection-plugin.c test-slow-plugin.c system-management.c \
-	zeitgeist-plugin.c imgur-plugin.c
+	ssh-plugin.c dictionary.c directory-plugin.c \
+	gnome-session-plugin.c gnome-screensaver-plugin.c \
+	hello-world-plugin.c hybrid-search-plugin.c launchpad-plugin.c \
+	locate-plugin.c opensearch.c pastebin-plugin.c \
+	rhythmbox-plugin.c selection-plugin.c test-slow-plugin.c \
+	system-management.c zeitgeist-plugin.c imgur-plugin.c
 @HAVE_ZEITGEIST_TRUE@am__objects_1 =  \
 @HAVE_ZEITGEIST_TRUE@	libplugins_la-zeitgeist-plugin.lo
 @HAVE_LIBREST_TRUE@am__objects_2 = libplugins_la-imgur-plugin.lo
@@ -79,8 +79,8 @@ am__objects_3 = libplugins_la-banshee-plugin.lo \
 	libplugins_la-calculator-plugin.lo \
 	libplugins_la-command-plugin.lo \
 	libplugins_la-desktop-file-plugin.lo \
-	libplugins_la-devhelp-search.lo libplugins_la-dictionary.lo \
-	libplugins_la-directory-plugin.lo \
+	libplugins_la-devhelp-search.lo libplugins_la-ssh-plugin.lo \
+	libplugins_la-dictionary.lo libplugins_la-directory-plugin.lo \
 	libplugins_la-gnome-session-plugin.lo \
 	libplugins_la-gnome-screensaver-plugin.lo \
 	libplugins_la-hello-world-plugin.lo \
@@ -290,24 +290,27 @@ noinst_LTLIBRARIES = libplugins.la
 VAPIDIR = $(top_srcdir)/vapi
 libplugins_la_VALAFLAGS = --pkg gtk+-2.0 --pkg gee-1.0 --pkg \
 	json-glib-1.0 --pkg dbus-glib-1 --pkg gio-unix-2.0 --pkg \
-	libnotify --vapidir $(top_srcdir)/src/core --pkg synapse-core \
-	--vapidir $(VAPIDIR) $(VAPIDIR)/config.vapi \
+	libnotify --vapidir $(top_builddir)/src/core --pkg \
+	synapse-core --vapidir $(VAPIDIR) $(VAPIDIR)/config.vapi \
 	$(VAPIDIR)/cancellable-fix.vapi $(NULL) $(am__append_2) \
 	$(am__append_6)
 libplugins_la_CFLAGS = $(SYNAPSE_MODULES_CFLAGS) -include config.h -w \
-	-I$(top_srcdir)/src/core $(NULL) $(am__append_3) \
+	-I$(top_builddir)/src/core $(NULL) $(am__append_3) \
 	$(am__append_7)
 libplugins_la_LIBADD = $(SYNAPSE_MODULES_LIBS) \
-	../core/libsynapsecore.la $(am__append_4) $(am__append_8)
+	$(top_builddir)/src/core/libsynapsecore.la $(NULL) \
+	$(am__append_4) $(am__append_8)
 libplugins_la_VALASOURCES = banshee-plugin.vala calculator-plugin.vala \
 	command-plugin.vala desktop-file-plugin.vala \
-	devhelp-search.vala dictionary.vala directory-plugin.vala \
-	gnome-session-plugin.vala gnome-screensaver-plugin.vala \
-	hello-world-plugin.vala hybrid-search-plugin.vala \
-	launchpad-plugin.vala locate-plugin.vala opensearch.vala \
-	pastebin-plugin.vala rhythmbox-plugin.vala \
-	selection-plugin.vala test-slow-plugin.vala \
-	system-management.vala $(NULL) $(am__append_1) $(am__append_5)
+	devhelp-search.vala ssh-plugin.vala dictionary.vala \
+	directory-plugin.vala gnome-session-plugin.vala \
+	gnome-screensaver-plugin.vala hello-world-plugin.vala \
+	hybrid-search-plugin.vala launchpad-plugin.vala \
+	locate-plugin.vala opensearch.vala pastebin-plugin.vala \
+	rhythmbox-plugin.vala selection-plugin.vala \
+	test-slow-plugin.vala system-management.vala $(NULL) \
+	$(am__append_1) $(am__append_5)
+GENERATED_C_FILES = $(libplugins_la_VALASOURCES:.vala=.c)
 libplugins_la_SOURCES = \
 	$(libplugins_la_VALASOURCES:.vala=.c) \
 	$(NULL)
@@ -315,8 +318,7 @@ libplugins_la_SOURCES = \
 BUILT_SOURCES = plugins.vala.stamp
 EXTRA_DIST = \
 	$(libplugins_la_VALASOURCES) \
-	plugins.vapi \
-	plugins.h
+	$(NULL)
 
 DISTCLEANFILES = \
 	$(libplugins_la_VALASOURCES:.vala=.c) \
@@ -396,6 +398,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-pastebin-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-rhythmbox-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-selection-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-ssh-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-system-management.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-test-slow-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libplugins_la-zeitgeist-plugin.Plo@am__quote@
@@ -463,6 +466,14 @@ libplugins_la-devhelp-search.lo: devhelp-search.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='devhelp-search.c' object='libplugins_la-devhelp-search.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-devhelp-search.lo `test -f 'devhelp-search.c' || echo '$(srcdir)/'`devhelp-search.c
+
+libplugins_la-ssh-plugin.lo: ssh-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-ssh-plugin.lo -MD -MP -MF $(DEPDIR)/libplugins_la-ssh-plugin.Tpo -c -o libplugins_la-ssh-plugin.lo `test -f 'ssh-plugin.c' || echo '$(srcdir)/'`ssh-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libplugins_la-ssh-plugin.Tpo $(DEPDIR)/libplugins_la-ssh-plugin.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ssh-plugin.c' object='libplugins_la-ssh-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -c -o libplugins_la-ssh-plugin.lo `test -f 'ssh-plugin.c' || echo '$(srcdir)/'`ssh-plugin.c
 
 libplugins_la-dictionary.lo: dictionary.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libplugins_la_CFLAGS) $(CFLAGS) -MT libplugins_la-dictionary.lo -MD -MP -MF $(DEPDIR)/libplugins_la-dictionary.Tpo -c -o libplugins_la-dictionary.lo `test -f 'dictionary.c' || echo '$(srcdir)/'`dictionary.c
@@ -680,6 +691,9 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
+	$(MAKE) $(AM_MAKEFLAGS) \
+	  top_distdir="$(top_distdir)" distdir="$(distdir)" \
+	  dist-hook
 check-am: all-am
 check: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) check-am
@@ -787,22 +801,27 @@ uninstall-am:
 .MAKE: all check install install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstLTLIBRARIES ctags distclean \
-	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
-	pdf pdf-am ps ps-am tags uninstall uninstall-am
+	clean-libtool clean-noinstLTLIBRARIES ctags dist-hook \
+	distclean distclean-compile distclean-generic \
+	distclean-libtool distclean-tags distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am
 
 
 plugins.vapi plugins.vala.stamp: $(libplugins_la_VALASOURCES) Makefile
 	$(AM_V_VALA)$(VALAC) $(libplugins_la_VALAFLAGS) -C -H plugins.h --library plugins $(filter %.vala %.c,$^)
 	touch $@
+
+# need to make sure the vala sources are rebuilt
+dist-hook:
+	rm -f $(addprefix $(distdir)/,$(GENERATED_C_FILES))
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

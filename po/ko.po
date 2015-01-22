@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-02-22 22:40+0100\n"
-"PO-Revision-Date: 2011-02-23 11:28+0000\n"
+"POT-Creation-Date: 2011-03-24 01:57+0100\n"
+"PO-Revision-Date: 2011-03-29 08:10+0000\n"
 "Last-Translator: Ernesto2k <boramism@gmail.com>\n"
 "Language-Team: Kim Boram <Boramism@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-02-24 06:13+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-03-30 05:55+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Search everything you do."
@@ -26,75 +26,77 @@ msgstr "원하는 모든 것을 검색합니다."
 msgid "Synapse"
 msgstr "시냅스"
 
-#: ../src/synapse-main.vala:93 ../src/ui-settings.vala:365
+#. activate has to stay in first position!
+#: ../src/synapse-main.vala:97 ../src/ui-settings.vala:244
 msgid "Activate"
 msgstr "활성화"
 
-#: ../src/ui-cairo-gtk-base.vala:66
+#: ../src/ui-cairo-gtk-base.vala:102
 msgid "Actions"
 msgstr "동작"
 
-#: ../src/ui-cairo-gtk-base.vala:67
+#: ../src/ui-cairo-gtk-base.vala:103
 msgid "Audio"
 msgstr "오디오"
 
-#: ../src/ui-cairo-gtk-base.vala:68
+#: ../src/ui-cairo-gtk-base.vala:104
 msgid "Applications"
 msgstr "응용 프로그램"
 
-#: ../src/ui-cairo-gtk-base.vala:69
+#: ../src/ui-cairo-gtk-base.vala:105
 msgid "All"
 msgstr "모두"
 
-#: ../src/ui-cairo-gtk-base.vala:70
+#: ../src/ui-cairo-gtk-base.vala:106
 msgid "Documents"
 msgstr "문서"
 
-#: ../src/ui-cairo-gtk-base.vala:71
+#: ../src/ui-cairo-gtk-base.vala:107
 msgid "Images"
 msgstr "그림"
 
-#: ../src/ui-cairo-gtk-base.vala:72
+#: ../src/ui-cairo-gtk-base.vala:108
 msgid "Video"
 msgstr "비디오"
 
-#: ../src/ui-cairo-gtk-base.vala:73
+#: ../src/ui-cairo-gtk-base.vala:109
 msgid "Internet"
 msgstr "인터넷"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:358 ../src/ui-cairo-gtk-virgilio.vala:378
-#: ../src/ui-widgets.vala:743
+#: ../src/ui-cairo-gtk-virgilio.vala:356 ../src/ui-cairo-gtk-virgilio.vala:375
+#: ../src/ui-widgets-matchlistview.vala:855
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>전체 %2$d 개 중 %1$d 번째</b>"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:388 ../src/ui-widgets.vala:729
+#: ../src/ui-cairo-gtk-virgilio.vala:385
+#: ../src/ui-widgets-matchlistview.vala:842
 msgid "Home"
 msgstr "홈"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:393 ../src/ui-cairo-gtk-virgilio.vala:425
-#: ../src/ui-widgets.vala:736
+#: ../src/ui-cairo-gtk-virgilio.vala:390 ../src/ui-cairo-gtk-virgilio.vala:421
+#: ../src/ui-widgets-matchlistview.vala:849
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>전체 1 개 중 %1$d 번째</b>"
 
-#: ../src/ui-interface.vala:352
+#: ../src/ui-interface.vala:552
 msgid "Searching..."
 msgstr "검색 중입니다..."
 
-#: ../src/ui-interface.vala:353
+#: ../src/ui-interface.vala:553
 msgid "No results found."
 msgstr "결과가 없습니다."
 
-#: ../src/ui-interface.vala:354
+#: ../src/ui-interface.vala:554
 msgid "No recent activities found."
 msgstr "최근 활동을 찾을 수 없습니다."
 
-#: ../src/ui-interface.vala:355
+#: ../src/ui-interface.vala:555
 msgid "Type to search..."
 msgstr "검색할 것을 입력하세요..."
 
-#: ../src/ui-interface.vala:438
+#: ../src/ui-interface.vala:653
 msgid "...or press down key to browse recent activities"
 msgstr "...아니면 아래 키를 누르신 후 최근 활동을 훑어보십시오."
 
@@ -114,11 +116,11 @@ msgstr "이 플러그인 사용 안 함"
 msgid "About this plugin"
 msgstr "이 플러그인의 정보"
 
-#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:208
+#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:211
 msgid "Configure plugin"
 msgstr "플러그인 설정"
 
-#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:415
+#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:463
 msgid "Disabled"
 msgstr "사용 안 함"
 
@@ -126,69 +128,134 @@ msgstr "사용 안 함"
 msgid "Enabled"
 msgstr "사용"
 
-#: ../src/ui-settings.vala:145
+#: ../src/ui-settings.vala:146
 msgid "Synapse - Settings"
 msgstr "시냅스 - 설정"
 
-#: ../src/ui-settings.vala:166
+#: ../src/ui-settings.vala:168
 msgid "Default"
 msgstr "기본값"
 
-#: ../src/ui-settings.vala:167
+#: ../src/ui-settings.vala:169
 msgid "Mini"
 msgstr "미니"
 
-#: ../src/ui-settings.vala:168
+#: ../src/ui-settings.vala:170
 msgid "Dual"
 msgstr "듀얼"
 
-#: ../src/ui-settings.vala:169
+#: ../src/ui-settings.vala:171
 msgid "Virgilio"
 msgstr "비르질리오"
 
-#: ../src/ui-settings.vala:275
+#: ../src/ui-settings.vala:172
+msgid "Do-ish"
+msgstr "그놈 두 테마"
+
+#: ../src/ui-settings.vala:245
+msgid "Execute"
+msgstr "실행"
+
+#: ../src/ui-settings.vala:246
+msgid "Execute without hiding"
+msgstr "숨기지 않고 실행"
+
+#: ../src/ui-settings.vala:247
+msgid "Alternative Delete"
+msgstr "대안 삭제"
+
+#: ../src/ui-settings.vala:248
+msgid "Next Result"
+msgstr "다음 결과"
+
+#: ../src/ui-settings.vala:249
+msgid "Previous Result"
+msgstr "이전 결과"
+
+#: ../src/ui-settings.vala:250
+msgid "First Result"
+msgstr "처음 결과"
+
+#: ../src/ui-settings.vala:251
+msgid "Last Result"
+msgstr "마지막 결과"
+
+#: ../src/ui-settings.vala:252
+msgid "Next 5 Results"
+msgstr "다음 5개의 결과"
+
+#: ../src/ui-settings.vala:253
+msgid "Previous 5 Results"
+msgstr "지난 5개의 결과"
+
+#: ../src/ui-settings.vala:254
+msgid "Next Category"
+msgstr "다음 범주"
+
+#: ../src/ui-settings.vala:255
+msgid "Previous Category"
+msgstr "이전 범주"
+
+#: ../src/ui-settings.vala:256
+msgid "Next Pane"
+msgstr "다음 패널"
+
+#: ../src/ui-settings.vala:257
+msgid "Previous Pane"
+msgstr "이전 패널"
+
+#: ../src/ui-settings.vala:258
+msgid "Paste"
+msgstr "붙여 넣기"
+
+#: ../src/ui-settings.vala:272
+msgid "Shortcut already in use"
+msgstr "바로 가기가 이미 사용 중입니다"
+
+#: ../src/ui-settings.vala:298
 msgid "General"
 msgstr "일반"
 
-#: ../src/ui-settings.vala:276
+#: ../src/ui-settings.vala:299
 msgid "Plugins"
 msgstr "플러그인"
 
-#: ../src/ui-settings.vala:282
+#: ../src/ui-settings.vala:305
 msgid "Behavior & Look"
 msgstr "행동 & 외형"
 
-#: ../src/ui-settings.vala:294
+#: ../src/ui-settings.vala:317
 msgid "Theme:"
 msgstr "테마:"
 
 #. Autostart checkbox
-#: ../src/ui-settings.vala:299
+#: ../src/ui-settings.vala:322
 msgid "Startup on login"
 msgstr "로그인할 때 시작"
 
 #. Notification icon
-#: ../src/ui-settings.vala:305
+#: ../src/ui-settings.vala:328
 msgid "Show notification icon"
 msgstr "알림 영역에 아이콘 보이기"
 
-#: ../src/ui-settings.vala:320
+#: ../src/ui-settings.vala:343
 msgid "Shortcuts"
 msgstr "바로 가기"
 
-#: ../src/ui-settings.vala:342
+#: ../src/ui-settings.vala:365
 msgid "Action"
 msgstr "동작"
 
-#: ../src/ui-settings.vala:359
+#: ../src/ui-settings.vala:402
 msgid "Shortcut"
 msgstr "바로 가기"
 
-#: ../src/ui-settings.vala:373
+#: ../src/ui-settings.vala:421
 msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr "바꾸고 싶은 바로 가기를 클릭한 후 새 바로 가기를 누르세요."
 
-#: ../src/ui-widgets.vala:714 ../src/ui-widgets.vala:734
+#: ../src/ui-widgets-matchlistview.vala:827
+#: ../src/ui-widgets-matchlistview.vala:847
 msgid "No results."
 msgstr "걸과가 없습니다."
 
@@ -558,6 +625,19 @@ msgstr "현재 선택한 텍스트로 실행 가능한 동작을 보여줍니다
 #: ../src/plugins/selection-plugin.vala:81
 msgid "Selected text"
 msgstr "선택한 텍스트"
+
+#. Plugin title
+#: ../src/plugins/ssh-plugin.vala:50
+msgid "Connect to host with SSH"
+msgstr "SSH로 호스트에 연결"
+
+#: ../src/plugins/ssh-plugin.vala:55
+msgid "ssh is not installed"
+msgstr "SSH를 설치하지 않았습니다"
+
+#: ../src/plugins/ssh-plugin.vala:167
+msgid "Connect with SSH"
+msgstr "SSH로 연결"
 
 #: ../src/plugins/system-management.vala:89
 msgid "Suspend"

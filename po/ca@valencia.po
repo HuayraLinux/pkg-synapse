@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-02-22 22:40+0100\n"
-"PO-Revision-Date: 2011-01-22 10:04+0000\n"
+"POT-Creation-Date: 2011-03-24 01:57+0100\n"
+"PO-Revision-Date: 2011-03-29 20:07+0000\n"
 "Last-Translator: Pau Iranzo <Unknown>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-02-23 06:16+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-03-30 05:56+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Search everything you do."
@@ -26,78 +26,81 @@ msgstr "Cerqueu tot allò que feu"
 msgid "Synapse"
 msgstr "Synapse"
 
-#: ../src/synapse-main.vala:93 ../src/ui-settings.vala:365
+#. activate has to stay in first position!
+#: ../src/synapse-main.vala:97 ../src/ui-settings.vala:244
 msgid "Activate"
-msgstr "Activa"
+msgstr "Activació"
 
-#: ../src/ui-cairo-gtk-base.vala:66
+#: ../src/ui-cairo-gtk-base.vala:102
 msgid "Actions"
 msgstr "Accions"
 
-#: ../src/ui-cairo-gtk-base.vala:67
+#: ../src/ui-cairo-gtk-base.vala:103
 msgid "Audio"
 msgstr "Àudio"
 
-#: ../src/ui-cairo-gtk-base.vala:68
+#: ../src/ui-cairo-gtk-base.vala:104
 msgid "Applications"
 msgstr "Aplicacions"
 
-#: ../src/ui-cairo-gtk-base.vala:69
+#: ../src/ui-cairo-gtk-base.vala:105
 msgid "All"
 msgstr "Tot"
 
-#: ../src/ui-cairo-gtk-base.vala:70
+#: ../src/ui-cairo-gtk-base.vala:106
 msgid "Documents"
 msgstr "Documents"
 
-#: ../src/ui-cairo-gtk-base.vala:71
+#: ../src/ui-cairo-gtk-base.vala:107
 msgid "Images"
 msgstr "Imatges"
 
-#: ../src/ui-cairo-gtk-base.vala:72
+#: ../src/ui-cairo-gtk-base.vala:108
 msgid "Video"
 msgstr "Vídeo"
 
-#: ../src/ui-cairo-gtk-base.vala:73
+#: ../src/ui-cairo-gtk-base.vala:109
 msgid "Internet"
 msgstr "Internet"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:358 ../src/ui-cairo-gtk-virgilio.vala:378
-#: ../src/ui-widgets.vala:743
+#: ../src/ui-cairo-gtk-virgilio.vala:356 ../src/ui-cairo-gtk-virgilio.vala:375
+#: ../src/ui-widgets-matchlistview.vala:855
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d de %d</b>"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:388 ../src/ui-widgets.vala:729
+#: ../src/ui-cairo-gtk-virgilio.vala:385
+#: ../src/ui-widgets-matchlistview.vala:842
 msgid "Home"
 msgstr "Inici"
 
-#: ../src/ui-cairo-gtk-virgilio.vala:393 ../src/ui-cairo-gtk-virgilio.vala:425
-#: ../src/ui-widgets.vala:736
+#: ../src/ui-cairo-gtk-virgilio.vala:390 ../src/ui-cairo-gtk-virgilio.vala:421
+#: ../src/ui-widgets-matchlistview.vala:849
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 de %d</b>"
 
-#: ../src/ui-interface.vala:352
+#: ../src/ui-interface.vala:552
 msgid "Searching..."
 msgstr "S'està cercant..."
 
-#: ../src/ui-interface.vala:353
+#: ../src/ui-interface.vala:553
 msgid "No results found."
 msgstr "No s'ha trobat cap resultat."
 
-#: ../src/ui-interface.vala:354
+#: ../src/ui-interface.vala:554
 msgid "No recent activities found."
 msgstr "No s'ha trobat cap activitat recent"
 
-#: ../src/ui-interface.vala:355
+#: ../src/ui-interface.vala:555
 msgid "Type to search..."
-msgstr "Escriu per cercar..."
+msgstr "Escriviu per cercar..."
 
-#: ../src/ui-interface.vala:438
+#: ../src/ui-interface.vala:653
 msgid "...or press down key to browse recent activities"
 msgstr ""
-"... o premeu la tecla de cursor avall per navegar per les activitats recents"
+"... o premeu la tecla de cursor cap avall per navegar per les activitats "
+"recents"
 
 #: ../src/ui-settings.vala:48
 msgid "Status"
@@ -113,13 +116,13 @@ msgstr "Inhabilita este connector"
 
 #: ../src/ui-settings.vala:57
 msgid "About this plugin"
-msgstr ""
+msgstr "Quant a este connector"
 
-#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:208
+#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:211
 msgid "Configure plugin"
-msgstr ""
+msgstr "Configura el connector"
 
-#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:415
+#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:463
 msgid "Disabled"
 msgstr "Inhabilitat"
 
@@ -127,69 +130,134 @@ msgstr "Inhabilitat"
 msgid "Enabled"
 msgstr "Habilitat"
 
-#: ../src/ui-settings.vala:145
+#: ../src/ui-settings.vala:146
 msgid "Synapse - Settings"
 msgstr "Synapse - Paràmetres"
 
-#: ../src/ui-settings.vala:166
+#: ../src/ui-settings.vala:168
 msgid "Default"
-msgstr "Per defecte"
+msgstr "Predeterminat"
 
-#: ../src/ui-settings.vala:167
+#: ../src/ui-settings.vala:169
 msgid "Mini"
 msgstr "Mini"
 
-#: ../src/ui-settings.vala:168
+#: ../src/ui-settings.vala:170
 msgid "Dual"
 msgstr "Dual"
 
-#: ../src/ui-settings.vala:169
+#: ../src/ui-settings.vala:171
 msgid "Virgilio"
 msgstr "Virgilio"
 
-#: ../src/ui-settings.vala:275
+#: ../src/ui-settings.vala:172
+msgid "Do-ish"
+msgstr "Do-ish"
+
+#: ../src/ui-settings.vala:245
+msgid "Execute"
+msgstr "Executa"
+
+#: ../src/ui-settings.vala:246
+msgid "Execute without hiding"
+msgstr "Executa sense amagar"
+
+#: ../src/ui-settings.vala:247
+msgid "Alternative Delete"
+msgstr "Esborrat alternatiu"
+
+#: ../src/ui-settings.vala:248
+msgid "Next Result"
+msgstr "Resultat següent"
+
+#: ../src/ui-settings.vala:249
+msgid "Previous Result"
+msgstr "Resultat anterior"
+
+#: ../src/ui-settings.vala:250
+msgid "First Result"
+msgstr "Primer resultat"
+
+#: ../src/ui-settings.vala:251
+msgid "Last Result"
+msgstr "Últim resultat"
+
+#: ../src/ui-settings.vala:252
+msgid "Next 5 Results"
+msgstr "Cinc resultats següents"
+
+#: ../src/ui-settings.vala:253
+msgid "Previous 5 Results"
+msgstr "Cinc resultats anteriors"
+
+#: ../src/ui-settings.vala:254
+msgid "Next Category"
+msgstr "Categoria següent"
+
+#: ../src/ui-settings.vala:255
+msgid "Previous Category"
+msgstr "Categoria anterior"
+
+#: ../src/ui-settings.vala:256
+msgid "Next Pane"
+msgstr "Subfinestra següent"
+
+#: ../src/ui-settings.vala:257
+msgid "Previous Pane"
+msgstr "Subfinestra anterior"
+
+#: ../src/ui-settings.vala:258
+msgid "Paste"
+msgstr "Apega"
+
+#: ../src/ui-settings.vala:272
+msgid "Shortcut already in use"
+msgstr "Ja s'està utilitzat esta drecera de teclat"
+
+#: ../src/ui-settings.vala:298
 msgid "General"
 msgstr "General"
 
-#: ../src/ui-settings.vala:276
+#: ../src/ui-settings.vala:299
 msgid "Plugins"
 msgstr "Connectors"
 
-#: ../src/ui-settings.vala:282
+#: ../src/ui-settings.vala:305
 msgid "Behavior & Look"
 msgstr "Aspecte i comportament"
 
-#: ../src/ui-settings.vala:294
+#: ../src/ui-settings.vala:317
 msgid "Theme:"
 msgstr "Tema:"
 
 #. Autostart checkbox
-#: ../src/ui-settings.vala:299
+#: ../src/ui-settings.vala:322
 msgid "Startup on login"
 msgstr "Inicia en entrar"
 
 #. Notification icon
-#: ../src/ui-settings.vala:305
+#: ../src/ui-settings.vala:328
 msgid "Show notification icon"
 msgstr "Mostra la icona de notificació"
 
-#: ../src/ui-settings.vala:320
+#: ../src/ui-settings.vala:343
 msgid "Shortcuts"
 msgstr "Dreceres"
 
-#: ../src/ui-settings.vala:342
+#: ../src/ui-settings.vala:365
 msgid "Action"
 msgstr "Acció"
 
-#: ../src/ui-settings.vala:359
+#: ../src/ui-settings.vala:402
 msgid "Shortcut"
 msgstr "Drecera"
 
-#: ../src/ui-settings.vala:373
+#: ../src/ui-settings.vala:421
 msgid "Click the shortcut you wish to change and press the new shortcut."
-msgstr "Feu clic a la drecera que voleu canviar i premeu la nova drecera."
+msgstr "Feu clic a la drecera que voleu canviar i premeu la drecera nova."
 
-#: ../src/ui-widgets.vala:714 ../src/ui-widgets.vala:734
+#: ../src/ui-widgets-matchlistview.vala:827
+#: ../src/ui-widgets-matchlistview.vala:847
 msgid "No results."
 msgstr "Cap resultat."
 
@@ -227,11 +295,11 @@ msgstr "Obri la carpeta que conté este fitxer"
 
 #: ../src/core/common-actions.vala:281
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Copia al porta-retalls"
 
 #: ../src/core/common-actions.vala:282
 msgid "Copy selection to clipboard"
-msgstr ""
+msgstr "Copia la selecció al porta-retalls"
 
 #: ../src/plugins/banshee-plugin.vala:73
 msgid "Control Banshee and add items to playlists."
@@ -244,7 +312,7 @@ msgstr "Banshee no està instal·lat"
 #: ../src/plugins/banshee-plugin.vala:142
 #: ../src/plugins/rhythmbox-plugin.vala:153
 msgid "Play"
-msgstr "Repriodueix"
+msgstr "Reprodueix"
 
 #: ../src/plugins/banshee-plugin.vala:143
 msgid "Start playback in Banshee"
@@ -253,11 +321,11 @@ msgstr "Inicia la reproducció al Banshee"
 #: ../src/plugins/banshee-plugin.vala:170
 #: ../src/plugins/rhythmbox-plugin.vala:204
 msgid "Pause"
-msgstr "Pausa"
+msgstr "Fes una pausa"
 
 #: ../src/plugins/banshee-plugin.vala:171
 msgid "Pause playback in Banshee"
-msgstr "Pausa la reproducció al Banshee"
+msgstr "Posa en pausa la reproducció al Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:192
 #: ../src/plugins/rhythmbox-plugin.vala:220
@@ -300,11 +368,11 @@ msgstr "Calculadora"
 
 #: ../src/plugins/calculator-plugin.vala:64
 msgid "Calculate basic expressions."
-msgstr ""
+msgstr "Calcula expressions bàsiques."
 
 #: ../src/plugins/calculator-plugin.vala:68
 msgid "bc is not installed"
-msgstr "bc no està instal·lat"
+msgstr "El bc no està instal·lat"
 
 #: ../src/plugins/command-plugin.vala:56
 msgid "Run command"
@@ -338,11 +406,11 @@ msgstr "Cerca documentació per a este símbol"
 
 #: ../src/plugins/devhelp-search.vala:78
 msgid "Search documentation using Devhelp."
-msgstr "Cerca a la documentació fent servir Devhelp."
+msgstr "Cerca a la documentació fent servir el Devhelp."
 
 #: ../src/plugins/devhelp-search.vala:82
 msgid "Devhelp is not installed"
-msgstr "Devhelp no està instal·lat"
+msgstr "El Devhelp no està instal·lat"
 
 #: ../src/plugins/dictionary.vala:67
 msgid "Define"
@@ -358,7 +426,7 @@ msgstr "Cerca definicions de paraules"
 
 #: ../src/plugins/dictionary.vala:82
 msgid "Gnome Dictionary is not installed"
-msgstr "El Gnome Dictionary no està instal·lat"
+msgstr "El diccionari del GNOME no està instal·lat"
 
 #: ../src/plugins/directory-plugin.vala:125
 msgid "Open commonly used directories."
@@ -383,76 +451,81 @@ msgstr "No s'ha trobat el programa d'estalvi de pantalla"
 #: ../src/plugins/hybrid-search-plugin.vala:86
 msgid "Improve results returned by the Zeitgeist plugin by looking "
 msgstr ""
+"Millora els resultats que retorna el connector del Zeitgeist en mirar "
 
 #: ../src/plugins/imgur-plugin.vala:50
 msgid "Upload to imgur"
-msgstr ""
+msgstr "Puja a l'imgur"
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload selection to imgur image sharer"
-msgstr ""
+msgstr "Carrega la selecció al compartidor d'imatges imgur"
 
 #: ../src/plugins/imgur-plugin.vala:171
 #: ../src/plugins/pastebin-plugin.vala:157
 msgid ""
 "The selection was successfully uploaded and its URL was copied to clipboard."
-msgstr ""
+msgstr "S'ha carregat la selecció i s'ha copiat l'URL al porta-retalls"
 
 #: ../src/plugins/imgur-plugin.vala:175
 #: ../src/plugins/pastebin-plugin.vala:161
 msgid ""
 "An error occurred during upload, please check the log for more information."
 msgstr ""
+"S'ha produït un error en la càrrega, comproveu el registre per a més "
+"informació."
 
 #: ../src/plugins/imgur-plugin.vala:183
 msgid "Synapse - Imgur"
-msgstr ""
+msgstr "Synapse - Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:239
 msgid "Imgur"
-msgstr ""
+msgstr "Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:240
 msgid "Share images using imgur."
-msgstr ""
+msgstr "Compartiu les vostres imatges amb imgur."
 
 #: ../src/plugins/launchpad-plugin.vala:45
 msgid "Authorize with Launchpad"
-msgstr ""
+msgstr "Autoritza amb el Launchpad"
 
 #: ../src/plugins/launchpad-plugin.vala:52
 msgid ""
 "Please press the Finish button once you login to Launchpad with your web "
 "browser"
 msgstr ""
+"Premeu el botó «Finalitza» quan vos hàgeu connectat al Launchpad amb el "
+"vostre navegador"
 
 #: ../src/plugins/launchpad-plugin.vala:55
 msgid "Finish authorization"
-msgstr ""
+msgstr "Finalitza l'autorització"
 
 #: ../src/plugins/launchpad-plugin.vala:261
 msgid "Find bugs and branches on Launchpad."
-msgstr ""
+msgstr "Troba errors i branques al Launchpad."
 
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
-msgstr ""
+msgstr "Launchpad: branques Bazaar per %s"
 
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
-msgstr ""
+msgstr "Launchpad: sèries %s per al projecte %s"
 
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
-msgstr ""
+msgstr "Launchpad: branca Bazaar %s"
 
 #: ../src/plugins/launchpad-plugin.vala:341
 #, c-format
 msgid "Launchpad: Bug #%s"
-msgstr ""
+msgstr "Launchpad: Error #%s"
 
 #: ../src/plugins/locate-plugin.vala:94 ../src/plugins/locate-plugin.vala:104
 msgid "Locate"
@@ -493,23 +566,23 @@ msgstr "Cerca fent servir Google Maps"
 #: ../src/plugins/pastebin-plugin.vala:42
 #: ../src/plugins/pastebin-plugin.vala:233
 msgid "Pastebin"
-msgstr ""
+msgstr "Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:43
 msgid "Pastebin selection"
-msgstr ""
+msgstr "Selecció pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:169
 msgid "Synapse - Pastebin"
-msgstr ""
+msgstr "Synapse - Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:234
 msgid "Upload files to pastebin."
-msgstr ""
+msgstr "Carrega els fitxers a pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:238
 msgid "Unable to find \"pastebinit\" program"
-msgstr ""
+msgstr "No es pot trobar el programa «pastebinit»"
 
 #: ../src/plugins/rhythmbox-plugin.vala:84
 msgid "Control Rhythmbox and add items to playlists."
@@ -551,24 +624,37 @@ msgstr "Reprodueix al Rhythmbox"
 
 #: ../src/plugins/selection-plugin.vala:55
 msgid "Selection"
-msgstr ""
+msgstr "Selecció"
 
 #. plugin title
 #: ../src/plugins/selection-plugin.vala:56
 msgid "Provides actions for currently selected text."
-msgstr ""
+msgstr "Proveeix accions per text seleccionat actualment."
 
 #: ../src/plugins/selection-plugin.vala:81
 msgid "Selected text"
-msgstr ""
+msgstr "Text seleccionat"
+
+#. Plugin title
+#: ../src/plugins/ssh-plugin.vala:50
+msgid "Connect to host with SSH"
+msgstr "Connecta a l'amfitrió per SSH"
+
+#: ../src/plugins/ssh-plugin.vala:55
+msgid "ssh is not installed"
+msgstr "ssh no està instal·lat"
+
+#: ../src/plugins/ssh-plugin.vala:167
+msgid "Connect with SSH"
+msgstr "Connecta amb SSH"
 
 #: ../src/plugins/system-management.vala:89
 msgid "Suspend"
-msgstr "Atura temporalment"
+msgstr "Para temporalment"
 
 #: ../src/plugins/system-management.vala:90
 msgid "Put your computer into suspend mode"
-msgstr "Posa el l'ordinador en mode d'aturada temporal"
+msgstr "Posa el l'ordinador en mode d'parada temporal"
 
 #: ../src/plugins/system-management.vala:159
 msgid "Hibernate"
@@ -580,11 +666,11 @@ msgstr "Posa l'ordinador en mode d'hibernació"
 
 #: ../src/plugins/system-management.vala:228
 msgid "Shut Down"
-msgstr "Atura"
+msgstr "Para"
 
 #: ../src/plugins/system-management.vala:229
 msgid "Turn your computer off"
-msgstr "Atura el vostre ordinador"
+msgstr "Para el vostre ordinador"
 
 #: ../src/plugins/system-management.vala:286
 msgid "Restart"
@@ -596,7 +682,7 @@ msgstr "Reinicia el vostre ordinador"
 
 #: ../src/plugins/system-management.vala:345
 msgid "Suspend, hibernate, restart or shutdown your computer."
-msgstr "Atura temporalment, hiberna, reinicia o atura el vostre ordinador."
+msgstr "Para temporalment, hiberna, reinicia o para el vostre ordinador."
 
 #: ../src/plugins/system-management.vala:349
 msgid "ConsoleKit wasn't found"
@@ -651,9 +737,6 @@ msgstr "El Zeitgeist no està instal·lat"
 #~ msgid "Gnome Session Manager wan't found"
 #~ msgstr "No s'ha trobat el Gnome Session Manager"
 
-#~ msgid "Log Out"
-#~ msgstr "Ix"
-
 #~ msgid "Close your session and return to the login screen"
 #~ msgstr "Tanca la sessió i torna a la pantalla d'entrada"
 
@@ -675,9 +758,6 @@ msgstr "El Zeitgeist no està instal·lat"
 
 #~ msgid "Calculate basic expressions"
 #~ msgstr "Calcula expressions bàsiques"
-
-#~ msgid "Log out from your session."
-#~ msgstr "Ix de la vostra sessió."
 
 #~ msgid "Gnome Session Manager wasn't found"
 #~ msgstr "No s'ha trobat el gestor de sessions del GNOME"
@@ -727,3 +807,9 @@ msgstr "El Zeitgeist no està instal·lat"
 
 #~ msgid "Search the web using Google.com"
 #~ msgstr "Cerca al web fent servir Google.com"
+
+#~ msgid "Log Out"
+#~ msgstr "Surt"
+
+#~ msgid "Log out from your session."
+#~ msgstr "Surt de la vostra sessió."

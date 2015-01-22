@@ -23,8 +23,10 @@ namespace Synapse
   private class ZeitgeistRelevancyBackend: Object, RelevancyBackend
   {
     private Zeitgeist.Log zg_log;
+    private Zeitgeist.DataSourceRegistry zg_dsr;
     private Gee.Map<string, int> application_popularity;
     private Gee.Map<string, int> uri_popularity;
+    private bool has_datahub_gio_module = false;
 
     private const float MULTIPLIER = 65535.0f;
 
@@ -35,8 +37,27 @@ namespace Synapse
       uri_popularity = new Gee.HashMap<string, int> ();
 
       refresh_popularity ();
+      check_data_sources ();
 
       Timeout.add_seconds (60*30, refresh_popularity);
+    }
+
+    private async void check_data_sources ()
+    {
+      zg_dsr = new Zeitgeist.DataSourceRegistry ();
+      var ptr_arr = yield zg_dsr.get_data_sources (null);
+
+      for (uint i=0; i < ptr_arr.len; i++)
+      {
+        unowned Zeitgeist.DataSource ds;
+        ds = (Zeitgeist.DataSource) ptr_arr.index (i);
+        if (ds.get_unique_id () == "com.zeitgeist-project,datahub,gio-launch-listener"
+            && ds.is_enabled ())
+        {
+          has_datahub_gio_module = true;
+          break;
+        }
+      }
     }
 
     private bool refresh_popularity ()
@@ -218,6 +239,7 @@ namespace Synapse
     
     public void application_launched (AppInfo app_info)
     {
+      // FIXME: get rid of this maverick-specific workaround
       // detect if the Zeitgeist GIO module is installed
       Type zg_gio_module = Type.from_name ("GAppLaunchHandlerZeitgeist");
       // FIXME: perhaps we should check app_info.should_show?
@@ -226,6 +248,12 @@ namespace Synapse
       if (zg_gio_module != 0)
       {
         Utils.Logger.debug (this, "libzg-gio-module detected, not pushing");
+        reload_relevancies ();
+        return;
+      }
+
+      if (has_datahub_gio_module)
+      {
         reload_relevancies ();
         return;
       }

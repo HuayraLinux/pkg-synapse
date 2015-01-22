@@ -208,11 +208,8 @@ namespace Synapse
     
     private static void update_min_max (string uri, ref long minimum, ref long maximum)
     {
-#if VALA_0_12
       long len = uri.length;
-#else
-      long len = (long) uri.size ();
-#endif
+
       if (len > maximum) maximum = len;
       if (len < minimum) minimum = len;
     }
@@ -297,7 +294,7 @@ namespace Synapse
             if (cancellable.is_cancelled ()) return;
             else if (!exists) continue;
             
-            icon = g_content_type_get_icon ("application/x-note").to_string ();
+            icon = ContentType.get_icon ("application/x-note").to_string ();
           }
           else if (local_only)
           {
@@ -309,7 +306,7 @@ namespace Synapse
             unowned string mimetype = subject.get_mimetype ();
             if (mimetype != null && mimetype != "")
             {
-              icon = g_content_type_get_icon (mimetype).to_string ();
+              icon = ContentType.get_icon (mimetype).to_string ();
             }
             // we want to increase relevancy of shorter URL, so we'll do this
             if (uri.has_prefix ("http"))
@@ -324,7 +321,14 @@ namespace Synapse
           bool match_found = false;
           foreach (var matcher in matchers)
           {
-            if (matcher.key.match (match_obj.title))
+            string? adjusted_title = null;
+            if (uri.has_prefix ("http"))
+            {
+              // FIXME: uri unescape?
+              adjusted_title = "%s (%s)".printf (match_obj.title, uri);
+            }
+
+            if (matcher.key.match (adjusted_title ?? match_obj.title))
             {
               int relevancy = compute_relevancy (uri, matcher.value - relevancy_penalty);
               results.add (match_obj, relevancy);
@@ -341,13 +345,11 @@ namespace Synapse
         var mo = entry.key as MatchObject;
         if (mo.uri != null && mo.uri.has_prefix ("http") && minimum != maximum)
         {
-#if VALA_0_12
           long len = mo.uri.length;
-#else
-          long len = (long) mo.uri.size ();
-#endif
+
           float mult = (len - minimum) / (float)(maximum - minimum);
           int adjusted_relevancy = entry.value - (int)(mult * Match.Score.INCREMENT_MINOR);
+          if (mo.uri.index_of ("?") != -1) adjusted_relevancy -= Match.Score.INCREMENT_SMALL;
           real_results.add (mo, adjusted_relevancy);
         }
         else
@@ -424,7 +426,7 @@ namespace Synapse
             unowned string mimetype = subject.get_mimetype ();
             if (mimetype != null && mimetype != "")
             {
-              icon = g_content_type_get_icon (mimetype).to_string ();
+              icon = ContentType.get_icon (mimetype).to_string ();
             }
           }
 
@@ -620,7 +622,7 @@ namespace Synapse
         }
         else
         {
-          string[] words = Regex.split_simple ("\\s+", search_query);
+          string[] words = Regex.split_simple ("\\s+|\\.+(?!\\d)", search_query);
           search_query = "(%s*)".printf (string.joinv ("* ", words));
           rs = yield zg_index.search (search_query,
                                       new Zeitgeist.TimeRange (int64.MIN, int64.MAX),

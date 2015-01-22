@@ -85,8 +85,12 @@ namespace Synapse.Gui
       results_container = new HSelectionContainer (null, 0);
       results_container.set_separator_visible (false);
       
-      results_match = new ResultBox (450);
-      results_action = new ResultBox (450);
+      results_match = new ResultBox (UI_WIDTH - PADDING * 2 - SHADOW_SIZE * 2);
+      results_action = new ResultBox (UI_WIDTH - PADDING * 2 - SHADOW_SIZE * 2);
+      results_match.get_match_list_view ().selected_index_changed.connect (this.set_selection_match);
+      results_action.get_match_list_view ().selected_index_changed.connect (this.set_selection_action);
+      results_match.get_match_list_view ().fire_item.connect (this.command_execute);
+      results_action.get_match_list_view ().fire_item.connect (this.command_execute);
       results_container.add (results_match);
       results_container.add (results_action);
       var hbox_result_box = new HBox (true, 0);
@@ -110,8 +114,6 @@ namespace Synapse.Gui
       match_icon_container_overlayed = new ContainerOverlayed();
       match_icon_thumb = new NamedIcon();
       match_icon_thumb.set_pixel_size (ICON_SIZE / 2);
-      match_icon_thumb.update_timeout = 400;
-      match_icon_thumb.stop_prev_timeout = true;
       match_icon = new NamedIcon ();
       match_icon.set_size_request (ICON_SIZE, ICON_SIZE);
       match_icon.set_pixel_size (ICON_SIZE);
@@ -119,26 +121,21 @@ namespace Synapse.Gui
             (match_icon, ContainerOverlayed.Position.MAIN);
       match_icon_container_overlayed.set_widget_in_position 
             (match_icon_thumb, ContainerOverlayed.Position.BOTTOM_LEFT);
-      top_hbox.pack_start (match_icon_container_overlayed, false);
+
+      var sensitive = new SensitiveWidget (match_icon_container_overlayed);
+      this.make_draggable (sensitive);
+      top_hbox.pack_start (sensitive, false);
       
       /* VBox to push down the right area */
       var top_right_vbox = new VBox (false, 0);
       top_hbox.pack_start (top_right_vbox);
       /* Top Spacer */
       top_spacer = new Label(null);
-      /* flag_selector */
-      flag_selector = new HTextSelector();
-      foreach (string s in this.categories)
-      {
-        flag_selector.add_text (s);
-      }
-      flag_selector.selected = 3;
 
       /* Throbber and menu */
       menuthrobber = new MenuThrobber ();
       menu = (MenuButton) menuthrobber;
       menuthrobber.set_size_request (ACTION_ICON_SIZE, 22);
-      menuthrobber.settings_clicked.connect (()=>{this.show_settings_clicked ();});
       /* HBox for titles and action icon */
       var right_hbox = new HBox (false, 0);
       /* HBox for menuthrobber and flag_selector */
@@ -244,20 +241,11 @@ namespace Synapse.Gui
                                        ICON_SIZE, BORDER_RADIUS);
         ctx.fill ();
         Utils.cairo_rounded_rect (ctx, 0, spacing,
-                                       container_top.allocation.width + SHADOW_SIZE * 2, 
-                                       container_top.allocation.height + SHADOW_SIZE * 2 - spacing,
+                                       UI_WIDTH + PADDING * 2, 
+                                       list_visible ? h : container_top.allocation.height + SHADOW_SIZE * 2 - spacing,
                                        BORDER_RADIUS);
         ctx.fill ();
-        if (list_visible)
-        {
-          results_container.size_request (out req);
-              
-          ctx.rectangle ((w - req.width) / 2,
-                         container_top.allocation.height,
-                         req.width,
-                         h - container_top.allocation.height);
-          ctx.fill ();
-        }
+        add_kde_compatibility (window, req.width, req.height);
       }
       else
       {
@@ -372,12 +360,7 @@ namespace Synapse.Gui
     
     private string get_description_markup (string s)
     {
-      // FIXME: i18n
-      if (s == "") return "<span size=\"medium\"> </span>";
-
-      return Utils.markup_string_with_search (Utils.replace_home_path_with (s, "Home", " > "),
-                                             get_match_search (),
-                                             "medium");
+      return "<span size=\"medium\">%s</span>".printf (s);
     }
 
     /* UI INTERFACE IMPLEMENTATION */
@@ -436,7 +419,10 @@ namespace Synapse.Gui
           match_icon_thumb.clear ();
 
         match_label.set_markup (Utils.markup_string_with_search (match.title, get_match_search (), size, true));
-        match_label_description.set_markup (get_description_markup (match.description));
+        match_label_description.set_markup (
+              Utils.markup_string_with_search (Utils.get_printable_description (match),
+                                               get_match_search (),
+                                               "medium"));
       }
       results_match.move_selection_to_index (index);
     }

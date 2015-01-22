@@ -265,17 +265,22 @@ libtileview_la_VALASOURCES = \
 	wrap-label.vala \
 	$(NULL)
 
+GENERATED_C_FILES = $(libtileview_la_VALASOURCES:.vala=.c)
 libtileview_la_SOURCES = \
-	tile-view.vala.stamp \
 	$(libtileview_la_VALASOURCES:.vala=.c) \
 	$(NULL)
 
 BUILT_SOURCES = tile-view.vala.stamp
 EXTRA_DIST = \
 	$(libtileview_la_VALASOURCES) \
-	tile-view.vapi \
-	tile-view.vala.stamp \
-	tile-view.h
+	$(NULL)
+
+DISTCLEANFILES = \
+        $(libtileview_la_VALASOURCES:.vala=.c) \
+        tile-view.vala.stamp \
+        tile-view.vapi \
+        tile-view.h \
+        $(NULL)
 
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -479,6 +484,9 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
+	$(MAKE) $(AM_MAKEFLAGS) \
+	  top_distdir="$(top_distdir)" distdir="$(distdir)" \
+	  dist-hook
 check-am: all-am
 check: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) check-am
@@ -506,6 +514,7 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -585,22 +594,27 @@ uninstall-am:
 .MAKE: all check install install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstLTLIBRARIES ctags distclean \
-	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
-	pdf pdf-am ps ps-am tags uninstall uninstall-am
+	clean-libtool clean-noinstLTLIBRARIES ctags dist-hook \
+	distclean distclean-compile distclean-generic \
+	distclean-libtool distclean-tags distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am
 
 
 tile-view.vapi tile-view.vala.stamp: $(libtileview_la_VALASOURCES)
 	$(AM_V_VALA)$(VALAC) $(libtileview_la_VALAFLAGS) -C -H tile-view.h --library tile-view $^
 	touch $@
+
+# need to make sure the vala sources are rebuilt
+dist-hook:
+	rm -f $(addprefix $(distdir)/,$(GENERATED_C_FILES))
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
