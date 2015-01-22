@@ -1,0 +1,688 @@
+# Romanian translation for synapse-project
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the synapse-project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: synapse-project\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-02-22 22:40+0100\n"
+"PO-Revision-Date: 2011-01-24 12:26+0000\n"
+"Last-Translator: Brăete Marius <Unknown>\n"
+"Language-Team: Romanian <ro@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
+"== 0) && (n != 0))) ? 2: 1));\n"
+"X-Launchpad-Export-Date: 2011-02-23 06:16+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
+
+#: ../data/synapse.desktop.in.h:1
+msgid "Search everything you do."
+msgstr "Cauta orice faci."
+
+#: ../data/synapse.desktop.in.h:2
+msgid "Synapse"
+msgstr "Synapse"
+
+#: ../src/synapse-main.vala:93 ../src/ui-settings.vala:365
+msgid "Activate"
+msgstr "Activează"
+
+#: ../src/ui-cairo-gtk-base.vala:66
+msgid "Actions"
+msgstr "Acțiuni"
+
+#: ../src/ui-cairo-gtk-base.vala:67
+msgid "Audio"
+msgstr "Audio"
+
+#: ../src/ui-cairo-gtk-base.vala:68
+msgid "Applications"
+msgstr "Aplicații"
+
+#: ../src/ui-cairo-gtk-base.vala:69
+msgid "All"
+msgstr "Toate"
+
+#: ../src/ui-cairo-gtk-base.vala:70
+msgid "Documents"
+msgstr "Documente"
+
+#: ../src/ui-cairo-gtk-base.vala:71
+msgid "Images"
+msgstr "Imagini"
+
+#: ../src/ui-cairo-gtk-base.vala:72
+msgid "Video"
+msgstr "Video"
+
+#: ../src/ui-cairo-gtk-base.vala:73
+msgid "Internet"
+msgstr "Internet"
+
+#: ../src/ui-cairo-gtk-virgilio.vala:358 ../src/ui-cairo-gtk-virgilio.vala:378
+#: ../src/ui-widgets.vala:743
+#, c-format
+msgid "<b>%d of %d</b>"
+msgstr "<b>%d din %d</b>"
+
+#: ../src/ui-cairo-gtk-virgilio.vala:388 ../src/ui-widgets.vala:729
+msgid "Home"
+msgstr "Dosar personal"
+
+#: ../src/ui-cairo-gtk-virgilio.vala:393 ../src/ui-cairo-gtk-virgilio.vala:425
+#: ../src/ui-widgets.vala:736
+#, c-format
+msgid "<b>1 of %d</b>"
+msgstr "<b>1 din %d</b>"
+
+#: ../src/ui-interface.vala:352
+msgid "Searching..."
+msgstr "Se caută..."
+
+#: ../src/ui-interface.vala:353
+msgid "No results found."
+msgstr "Niciun rezultat găsit."
+
+#: ../src/ui-interface.vala:354
+msgid "No recent activities found."
+msgstr "Nicio activitate recentă gasită."
+
+#: ../src/ui-interface.vala:355
+msgid "Type to search..."
+msgstr "Tastează pentru a căuta..."
+
+#: ../src/ui-interface.vala:438
+msgid "...or press down key to browse recent activities"
+msgstr ""
+"sau apasa tasta Sageata Jos pentru a naviga prin activitatiile recente"
+
+#: ../src/ui-settings.vala:48
+msgid "Status"
+msgstr "Stare"
+
+#: ../src/ui-settings.vala:50
+msgid "Enable this plugin"
+msgstr "Activează acest modul"
+
+#: ../src/ui-settings.vala:51
+msgid "Disable this plugin"
+msgstr "Dezactivează acest modul"
+
+#: ../src/ui-settings.vala:57
+msgid "About this plugin"
+msgstr ""
+
+#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:208
+msgid "Configure plugin"
+msgstr ""
+
+#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:415
+msgid "Disabled"
+msgstr "Dezactivat"
+
+#: ../src/ui-settings.vala:92
+msgid "Enabled"
+msgstr "Activat"
+
+#: ../src/ui-settings.vala:145
+msgid "Synapse - Settings"
+msgstr "Synapse - Setări"
+
+#: ../src/ui-settings.vala:166
+msgid "Default"
+msgstr "Implicit"
+
+#: ../src/ui-settings.vala:167
+msgid "Mini"
+msgstr "Mini"
+
+#: ../src/ui-settings.vala:168
+msgid "Dual"
+msgstr "Dual"
+
+#: ../src/ui-settings.vala:169
+msgid "Virgilio"
+msgstr "Virgilio"
+
+#: ../src/ui-settings.vala:275
+msgid "General"
+msgstr "General"
+
+#: ../src/ui-settings.vala:276
+msgid "Plugins"
+msgstr "Module"
+
+#: ../src/ui-settings.vala:282
+msgid "Behavior & Look"
+msgstr "Comportament și Înfățișare"
+
+#: ../src/ui-settings.vala:294
+msgid "Theme:"
+msgstr "Temă:"
+
+#. Autostart checkbox
+#: ../src/ui-settings.vala:299
+msgid "Startup on login"
+msgstr "Pornește la autentificare."
+
+#. Notification icon
+#: ../src/ui-settings.vala:305
+msgid "Show notification icon"
+msgstr "Arată iconița de notificare"
+
+#: ../src/ui-settings.vala:320
+msgid "Shortcuts"
+msgstr "Scurtături"
+
+#: ../src/ui-settings.vala:342
+msgid "Action"
+msgstr "Acțiune"
+
+#: ../src/ui-settings.vala:359
+msgid "Shortcut"
+msgstr "Comandă rapidă"
+
+#: ../src/ui-settings.vala:373
+msgid "Click the shortcut you wish to change and press the new shortcut."
+msgstr ""
+"Faceți clic pe comanda rapidă pe care doriți să o modificați și apăsați noua "
+"comandă rapidă."
+
+#: ../src/ui-widgets.vala:714 ../src/ui-widgets.vala:734
+msgid "No results."
+msgstr "Niciun rezultat."
+
+#: ../src/core/common-actions.vala:68
+msgid "Run"
+msgstr "Execută"
+
+#: ../src/core/common-actions.vala:69
+msgid "Run an application, action or script"
+msgstr "Execută o aplicație, acțiune sau script"
+
+#: ../src/core/common-actions.vala:123
+msgid "Run in Terminal"
+msgstr "Execută în terminal"
+
+#: ../src/core/common-actions.vala:124
+msgid "Run application or command in terminal"
+msgstr "Execută aplicația sau comanda în terminal"
+
+#: ../src/core/common-actions.vala:171
+msgid "Open"
+msgstr "Deschide"
+
+#: ../src/core/common-actions.vala:172
+msgid "Open using default application"
+msgstr "Deschide utilizând aplicația implicită"
+
+#: ../src/core/common-actions.vala:241
+msgid "Open folder"
+msgstr "Deschide dosar"
+
+#: ../src/core/common-actions.vala:242
+msgid "Open folder containing this file"
+msgstr "Deschide dosarul care conține acest fișier"
+
+#: ../src/core/common-actions.vala:281
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: ../src/core/common-actions.vala:282
+msgid "Copy selection to clipboard"
+msgstr ""
+
+#: ../src/plugins/banshee-plugin.vala:73
+msgid "Control Banshee and add items to playlists."
+msgstr "Controlează Banshee și adaugă elemente la lista de redare."
+
+#: ../src/plugins/banshee-plugin.vala:77
+msgid "Banshee is not installed"
+msgstr "Banshee nu este instalat."
+
+#: ../src/plugins/banshee-plugin.vala:142
+#: ../src/plugins/rhythmbox-plugin.vala:153
+msgid "Play"
+msgstr "Redare"
+
+#: ../src/plugins/banshee-plugin.vala:143
+msgid "Start playback in Banshee"
+msgstr "Redă în Banshee"
+
+#: ../src/plugins/banshee-plugin.vala:170
+#: ../src/plugins/rhythmbox-plugin.vala:204
+msgid "Pause"
+msgstr "Pauză"
+
+#: ../src/plugins/banshee-plugin.vala:171
+msgid "Pause playback in Banshee"
+msgstr "Întrerupe redarea în Banshee"
+
+#: ../src/plugins/banshee-plugin.vala:192
+#: ../src/plugins/rhythmbox-plugin.vala:220
+msgid "Next"
+msgstr "Următoare"
+
+#: ../src/plugins/banshee-plugin.vala:193
+msgid "Plays the next song in Banshee's playlist"
+msgstr "Redă melodia următoare din lista de redare a Banshee"
+
+#: ../src/plugins/banshee-plugin.vala:215
+#: ../src/plugins/rhythmbox-plugin.vala:243
+msgid "Previous"
+msgstr "Precedentă"
+
+#: ../src/plugins/banshee-plugin.vala:216
+msgid "Plays the previous song in Banshee's playlist"
+msgstr "Redă melodia precedentă din lista de redare a Banshee"
+
+#: ../src/plugins/banshee-plugin.vala:239
+msgid "Enqueue in Banshee"
+msgstr "Adaugă la coada listei de redare a Banshee"
+
+#: ../src/plugins/banshee-plugin.vala:240
+msgid "Add the song to Banshee playlist"
+msgstr "Adaugă melodia în lista de redare a Banshee"
+
+#: ../src/plugins/banshee-plugin.vala:282
+msgid "Play in Banshee"
+msgstr "Redă în Banshee"
+
+#: ../src/plugins/banshee-plugin.vala:283
+#: ../src/plugins/rhythmbox-plugin.vala:316
+msgid "Clears the current playlist and plays the song"
+msgstr "Golește lista de redare curentă și redă melodia"
+
+#: ../src/plugins/calculator-plugin.vala:63
+msgid "Calculator"
+msgstr "Calculator"
+
+#: ../src/plugins/calculator-plugin.vala:64
+msgid "Calculate basic expressions."
+msgstr ""
+
+#: ../src/plugins/calculator-plugin.vala:68
+msgid "bc is not installed"
+msgstr "bc nu este instalat"
+
+#: ../src/plugins/command-plugin.vala:56
+msgid "Run command"
+msgstr "Executa comanda"
+
+#: ../src/plugins/command-plugin.vala:77
+msgid "Find and execute arbitrary commands."
+msgstr "Găsește și executa comenzi arbitrare."
+
+#: ../src/plugins/desktop-file-plugin.vala:90
+msgid "Search for and run applications on your computer."
+msgstr "Caută și execută aplicații pe calculator."
+
+#: ../src/plugins/desktop-file-plugin.vala:263
+#, c-format
+msgid "Open with %s"
+msgstr "Deschide cu %s"
+
+#: ../src/plugins/desktop-file-plugin.vala:265
+#, c-format
+msgid "Opens current selection using %s"
+msgstr "Deschide selecția curentă folosind %s"
+
+#: ../src/plugins/devhelp-search.vala:67
+msgid "Search in Devhelp"
+msgstr "Caută folosind Devhelp"
+
+#: ../src/plugins/devhelp-search.vala:68
+msgid "Search documentation for this symbol"
+msgstr "Caută documentație pentru acest simbol"
+
+#: ../src/plugins/devhelp-search.vala:78
+msgid "Search documentation using Devhelp."
+msgstr "Căuta documentație folosind Devhelp."
+
+#: ../src/plugins/devhelp-search.vala:82
+msgid "Devhelp is not installed"
+msgstr "Devhelp nu este instalat"
+
+#: ../src/plugins/dictionary.vala:67
+msgid "Define"
+msgstr "Definește"
+
+#: ../src/plugins/dictionary.vala:68
+msgid "Look up definition in dictionary"
+msgstr "Caută definiția în dicționar"
+
+#: ../src/plugins/dictionary.vala:78
+msgid "Look up definitions of words."
+msgstr "Caută definiții de cuvinte."
+
+#: ../src/plugins/dictionary.vala:82
+msgid "Gnome Dictionary is not installed"
+msgstr "Dicționarul Gnome nu este instalat"
+
+#: ../src/plugins/directory-plugin.vala:125
+msgid "Open commonly used directories."
+msgstr "Deschide dosarele folosite frecvent."
+
+#: ../src/plugins/gnome-screensaver-plugin.vala:60
+msgid "Lock Screen"
+msgstr "Blochează ecranul"
+
+#: ../src/plugins/gnome-screensaver-plugin.vala:61
+msgid "Locks screen and starts screensaver."
+msgstr "Blochează ecranul și pornește economizorul de ecran."
+
+#: ../src/plugins/gnome-screensaver-plugin.vala:88
+msgid "Lock screen of your computer."
+msgstr "Blochează ecranul calculatorului"
+
+#: ../src/plugins/gnome-screensaver-plugin.vala:92
+msgid "Gnome Screen Saver wasn't found"
+msgstr "Economizorul de ecran Gnome nu a fost găsit"
+
+#: ../src/plugins/hybrid-search-plugin.vala:86
+msgid "Improve results returned by the Zeitgeist plugin by looking "
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:50
+msgid "Upload to imgur"
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:51
+msgid "Upload selection to imgur image sharer"
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:171
+#: ../src/plugins/pastebin-plugin.vala:157
+msgid ""
+"The selection was successfully uploaded and its URL was copied to clipboard."
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:175
+#: ../src/plugins/pastebin-plugin.vala:161
+msgid ""
+"An error occurred during upload, please check the log for more information."
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:183
+msgid "Synapse - Imgur"
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:239
+msgid "Imgur"
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:240
+msgid "Share images using imgur."
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:45
+msgid "Authorize with Launchpad"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:52
+msgid ""
+"Please press the Finish button once you login to Launchpad with your web "
+"browser"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:55
+msgid "Finish authorization"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:261
+msgid "Find bugs and branches on Launchpad."
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:312
+#, c-format
+msgid "Launchpad: Bazaar branches for %s"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:319
+#, c-format
+msgid "Launchpad: Series %s for Project %s"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:326
+#, c-format
+msgid "Launchpad: Bazaar branch %s"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:341
+#, c-format
+msgid "Launchpad: Bug #%s"
+msgstr ""
+
+#: ../src/plugins/locate-plugin.vala:94 ../src/plugins/locate-plugin.vala:104
+msgid "Locate"
+msgstr ""
+
+#: ../src/plugins/locate-plugin.vala:95
+msgid "Locate files with this name on the filesystem"
+msgstr ""
+
+#: ../src/plugins/locate-plugin.vala:105
+msgid "Runs locate command to find files on the filesystem."
+msgstr "Executa comanda locate pentru a găsi fișiere în sistemul de fișiere."
+
+#: ../src/plugins/locate-plugin.vala:109
+msgid "Unable to find \"locate\" binary"
+msgstr "Binarul \"locate\" nu poate fi găsit"
+
+#: ../src/plugins/opensearch.vala:252
+msgid "Search the web."
+msgstr "Caută pe web."
+
+#: ../src/plugins/opensearch.vala:264
+msgid "Google"
+msgstr "Google"
+
+#: ../src/plugins/opensearch.vala:265
+msgid "Search the web using google.com"
+msgstr "Caută pe web folosind google.com"
+
+#: ../src/plugins/opensearch.vala:266
+msgid "Google Maps"
+msgstr "Google Maps"
+
+#: ../src/plugins/opensearch.vala:267
+msgid "Search using Google Maps"
+msgstr "Caută folosind Google Maps"
+
+#: ../src/plugins/pastebin-plugin.vala:42
+#: ../src/plugins/pastebin-plugin.vala:233
+msgid "Pastebin"
+msgstr ""
+
+#: ../src/plugins/pastebin-plugin.vala:43
+msgid "Pastebin selection"
+msgstr ""
+
+#: ../src/plugins/pastebin-plugin.vala:169
+msgid "Synapse - Pastebin"
+msgstr ""
+
+#: ../src/plugins/pastebin-plugin.vala:234
+msgid "Upload files to pastebin."
+msgstr ""
+
+#: ../src/plugins/pastebin-plugin.vala:238
+msgid "Unable to find \"pastebinit\" program"
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:84
+msgid "Control Rhythmbox and add items to playlists."
+msgstr "Controlează Rhythmbox și adaugă elemente la lista de redare."
+
+#: ../src/plugins/rhythmbox-plugin.vala:88
+msgid "Rhythmbox is not installed"
+msgstr "Rhythmbox nu este instalat"
+
+#: ../src/plugins/rhythmbox-plugin.vala:154
+msgid "Start playback in Rhythmbox"
+msgstr "Redă in Rhythmbox"
+
+#: ../src/plugins/rhythmbox-plugin.vala:205
+msgid "Pause playback in Rhythmbox"
+msgstr "Întrerupe redarea în Rhythmbox"
+
+#: ../src/plugins/rhythmbox-plugin.vala:221
+msgid "Plays the next song in Rhythmbox's playlist"
+msgstr "Redă melodia următoare din lista de redare a Rhythmbox"
+
+#: ../src/plugins/rhythmbox-plugin.vala:244
+msgid "Plays the previous song in Rhythmbox's playlist"
+msgstr "Redă melodia precedentă din lista de redare a Rhythmbox"
+
+#: ../src/plugins/rhythmbox-plugin.vala:268
+msgid "Enqueue in Rhythmbox"
+msgstr "Adaugă la coada listei de redare a Rhythmbox"
+
+#: ../src/plugins/rhythmbox-plugin.vala:269
+msgid "Add the song to Rhythmbox playlist"
+msgstr "Adaugă melodia în lista de redare a Rhythmbox"
+
+#: ../src/plugins/rhythmbox-plugin.vala:315
+msgid "Play in Rhythmbox"
+msgstr "Reda în Rhythmbox"
+
+#: ../src/plugins/selection-plugin.vala:55
+msgid "Selection"
+msgstr ""
+
+#. plugin title
+#: ../src/plugins/selection-plugin.vala:56
+msgid "Provides actions for currently selected text."
+msgstr ""
+
+#: ../src/plugins/selection-plugin.vala:81
+msgid "Selected text"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:89
+msgid "Suspend"
+msgstr "Suspendă"
+
+#: ../src/plugins/system-management.vala:90
+msgid "Put your computer into suspend mode"
+msgstr "Suspendă calculatorul"
+
+#: ../src/plugins/system-management.vala:159
+msgid "Hibernate"
+msgstr "Hibernează"
+
+#: ../src/plugins/system-management.vala:160
+msgid "Put your computer into hibernation mode"
+msgstr "Pune calculatorul în hibernare"
+
+#: ../src/plugins/system-management.vala:228
+msgid "Shut Down"
+msgstr "Oprire"
+
+#: ../src/plugins/system-management.vala:229
+msgid "Turn your computer off"
+msgstr "Oprește calculatorul"
+
+#: ../src/plugins/system-management.vala:286
+msgid "Restart"
+msgstr "Repornire"
+
+#: ../src/plugins/system-management.vala:287
+msgid "Restart your computer"
+msgstr "Repornește calculatorul"
+
+#: ../src/plugins/system-management.vala:345
+msgid "Suspend, hibernate, restart or shutdown your computer."
+msgstr "Suspendă, hibernează, repornește sau oprește calculatorul."
+
+#: ../src/plugins/system-management.vala:349
+msgid "ConsoleKit wasn't found"
+msgstr "ConsoleKit nu a fost găsit"
+
+#: ../src/plugins/zeitgeist-plugin.vala:147
+msgid "few moments ago"
+msgstr "câteva momente în urmă"
+
+#: ../src/plugins/zeitgeist-plugin.vala:152
+#, c-format
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "acum un minut"
+msgstr[1] "acum %d minute"
+msgstr[2] "acum %d de minute"
+
+#: ../src/plugins/zeitgeist-plugin.vala:157
+#, c-format
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "acum o oră"
+msgstr[1] "acum %d ore"
+msgstr[2] "acum %d de ore"
+
+#: ../src/plugins/zeitgeist-plugin.vala:162
+#, c-format
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] "acum o zi"
+msgstr[1] "acum %d zile"
+msgstr[2] "acum %d de zile"
+
+#: ../src/plugins/zeitgeist-plugin.vala:167
+#, c-format
+msgid "%d week ago"
+msgid_plural "%d weeks ago"
+msgstr[0] "acum o săptămână"
+msgstr[1] "acum %d săptămâni"
+msgstr[2] "acum %d de săptămâni"
+
+#: ../src/plugins/zeitgeist-plugin.vala:181
+msgid "Search various items logged by Zeitgeist."
+msgstr "Caută diverse articole înregistrate de Zeitgeist."
+
+#: ../src/plugins/zeitgeist-plugin.vala:185
+msgid "Zeitgeist is not installed"
+msgstr "Zeitgeist nu este instalat"
+
+#~ msgid "Settings"
+#~ msgstr "Setări"
+
+#~ msgid "Quit"
+#~ msgstr "Ieșire"
+
+#~ msgid "About"
+#~ msgstr "Despre aplicație"
+
+#~ msgid "Log out from your session, restart or shutdown your computer."
+#~ msgstr "Încheiați sesiunea, reporniți sau opriți calculatorul."
+
+#~ msgid "Gnome Session Manager wan't found"
+#~ msgstr "Managerul de sesiuni Gnome nu a fost găsit"
+
+#~ msgid ""
+#~ "Improve results returned by the Zeitgeist plugin by looking for similar "
+#~ "files on the filesystem."
+#~ msgstr ""
+#~ "Îmbunătățește rezultatele furnizate de modulul Zeitgeist prin căutarea de "
+#~ "fișiere similare în sistemul de fișiere."
+
+#~ msgid "Log Out"
+#~ msgstr "Ieșire"
+
+#~ msgid "Close your session and return to the login screen"
+#~ msgstr "Încheie sesiunea curentă și întoarce-te la ecranul de autentificare"
+
+#~ msgid "UPower wasn't found"
+#~ msgstr "UPower nu a fost găsit"
+
+#~ msgid "Suspend or hibernate your computer."
+#~ msgstr "Suspendă sau hibernează calculatorul."
+
+#~ msgid "Gnome Session Manager wasn't found"
+#~ msgstr "Managerul de sesiuni Gnome nu a fost găsit"
+
+#~ msgid "Search the web using Google.com"
+#~ msgstr "Caută pe web folosind Google.com"

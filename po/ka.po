@@ -1,0 +1,649 @@
+# Georgian translation for synapse-project
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the synapse-project package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: synapse-project\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-02-22 22:40+0100\n"
+"PO-Revision-Date: 2010-12-07 17:11+0000\n"
+"Last-Translator: Giorgi Maghlakelidze <acidlabz@gmail.com>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2011-02-23 06:15+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
+
+#: ../data/synapse.desktop.in.h:1
+msgid "Search everything you do."
+msgstr "მოძებნე ყველაფერი ყველგან"
+
+#: ../data/synapse.desktop.in.h:2
+msgid "Synapse"
+msgstr "Synapse"
+
+#: ../src/synapse-main.vala:93 ../src/ui-settings.vala:365
+msgid "Activate"
+msgstr "აქტივირება"
+
+#: ../src/ui-cairo-gtk-base.vala:66
+msgid "Actions"
+msgstr "მოქმედებები"
+
+#: ../src/ui-cairo-gtk-base.vala:67
+msgid "Audio"
+msgstr "აუდიო"
+
+#: ../src/ui-cairo-gtk-base.vala:68
+msgid "Applications"
+msgstr "პროგრამები"
+
+#: ../src/ui-cairo-gtk-base.vala:69
+msgid "All"
+msgstr "ყველა"
+
+#: ../src/ui-cairo-gtk-base.vala:70
+msgid "Documents"
+msgstr "დოკუმენტები"
+
+#: ../src/ui-cairo-gtk-base.vala:71
+msgid "Images"
+msgstr "სურათები"
+
+#: ../src/ui-cairo-gtk-base.vala:72
+msgid "Video"
+msgstr "ვიდეო"
+
+#: ../src/ui-cairo-gtk-base.vala:73
+msgid "Internet"
+msgstr "ინტერნეტი"
+
+#: ../src/ui-cairo-gtk-virgilio.vala:358 ../src/ui-cairo-gtk-virgilio.vala:378
+#: ../src/ui-widgets.vala:743
+#, c-format
+msgid "<b>%d of %d</b>"
+msgstr "<b>%d / %d-დან</b>"
+
+#: ../src/ui-cairo-gtk-virgilio.vala:388 ../src/ui-widgets.vala:729
+msgid "Home"
+msgstr "სახლი"
+
+#: ../src/ui-cairo-gtk-virgilio.vala:393 ../src/ui-cairo-gtk-virgilio.vala:425
+#: ../src/ui-widgets.vala:736
+#, c-format
+msgid "<b>1 of %d</b>"
+msgstr "<b>1 / %d-დან</b>"
+
+#: ../src/ui-interface.vala:352
+msgid "Searching..."
+msgstr "იძებნება..."
+
+#: ../src/ui-interface.vala:353
+msgid "No results found."
+msgstr "არაფერია ნაპოვნი."
+
+#: ../src/ui-interface.vala:354
+msgid "No recent activities found."
+msgstr ""
+
+#: ../src/ui-interface.vala:355
+msgid "Type to search..."
+msgstr "ძიებისთვის აკრიფეთ..."
+
+#: ../src/ui-interface.vala:438
+msgid "...or press down key to browse recent activities"
+msgstr ""
+
+#: ../src/ui-settings.vala:48
+msgid "Status"
+msgstr "სტატუსი"
+
+#: ../src/ui-settings.vala:50
+msgid "Enable this plugin"
+msgstr "დანამატის ჩართვა"
+
+#: ../src/ui-settings.vala:51
+msgid "Disable this plugin"
+msgstr "დანამატის გათიშვა"
+
+#: ../src/ui-settings.vala:57
+msgid "About this plugin"
+msgstr ""
+
+#: ../src/ui-settings.vala:72 ../src/ui-settings.vala:208
+msgid "Configure plugin"
+msgstr ""
+
+#: ../src/ui-settings.vala:88 ../src/ui-settings.vala:415
+msgid "Disabled"
+msgstr "გამორთული"
+
+#: ../src/ui-settings.vala:92
+msgid "Enabled"
+msgstr "ჩართული"
+
+#: ../src/ui-settings.vala:145
+msgid "Synapse - Settings"
+msgstr "Synapse - გამართვა"
+
+#: ../src/ui-settings.vala:166
+msgid "Default"
+msgstr "ნაგულისხმევი"
+
+#: ../src/ui-settings.vala:167
+msgid "Mini"
+msgstr "მინი"
+
+#: ../src/ui-settings.vala:168
+msgid "Dual"
+msgstr "ორმაგი"
+
+#: ../src/ui-settings.vala:169
+msgid "Virgilio"
+msgstr "Virgilio"
+
+#: ../src/ui-settings.vala:275
+msgid "General"
+msgstr "ზოგადი"
+
+#: ../src/ui-settings.vala:276
+msgid "Plugins"
+msgstr "დანამატები"
+
+#: ../src/ui-settings.vala:282
+msgid "Behavior & Look"
+msgstr "ქცევა და იერსახე"
+
+#: ../src/ui-settings.vala:294
+msgid "Theme:"
+msgstr "თემა:"
+
+#. Autostart checkbox
+#: ../src/ui-settings.vala:299
+msgid "Startup on login"
+msgstr "გაშვება სისტემაში შესვლისას"
+
+#. Notification icon
+#: ../src/ui-settings.vala:305
+msgid "Show notification icon"
+msgstr ""
+
+#: ../src/ui-settings.vala:320
+msgid "Shortcuts"
+msgstr "მალსახმობები"
+
+#: ../src/ui-settings.vala:342
+msgid "Action"
+msgstr "ქმედება"
+
+#: ../src/ui-settings.vala:359
+msgid "Shortcut"
+msgstr "მალსახმობი"
+
+#: ../src/ui-settings.vala:373
+msgid "Click the shortcut you wish to change and press the new shortcut."
+msgstr ""
+
+#: ../src/ui-widgets.vala:714 ../src/ui-widgets.vala:734
+msgid "No results."
+msgstr "შედეგი არ არის."
+
+#: ../src/core/common-actions.vala:68
+msgid "Run"
+msgstr "გაშვება"
+
+#: ../src/core/common-actions.vala:69
+msgid "Run an application, action or script"
+msgstr "პროგრამის, მოქმედებისა ან სცენარის გაშვება"
+
+#: ../src/core/common-actions.vala:123
+msgid "Run in Terminal"
+msgstr "გაშვება ტერმინალში"
+
+#: ../src/core/common-actions.vala:124
+msgid "Run application or command in terminal"
+msgstr ""
+
+#: ../src/core/common-actions.vala:171
+msgid "Open"
+msgstr "გახსნა"
+
+#: ../src/core/common-actions.vala:172
+msgid "Open using default application"
+msgstr "ნაგულისხმები პროგრამით გახსნა"
+
+#: ../src/core/common-actions.vala:241
+msgid "Open folder"
+msgstr "საქაღალდის გასხნა"
+
+#: ../src/core/common-actions.vala:242
+msgid "Open folder containing this file"
+msgstr "ფაილის მომცველი საქაღალდის გახსნა"
+
+#: ../src/core/common-actions.vala:281
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: ../src/core/common-actions.vala:282
+msgid "Copy selection to clipboard"
+msgstr ""
+
+#: ../src/plugins/banshee-plugin.vala:73
+msgid "Control Banshee and add items to playlists."
+msgstr ""
+
+#: ../src/plugins/banshee-plugin.vala:77
+msgid "Banshee is not installed"
+msgstr "Banshee დაყენებული არ არის"
+
+#: ../src/plugins/banshee-plugin.vala:142
+#: ../src/plugins/rhythmbox-plugin.vala:153
+msgid "Play"
+msgstr "დაკვრა"
+
+#: ../src/plugins/banshee-plugin.vala:143
+msgid "Start playback in Banshee"
+msgstr "Banshee-თ დაკვრის დაწყება"
+
+#: ../src/plugins/banshee-plugin.vala:170
+#: ../src/plugins/rhythmbox-plugin.vala:204
+msgid "Pause"
+msgstr "შეჩერება"
+
+#: ../src/plugins/banshee-plugin.vala:171
+msgid "Pause playback in Banshee"
+msgstr "Banshee-ში დაკვრის შეჩერება"
+
+#: ../src/plugins/banshee-plugin.vala:192
+#: ../src/plugins/rhythmbox-plugin.vala:220
+msgid "Next"
+msgstr "შემდეგი"
+
+#: ../src/plugins/banshee-plugin.vala:193
+msgid "Plays the next song in Banshee's playlist"
+msgstr "შემდეგი სიმღერის დაკვრა"
+
+#: ../src/plugins/banshee-plugin.vala:215
+#: ../src/plugins/rhythmbox-plugin.vala:243
+msgid "Previous"
+msgstr "წინა"
+
+#: ../src/plugins/banshee-plugin.vala:216
+msgid "Plays the previous song in Banshee's playlist"
+msgstr "წინა სიმღერის დაკვრა"
+
+#: ../src/plugins/banshee-plugin.vala:239
+msgid "Enqueue in Banshee"
+msgstr ""
+
+#: ../src/plugins/banshee-plugin.vala:240
+msgid "Add the song to Banshee playlist"
+msgstr ""
+
+#: ../src/plugins/banshee-plugin.vala:282
+msgid "Play in Banshee"
+msgstr ""
+
+#: ../src/plugins/banshee-plugin.vala:283
+#: ../src/plugins/rhythmbox-plugin.vala:316
+msgid "Clears the current playlist and plays the song"
+msgstr ""
+
+#: ../src/plugins/calculator-plugin.vala:63
+msgid "Calculator"
+msgstr ""
+
+#: ../src/plugins/calculator-plugin.vala:64
+msgid "Calculate basic expressions."
+msgstr ""
+
+#: ../src/plugins/calculator-plugin.vala:68
+msgid "bc is not installed"
+msgstr ""
+
+#: ../src/plugins/command-plugin.vala:56
+msgid "Run command"
+msgstr ""
+
+#: ../src/plugins/command-plugin.vala:77
+msgid "Find and execute arbitrary commands."
+msgstr ""
+
+#: ../src/plugins/desktop-file-plugin.vala:90
+msgid "Search for and run applications on your computer."
+msgstr ""
+
+#: ../src/plugins/desktop-file-plugin.vala:263
+#, c-format
+msgid "Open with %s"
+msgstr ""
+
+#: ../src/plugins/desktop-file-plugin.vala:265
+#, c-format
+msgid "Opens current selection using %s"
+msgstr ""
+
+#: ../src/plugins/devhelp-search.vala:67
+msgid "Search in Devhelp"
+msgstr ""
+
+#: ../src/plugins/devhelp-search.vala:68
+msgid "Search documentation for this symbol"
+msgstr ""
+
+#: ../src/plugins/devhelp-search.vala:78
+msgid "Search documentation using Devhelp."
+msgstr ""
+
+#: ../src/plugins/devhelp-search.vala:82
+msgid "Devhelp is not installed"
+msgstr ""
+
+#: ../src/plugins/dictionary.vala:67
+msgid "Define"
+msgstr ""
+
+#: ../src/plugins/dictionary.vala:68
+msgid "Look up definition in dictionary"
+msgstr ""
+
+#: ../src/plugins/dictionary.vala:78
+msgid "Look up definitions of words."
+msgstr ""
+
+#: ../src/plugins/dictionary.vala:82
+msgid "Gnome Dictionary is not installed"
+msgstr ""
+
+#: ../src/plugins/directory-plugin.vala:125
+msgid "Open commonly used directories."
+msgstr ""
+
+#: ../src/plugins/gnome-screensaver-plugin.vala:60
+msgid "Lock Screen"
+msgstr ""
+
+#: ../src/plugins/gnome-screensaver-plugin.vala:61
+msgid "Locks screen and starts screensaver."
+msgstr ""
+
+#: ../src/plugins/gnome-screensaver-plugin.vala:88
+msgid "Lock screen of your computer."
+msgstr ""
+
+#: ../src/plugins/gnome-screensaver-plugin.vala:92
+msgid "Gnome Screen Saver wasn't found"
+msgstr ""
+
+#: ../src/plugins/hybrid-search-plugin.vala:86
+msgid "Improve results returned by the Zeitgeist plugin by looking "
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:50
+msgid "Upload to imgur"
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:51
+msgid "Upload selection to imgur image sharer"
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:171
+#: ../src/plugins/pastebin-plugin.vala:157
+msgid ""
+"The selection was successfully uploaded and its URL was copied to clipboard."
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:175
+#: ../src/plugins/pastebin-plugin.vala:161
+msgid ""
+"An error occurred during upload, please check the log for more information."
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:183
+msgid "Synapse - Imgur"
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:239
+msgid "Imgur"
+msgstr ""
+
+#: ../src/plugins/imgur-plugin.vala:240
+msgid "Share images using imgur."
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:45
+msgid "Authorize with Launchpad"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:52
+msgid ""
+"Please press the Finish button once you login to Launchpad with your web "
+"browser"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:55
+msgid "Finish authorization"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:261
+msgid "Find bugs and branches on Launchpad."
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:312
+#, c-format
+msgid "Launchpad: Bazaar branches for %s"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:319
+#, c-format
+msgid "Launchpad: Series %s for Project %s"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:326
+#, c-format
+msgid "Launchpad: Bazaar branch %s"
+msgstr ""
+
+#: ../src/plugins/launchpad-plugin.vala:341
+#, c-format
+msgid "Launchpad: Bug #%s"
+msgstr ""
+
+#: ../src/plugins/locate-plugin.vala:94 ../src/plugins/locate-plugin.vala:104
+msgid "Locate"
+msgstr ""
+
+#: ../src/plugins/locate-plugin.vala:95
+msgid "Locate files with this name on the filesystem"
+msgstr ""
+
+#: ../src/plugins/locate-plugin.vala:105
+msgid "Runs locate command to find files on the filesystem."
+msgstr ""
+
+#: ../src/plugins/locate-plugin.vala:109
+msgid "Unable to find \"locate\" binary"
+msgstr ""
+
+#: ../src/plugins/opensearch.vala:252
+msgid "Search the web."
+msgstr ""
+
+#: ../src/plugins/opensearch.vala:264
+msgid "Google"
+msgstr ""
+
+#: ../src/plugins/opensearch.vala:265
+msgid "Search the web using google.com"
+msgstr ""
+
+#: ../src/plugins/opensearch.vala:266
+msgid "Google Maps"
+msgstr ""
+
+#: ../src/plugins/opensearch.vala:267
+msgid "Search using Google Maps"
+msgstr ""
+
+#: ../src/plugins/pastebin-plugin.vala:42
+#: ../src/plugins/pastebin-plugin.vala:233
+msgid "Pastebin"
+msgstr ""
+
+#: ../src/plugins/pastebin-plugin.vala:43
+msgid "Pastebin selection"
+msgstr ""
+
+#: ../src/plugins/pastebin-plugin.vala:169
+msgid "Synapse - Pastebin"
+msgstr ""
+
+#: ../src/plugins/pastebin-plugin.vala:234
+msgid "Upload files to pastebin."
+msgstr ""
+
+#: ../src/plugins/pastebin-plugin.vala:238
+msgid "Unable to find \"pastebinit\" program"
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:84
+msgid "Control Rhythmbox and add items to playlists."
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:88
+msgid "Rhythmbox is not installed"
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:154
+msgid "Start playback in Rhythmbox"
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:205
+msgid "Pause playback in Rhythmbox"
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:221
+msgid "Plays the next song in Rhythmbox's playlist"
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:244
+msgid "Plays the previous song in Rhythmbox's playlist"
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:268
+msgid "Enqueue in Rhythmbox"
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:269
+msgid "Add the song to Rhythmbox playlist"
+msgstr ""
+
+#: ../src/plugins/rhythmbox-plugin.vala:315
+msgid "Play in Rhythmbox"
+msgstr ""
+
+#: ../src/plugins/selection-plugin.vala:55
+msgid "Selection"
+msgstr ""
+
+#. plugin title
+#: ../src/plugins/selection-plugin.vala:56
+msgid "Provides actions for currently selected text."
+msgstr ""
+
+#: ../src/plugins/selection-plugin.vala:81
+msgid "Selected text"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:89
+msgid "Suspend"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:90
+msgid "Put your computer into suspend mode"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:159
+msgid "Hibernate"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:160
+msgid "Put your computer into hibernation mode"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:228
+msgid "Shut Down"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:229
+msgid "Turn your computer off"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:286
+msgid "Restart"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:287
+msgid "Restart your computer"
+msgstr ""
+
+#: ../src/plugins/system-management.vala:345
+msgid "Suspend, hibernate, restart or shutdown your computer."
+msgstr ""
+
+#: ../src/plugins/system-management.vala:349
+msgid "ConsoleKit wasn't found"
+msgstr ""
+
+#: ../src/plugins/zeitgeist-plugin.vala:147
+msgid "few moments ago"
+msgstr ""
+
+#: ../src/plugins/zeitgeist-plugin.vala:152
+#, c-format
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/plugins/zeitgeist-plugin.vala:157
+#, c-format
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/plugins/zeitgeist-plugin.vala:162
+#, c-format
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/plugins/zeitgeist-plugin.vala:167
+#, c-format
+msgid "%d week ago"
+msgid_plural "%d weeks ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/plugins/zeitgeist-plugin.vala:181
+msgid "Search various items logged by Zeitgeist."
+msgstr ""
+
+#: ../src/plugins/zeitgeist-plugin.vala:185
+msgid "Zeitgeist is not installed"
+msgstr ""
+
+#~ msgid "Settings"
+#~ msgstr "გამართვა"
+
+#~ msgid "Quit"
+#~ msgstr "გასვლა"
+
+#~ msgid "About"
+#~ msgstr "პროგრამის შესახებ"
