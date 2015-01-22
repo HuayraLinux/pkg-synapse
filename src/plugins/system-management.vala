@@ -26,14 +26,13 @@ namespace Synapse
   {
     public const string UNIQUE_NAME = "org.freedesktop.UPower";
     public const string OBJECT_PATH = "/org/freedesktop/UPower";
-    public const string INTERFACE_NAME = "org.freedesktop.UPower";
 
-    public abstract async void hibernate () throws DBus.Error;
-    public abstract async void suspend () throws DBus.Error;
-    public abstract async bool hibernate_allowed () throws DBus.Error;
-    public abstract async bool suspend_allowed () throws DBus.Error;
+    public abstract async void hibernate () throws IOError;
+    public abstract async void suspend () throws IOError;
+    public abstract async bool hibernate_allowed () throws IOError;
+    public abstract async bool suspend_allowed () throws IOError;
     
-    public abstract async void about_to_sleep () throws DBus.Error;
+    public abstract async void about_to_sleep () throws IOError;
   }
 
   [DBus (name = "org.freedesktop.ConsoleKit.Manager")]
@@ -41,12 +40,11 @@ namespace Synapse
   {
     public const string UNIQUE_NAME = "org.freedesktop.ConsoleKit";
     public const string OBJECT_PATH = "/org/freedesktop/ConsoleKit/Manager";
-    public const string INTERFACE_NAME = "org.freedesktop.ConsoleKit.Manager";
     
-    public abstract void restart () throws DBus.Error;
-    public abstract void stop () throws DBus.Error;
-    public abstract async bool can_restart () throws DBus.Error;
-    public abstract async bool can_stop () throws DBus.Error;
+    public abstract void restart () throws IOError;
+    public abstract void stop () throws IOError;
+    public abstract async bool can_restart () throws IOError;
+    public abstract async bool can_stop () throws IOError;
   }
 
   public class SystemManagementPlugin: Object, Activatable, ItemProvider
@@ -100,16 +98,15 @@ namespace Synapse
       {
         try
         {
-          var connection = DBus.Bus.get (DBus.BusType.SYSTEM);
-          var dbus_interface = (UPowerObject)
-            connection.get_object (UPowerObject.UNIQUE_NAME,
-                                   UPowerObject.OBJECT_PATH,
-                                   UPowerObject.INTERFACE_NAME);
+          UPowerObject dbus_interface = Bus.get_proxy_sync (BusType.SYSTEM,
+                                           UPowerObject.UNIQUE_NAME,
+                                           UPowerObject.OBJECT_PATH);
 
-          allowed = yield dbus_interface.hibernate_allowed ();
+          allowed = yield dbus_interface.suspend_allowed ();
         }
-        catch (DBus.Error err)
+        catch (IOError err)
         {
+          warning ("%s", err.message);
           allowed = false;
         }
       }
@@ -125,17 +122,15 @@ namespace Synapse
       {
         try
         {
-          var connection = DBus.Bus.get (DBus.BusType.SYSTEM);
-          var dbus_interface = (UPowerObject)
-            connection.get_object (UPowerObject.UNIQUE_NAME,
-                                   UPowerObject.OBJECT_PATH,
-                                   UPowerObject.INTERFACE_NAME);
+          UPowerObject dbus_interface = Bus.get_proxy_sync (BusType.SYSTEM,
+                                           UPowerObject.UNIQUE_NAME,
+                                           UPowerObject.OBJECT_PATH);
 
           try
           {
             yield dbus_interface.about_to_sleep ();
           }
-          catch (DBus.Error not_there_error) { }
+          catch (Error not_there_error) { }
           // yea kinda nasty
           GnomeScreenSaverPlugin.lock_screen ();
           // wait 2 seconds
@@ -144,7 +139,7 @@ namespace Synapse
 
           yield dbus_interface.suspend ();
         }
-        catch (DBus.Error err)
+        catch (IOError err)
         {
           warning ("%s", err.message);
         }
@@ -174,16 +169,15 @@ namespace Synapse
       {
         try
         {
-          var connection = DBus.Bus.get (DBus.BusType.SYSTEM);
-          var dbus_interface = (UPowerObject)
-            connection.get_object (UPowerObject.UNIQUE_NAME,
-                                   UPowerObject.OBJECT_PATH,
-                                   UPowerObject.INTERFACE_NAME);
+          UPowerObject dbus_interface = Bus.get_proxy_sync (BusType.SYSTEM,
+                                           UPowerObject.UNIQUE_NAME,
+                                           UPowerObject.OBJECT_PATH);
 
           allowed = yield dbus_interface.hibernate_allowed ();
         }
-        catch (DBus.Error err)
+        catch (IOError err)
         {
+          warning ("%s", err.message);
           allowed = false;
         }
       }
@@ -199,17 +193,15 @@ namespace Synapse
       {
         try
         {
-          var connection = DBus.Bus.get (DBus.BusType.SYSTEM);
-          var dbus_interface = (UPowerObject)
-            connection.get_object (UPowerObject.UNIQUE_NAME,
-                                   UPowerObject.OBJECT_PATH,
-                                   UPowerObject.INTERFACE_NAME);
+          UPowerObject dbus_interface = Bus.get_proxy_sync (BusType.SYSTEM,
+                                           UPowerObject.UNIQUE_NAME,
+                                           UPowerObject.OBJECT_PATH);
 
           try
           {
             yield dbus_interface.about_to_sleep ();
           }
-          catch (DBus.Error not_there_error) { }
+          catch (Error not_there_error) { }
           // yea kinda nasty
           GnomeScreenSaverPlugin.lock_screen ();
           // wait 2 seconds
@@ -217,7 +209,7 @@ namespace Synapse
           yield;
           dbus_interface.hibernate ();
         }
-        catch (DBus.Error err)
+        catch (IOError err)
         {
           warning ("%s", err.message);
         }
@@ -247,16 +239,15 @@ namespace Synapse
       {
         try
         {
-          var connection = DBus.Bus.get (DBus.BusType.SYSTEM);
-          var dbus_interface = (ConsoleKitObject)
-            connection.get_object (ConsoleKitObject.UNIQUE_NAME,
-                                   ConsoleKitObject.OBJECT_PATH,
-                                   ConsoleKitObject.INTERFACE_NAME);
+          ConsoleKitObject dbus_interface = Bus.get_proxy_sync (BusType.SYSTEM,
+                                           ConsoleKitObject.UNIQUE_NAME,
+                                           ConsoleKitObject.OBJECT_PATH);
 
           allowed = yield dbus_interface.can_stop ();
         }
-        catch (DBus.Error err)
+        catch (IOError err)
         {
+          warning ("%s", err.message);
           allowed = false;
         }
       }
@@ -272,15 +263,13 @@ namespace Synapse
       {
         try
         {
-          var connection = DBus.Bus.get (DBus.BusType.SYSTEM);
-          var dbus_interface = (ConsoleKitObject)
-            connection.get_object (ConsoleKitObject.UNIQUE_NAME,
-                                   ConsoleKitObject.OBJECT_PATH,
-                                   ConsoleKitObject.INTERFACE_NAME);
+          ConsoleKitObject dbus_interface = Bus.get_proxy_sync (BusType.SYSTEM,
+                                           ConsoleKitObject.UNIQUE_NAME,
+                                           ConsoleKitObject.OBJECT_PATH);
 
           dbus_interface.stop ();
         }
-        catch (DBus.Error err)
+        catch (IOError err)
         {
           warning ("%s", err.message);
         }
@@ -305,16 +294,15 @@ namespace Synapse
       {
         try
         {
-          var connection = DBus.Bus.get (DBus.BusType.SYSTEM);
-          var dbus_interface = (ConsoleKitObject)
-            connection.get_object (ConsoleKitObject.UNIQUE_NAME,
-                                   ConsoleKitObject.OBJECT_PATH,
-                                   ConsoleKitObject.INTERFACE_NAME);
+          ConsoleKitObject dbus_interface = Bus.get_proxy_sync (BusType.SYSTEM,
+                                           ConsoleKitObject.UNIQUE_NAME,
+                                           ConsoleKitObject.OBJECT_PATH);
 
           allowed = yield dbus_interface.can_restart ();
         }
-        catch (DBus.Error err)
+        catch (IOError err)
         {
+          warning ("%s", err.message);
           allowed = false;
         }
       }
@@ -330,15 +318,13 @@ namespace Synapse
       {
         try
         {
-          var connection = DBus.Bus.get (DBus.BusType.SYSTEM);
-          var dbus_interface = (ConsoleKitObject)
-            connection.get_object (ConsoleKitObject.UNIQUE_NAME,
-                                   ConsoleKitObject.OBJECT_PATH,
-                                   ConsoleKitObject.INTERFACE_NAME);
+          ConsoleKitObject dbus_interface = Bus.get_proxy_sync (BusType.SYSTEM,
+                                           ConsoleKitObject.UNIQUE_NAME,
+                                           ConsoleKitObject.OBJECT_PATH);
 
           dbus_interface.restart ();
         }
-        catch (DBus.Error err)
+        catch (IOError err)
         {
           warning ("%s", err.message);
         }

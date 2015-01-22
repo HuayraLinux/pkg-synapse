@@ -7,25 +7,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-09-18 21:36+0200\n"
-"PO-Revision-Date: 2011-01-24 12:26+0000\n"
-"Last-Translator: Brăete Marius <Unknown>\n"
+"POT-Creation-Date: 2012-03-04 23:39+0000\n"
+"PO-Revision-Date: 2012-03-17 09:18+0000\n"
+"Last-Translator: Cristian Moldovan <crismblog@facebook.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2011-09-19 04:51+0000\n"
-"X-Generator: Launchpad (build 13955)\n"
+"X-Launchpad-Export-Date: 2012-03-18 04:59+0000\n"
+"X-Generator: Launchpad (build 14951)\n"
 
 #: ../data/synapse.desktop.in.h:1
-msgid "Search everything you do."
-msgstr "Cauta orice faci."
-
-#: ../data/synapse.desktop.in.h:2
 msgid "Synapse"
 msgstr "Synapse"
+
+#: ../data/synapse.desktop.in.h:2
+msgid "Search everything you do."
+msgstr "Cauta orice faci."
 
 #. activate has to stay in first position!
 #: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
@@ -51,7 +51,7 @@ msgstr "Aplicații"
 
 #: ../src/ui/category.vala:73 ../src/ui/category.vala:113
 msgid "Places"
-msgstr ""
+msgstr "Locuri"
 
 #: ../src/ui/category.vala:74 ../src/ui/category.vala:116
 msgid "Documents"
@@ -72,12 +72,12 @@ msgstr "Internet"
 #. _labels.set (QueryFlags.ALL, _("All")); // Do not remove!
 #: ../src/ui/category.vala:111
 msgid "Include remote content"
-msgstr ""
+msgstr "Includeţi conţinut de la distanţă"
 
 #. _labels.set (QueryFlags.FILES, _("Files"));
 #: ../src/ui/category.vala:121
 msgid "Uncategorized"
-msgstr ""
+msgstr "Fără categorie"
 
 #: ../src/ui/controller.vala:30
 msgid "Searching..."
@@ -119,11 +119,11 @@ msgstr "Dezactivează acest modul"
 
 #: ../src/ui/settings.vala:57
 msgid "About this plugin"
-msgstr ""
+msgstr "Despre acest plug-in"
 
 #: ../src/ui/settings.vala:72 ../src/ui/settings.vala:211
 msgid "Configure plugin"
-msgstr ""
+msgstr "Despre acest plug-in"
 
 #: ../src/ui/settings.vala:88 ../src/ui/settings.vala:465
 msgid "Disabled"
@@ -143,7 +143,7 @@ msgstr "Implicit"
 
 #: ../src/ui/settings.vala:169
 msgid "Essential"
-msgstr ""
+msgstr "Esenţial"
 
 #: ../src/ui/settings.vala:170
 msgid "Doish"
@@ -159,71 +159,71 @@ msgstr ""
 
 #: ../src/ui/settings.vala:245
 msgid "Execute"
-msgstr ""
+msgstr "Execută"
 
 #: ../src/ui/settings.vala:246
 msgid "Execute without hiding"
-msgstr ""
+msgstr "Executa fără a ascunde"
 
 #: ../src/ui/settings.vala:247
 msgid "Alternative Delete"
-msgstr ""
+msgstr "Alternativa Ştergere"
 
 #: ../src/ui/settings.vala:248
 msgid "Next Result"
-msgstr ""
+msgstr "Rezultatul urmator"
 
 #: ../src/ui/settings.vala:249
 msgid "Previous Result"
-msgstr ""
+msgstr "Rezultatul anterior"
 
 #: ../src/ui/settings.vala:250
 msgid "First Result"
-msgstr ""
+msgstr "Primul rezultat"
 
 #: ../src/ui/settings.vala:251
 msgid "Last Result"
-msgstr ""
+msgstr "Ultimul rezultat"
 
 #: ../src/ui/settings.vala:252
 msgid "Next 5 Results"
-msgstr ""
+msgstr "Urmatoarele 5 rezultate"
 
 #: ../src/ui/settings.vala:253
 msgid "Previous 5 Results"
-msgstr ""
+msgstr "Anterioarele 5 rezultate"
 
 #: ../src/ui/settings.vala:254
 msgid "Next Category"
-msgstr ""
+msgstr "Categoria urmatoare"
 
 #: ../src/ui/settings.vala:255
 msgid "Previous Category"
-msgstr ""
+msgstr "Categoria anterioara"
 
 #: ../src/ui/settings.vala:256
 msgid "Next Pane"
-msgstr ""
+msgstr "Panoul Următor"
 
 #: ../src/ui/settings.vala:257
 msgid "Previous Pane"
-msgstr ""
+msgstr "Panoul Precedent"
 
 #: ../src/ui/settings.vala:258
 msgid "Paste"
-msgstr ""
+msgstr "Lipeşte"
 
 #: ../src/ui/settings.vala:259
 msgid "Paste current selection"
-msgstr ""
+msgstr "Lipeşte selectia curenta"
 
 #: ../src/ui/settings.vala:260
 msgid "Quit"
-msgstr ""
+msgstr "Ieșire"
 
 #: ../src/ui/settings.vala:274
 msgid "Shortcut already in use"
-msgstr ""
+msgstr "Comenzi rapide deja în uz"
 
 #: ../src/ui/settings.vala:300
 msgid "General"
@@ -285,7 +285,7 @@ msgstr "Dosar personal"
 
 #: ../src/ui/utils.vala:129
 msgid "Root"
-msgstr ""
+msgstr "Rădăcină"
 
 #: ../src/core/common-actions.vala:77
 msgid "Run"
@@ -321,71 +321,71 @@ msgstr "Deschide dosarul care conține acest fișier"
 
 #: ../src/core/common-actions.vala:290
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Copiază în clipboard"
 
 #: ../src/core/common-actions.vala:291
 msgid "Copy selection to clipboard"
-msgstr ""
+msgstr "Copiază selecția în clipboard"
 
-#: ../src/plugins/banshee-plugin.vala:73
+#: ../src/plugins/banshee-plugin.vala:70
 msgid "Control Banshee and add items to playlists."
 msgstr "Controlează Banshee și adaugă elemente la lista de redare."
 
 #. DBusService.get_default ().name_is_activatable (BansheePlaybackController.UNIQUE_NAME), // doesn't work for banshee
-#: ../src/plugins/banshee-plugin.vala:79
+#: ../src/plugins/banshee-plugin.vala:76
 msgid "Banshee is not installed"
 msgstr "Banshee nu este instalat."
 
-#: ../src/plugins/banshee-plugin.vala:144
-#: ../src/plugins/rhythmbox-plugin.vala:155
+#: ../src/plugins/banshee-plugin.vala:141
+#: ../src/plugins/rhythmbox-plugin.vala:153
 msgid "Play"
 msgstr "Redare"
 
-#: ../src/plugins/banshee-plugin.vala:145
+#: ../src/plugins/banshee-plugin.vala:142
 msgid "Start playback in Banshee"
 msgstr "Redă în Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:172
-#: ../src/plugins/rhythmbox-plugin.vala:206
+#: ../src/plugins/banshee-plugin.vala:169
+#: ../src/plugins/rhythmbox-plugin.vala:204
 msgid "Pause"
 msgstr "Pauză"
 
-#: ../src/plugins/banshee-plugin.vala:173
+#: ../src/plugins/banshee-plugin.vala:170
 msgid "Pause playback in Banshee"
 msgstr "Întrerupe redarea în Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:194
-#: ../src/plugins/rhythmbox-plugin.vala:222
+#: ../src/plugins/banshee-plugin.vala:190
+#: ../src/plugins/rhythmbox-plugin.vala:220
 msgid "Next"
 msgstr "Următoare"
 
-#: ../src/plugins/banshee-plugin.vala:195
+#: ../src/plugins/banshee-plugin.vala:191
 msgid "Plays the next song in Banshee's playlist"
 msgstr "Redă melodia următoare din lista de redare a Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:217
-#: ../src/plugins/rhythmbox-plugin.vala:245
+#: ../src/plugins/banshee-plugin.vala:213
+#: ../src/plugins/rhythmbox-plugin.vala:243
 msgid "Previous"
 msgstr "Precedentă"
 
-#: ../src/plugins/banshee-plugin.vala:218
+#: ../src/plugins/banshee-plugin.vala:214
 msgid "Plays the previous song in Banshee's playlist"
 msgstr "Redă melodia precedentă din lista de redare a Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:241
+#: ../src/plugins/banshee-plugin.vala:236
 msgid "Enqueue in Banshee"
 msgstr "Adaugă la coada listei de redare a Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:242
+#: ../src/plugins/banshee-plugin.vala:237
 msgid "Add the song to Banshee playlist"
 msgstr "Adaugă melodia în lista de redare a Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:284
+#: ../src/plugins/banshee-plugin.vala:279
 msgid "Play in Banshee"
 msgstr "Redă în Banshee"
 
-#: ../src/plugins/banshee-plugin.vala:285
-#: ../src/plugins/rhythmbox-plugin.vala:318
+#: ../src/plugins/banshee-plugin.vala:280
+#: ../src/plugins/rhythmbox-plugin.vala:317
 msgid "Clears the current playlist and plays the song"
 msgstr "Golește lista de redare curentă și redă melodia"
 
@@ -395,7 +395,7 @@ msgstr "Calculator"
 
 #: ../src/plugins/calculator-plugin.vala:64
 msgid "Calculate basic expressions."
-msgstr ""
+msgstr "Calculaţi expresii de bază."
 
 #: ../src/plugins/calculator-plugin.vala:68
 msgid "bc is not installed"
@@ -403,35 +403,35 @@ msgstr "bc nu este instalat"
 
 #: ../src/plugins/chat-actions-plugin.vala:42
 msgid "Open chat"
-msgstr ""
+msgstr "Deschide Chat-ul"
 
 #: ../src/plugins/chat-actions-plugin.vala:43
 msgid "Open a chat with selected contact"
-msgstr ""
+msgstr "Deschide chat-ul cu persoana de contact selectată"
 
 #: ../src/plugins/chat-actions-plugin.vala:66
 msgid "Send a message"
-msgstr ""
+msgstr "Trimite un mesaj"
 
 #: ../src/plugins/chat-actions-plugin.vala:67
 msgid "Send a message to the contact"
-msgstr ""
+msgstr "Trimite un mesaj la persoana de contact"
 
 #: ../src/plugins/chat-actions-plugin.vala:100
 msgid "Send message to.."
-msgstr ""
+msgstr "Trimite un mesaj .."
 
 #: ../src/plugins/chat-actions-plugin.vala:101
 msgid "Send a message to a contact"
-msgstr ""
+msgstr "Trimite un mesaj pentru o persoană de contact"
 
 #: ../src/plugins/chat-actions-plugin.vala:136
 msgid "Chat actions"
-msgstr ""
+msgstr "Acţiuni Chat"
 
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
-msgstr ""
+msgstr "Deschide chat sau trimite un mesaj cu IM preferat"
 
 #: ../src/plugins/command-plugin.vala:56
 msgid "Run command"
@@ -493,43 +493,43 @@ msgstr "Deschide dosarele folosite frecvent."
 
 #: ../src/plugins/file-op-plugin.vala:77
 msgid "Rename to"
-msgstr ""
+msgstr "Redenumește în"
 
 #: ../src/plugins/file-op-plugin.vala:78
 msgid "Rename the file to..."
-msgstr ""
+msgstr "Redenumiţi fişierul în..."
 
-#: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:186
+#: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:185
 #, c-format
 msgid "File \"%s\"does not exist."
-msgstr ""
+msgstr "Fişierul \"% s\" nu există."
 
 #: ../src/plugins/file-op-plugin.vala:107
 #, c-format
 msgid "Cannot move \"%s\" to \"%s\""
-msgstr ""
+msgstr "Nu se pot muta \"% s\" la \"% s\""
 
 #: ../src/plugins/file-op-plugin.vala:137
 msgid "File Operations"
-msgstr ""
+msgstr "Operaţiuni de fişiere"
 
 #: ../src/plugins/file-op-plugin.vala:138
 msgid "Copy, Cut, Paste and Delete files"
-msgstr ""
+msgstr "Copiaza, Taie, Lipeste si Sterge fisiere"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:60
+#: ../src/plugins/gnome-screensaver-plugin.vala:59
 msgid "Lock Screen"
 msgstr "Blochează ecranul"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:61
+#: ../src/plugins/gnome-screensaver-plugin.vala:60
 msgid "Locks screen and starts screensaver."
 msgstr "Blochează ecranul și pornește economizorul de ecran."
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:88
+#: ../src/plugins/gnome-screensaver-plugin.vala:84
 msgid "Lock screen of your computer."
 msgstr "Blochează ecranul calculatorului"
 
-#: ../src/plugins/gnome-screensaver-plugin.vala:92
+#: ../src/plugins/gnome-screensaver-plugin.vala:88
 msgid "Gnome Screen Saver wasn't found"
 msgstr "Economizorul de ecran Gnome nu a fost găsit"
 
@@ -539,7 +539,7 @@ msgstr ""
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload to imgur"
-msgstr ""
+msgstr "Încărcaţi în imgur"
 
 #: ../src/plugins/imgur-plugin.vala:52
 msgid "Upload selection to imgur image sharer"
@@ -550,16 +550,19 @@ msgstr ""
 msgid ""
 "The selection was successfully uploaded and its URL was copied to clipboard."
 msgstr ""
+"Selecţia a fost încărcat cu succes şi URL-ul său a fost copiat în clipboard."
 
 #: ../src/plugins/imgur-plugin.vala:168
 #: ../src/plugins/pastebin-plugin.vala:156
 msgid ""
 "An error occurred during upload, please check the log for more information."
 msgstr ""
+"O eroare a avut loc în timpul de încărcare, vă rugăm să verificaţi jurnalul "
+"pentru mai multe informaţii."
 
 #: ../src/plugins/imgur-plugin.vala:176
 msgid "Synapse - Imgur"
-msgstr ""
+msgstr "Synapse - Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:232
 msgid "Upload to imgur to contact.."
@@ -571,11 +574,11 @@ msgstr ""
 
 #: ../src/plugins/imgur-plugin.vala:266
 msgid "Imgur"
-msgstr ""
+msgstr "Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:267
 msgid "Share images using imgur."
-msgstr ""
+msgstr "Partajeza imaginilor utilizând imgur."
 
 #: ../src/plugins/launchpad-plugin.vala:45
 msgid "Authorize with Launchpad"
@@ -589,7 +592,7 @@ msgstr ""
 
 #: ../src/plugins/launchpad-plugin.vala:55
 msgid "Finish authorization"
-msgstr ""
+msgstr "Termină autorizare"
 
 #: ../src/plugins/launchpad-plugin.vala:261
 msgid "Find bugs and branches on Launchpad."
@@ -617,11 +620,11 @@ msgstr ""
 
 #: ../src/plugins/locate-plugin.vala:95 ../src/plugins/locate-plugin.vala:105
 msgid "Locate"
-msgstr ""
+msgstr "Stabilește locul"
 
 #: ../src/plugins/locate-plugin.vala:96
 msgid "Locate files with this name on the filesystem"
-msgstr ""
+msgstr "Găsiţi fişiere cu acest nume în sistemul de fişiere"
 
 #: ../src/plugins/locate-plugin.vala:106
 msgid "Runs locate command to find files on the filesystem."
@@ -677,97 +680,97 @@ msgstr ""
 msgid "Unable to find \"pastebinit\" program"
 msgstr ""
 
-#: ../src/plugins/pidgin-plugin.vala:78
+#: ../src/plugins/pidgin-plugin.vala:77
 msgid "Get access to your Pidgin contacts"
-msgstr ""
+msgstr "Obţine acces la contactele tale pidgin"
 
-#: ../src/plugins/pidgin-plugin.vala:82
+#: ../src/plugins/pidgin-plugin.vala:81
 msgid "Pidgin is not installed."
-msgstr ""
+msgstr "Pidgin nu este instalat."
+
+#: ../src/plugins/pidgin-plugin.vala:94
+msgid "Send in chat to.."
+msgstr "Trimite in chat pentru a .."
 
 #: ../src/plugins/pidgin-plugin.vala:95
-msgid "Send in chat to.."
-msgstr ""
-
-#: ../src/plugins/pidgin-plugin.vala:96
 msgid "Send selected file within Pidgin"
-msgstr ""
+msgstr "Trimite fişier selectat în Pidgin"
 
-#: ../src/plugins/rhythmbox-plugin.vala:86
+#: ../src/plugins/rhythmbox-plugin.vala:84
 msgid "Control Rhythmbox and add items to playlists."
 msgstr "Controlează Rhythmbox și adaugă elemente la lista de redare."
 
-#: ../src/plugins/rhythmbox-plugin.vala:90
+#: ../src/plugins/rhythmbox-plugin.vala:88
 msgid "Rhythmbox is not installed"
 msgstr "Rhythmbox nu este instalat"
 
-#: ../src/plugins/rhythmbox-plugin.vala:156
+#: ../src/plugins/rhythmbox-plugin.vala:154
 msgid "Start playback in Rhythmbox"
 msgstr "Redă in Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:207
+#: ../src/plugins/rhythmbox-plugin.vala:205
 msgid "Pause playback in Rhythmbox"
 msgstr "Întrerupe redarea în Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:223
+#: ../src/plugins/rhythmbox-plugin.vala:221
 msgid "Plays the next song in Rhythmbox's playlist"
 msgstr "Redă melodia următoare din lista de redare a Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:246
+#: ../src/plugins/rhythmbox-plugin.vala:244
 msgid "Plays the previous song in Rhythmbox's playlist"
 msgstr "Redă melodia precedentă din lista de redare a Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:270
+#: ../src/plugins/rhythmbox-plugin.vala:268
 msgid "Enqueue in Rhythmbox"
 msgstr "Adaugă la coada listei de redare a Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:271
+#: ../src/plugins/rhythmbox-plugin.vala:269
 msgid "Add the song to Rhythmbox playlist"
 msgstr "Adaugă melodia în lista de redare a Rhythmbox"
 
-#: ../src/plugins/rhythmbox-plugin.vala:317
+#: ../src/plugins/rhythmbox-plugin.vala:316
 msgid "Play in Rhythmbox"
 msgstr "Reda în Rhythmbox"
 
 #: ../src/plugins/selection-plugin.vala:55
 msgid "Selection"
-msgstr ""
+msgstr "Selecție"
 
 #. plugin title
 #: ../src/plugins/selection-plugin.vala:56
 msgid "Provides actions for currently selected text."
-msgstr ""
+msgstr "Prevede acţiuni pentru textul selectat."
 
 #: ../src/plugins/selection-plugin.vala:81
 msgid "Selected text"
-msgstr ""
+msgstr "Text selectat"
 
 #. Plugin title
-#: ../src/plugins/ssh-plugin.vala:53
+#: ../src/plugins/ssh-plugin.vala:67
 msgid "Connect to host with SSH"
 msgstr ""
 
-#: ../src/plugins/ssh-plugin.vala:58
+#: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
-msgstr ""
+msgstr "ssh nu este instalat"
 
-#: ../src/plugins/ssh-plugin.vala:174
+#: ../src/plugins/ssh-plugin.vala:198
 msgid "Connect with SSH"
-msgstr ""
+msgstr "Conectează-te cu SSH"
 
-#: ../src/plugins/system-management.vala:89
+#: ../src/plugins/system-management.vala:87
 msgid "Suspend"
 msgstr "Suspendă"
 
-#: ../src/plugins/system-management.vala:90
+#: ../src/plugins/system-management.vala:88
 msgid "Put your computer into suspend mode"
 msgstr "Suspendă calculatorul"
 
-#: ../src/plugins/system-management.vala:159
+#: ../src/plugins/system-management.vala:158
 msgid "Hibernate"
 msgstr "Hibernează"
 
-#: ../src/plugins/system-management.vala:160
+#: ../src/plugins/system-management.vala:159
 msgid "Put your computer into hibernation mode"
 msgstr "Pune calculatorul în hibernare"
 
@@ -779,19 +782,19 @@ msgstr "Oprire"
 msgid "Turn your computer off"
 msgstr "Oprește calculatorul"
 
-#: ../src/plugins/system-management.vala:286
+#: ../src/plugins/system-management.vala:283
 msgid "Restart"
 msgstr "Repornire"
 
-#: ../src/plugins/system-management.vala:287
+#: ../src/plugins/system-management.vala:284
 msgid "Restart your computer"
 msgstr "Repornește calculatorul"
 
-#: ../src/plugins/system-management.vala:345
+#: ../src/plugins/system-management.vala:339
 msgid "Suspend, hibernate, restart or shutdown your computer."
 msgstr "Suspendă, hibernează, repornește sau oprește calculatorul."
 
-#: ../src/plugins/system-management.vala:349
+#: ../src/plugins/system-management.vala:343
 msgid "ConsoleKit wasn't found"
 msgstr "ConsoleKit nu a fost găsit"
 
@@ -850,7 +853,7 @@ msgstr ""
 
 #: ../src/plugins/zeitgeist-related.vala:107
 msgid "Related files"
-msgstr ""
+msgstr "Fișiere asemănătoare"
 
 #: ../src/plugins/zeitgeist-related.vala:108
 msgid "Finds files related to other search results using Zeitgeist."

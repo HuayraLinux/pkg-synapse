@@ -120,15 +120,16 @@ namespace Synapse
 
       try
       {
+        uint8[] file_contents;
         string contents;
         size_t len;
+
         bool load_ok;
 
         try
         {
           load_ok = yield recent.load_contents_async (null,
-                                                      out contents,
-                                                      out len);
+                                                      out file_contents, null);
         }
         catch (GLib.Error load_error)
         {
@@ -140,14 +141,15 @@ namespace Synapse
         {
           recent = File.new_for_path (Path.build_filename (
             Environment.get_user_data_dir (), RECENT_XML_NAME, null));
-
           load_ok = yield recent.load_contents_async (null,
-                                                      out contents,
-                                                      out len);
+                                                      out file_contents, null);
         }
 
         if (load_ok)
         {
+          contents = (string) file_contents;
+          len = file_contents.length;
+
           // load all uris from recently-used bookmark file
           var bf = new BookmarkFile ();
           bf.load_from_data (contents, len);
@@ -396,8 +398,12 @@ namespace Synapse
         try
         {
           var dir_info = yield dir.query_info_async ("time::*", 0, 0, null);
+#if VALA_0_16
+          var t = dir_info.get_modification_time ();
+#else
           var t = TimeVal ();
           dir_info.get_modification_time (out t);
+#endif
           if (t.tv_sec > di.last_update.tv_sec)
           {
             // the directory was changed, let's update
@@ -541,7 +547,7 @@ namespace Synapse
         original_rs = rs;
         search.callback ();
       });
-      ulong canc_sig_id = CancellableFix.connect (q.cancellable, () =>
+      ulong canc_sig_id = q.cancellable.connect (() =>
       {
         // who knows what thread this runs in
         SignalHandler.block (this, sig_id); // is this thread-safe?
