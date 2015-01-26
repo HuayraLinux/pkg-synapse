@@ -24,7 +24,7 @@ Standards-Version: 3.9.3
 DM-Upload-Allowed: yes
 
 Package: synapse
-Architecture: any
+Architecture: i386 amd64
 Depends: ${shlibs:Depends},
          ${misc:Depends},
 Recommends: zeitgeist (>= 0.6.0~) | zeitgeist-core (>= 0.6.0~),
