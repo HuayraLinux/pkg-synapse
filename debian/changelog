@@ -1,3 +1,11 @@
+synapse (0.2.10-3) unstable; urgency=medium
+
+  [Matias De Lellis]
+  * debian/patches:
+    - 92_vala_026.patch: Upgrade to vala 0.26
+
+ -- Fernando Toledo <ragnarok@docksud.com.ar>  Mon, 26 Jan 2015 13:03:39 -0300
+
 synapse (0.2.10-2) unstable; urgency=low
 
   * debian/patches:
