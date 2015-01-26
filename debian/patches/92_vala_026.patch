@@ -1,0 +1,132 @@
+diff -rupN synapse-0.2.10_orig/src/core/config-service.vala synapse-0.2.10/src/core/config-service.vala
+--- synapse-0.2.10_orig/src/core/config-service.vala	2012-03-18 16:02:41.000000000 -0300
++++ synapse-0.2.10/src/core/config-service.vala	2015-01-24 10:49:28.951172106 -0300
+@@ -151,7 +151,7 @@ namespace Synapse
+       
+       if (save_timer_id != 0) Source.remove (save_timer_id);
+       // on crap, this takes a reference on self
+-      save_timer_id = Timeout.add (30000, this.save_timeout);
++      save_timer_id = Gtk.Timeout.add (30000, this.save_timeout);
+     }
+     
+     private bool save_timeout ()
+diff -rupN synapse-0.2.10_orig/src/core/data-sink.vala synapse-0.2.10/src/core/data-sink.vala
+--- synapse-0.2.10_orig/src/core/data-sink.vala	2012-03-18 16:03:54.000000000 -0300
++++ synapse-0.2.10/src/core/data-sink.vala	2015-01-24 10:53:41.227161259 -0300
+@@ -448,7 +448,7 @@ namespace Synapse
+       // wait for our initialization
+       while (!plugins_loaded)
+       {
+-        Timeout.add (100, search.callback);
++        Gtk.Timeout.add (100, search.callback);
+         yield;
+         if (cancellable != null && cancellable.is_cancelled ())
+         {
+diff -rupN synapse-0.2.10_orig/src/core/Makefile.in synapse-0.2.10/src/core/Makefile.in
+--- synapse-0.2.10_orig/src/core/Makefile.in	2012-03-18 16:12:46.000000000 -0300
++++ synapse-0.2.10/src/core/Makefile.in	2015-01-24 11:06:28.147128284 -0300
+@@ -209,7 +209,7 @@ SET_MAKE = @SET_MAKE@
+ SHELL = @SHELL@
+ STRIP = @STRIP@
+ SYNAPSE_MODULES_CFLAGS = @SYNAPSE_MODULES_CFLAGS@
+-SYNAPSE_MODULES_LIBS = @SYNAPSE_MODULES_LIBS@
++SYNAPSE_MODULES_LIBS = @SYNAPSE_MODULES_LIBS@ -lm
+ USE_NLS = @USE_NLS@
+ VALAC = @VALAC@
+ VERSION = @VERSION@
+diff -rupN synapse-0.2.10_orig/src/core/relevancy-backend-zg.vala synapse-0.2.10/src/core/relevancy-backend-zg.vala
+--- synapse-0.2.10_orig/src/core/relevancy-backend-zg.vala	2012-03-18 16:02:41.000000000 -0300
++++ synapse-0.2.10/src/core/relevancy-backend-zg.vala	2015-01-24 11:00:04.195144793 -0300
+@@ -39,7 +39,7 @@ namespace Synapse
+       refresh_popularity ();
+       check_data_sources.begin ();
+ 
+-      Timeout.add_seconds (60*30, refresh_popularity);
++      GLib.Timeout.add_seconds (60*30, refresh_popularity);
+     }
+ 
+     private async void check_data_sources ()
+diff -rupN synapse-0.2.10_orig/src/plugins/hybrid-search-plugin.vala synapse-0.2.10/src/plugins/hybrid-search-plugin.vala
+--- synapse-0.2.10_orig/src/plugins/hybrid-search-plugin.vala	2012-03-18 16:04:41.000000000 -0300
++++ synapse-0.2.10/src/plugins/hybrid-search-plugin.vala	2015-01-24 10:53:25.127161952 -0300
+@@ -568,7 +568,7 @@ namespace Synapse
+       // make sure we've done the initial load
+       while (!initialization_done)
+       {
+-        Timeout.add (250, search.callback);
++        Gtk.Timeout.add (250, search.callback);
+         yield;
+         q.check_cancellable ();
+       }
+diff -rupN synapse-0.2.10_orig/src/ui/inspector.vala synapse-0.2.10/src/ui/inspector.vala
+--- synapse-0.2.10_orig/src/ui/inspector.vala	2012-03-18 16:02:41.000000000 -0300
++++ synapse-0.2.10/src/ui/inspector.vala	2015-01-24 10:46:33.215179663 -0300
+@@ -28,7 +28,7 @@ namespace UI
+ 
+     public Inspector ()
+     {
+-      timer_id = Timeout.add (500, this.check_window_at_pointer);
++      timer_id = Gtk.Timeout.add (500, this.check_window_at_pointer);
+     }
+   
+     ~Inspector ()
+diff -rupN synapse-0.2.10_orig/src/ui/widgets-matchlistview.vala synapse-0.2.10/src/ui/widgets-matchlistview.vala
+--- synapse-0.2.10_orig/src/ui/widgets-matchlistview.vala	2012-03-18 16:02:41.000000000 -0300
++++ synapse-0.2.10/src/ui/widgets-matchlistview.vala	2015-01-24 11:04:12.631134111 -0300
+@@ -551,7 +551,7 @@ namespace Synapse.Gui
+       }
+       if (needs_animation)
+       {
+-        if (tid == 0) tid = Timeout.add (ANIM_TIMEOUT, this.update_current_offsets);
++        if (tid == 0) tid = Gtk.Timeout.add (ANIM_TIMEOUT, this.update_current_offsets);
+         this.queue_draw ();
+         return true;
+       }
+@@ -734,7 +734,7 @@ namespace Synapse.Gui
+           this.inhibit_move = true;
+           this.set_indexes (this.dragdrop_target_item, this.dragdrop_target_item);
+           this.selected_index_changed (this.select_index);
+-          Timeout.add (Gtk.Settings.get_default ().gtk_double_click_time ,()=>{
++          Gtk.Timeout.add (Gtk.Settings.get_default ().gtk_double_click_time ,()=>{
+             if (inhibit_move)
+             {
+               inhibit_move = false;
+diff -rupN synapse-0.2.10_orig/src/ui/widgets.vala synapse-0.2.10/src/ui/widgets.vala
+--- synapse-0.2.10_orig/src/ui/widgets.vala	2012-03-18 16:02:41.000000000 -0300
++++ synapse-0.2.10/src/ui/widgets.vala	2015-01-24 11:03:21.279136319 -0300
+@@ -185,7 +185,7 @@ namespace Synapse.Gui
+     {
+       if (tid != 0) return;
+ 
+-      tid = Timeout.add (40, ()=>{
++      tid = Gtk.Timeout.add (40, ()=>{
+         offset = (offset - 1) % (_anim_width);
+         queue_draw ();
+         return true;
+@@ -245,7 +245,7 @@ namespace Synapse.Gui
+       {
+         if (tid == 0)
+         {
+-          tid = Timeout.add (INITIAL_TIMEOUT, ()=>{
++          tid = Gtk.Timeout.add (INITIAL_TIMEOUT, ()=>{
+             tid = 0;
+             start_animation ();
+             return false;
+@@ -1085,7 +1085,7 @@ namespace Synapse.Gui
+       }
+       if (tid == 0)
+       {
+-        tid = Timeout.add (30, ()=>{
++        tid = Gtk.Timeout.add (30, ()=>{
+           return update_current_offset ();
+         });
+       }
+@@ -1121,7 +1121,7 @@ namespace Synapse.Gui
+       });
+       this.size_allocate.connect (()=>{
+         if (tid == 0)
+-          tid = Timeout.add (30, ()=>{
++          tid = Gtk.Timeout.add (30, ()=>{
+             return update_current_offset ();
+           });
+       });
