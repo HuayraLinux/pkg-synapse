@@ -23,11 +23,11 @@ using Gee;
 
 namespace Synapse
 {
-  public class SshPlugin: Object, Activatable, ItemProvider
+  public class SshPlugin : Object, Activatable, ItemProvider
   {
     public  bool      enabled { get; set; default = true; }
-    private ArrayList<SshHost> hosts;
-    
+    private HashMap<string, SshHost> hosts;
+
     protected File config_file;
     protected FileMonitor monitor;
 
@@ -35,10 +35,10 @@ namespace Synapse
     {
       register_plugin ();
     }
-    
+
     construct
     {
-      hosts = new ArrayList<SshHost> ();
+      hosts = new HashMap<string, SshHost> ();
     }
 
     public void activate ()
@@ -53,7 +53,7 @@ namespace Synapse
       }
       catch (IOError e)
       {
-        Utils.Logger.warning (this, "Failed to start monitoring changes of ssh client config file");
+        warning ("Failed to start monitoring changes of ssh client config file");
       }
     }
 
@@ -61,15 +61,15 @@ namespace Synapse
 
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (SshPlugin),
     		"SSH", // Plugin title
-        _ ("Connect to host with SSH"), // description
+        _("Connect to host with SSH"), // description
         "terminal",	// icon name
         register_plugin, // reference to this function
     		// true if user's system has all required components which the plugin needs
         (Environment.find_program_in_path ("ssh") != null),
-        _ ("ssh is not installed") // error message
+        _("ssh is not installed") // error message
       );
     }
 
@@ -102,11 +102,10 @@ namespace Synapse
             foreach (var host in line.split (" "))
             {
               string host_stripped = host.strip ();
-              if (host_stripped != ""/* && host_stripped.index_of ("*") == -1*/)
+              if (host_stripped != "" && host_stripped.index_of ("*") == -1 && host_stripped.index_of ("?") == -1)
               {
-                // TODO: no dupes
-                Utils.Logger.debug (this, "host added: %s\n", host_stripped);
-                hosts.add (new SshHost (host_stripped));
+                debug ("host added: %s\n", host_stripped);
+                hosts.set (host_stripped, new SshHost (host_stripped));
               }
             }
           }
@@ -114,10 +113,10 @@ namespace Synapse
       }
       catch (Error e)
       {
-        Utils.Logger.warning (this, "%s: %s", config_file.get_path (), e.message);
+        warning ("%s: %s", config_file.get_path (), e.message);
       }
     }
-    
+
     public void handle_ssh_config_update (FileMonitor monitor,
                                           File file,
                                           File? other_file,
@@ -125,14 +124,14 @@ namespace Synapse
     {
       if (event_type == FileMonitorEvent.CHANGES_DONE_HINT)
       {
-        Utils.Logger.log (this, "ssh_config is changed, reparsing");
+        message ("ssh_config is changed, reparsing");
         parse_ssh_config.begin ();
       }
     }
 
     public bool handles_query (Query query)
     {
-      return hosts.size > 0 && 
+      return hosts.size > 0 &&
             ( QueryFlags.ACTIONS in query.query_type ||
               QueryFlags.INTERNET in query.query_type);
     }
@@ -144,17 +143,17 @@ namespace Synapse
       q.check_cancellable ();
 
       var results = new ResultSet ();
-      
+
       var matchers = Query.get_matchers_for_query (q.query_string, 0,
         RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS);
 
-      foreach (var host in hosts)
+      foreach (var host in hosts.values) //workaround for missing HashMap.iterator() method
       {
         foreach (var matcher in matchers)
         {
           if (matcher.key.match (host.host_query))
           {
-            results.add (host, matcher.value - Match.Score.INCREMENT_SMALL);
+            results.add (host, matcher.value - MatchScore.INCREMENT_SMALL);
             break;
           }
         }
@@ -165,24 +164,18 @@ namespace Synapse
       return results;
     }
 
-    private class SshHost : Object, Match
+    private class SshHost : ActionMatch
     {
-      public string title           { get; construct set; }
-      public string description     { get; set; }
-      public string icon_name       { get; construct set; }
-      public bool   has_thumbnail   { get; construct set; }
-      public string thumbnail_path  { get; construct set; }
-      public string host_query      { get; construct set; }
-      public MatchType match_type   { get; construct set; }
+      public string host_query { get; construct set; }
 
-      public void execute (Match? match)
+      public override void do_action ()
       {
         try
         {
           AppInfo ai = AppInfo.create_from_commandline (
             "ssh %s".printf (this.title),
             "ssh", AppInfoCreateFlags.NEEDS_TERMINAL);
-          ai.launch (null, new Gdk.AppLaunchContext ());
+          ai.launch (null, null);
         }
         catch (Error err)
         {
@@ -193,15 +186,13 @@ namespace Synapse
       public SshHost (string host_name)
       {
         Object (
-          match_type: MatchType.ACTION,
           title: host_name,
           description: _("Connect with SSH"),
           has_thumbnail: false,
           icon_name: "terminal",
-          // FIXME: handle wildcard hosts somehow better than now
-          host_query: host_name.replace ("?", " ").replace ("*", "").strip ()
+          host_query: host_name
         );
-        
+
       }
     }
   }

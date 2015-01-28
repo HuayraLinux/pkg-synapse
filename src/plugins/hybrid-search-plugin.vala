@@ -19,50 +19,26 @@
  *
  */
 
-/* 
+/*
  * This plugin keeps a cache of file names for directories that are commonly
- * used. 
+ * used.
  */
 
 namespace Synapse
 {
-  public class HybridSearchPlugin: Object, Activatable, ItemProvider
+  public class HybridSearchPlugin : Object, Activatable, ItemProvider
   {
     public unowned DataSink data_sink { get; construct; }
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
-    }
 
-    private class MatchObject: Object, Match, UriMatch
-    {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
-      // for FileMatch
-      public string uri { get; set; }
-      public QueryFlags file_type { get; set; }
-      public string mime_type { get; set; }
-
-      public MatchObject (string? thumbnail_path, string? icon)
-      {
-        Object (match_type: MatchType.GENERIC_URI,
-                has_thumbnail: thumbnail_path != null,
-                icon_name: icon ?? "",
-                thumbnail_path: thumbnail_path ?? "");
-      }
     }
 
     private class DirectoryInfo
@@ -77,13 +53,13 @@ namespace Synapse
         this.path = path;
       }
     }
-    
+
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (HybridSearchPlugin),
         "Hybrid Search",
-        _ ("Improve results returned by the Zeitgeist plugin by looking " +
+        _("Improve results returned by the Zeitgeist plugin by looking " +
         "for similar files on the filesystem."),
         "search",
         register_plugin
@@ -100,9 +76,9 @@ namespace Synapse
       directory_hits = new Gee.HashMap<string, int> ();
       directory_contents = new Gee.HashMap<string, Utils.FileInfo?> ();
 
-      analyze_recent_documents ();
+      analyze_recent_documents.begin ();
     }
-    
+
     private bool initialization_done = false;
 
     protected override void constructed ()
@@ -171,12 +147,9 @@ namespace Synapse
           // sort the map according to hits
           Gee.List<Gee.Map.Entry<string, int>> sorted_dirs = new Gee.ArrayList<Gee.Map.Entry<string, int>> ();
           sorted_dirs.add_all (dir_hits.entries);
-          sorted_dirs.sort ((a, b) =>
-          {
-            unowned Gee.Map.Entry<string, int> e1 =
-              (Gee.Map.Entry<string, int>) a;
-            unowned Gee.Map.Entry<string, int> e2 = 
-              (Gee.Map.Entry<string, int>) b;
+          sorted_dirs.sort ((a, b) => {
+            unowned Gee.Map.Entry<string, int> e1 = (Gee.Map.Entry<string, int>) a;
+            unowned Gee.Map.Entry<string, int> e2 = (Gee.Map.Entry<string, int>) b;
             return e2.value - e1.value;
           });
 
@@ -203,19 +176,19 @@ namespace Synapse
           {
             z += x.value.files.size;
           }
-          Utils.Logger.log (this, "keeps in cache now %d file names", z);
+          message ("keeps in cache now %d file names", z);
         }
       }
       catch (Error err)
       {
-        Utils.Logger.warning (this, "Unable to parse %s", recent.get_path ());
+        warning ("Unable to parse %s", recent.get_path ());
       }
 
       initialization_done = true;
     }
 
     public signal void zeitgeist_search_complete (ResultSet? rs, uint query_id);
-    
+
     private void zg_plugin_search_done (ResultSet? rs, uint query_id)
     {
       zeitgeist_search_complete (rs, query_id);
@@ -236,7 +209,7 @@ namespace Synapse
         {
           if (f.is_native ())
           {
-            var fi = yield f.query_info_async (FILE_ATTRIBUTE_STANDARD_TYPE,
+            var fi = yield f.query_info_async (FileAttribute.STANDARD_TYPE,
                                                0, 0, null);
             if (fi.get_file_type () == FileType.REGULAR)
             {
@@ -251,10 +224,10 @@ namespace Synapse
         }
       }
 
-      int q_len = current_query == null ? 1 : (int) current_query.length;
+      int q_len = current_query == null ? 1 : current_query.char_count ();
       foreach (var dir in dirs)
       {
-        if (dir in directory_hits)
+        if (directory_hits.has_key (dir))
         {
           int hit_count = directory_hits[dir];
           directory_hits[dir] = hit_count + q_len;
@@ -288,12 +261,9 @@ namespace Synapse
         {
           if (entry.value > min_hit) sort_array.add (entry);
         }
-        sort_array.sort ((a, b) =>
-        {
-          unowned Gee.Map.Entry<unowned string, int> e1 =
-            (Gee.Map.Entry<unowned string, int>) a;
-          unowned Gee.Map.Entry<unowned string, int> e2 =
-            (Gee.Map.Entry<unowned string, int>) b;
+        sort_array.sort ((a, b) => {
+          unowned Gee.Map.Entry<unowned string, int> e1 = (Gee.Map.Entry<unowned string, int>) a;
+          unowned Gee.Map.Entry<unowned string, int> e2 = (Gee.Map.Entry<unowned string, int>) b;
           return e2.value - e1.value;
         });
 
@@ -325,7 +295,7 @@ namespace Synapse
           continue;
         }
         var child = directory.get_child (name);
-        var file_info = new Utils.FileInfo (child.get_uri (), typeof (MatchObject));
+        var file_info = new Utils.FileInfo (child.get_uri (), typeof (UriMatch));
         di.files[file_info.uri] = file_info;
       }
     }
@@ -333,9 +303,9 @@ namespace Synapse
     private async void update_directory_contents (GLib.File directory,
                                                   DirectoryInfo di) throws Error
     {
-      Utils.Logger.debug (this, "Scanning %s", directory.get_path ());
+      debug ("Scanning %s", directory.get_path ());
       var enumerator = yield directory.enumerate_children_async (
-        FILE_ATTRIBUTE_STANDARD_NAME, 0, 0);
+        FileAttribute.STANDARD_NAME, 0, 0);
       var files = yield enumerator.next_files_async (1024, 0);
 
       di.files.clear ();
@@ -350,7 +320,7 @@ namespace Synapse
         try
         {
           DirectoryInfo di;
-          if (dir_path in directory_contents)
+          if (directory_contents.has_key (dir_path))
           {
             var cur_time = TimeVal ();
             di = directory_contents[dir_path];
@@ -398,12 +368,7 @@ namespace Synapse
         try
         {
           var dir_info = yield dir.query_info_async ("time::*", 0, 0, null);
-#if VALA_0_16
           var t = dir_info.get_modification_time ();
-#else
-          var t = TimeVal ();
-          dir_info.get_modification_time (out t);
-#endif
           if (t.tv_sec > di.last_update.tv_sec)
           {
             // the directory was changed, let's update
@@ -412,7 +377,7 @@ namespace Synapse
         }
         catch (Error err)
         {
-          Utils.Logger.warning (this, "%s", err.message);
+          warning ("%s", err.message);
         }
 
         var rel_srv = RelevancyService.get_default ();
@@ -444,14 +409,14 @@ namespace Synapse
                 if (fi.match_obj != null && fi.file_type in q.query_type)
                 {
                   //Does match only the path, use base_relevancy like ZG plugin does for non-matched
-                  int base_relevancy = Match.Score.POOR + Match.Score.INCREMENT_MINOR;
+                  int base_relevancy = MatchScore.POOR + MatchScore.INCREMENT_MINOR;
                   if (matcher.key.match (fi.match_obj.title))
                   {
                     //Matches title! Great news!
-                    base_relevancy = matcher.value - Match.Score.URI_PENALTY;
+                    base_relevancy = matcher.value - MatchScore.URI_PENALTY;
                   }
                   float pop = rel_srv.get_uri_popularity (fi.uri);
-                  results.add (fi.match_obj, 
+                  results.add (fi.match_obj,
                     RelevancyService.compute_relevancy (base_relevancy, pop));
                   num_results++;
                 }
@@ -477,7 +442,7 @@ namespace Synapse
 
       if (directories.size == 0) q.check_cancellable ();
 
-      Utils.Logger.debug (this, "found %d extra uris (ZG returned %d)",
+      debug ("found %d extra uris (ZG returned %d)",
         results.size, original_rs == null ? 0 : original_rs.size);
 
       return results;
@@ -503,8 +468,7 @@ namespace Synapse
       while (processing_query)
       {
         ulong sig_id;
-        sig_id = this.notify["processing-query"].connect (() =>
-        {
+        sig_id = this.notify["processing-query"].connect (() => {
           if (processing_query) return;
           wait_for_processing_finished.callback ();
         });
@@ -517,7 +481,7 @@ namespace Synapse
     public async ResultSet? search (Query q) throws SearchError
     {
       // ignore short searches
-      if (q.query_string.length <= 1) return null;
+      if (q.query_string.char_count () <= 1) return null;
 
       // FIXME: what about deleting one character?
       if (current_query != null && !q.query_string.has_prefix (current_query))
@@ -526,7 +490,7 @@ namespace Synapse
         current_level_uris = 0;
         directory_hits.clear ();
       }
-      
+
       uint query_id = q.query_id;
       current_query = q.query_string;
       int last_level_uris = current_level_uris;
@@ -534,21 +498,19 @@ namespace Synapse
       Gee.Set<string> uris = new Gee.HashSet<string> ();
 
       // wait for our signal or cancellable
-      ulong sig_id = this.zeitgeist_search_complete.connect ((rs, q_id) =>
-      {
+      ulong sig_id = this.zeitgeist_search_complete.connect ((rs, q_id) => {
         if (q_id != query_id) return;
         // let's mine directories ZG is aware of
         foreach (var match in rs)
         {
-          unowned UriMatch uri_match = match.key as UriMatch;
+          unowned UriMatch? uri_match = match.key as UriMatch;
           if (uri_match == null) continue;
           uris.add (uri_match.uri);
         }
         original_rs = rs;
         search.callback ();
       });
-      ulong canc_sig_id = q.cancellable.connect (() =>
-      {
+      ulong canc_sig_id = q.cancellable.connect (() => {
         // who knows what thread this runs in
         SignalHandler.block (this, sig_id); // is this thread-safe?
         Idle.add (search.callback); // FIXME: this could cause issues
@@ -596,7 +558,7 @@ namespace Synapse
         hit_level++;
 
         // we weren't cancelled and we should have some directories and hits
-        if (hit_level > 1 && q.query_string.length >= 3)
+        if (hit_level > 1 && q.query_string.char_count () >= 3)
         {
           // we want [current_level_uris / last_level_uris > 0.66]
           if (current_level_uris * 3 > 2 * last_level_uris)
@@ -623,8 +585,6 @@ namespace Synapse
       {
         processing_query = false;
       }
-
-      return null;
     }
   }
 }

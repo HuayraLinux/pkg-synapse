@@ -20,12 +20,14 @@ src/core/common-actions.vala
 src/plugins/banshee-plugin.vala
 src/plugins/calculator-plugin.vala
 src/plugins/chat-actions-plugin.vala
+src/plugins/chromium-plugin.vala
 src/plugins/command-plugin.vala
 src/plugins/desktop-file-plugin.vala
 src/plugins/devhelp-search.vala
 src/plugins/dictionary.vala
 src/plugins/directory-plugin.vala
 src/plugins/file-op-plugin.vala
+src/plugins/gnome-bookmarks-plugin.vala
 src/plugins/gnome-screensaver-plugin.vala
 src/plugins/hybrid-search-plugin.vala
 src/plugins/imgur-plugin.vala

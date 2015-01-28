@@ -39,9 +39,9 @@ namespace Synapse
     {
       clipboard.owner_change.disconnect (this.cb_owner_change);
     }
-    
+
     bool cb_changed = true;
-    
+
     private void cb_owner_change ()
     {
       cb_changed = true;
@@ -50,10 +50,10 @@ namespace Synapse
     // register your plugin in the UI
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (SelectionPlugin),
-        _ ("Selection"), // plugin title
-        _ ("Provides actions for currently selected text."), // description
+        _("Selection"), // plugin title
+        _("Provides actions for currently selected text."), // description
         "edit-select-all", // icon name
         register_plugin // reference to this function
       );
@@ -64,40 +64,34 @@ namespace Synapse
       // register the plugin when the class is constructed
       register_plugin ();
     }
-    
-    private class SelectedTextItem : Object, Match, TextMatch
+
+    private class SelectedTextItem : TextMatch
     {
-      public string title { get; construct set; }
-      public string description { get; set; }
-      public string icon_name { get; construct set; }
-      public bool has_thumbnail { get; construct set; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-      
-      public TextOrigin text_origin { get; set; }
-      
       public SelectedTextItem ()
       {
         Object (title: _("Selected text"),
                 description : "",
                 icon_name: "edit-select-all",
                 has_thumbnail: false,
-                match_type: MatchType.TEXT,
                 text_origin: TextOrigin.CLIPBOARD);
       }
 
-      protected string get_text ()
+      public override string get_text ()
       {
         return content;
       }
-      
+
       private string? content = null;
 
       public void update_content (owned string content)
       {
         this.content = content;
         string chugged = content.chug ();
-        string shortened = chugged.substring (0, int.min ((int)chugged.length, 100));
+        string shortened;
+        if (chugged.char_count () > 100)
+          shortened = chugged.substring (0, chugged.index_of_nth_char (100));
+        else
+          shortened = chugged;
         description = shortened.replace ("\n", " ");
       }
     }
@@ -122,14 +116,13 @@ namespace Synapse
           break;
         }
       }
-      
+
       if (relevancy == 0) return null;
       string? cb_text = null;
-      
+
       if (cb_changed)
       {
-        clipboard.request_text ((cb, text) =>
-        {
+        clipboard.request_text ((cb, text) => {
           cb_text = text;
           search.callback ();
         });

@@ -46,7 +46,19 @@ namespace Synapse
 </OpenSearchDescription>
 """;
 
-  public class OpenSearchPlugin: Object, Activatable, ActionProvider
+  private const string DUCKDUCKGO_SEARCH_XML = """
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"> 
+  <ShortName>DuckDuckGo</ShortName> 
+  <Description>Search DuckDuckGo</Description> 
+  <InputEncoding>UTF-8</InputEncoding> 
+  <LongName>DuckDuckGo Search</LongName> 
+  <Url type="text/html" method="get" template="https://duckduckgo.com/?q={searchTerms}"/>
+  <Url type="application/x-suggestions+json" template="https://ac.duckduckgo.com/ac/?q={searchTerms}&amp;type=list"/>
+</OpenSearchDescription> 
+""";
+
+  public class OpenSearchPlugin : Object, Activatable, ActionProvider
   {
     public bool enabled { get; set; default = true; }
 
@@ -58,10 +70,9 @@ namespace Synapse
 
     public void deactivate ()
     {
-      
     }
 
-    private class OpenSearchParser: Object
+    private class OpenSearchParser : Object
     {
       const MarkupParser parser =
       {
@@ -81,7 +92,7 @@ namespace Synapse
       public string description { get; set; }
       public string query_url { get; set; }
       public string suggestion_url { get; set; }
-      
+
       construct
       {
         context = new MarkupParseContext (parser, 0, this, null);
@@ -91,7 +102,7 @@ namespace Synapse
       {
         return context.parse (content, -1);
       }
-      
+
       public bool has_valid_result ()
       {
         return is_opensearch && has_name && has_desc && has_url;
@@ -102,7 +113,7 @@ namespace Synapse
         uint len = strv_length (attrs);
         bool main_type = false;
         bool suggestion_type = false;
-        
+
         for (uint i=0; i<len; i++)
         {
           switch (attrs[i])
@@ -143,7 +154,7 @@ namespace Synapse
           default: break;
         }
       }
-      
+
       private void end (MarkupParseContext ctx, string name) throws MarkupError
       {
         switch (name)
@@ -155,42 +166,33 @@ namespace Synapse
           default: break;
         }
       }
-      
+
       private void text (MarkupParseContext ctx, string text, size_t text_len) throws MarkupError
       {
         if (in_name_elem) short_name = text;
         else if (in_description_elem) description = text;
       }
     }
-    
-    private class SearchAction: Object, Match
+
+    private class SearchAction : Match
     {
-      // from Match interface
-      public string title { get; construct set; }
-      public string description { get; set; }
-      public string icon_name { get; construct set; }
-      public bool has_thumbnail { get; construct set; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-      
-      public int default_relevancy { get; set; default = Match.Score.INCREMENT_MINOR; }
+      public int default_relevancy { get; set; default = MatchScore.INCREMENT_MINOR; }
       public string query_template { get; construct set; }
 
-      public void execute (Match? match)
+      public override void execute (Match match)
       {
         try
         {
           string what = (match is TextMatch) ?
-            (match as TextMatch).get_text () : match.title;
-          AppInfo.launch_default_for_uri (get_query_url (what),
-                                          new Gdk.AppLaunchContext ());
+            ((TextMatch) match).get_text () : match.title;
+          AppInfo.launch_default_for_uri (get_query_url (what), null);
         }
         catch (Error err)
         {
           warning ("%s", err.message);
         }
       }
-      
+
       protected string get_query_url (string query)
       {
         string result;
@@ -201,7 +203,7 @@ namespace Synapse
 
         return result;
       }
-      
+
       protected string get_lang ()
       {
         string? result = null;
@@ -225,8 +227,8 @@ namespace Synapse
                 has_thumbnail: false, icon_name: "applications-internet");
       }
     }
-    
-    private class Config: ConfigObject
+
+    private class Config : ConfigObject
     {
       public bool use_internal { get; set; default = true; }
 
@@ -243,13 +245,13 @@ namespace Synapse
         }
       }
     }
-    
+
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (OpenSearchPlugin),
         "OpenSearch",
-        _ ("Search the web."),
+        _("Search the web."),
         "applications-internet",
         register_plugin
       );
@@ -261,10 +263,12 @@ namespace Synapse
 
       // keep in sync with the internal XMLs!
       unowned string dummy;
-      dummy = N_ ("Google");
-      dummy = N_ ("Search the web using google.com");
-      dummy = N_ ("Google Maps");
-      dummy = N_ ("Search using Google Maps");
+      dummy = N_("DuckDuckGo");
+      dummy = N_("Search the web using duckduckgo.com");
+      dummy = N_("Google");
+      dummy = N_("Search the web using google.com");
+      dummy = N_("Google Maps");
+      dummy = N_("Search using Google Maps");
     }
 
     private Gee.List<SearchAction> actions;
@@ -275,13 +279,14 @@ namespace Synapse
       var cs = ConfigService.get_default ();
       config = (Config) cs.get_config ("plugins", "opensearch", typeof (Config));
     }
-    
+
     private async void load_xmls ()
     {
       OpenSearchParser parser;
       if (config.use_internal)
       {
         Gee.List<unowned string> internals = new Gee.ArrayList<unowned string> ();
+        internals.add (DUCKDUCKGO_SEARCH_XML);
         internals.add (GOOGLE_SEARCH_XML);
         internals.add (GOOGLE_MAPS_XML);
         foreach (unowned string s in internals)
@@ -292,8 +297,8 @@ namespace Synapse
             parser.parse (s);
             if (parser.has_valid_result ())
             {
-              actions.add (new SearchAction (_ (parser.short_name),
-                                             _ (parser.description),
+              actions.add (new SearchAction (_(parser.short_name),
+                                             _(parser.description),
                                              parser.query_url));
             }
           }
@@ -319,7 +324,7 @@ namespace Synapse
           yield f.load_contents_async (null, out file_contents, null);
           contents = (string) file_contents;
           len = file_contents.length;
-          
+
           parser = new OpenSearchParser ();
           parser.parse (contents);
           if (parser.has_valid_result ())
@@ -336,7 +341,7 @@ namespace Synapse
         }
       }
     }
-    
+
     public bool handles_unknown ()
     {
       return true;
@@ -344,11 +349,8 @@ namespace Synapse
 
     public ResultSet? find_for_match (ref Query query, Match match)
     {
-      if (match.match_type != MatchType.UNKNOWN &&
-          match.match_type != MatchType.TEXT)
-      {
-        return null;
-      }
+      if (!(match is UnknownMatch || match is TextMatch)) return null;
+
       var my_flags = QueryFlags.ACTIONS | QueryFlags.INTERNET;
       if ((query.query_type & my_flags) == 0) return null;
 

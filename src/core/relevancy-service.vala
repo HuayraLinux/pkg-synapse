@@ -20,7 +20,7 @@
 
 namespace Synapse
 {
-  public interface RelevancyBackend: Object
+  public interface RelevancyBackend : Object
   {
     public abstract float get_application_popularity (string desktop_id);
     public abstract float get_uri_popularity (string uri);
@@ -49,19 +49,19 @@ namespace Synapse
     {
       instance = this;
       this.add_weak_pointer (&instance);
-      
+
       initialize_relevancy_backend ();
     }
-    
+
     private RelevancyBackend backend;
-    
+
     private void initialize_relevancy_backend ()
     {
 #if HAVE_ZEITGEIST
       backend = new ZeitgeistRelevancyBackend ();
 #endif
     }
-    
+
     public float get_application_popularity (string desktop_id)
     {
       if (backend == null) return 0.0f;
@@ -73,10 +73,10 @@ namespace Synapse
       if (backend == null) return 0.0f;
       return backend.get_uri_popularity (uri);
     }
-    
+
     public void application_launched (AppInfo app_info)
     {
-      Utils.Logger.debug (this, "application launched");
+      debug ("application launched");
       if (backend == null) return;
       backend.application_launched (app_info);
     }
@@ -85,12 +85,12 @@ namespace Synapse
     {
       // FIXME: let's experiment here
       // the other idea is to use base_relevancy * (1.0f + modifier)
-      int relevancy = (int) (base_relevancy + modifier * Match.Score.INCREMENT_LARGE * 2);
-      //int relevancy = base_relevancy + (int) (modifier * Match.Score.HIGHEST);
+      int relevancy = (int) (base_relevancy + modifier * MatchScore.INCREMENT_LARGE * 2);
+      //int relevancy = base_relevancy + (int) (modifier * MatchScore.HIGHEST);
       return relevancy;
       // FIXME: this clamping should be done, but it screws up the popularity
       //   for very popular items with high match score
-      //return int.min (relevancy, Match.Score.HIGHEST);
+      //return int.min (relevancy, MatchScore.HIGHEST);
     }
   }
 }

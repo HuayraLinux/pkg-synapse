@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-03-04 23:39+0000\n"
-"PO-Revision-Date: 2011-09-22 12:49+0000\n"
-"Last-Translator: Nicola Moretto <Unknown>\n"
+"POT-Creation-Date: 2014-02-22 20:34+0000\n"
+"PO-Revision-Date: 2013-10-16 15:21+0000\n"
+"Last-Translator: Fabrizio Amici <afa.magazzino@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2014-02-23 07:34+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Synapse"
@@ -27,10 +27,11 @@ msgid "Search everything you do."
 msgstr "Cerca tutto ciò che fai."
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
+#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:244
 msgid "Activate"
 msgstr "Attiva"
 
+#. Whooot?! This cannot be true!
 #: ../src/ui/category.vala:31 ../src/ui/category.vala:72
 #: ../src/ui/category.vala:135
 msgid "All"
@@ -98,7 +99,7 @@ msgstr "Digita per cercare..."
 msgid "...or press down key to browse recent activities"
 msgstr "...o premi giù per vedere le attività recenti"
 
-#: ../src/ui/view-virgilio.vala:188 ../src/ui/widgets-matchlistview.vala:923
+#: ../src/ui/view-virgilio.vala:204 ../src/ui/widgets-matchlistview.vala:936
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d di %d</b>"
@@ -216,6 +217,7 @@ msgid "Paste current selection"
 msgstr "Incolla la selezione corrente"
 
 #: ../src/ui/settings.vala:260
+#: ../src/plugins/xnoise-media-player-plugin.vala:129
 msgid "Quit"
 msgstr "Esci"
 
@@ -267,21 +269,22 @@ msgstr ""
 "Clicca la scorciatoia da tastiera che desideri modificare e digita la nuova "
 "scorciatoia."
 
-#: ../src/ui/widgets-matchlistview.vala:896
-#: ../src/ui/widgets-matchlistview.vala:910
+#: ../src/ui/widgets-matchlistview.vala:909
+#: ../src/ui/widgets-matchlistview.vala:923
 msgid "No results."
 msgstr "Nessun risultato."
 
-#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:928
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 di %d</b>"
 
-#: ../src/ui/utils.vala:115
+#. if is home dir
+#: ../src/ui/utils.vala:132
 msgid "Home"
 msgstr "Home"
 
-#: ../src/ui/utils.vala:129
+#: ../src/ui/utils.vala:146
 msgid "Root"
 msgstr "Root"
 
@@ -293,35 +296,35 @@ msgstr "Esegui"
 msgid "Run an application, action or script"
 msgstr "Esegui un'applicazione, un'azione o uno script"
 
-#: ../src/core/common-actions.vala:132
+#: ../src/core/common-actions.vala:133
 msgid "Run in Terminal"
 msgstr "Esegui nel Terminale"
 
-#: ../src/core/common-actions.vala:133
+#: ../src/core/common-actions.vala:134
 msgid "Run application or command in terminal"
 msgstr "Esegui applicazione o comando nel terminale"
 
-#: ../src/core/common-actions.vala:180
+#: ../src/core/common-actions.vala:182
 msgid "Open"
 msgstr "Apri"
 
-#: ../src/core/common-actions.vala:181
+#: ../src/core/common-actions.vala:183
 msgid "Open using default application"
 msgstr "Apri con l'applicazione predefinita"
 
-#: ../src/core/common-actions.vala:250
+#: ../src/core/common-actions.vala:252
 msgid "Open folder"
 msgstr "Apri cartella"
 
-#: ../src/core/common-actions.vala:251
+#: ../src/core/common-actions.vala:253
 msgid "Open folder containing this file"
 msgstr "Apri la cartella contenente questo file"
 
-#: ../src/core/common-actions.vala:290
+#: ../src/core/common-actions.vala:293
 msgid "Copy to Clipboard"
 msgstr "Copia negli Appunti"
 
-#: ../src/core/common-actions.vala:291
+#: ../src/core/common-actions.vala:294
 msgid "Copy selection to clipboard"
 msgstr "Copia la selezione negli appunti"
 
@@ -336,6 +339,7 @@ msgstr "Banshee non è installato"
 
 #: ../src/plugins/banshee-plugin.vala:141
 #: ../src/plugins/rhythmbox-plugin.vala:153
+#: ../src/plugins/xnoise-media-player-plugin.vala:179
 msgid "Play"
 msgstr "Riproduci"
 
@@ -345,6 +349,7 @@ msgstr "Inizia la riproduzione in Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:169
 #: ../src/plugins/rhythmbox-plugin.vala:204
+#: ../src/plugins/xnoise-media-player-plugin.vala:234
 msgid "Pause"
 msgstr "Pausa"
 
@@ -354,6 +359,7 @@ msgstr "Pausa la riproduzione in Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:190
 #: ../src/plugins/rhythmbox-plugin.vala:220
+#: ../src/plugins/xnoise-media-player-plugin.vala:259
 msgid "Next"
 msgstr "Successivo"
 
@@ -363,6 +369,7 @@ msgstr "Riproduce il brano successivo nella playlist di Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:213
 #: ../src/plugins/rhythmbox-plugin.vala:243
+#: ../src/plugins/xnoise-media-player-plugin.vala:285
 msgid "Previous"
 msgstr "Precedente"
 
@@ -430,6 +437,18 @@ msgstr "Azioni di messaggistica"
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
 msgstr "Apri una chat, o invia un messaggio con il tuo IM preferito"
+
+#: ../src/plugins/chromium-plugin.vala:79
+msgid "Chromium Plugin"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:80
+msgid "Browse and open Chromium bookmarks."
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:84
+msgid "Chromium is not installed"
+msgstr ""
 
 #: ../src/plugins/command-plugin.vala:56
 msgid "Run command"
@@ -532,8 +551,10 @@ msgid "Gnome Screen Saver wasn't found"
 msgstr "Gnome Screen Saver non è stato trovato"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
-msgid "Improve results returned by the Zeitgeist plugin by looking "
-msgstr "Migliora i risultati riportati dal plugin Zeitgeist cercando "
+msgid ""
+"Improve results returned by the Zeitgeist plugin by looking for similar "
+"files on the filesystem."
+msgstr ""
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload to imgur"
@@ -599,16 +620,19 @@ msgstr "Completa l'autorizzazione"
 msgid "Find bugs and branches on Launchpad."
 msgstr "Trova bugs e branches su Launchpad."
 
+#. project link (lp:synapse)
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
 msgstr "Launchpad: Bazaar branches per %s"
 
+#. series link (lp:synapse/0.3)
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
 msgstr "Launchpad: Serie %s per il Progetto %s"
 
+#. branch link (lp:~mhr3/synapse/lp-plugin)
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
@@ -639,6 +663,7 @@ msgstr "Impossibile trovare il binario di \"locate\""
 msgid "Search the web."
 msgstr "Cerca nel web."
 
+#. keep in sync with the internal XMLs!
 #: ../src/plugins/opensearch.vala:264
 msgid "Google"
 msgstr "Google"
@@ -751,11 +776,15 @@ msgstr "Testo selezionato"
 msgid "Connect to host with SSH"
 msgstr "Permette la connessione agli host con SSH"
 
+#. description
+#. icon name
+#. reference to this function
+#. true if user's system has all required components which the plugin needs
 #: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr "SSH non è installato"
 
-#: ../src/plugins/ssh-plugin.vala:198
+#: ../src/plugins/ssh-plugin.vala:197
 msgid "Connect with SSH"
 msgstr "Connettersi con SSH"
 
@@ -799,6 +828,66 @@ msgstr "sospendi, iberna, riavvia o spegni il tuo computer"
 msgid "ConsoleKit wasn't found"
 msgstr "ConsoleKit non è stato trovato"
 
+#: ../src/plugins/xnoise-media-player-plugin.vala:59
+msgid "Control Xnoise media player."
+msgstr "Controlla il media player Xnoise."
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:63
+msgid "Xnoise is not installed!"
+msgstr "Xnoise non è installato!"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:130
+msgid "Quit Xnoise"
+msgstr "Esci da Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:154
+msgid "Raise"
+msgstr "Alza"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:155
+msgid "Show Xnoise"
+msgstr "Mostra Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:180
+msgid "Start playback in Xnoise"
+msgstr "Avvia riproduzione in Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:204
+msgid "TogglePlaying"
+msgstr "ArrestaRiprendiRiproduzione"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:205
+msgid "Start/Pause playback in Xnoise"
+msgstr "Iniciare/parare Reprodutzione en Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:235
+msgid "Pause playback in Xnoise"
+msgstr "Metti in pausa la riproduzione in Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:260
+msgid "Plays the next song in Xnoise's playlist"
+msgstr "Riproduce la canzone successiva nella playlist di Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:286
+msgid "Plays the previous song in Xnoise's playlist"
+msgstr "Riproduce la canzone precedente nella playlist di Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:310
+msgid "Stop"
+msgstr "Ferma"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:311
+msgid "Stops the playback of Xnoise"
+msgstr "Ferma la riproduzione di Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:336
+msgid "Play in Xnoise"
+msgstr "Riproduci con Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:337
+msgid "Queues and plays the song"
+msgstr "Aggiunge alla coda e riproduce il brano"
+
 #: ../src/plugins/zeitgeist-plugin.vala:158
 msgid "few moments ago"
 msgstr "poco fa"
@@ -831,6 +920,10 @@ msgid_plural "%d weeks ago"
 msgstr[0] "%d settimana fa"
 msgstr[1] "%d settimane fa"
 
+#: ../src/plugins/zeitgeist-plugin.vala:182
+msgid "long time ago"
+msgstr ""
+
 #: ../src/plugins/zeitgeist-plugin.vala:192
 msgid "Search various items logged by Zeitgeist."
 msgstr "Cerca nei registri di Zeitgeist"
@@ -842,11 +935,11 @@ msgstr "Zeitgeist non è installato"
 
 #: ../src/plugins/zeitgeist-related.vala:97
 msgid "Find related"
-msgstr ""
+msgstr "Trova gli elementi correlati"
 
 #: ../src/plugins/zeitgeist-related.vala:98
 msgid "Find resources related to this result"
-msgstr ""
+msgstr "Trova gli elementi correlati a questo risultato"
 
 #: ../src/plugins/zeitgeist-related.vala:107
 msgid "Related files"
@@ -855,3 +948,4 @@ msgstr "File correlati"
 #: ../src/plugins/zeitgeist-related.vala:108
 msgid "Finds files related to other search results using Zeitgeist."
 msgstr ""
+"Trova mediante Zeitgeist i file correlati ai risultati di altre ricerche"

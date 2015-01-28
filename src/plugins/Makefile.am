@@ -7,12 +7,8 @@ noinst_LTLIBRARIES = libplugins.la
 VAPIDIR = $(top_srcdir)/vapi
 
 libplugins_la_VALAFLAGS = \
-	--pkg gtk+-2.0 \
-	--pkg gee-1.0 \
-	--pkg json-glib-1.0 \
-	--pkg dbus-glib-1 \
-	--pkg gio-unix-2.0 \
-	--pkg libnotify \
+	$(SYNAPSE_COMMON_VALAFLAGS) \
+	$(SYNAPSE_MODULES_VALAFLAGS) \
 	--vapidir $(top_builddir)/src/core \
 	--pkg synapse-core \
 	--vapidir $(VAPIDIR) \
@@ -24,14 +20,17 @@ libplugins_la_CFLAGS = \
 	-include config.h -w \
 	-I$(top_builddir)/src/core \
 	$(NULL)
+
 libplugins_la_LIBADD = \
 	$(SYNAPSE_MODULES_LIBS) \
 	$(top_builddir)/src/core/libsynapsecore.la \
 	$(NULL)
+
 libplugins_la_VALASOURCES = \
 	banshee-plugin.vala \
 	calculator-plugin.vala \
 	chat-actions-plugin.vala \
+	chromium-plugin.vala \
 	command-plugin.vala \
 	file-op-plugin.vala \
 	desktop-file-plugin.vala \
@@ -39,6 +38,7 @@ libplugins_la_VALASOURCES = \
 	ssh-plugin.vala \
 	dictionary.vala \
 	directory-plugin.vala \
+	gnome-bookmarks-plugin.vala \
 	gnome-session-plugin.vala \
 	gnome-screensaver-plugin.vala \
 	hello-world-plugin.vala \
@@ -57,14 +57,14 @@ libplugins_la_VALASOURCES = \
 
 if HAVE_ZEITGEIST
 libplugins_la_VALASOURCES += zeitgeist-plugin.vala zeitgeist-related.vala
-libplugins_la_VALAFLAGS += --pkg zeitgeist-1.0 -D HAVE_ZEITGEIST
+libplugins_la_VALAFLAGS += $(ZEITGEIST_VALAFLAGS)
 libplugins_la_CFLAGS += $(ZEITGEIST_CFLAGS)
 libplugins_la_LIBADD += $(ZEITGEIST_LIBS)
 endif
 
 if HAVE_LIBREST
 libplugins_la_VALASOURCES += imgur-plugin.vala
-libplugins_la_VALAFLAGS += --pkg rest-fix -D HAVE_LIBREST
+libplugins_la_VALAFLAGS += $(REST_VALAFLAGS)
 libplugins_la_CFLAGS += $(REST_CFLAGS)
 libplugins_la_LIBADD += $(REST_LIBS)
 endif
@@ -74,7 +74,7 @@ libplugins_la_SOURCES = \
 	$(libplugins_la_VALASOURCES:.vala=.c) \
 	$(NULL)
 
-plugins.vapi plugins.vala.stamp: $(libplugins_la_VALASOURCES) Makefile
+plugins.vapi plugins.vala.stamp: $(libplugins_la_VALASOURCES) $(top_builddir)/src/core/synapse-core.vapi Makefile
 	$(AM_V_VALA)$(VALAC) $(libplugins_la_VALAFLAGS) -C -H plugins.h --library plugins $(filter %.vala %.c,$^)
 	touch $@
 

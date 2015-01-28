@@ -23,11 +23,11 @@ using Gtk;
 
 namespace UI.Widgets
 {
-  public class WrapLabel: Label
+  public class WrapLabel : Label
   {
     private float orig_yalign = 0.5f;
     private bool _wrap = false;
-    public new bool wrap { 
+    public new bool wrap {
       get
       {
         return _wrap;
@@ -36,7 +36,7 @@ namespace UI.Widgets
       {
         _wrap = value;
         this.max_width_chars = _wrap ? -1 : 10;
-        this.set_ellipsize (_wrap ? Pango.EllipsizeMode.NONE : 
+        this.set_ellipsize (_wrap ? Pango.EllipsizeMode.NONE :
                                     Pango.EllipsizeMode.END);
         if (!_wrap) orig_yalign = this.yalign;
         this.yalign = _wrap ? 0.0f : orig_yalign;
@@ -52,7 +52,7 @@ namespace UI.Widgets
     {
     }
 
-    protected override void size_allocate (Gdk.Rectangle allocation)
+    protected override void size_allocate (Gtk.Allocation allocation)
     {
       var layout = this.get_layout ();
       layout.set_width (allocation.width * Pango.SCALE);
@@ -65,10 +65,13 @@ namespace UI.Widgets
       base.size_allocate (allocation);
     }
 
-    protected override void size_request (out Gtk.Requisition req)
+    protected override void get_preferred_width (out int min_width, out int nat_width)
     {
-      base.size_request (out req);
-      if (_wrap) req.width = 1;
+      base.get_preferred_width (out min_width, out nat_width);
+      min_width = nat_width = 30;
+      if (_wrap) {
+        min_width = nat_width = 1;
+      }
     }
   }
 }

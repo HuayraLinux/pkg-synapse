@@ -22,38 +22,33 @@
 
 namespace Synapse
 {
-  [DBus (name = "org.gnome.Rhythmbox.Shell")]
-  interface RhythmboxShell : Object {
-      public const string UNIQUE_NAME = "org.gnome.Rhythmbox";
-      public const string OBJECT_PATH = "/org/gnome/Rhythmbox/Shell";
-      
-      [DBus (name = "addToQueue")]
+  [DBus (name = "org.gnome.Rhythmbox3.PlayQueue")]
+  interface RhythmboxPlayQueue : Object {
+      public const string UNIQUE_NAME = "org.gnome.Rhythmbox3";
+      public const string OBJECT_PATH = "/org/gnome/Rhythmbox3/PlayQueue";
+
       public abstract void add_to_queue (string uri) throws IOError;
-      /*
-      [DBus (name = "clearQueue")]
-      public abstract void clear_queue () throws IOError;
-      */
-      [DBus (name = "loadURI")]
-      public abstract void load_uri (string uri, bool b) throws IOError;
-      
+      //public abstract void clear_queue () throws IOError;
+      //public abstract void remove_from_queue (string uri) throws IOError;
   }
 
-  [DBus (name = "org.gnome.Rhythmbox.Player")]
+  [DBus (name = "org.mpris.MediaPlayer2.Player")]
   interface RhythmboxPlayer : Object {
-      public const string UNIQUE_NAME = "org.gnome.Rhythmbox";
-      public const string OBJECT_PATH = "/org/gnome/Rhythmbox/Player";
-      
-      [DBus (name = "getPlaying")]
-      public abstract bool get_playing () throws IOError;
-      [DBus (name = "next")]
+      public const string UNIQUE_NAME = "org.gnome.Rhythmbox3";
+      public const string OBJECT_PATH = "/org/mpris/MediaPlayer2";
+
+      public abstract string playback_status { owned get; }
+
       public abstract void next () throws IOError;
-      [DBus (name = "previous")]
+      public abstract void open_uri (string uri) throws IOError;
+      public abstract void pause () throws IOError;
+      public abstract void play () throws IOError;
+      //public abstract void play_pause () throws IOError;
       public abstract void previous () throws IOError;
-      [DBus (name = "playPause")]
-      public abstract void play_pause (bool b) throws IOError;
+      //public abstract void stop () throws IOError;
   }
-  
-  public class RhythmboxActions: Object, Activatable, ItemProvider, ActionProvider
+
+  public class RhythmboxActions : Object, Activatable, ItemProvider, ActionProvider
   {
     public bool enabled { get; set; default = true; }
 
@@ -61,10 +56,10 @@ namespace Synapse
     {
       actions = new Gee.ArrayList<RhythmboxAction> ();
       matches = new Gee.ArrayList<RhythmboxControlMatch> ();
-      
+
       actions.add (new PlayNow());
       actions.add (new AddToPlaylist());
-      
+
       matches.add (new Play ());
       matches.add (new Pause ());
       matches.add (new Previous ());
@@ -73,154 +68,109 @@ namespace Synapse
 
     public void deactivate ()
     {
-      
+
     }
 
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (RhythmboxActions),
         "Rhythmbox",
-        _ ("Control Rhythmbox and add items to playlists."),
+        _("Control Rhythmbox and add items to playlists."),
         "rhythmbox",
         register_plugin,
         DBusService.get_default ().name_is_activatable (RhythmboxPlayer.UNIQUE_NAME),
-        _ ("Rhythmbox is not installed")
+        _("Rhythmbox is not installed")
       );
     }
-    
+
     static construct
     {
       register_plugin ();
     }
 
-    private abstract class RhythmboxAction: Object, Match
+    private abstract class RhythmboxAction : Action
     {
-      // from Match interface
-      public string title { get; construct set; }
-      public string description { get; set; }
-      public string icon_name { get; construct set; }
-      public bool has_thumbnail { get; construct set; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-      
-      public int default_relevancy { get; set; }
-      
-      public abstract bool valid_for_match (Match match);
-      // stupid Vala...
-      public abstract void execute_internal (Match? match);
-      public void execute (Match? match)
-      {
-        execute_internal (match);
-      }
       public virtual int get_relevancy ()
       {
-        bool rb_running = DBusService.get_default ().name_has_owner (
-          RhythmboxPlayer.UNIQUE_NAME);
-        return rb_running ? default_relevancy + Match.Score.INCREMENT_LARGE : default_relevancy;
-      }
-    }
-    
-    private abstract class RhythmboxControlMatch: Object, Match
-    {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
-      public void execute (Match? match)
-      {
-        this.do_action ();
+        bool rb_running = DBusService.get_default ().name_has_owner (RhythmboxPlayer.UNIQUE_NAME);
+        return rb_running ? default_relevancy + MatchScore.INCREMENT_LARGE : default_relevancy;
       }
 
-      public abstract void do_action ();
-      
       public virtual bool action_available ()
       {
-        return DBusService.get_default ().name_has_owner (
-          RhythmboxPlayer.UNIQUE_NAME);
+        return DBusService.get_default ().name_has_owner (RhythmboxPlayer.UNIQUE_NAME);
+      }
+    }
+
+    private abstract class RhythmboxControlMatch : ActionMatch
+    {
+      public virtual bool action_available ()
+      {
+        return DBusService.get_default ().name_has_owner (RhythmboxPlayer.UNIQUE_NAME);
       }
     }
 
     /* MATCHES of Type.ACTION */
-    private class Play: RhythmboxControlMatch
+    private class Play : RhythmboxControlMatch
     {
       public Play ()
       {
-        Object (title: _ ("Play"),
-                description: _ ("Start playback in Rhythmbox"),
-                icon_name: "media-playback-start", has_thumbnail: false,
-                match_type: MatchType.ACTION);
+        Object (title: _("Play"),
+                description: _("Start playback in Rhythmbox"),
+                icon_name: "media-playback-start", has_thumbnail: false);
       }
 
       public override void do_action ()
       {
         try
         {
-          bool player_opened = DBusService.get_default ().name_has_owner (RhythmboxPlayer.UNIQUE_NAME);
           RhythmboxPlayer player = Bus.get_proxy_sync (BusType.SESSION,
                                            RhythmboxPlayer.UNIQUE_NAME,
                                            RhythmboxPlayer.OBJECT_PATH);
 
-          player.play_pause (true);
-          if (!player_opened)
-          {
-            /* Try to play 10 times = 5 seconds waiting for RB to start */
-            int i = 0;
-            Timeout.add (500, () =>
-            {
-              ++i;
-              try
-              {
-                if (i <= 10 && !player.get_playing ())
-                {
-                  player.play_pause (true);
-                  return true;
-                }
-              }
-              catch (Error err) { }
-              return false;
-            });
-          }
+          player.play ();
         }
         catch (IOError e)
         {
-          Utils.Logger.warning (this, "Rythmbox is not available.\n%s", e.message);
+          warning ("Rythmbox is not available.\n%s", e.message);
         }
       }
-
-      public override bool action_available ()
-      {
-        return true;
-      }
     }
-    private class Pause: Play
+
+    private class Pause : RhythmboxControlMatch
     {
       public Pause ()
       {
-        Object (title: _ ("Pause"),
-                description: _ ("Pause playback in Rhythmbox"),
-                icon_name: "media-playback-pause", has_thumbnail: false,
-                match_type: MatchType.ACTION);
+        Object (title: _("Pause"),
+                description: _("Pause playback in Rhythmbox"),
+                icon_name: "media-playback-pause", has_thumbnail: false);
       }
 
-      public override bool action_available ()
+      public override void do_action ()
       {
-        return DBusService.get_default ().name_has_owner (
-          RhythmboxPlayer.UNIQUE_NAME);
+        try
+        {
+          RhythmboxPlayer player = Bus.get_proxy_sync (BusType.SESSION,
+                                           RhythmboxPlayer.UNIQUE_NAME,
+                                           RhythmboxPlayer.OBJECT_PATH);
+
+          player.pause ();
+        }
+        catch (IOError e)
+        {
+          warning ("Rythmbox is not available.\n%s", e.message);
+        }
       }
     }
-    private class Next: RhythmboxControlMatch
+
+    private class Next : RhythmboxControlMatch
     {
       public Next ()
       {
-        Object (title: _ ("Next"),
-                description: _ ("Plays the next song in Rhythmbox's playlist"),
-                icon_name: "media-skip-forward", has_thumbnail: false,
-                match_type: MatchType.ACTION);
+        Object (title: _("Next"),
+                description: _("Plays the next song in Rhythmbox's playlist"),
+                icon_name: "media-skip-forward", has_thumbnail: false);
       }
 
       public override void do_action ()
@@ -231,19 +181,21 @@ namespace Synapse
                                            RhythmboxPlayer.OBJECT_PATH);
 
           player.next ();
-        } catch (IOError e) {
-          stderr.printf ("Rythmbox is not available.\n%s", e.message);
+        } 
+        catch (IOError e)
+        {
+          warning ("Rythmbox is not available.\n%s", e.message);
         }
       }
     }
-    private class Previous: RhythmboxControlMatch
+
+    private class Previous : RhythmboxControlMatch
     {
       public Previous ()
       {
-        Object (title: _ ("Previous"),
-                description: _ ("Plays the previous song in Rhythmbox's playlist"),
-                icon_name: "media-skip-backward", has_thumbnail: false,
-                match_type: MatchType.ACTION);
+        Object (title: _("Previous"),
+                description: _("Plays the previous song in Rhythmbox's playlist"),
+                icon_name: "media-skip-backward", has_thumbnail: false);
       }
 
       public override void do_action ()
@@ -255,121 +207,108 @@ namespace Synapse
 
           player.previous ();
           player.previous ();
-        } catch (IOError e) {
-          stderr.printf ("Rythmbox is not available.\n%s", e.message);
+        } 
+        catch (IOError e)
+        {
+          warning ("Rythmbox is not available.\n%s", e.message);
         }
       }
     }
     /* ACTIONS FOR MP3s */
-    private class AddToPlaylist: RhythmboxAction
+    private class AddToPlaylist : RhythmboxAction
     {
       public AddToPlaylist ()
       {
-        Object (title: _ ("Enqueue in Rhythmbox"),
-                description: _ ("Add the song to Rhythmbox playlist"),
+        Object (title: _("Enqueue in Rhythmbox"),
+                description: _("Add the song to Rhythmbox playlist"),
                 icon_name: "media-playback-start", has_thumbnail: false,
-                match_type: MatchType.ACTION,
-                default_relevancy: Match.Score.AVERAGE);
+                default_relevancy: MatchScore.AVERAGE);
       }
 
-      public override void execute_internal (Match? match)
+      public override void do_execute (Match match, Match? target = null)
       {
-        return_if_fail (match.match_type == MatchType.GENERIC_URI);
-        UriMatch uri = match as UriMatch;
+        unowned UriMatch? uri = match as UriMatch;
+        return_if_fail (uri != null);
         return_if_fail ((uri.file_type & QueryFlags.AUDIO) != 0);
-        try {
-          RhythmboxShell shell = Bus.get_proxy_sync (BusType.SESSION,
-                                           RhythmboxShell.UNIQUE_NAME,
-                                           RhythmboxShell.OBJECT_PATH);
+
+        try
+        {
+          RhythmboxPlayQueue shell = Bus.get_proxy_sync (BusType.SESSION,
+                                           RhythmboxPlayQueue.UNIQUE_NAME,
+                                           RhythmboxPlayQueue.OBJECT_PATH);
 
           RhythmboxPlayer player = Bus.get_proxy_sync (BusType.SESSION,
                                            RhythmboxPlayer.UNIQUE_NAME,
                                            RhythmboxPlayer.OBJECT_PATH);
 
           shell.add_to_queue (uri.uri);
-          if (!player.get_playing())
-            player.play_pause (true);
-        } catch (IOError e) {
-          stderr.printf ("Rythmbox is not available.\n%s", e.message);
+          if (!(player.playback_status == "Playing"))
+            player.play ();
+        } 
+        catch (IOError e)
+        {
+          warning ("Rythmbox is not available.\n%s", e.message);
         }
       }
 
       public override bool valid_for_match (Match match)
       {
-        switch (match.match_type)
-        {
-          case MatchType.GENERIC_URI:
-            UriMatch uri = match as UriMatch;
-            if ((uri.file_type & QueryFlags.AUDIO) != 0)
-              return true;
-            else
-              return false;
-          default:
-            return false;
-        }
+        return (match is UriMatch && (((UriMatch) match).file_type & QueryFlags.AUDIO) != 0);
       }
     }
-    private class PlayNow: RhythmboxAction
+
+    private class PlayNow : RhythmboxAction
     {
       public PlayNow ()
       {
-        Object (title: _ ("Play in Rhythmbox"),
-                description: _ ("Clears the current playlist and plays the song"),
+        Object (title: _("Play in Rhythmbox"),
+                description: _("Clears the current playlist and plays the song"),
                 icon_name: "media-playback-start", has_thumbnail: false,
-                match_type: MatchType.ACTION,
-                default_relevancy: Match.Score.ABOVE_AVERAGE);
+                default_relevancy: MatchScore.ABOVE_AVERAGE);
       }
 
-      public override void execute_internal (Match? match)
+      public override void do_execute (Match match, Match? target = null)
       {
-        return_if_fail (match.match_type == MatchType.GENERIC_URI);
-        UriMatch uri = match as UriMatch;
+        unowned UriMatch? uri = match as UriMatch;
+        return_if_fail (uri != null);
         return_if_fail ((uri.file_type & QueryFlags.AUDIO) != 0);
-        try {
-          RhythmboxShell shell = Bus.get_proxy_sync (BusType.SESSION,
-                                           RhythmboxShell.UNIQUE_NAME,
-                                           RhythmboxShell.OBJECT_PATH);
 
+        try
+        {
           RhythmboxPlayer player = Bus.get_proxy_sync (BusType.SESSION,
                                            RhythmboxPlayer.UNIQUE_NAME,
                                            RhythmboxPlayer.OBJECT_PATH);
-          if (!player.get_playing())
-            player.play_pause (true);
-          shell.load_uri (uri.uri, true);
-        } catch (IOError e) {
-          stderr.printf ("Rythmbox is not available.\n%s", e.message);
+
+          if (!(player.playback_status == "Playing"))
+            player.play ();
+          player.open_uri (uri.uri);
+        } 
+        catch (IOError e)
+        {
+          warning ("Rythmbox is not available.\n%s", e.message);
         }
       }
 
       public override bool valid_for_match (Match match)
       {
-        switch (match.match_type)
-        {
-          case MatchType.GENERIC_URI:
-            UriMatch uri = match as UriMatch;
-            if ((uri.file_type & QueryFlags.AUDIO) != 0)
-              return true;
-            else
-              return false;
-          default:
-            return false;
-        }
+        return (match is UriMatch && (((UriMatch) match).file_type & QueryFlags.AUDIO) != 0);
       }
     }
+
     private Gee.List<RhythmboxAction> actions;
     private Gee.List<RhythmboxControlMatch> matches;
 
     construct
     {
     }
-    
+
     public async ResultSet? search (Query q) throws SearchError
     {
       // we only search for actions
       if (!(QueryFlags.ACTIONS in q.query_type)) return null;
 
       var result = new ResultSet ();
-      
+
       var matchers = Query.get_matchers_for_query (q.query_string, 0,
         RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS);
 
@@ -380,7 +319,7 @@ namespace Synapse
         {
           if (matcher.key.match (action.title))
           {
-            result.add (action, matcher.value - Match.Score.INCREMENT_SMALL);
+            result.add (action, matcher.value - MatchScore.INCREMENT_SMALL);
             break;
           }
         }
@@ -395,7 +334,7 @@ namespace Synapse
     {
       bool query_empty = query.query_string == "";
       var results = new ResultSet ();
-      
+
       if (query_empty)
       {
         foreach (var action in actions)

@@ -21,65 +21,57 @@
 
 namespace Synapse
 {
-  public class DevhelpPlugin: Object, Activatable, ActionProvider
+  public class DevhelpPlugin : Object, Activatable, ActionProvider
   {
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
+
     }
 
-    private class Search: Object, Match
+    private class Search : Match
     {
-      // from Match interface
-      public string title { get; construct set; }
-      public string description { get; set; }
-      public string icon_name { get; construct set; }
-      public bool has_thumbnail { get; construct set; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-      
       public int default_relevancy { get; set; default = 0; }
-      
-      public void execute (Match? match)
+
+      public override void execute (Match match)
       {
         try
         {
           AppInfo ai = AppInfo.create_from_commandline (
             "devhelp -s \"%s\"".printf (match.title),
             "devhelp", 0);
-          ai.launch (null, new Gdk.AppLaunchContext ());
+          ai.launch (null, null);
         }
         catch (Error err)
         {
           warning ("%s", err.message);
         }
       }
-      
+
       public Search ()
       {
-        Object (title: _ ("Search in Devhelp"),
-                description: _ ("Search documentation for this symbol"),
+        Object (title: _("Search in Devhelp"),
+                description: _("Search documentation for this symbol"),
                 has_thumbnail: false, icon_name: "devhelp");
       }
     }
-    
+
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (DevhelpPlugin),
         "Devhelp",
-        _ ("Search documentation using Devhelp."),
+        _("Search documentation using Devhelp."),
         "devhelp",
         register_plugin,
         Environment.find_program_in_path ("devhelp") != null,
-        _ ("Devhelp is not installed")
+        _("Devhelp is not installed")
       );
     }
 
@@ -98,7 +90,7 @@ namespace Synapse
         Environment.find_program_in_path ("devhelp") != null;
 
       try
-      {        
+      {
         symbol_re = new Regex ("^([a-z]+_)|([A-Z]+[a-z]+[A-Z])",
                                RegexCompileFlags.OPTIMIZE);
       }
@@ -107,17 +99,17 @@ namespace Synapse
         warning ("%s", err.message);
       }
     }
-    
+
     public bool handles_unknown ()
     {
       return has_devhelp;
     }
-    
+
     private Regex symbol_re;
 
     public ResultSet? find_for_match (ref Query query, Match match)
     {
-      if (!has_devhelp || match.match_type != MatchType.UNKNOWN ||
+      if (!has_devhelp || !(match is UnknownMatch) ||
           !(QueryFlags.ACTIONS in query.query_type))
       {
         return null;
@@ -129,7 +121,7 @@ namespace Synapse
       if (query_empty)
       {
         int relevancy = action.default_relevancy;
-        if (symbol_re.match (match.title)) relevancy += Match.Score.INCREMENT_SMALL;
+        if (symbol_re.match (match.title)) relevancy += MatchScore.INCREMENT_SMALL;
         results.add (action, relevancy);
       }
       else

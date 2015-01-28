@@ -22,7 +22,7 @@
 namespace Synapse
 {
   [DBus (name = "org.gnome.SessionManager")]
-  public interface GnomeSessionManager: Object
+  public interface GnomeSessionManager : Object
   {
     public const string UNIQUE_NAME = "org.gnome.SessionManager";
     public const string OBJECT_PATH = "/org/gnome/SessionManager";
@@ -33,38 +33,30 @@ namespace Synapse
     public abstract void logout (uint32 mode = 0) throws IOError;
   }
 
-  public class GnomeSessionPlugin: Object, Activatable, ItemProvider
+  public class GnomeSessionPlugin : Object, Activatable, ItemProvider
   {
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
+
     }
 
-    private class ShutDownAction: Object, Match
+    private class ShutDownAction : ActionMatch
     {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
       public ShutDownAction ()
       {
-        Object (match_type: MatchType.ACTION, title: _ ("Shut Down"),
-                description: _ ("Turn your computer off"),
+        Object (title: _("Shut Down"),
+                description: _("Turn your computer off"),
                 icon_name: "system-shutdown", has_thumbnail: false);
       }
-      
-      public void execute (Match? match)
+
+      public override void do_action ()
       {
         try
         {
@@ -81,24 +73,16 @@ namespace Synapse
       }
     }
 
-    private class RebootAction: Object, Match
+    private class RebootAction : ActionMatch
     {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
       public RebootAction ()
       {
-        Object (match_type: MatchType.ACTION, title: _ ("Restart"),
-                description: _ ("Restart your computer"),
+        Object (title: _("Restart"),
+                description: _("Restart your computer"),
                 icon_name: "gnome-session-reboot", has_thumbnail: false);
       }
-      
-      public void execute (Match? match)
+
+      public override void do_action ()
       {
         try
         {
@@ -115,24 +99,16 @@ namespace Synapse
       }
     }
 
-    private class LogOutAction: Object, Match
+    private class LogOutAction : ActionMatch
     {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
       public LogOutAction ()
       {
-        Object (match_type: MatchType.ACTION, title: _ ("Log Out"),
-                description: _ ("Close your session and return to the login screen"),
+        Object (title: _("Log Out"),
+                description: _("Close your session and return to the login screen"),
                 icon_name: "gnome-session-logout", has_thumbnail: false);
       }
-      
-      public void execute (Match? match)
+
+      public override void do_action ()
       {
         try
         {
@@ -153,17 +129,17 @@ namespace Synapse
         }
       }
     }
-    
+
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (GnomeSessionPlugin),
         "GNOME Session",
-        _ ("Log out from your session."),
+        _("Log out from your session."),
         "gnome-session-logout",
         register_plugin,
         DBusService.get_default ().name_has_owner (GnomeSessionManager.UNIQUE_NAME),
-        _ ("Gnome Session Manager wasn't found")
+        _("Gnome Session Manager wasn't found")
       );
     }
 
@@ -179,16 +155,16 @@ namespace Synapse
     {
       var cache = DBusService.get_default ();
       session_manager_available = cache.name_has_owner (GnomeSessionManager.UNIQUE_NAME);
-      Utils.Logger.log (this, "%s %s available", GnomeSessionManager.UNIQUE_NAME,
+      message ("%s %s available", GnomeSessionManager.UNIQUE_NAME,
         session_manager_available ? "is" : "isn't");
-      
+
       actions = new Gee.LinkedList<Match> ();
       actions.add (new LogOutAction ());
       // TODO: add a config option to enable these actions (for example when ConsoleKit is not available)
       //actions.add (new RebootAction ());
       //actions.add (new ShutDownAction ());
     }
-    
+
     public async ResultSet? search (Query q) throws SearchError
     {
       if (!session_manager_available) return null;
@@ -206,7 +182,7 @@ namespace Synapse
         {
           if (matcher.key.match (action.title))
           {
-            result.add (action, matcher.value - Match.Score.INCREMENT_SMALL);
+            result.add (action, matcher.value - MatchScore.INCREMENT_SMALL);
             break;
           }
         }

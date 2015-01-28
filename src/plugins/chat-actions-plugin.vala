@@ -21,135 +21,133 @@
 
 namespace Synapse
 {
-  public class ChatActions: Object, Activatable, ActionProvider
+  public class ChatActions : Object, Activatable, ActionProvider
   {
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
+
     }
-    
-    private class OpenChat: BaseAction
+
+    private class OpenChat : Action
     {
       public OpenChat ()
       {
-        Object (title: _ ("Open chat"),
-                description: _ ("Open a chat with selected contact"),
+        Object (title: _("Open chat"),
+                description: _("Open a chat with selected contact"),
                 icon_name: "empathy", has_thumbnail: false,
-                match_type: MatchType.ACTION,
-                default_relevancy: Match.Score.EXCELLENT);
+                default_relevancy: MatchScore.EXCELLENT);
       }
-      
-      public override void do_execute (Match? match, Match? target = null)
+
+      public override void do_execute (Match match, Match? target = null)
       {
-        ContactMatch? cm = match as ContactMatch;
+        unowned ContactMatch? cm = match as ContactMatch;
         if ( match == null ) return;
         cm.open_chat ();
       }
-      
+
       public override bool valid_for_match (Match match)
       {
-        return match.match_type == MatchType.CONTACT;
+        return (match is ContactMatch);
       }
     }
-    
-    private class SendMessage: BaseAction
+
+    private class SendMessage : Action
     {
       public SendMessage ()
       {
-        Object (title: _ ("Send a message"),
-                description: _ ("Send a message to the contact"),
+        Object (title: _("Send a message"),
+                description: _("Send a message to the contact"),
                 icon_name: "message", has_thumbnail: false,
-                match_type: MatchType.ACTION,
-                default_relevancy: Match.Score.VERY_GOOD);
+                default_relevancy: MatchScore.VERY_GOOD);
       }
-      
-      public override void do_execute (Match? match, Match? target = null)
+
+      public override void do_execute (Match match, Match? target = null)
       {
-        ContactMatch? cm = match as ContactMatch;
+        unowned ContactMatch? cm = match as ContactMatch;
         if ( match == null || target == null ) return;
         cm.send_message (target.title, false);
       }
-      
+
       public override bool valid_for_match (Match match)
       {
-        return match.match_type == MatchType.CONTACT;
+        return (match is ContactMatch);
       }
-      
-            
-      public override bool needs_target () {
+
+
+      public override bool needs_target ()
+      {
         return true;
       }
-      
+
       public override QueryFlags target_flags ()
       {
         return QueryFlags.TEXT;
       }
     }
-    
-    private class SendMessageTo: BaseAction
+
+    private class SendMessageTo : Action
     {
       public SendMessageTo ()
       {
-        Object (title: _ ("Send message to.."),
-                description: _ ("Send a message to a contact"),
+        Object (title: _("Send message to.."),
+                description: _("Send a message to a contact"),
                 icon_name: "message", has_thumbnail: false,
-                match_type: MatchType.ACTION,
-                default_relevancy: Match.Score.VERY_GOOD);
+                default_relevancy: MatchScore.VERY_GOOD);
       }
-      
-      public override void do_execute (Match? match, Match? target = null)
+
+      public override void do_execute (Match match, Match? target = null)
       {
         if ( match == null || target == null ) return;
-        ContactMatch? cm = target as ContactMatch;
-        TextMatch? text = match as TextMatch;
+        unowned ContactMatch? cm = target as ContactMatch;
+        unowned TextMatch? text = match as TextMatch;
         if ( cm == null || text == null ) return;
         cm.send_message (text.get_text (), false);
       }
-      
+
       public override bool valid_for_match (Match match)
       {
-        return match.match_type == MatchType.TEXT;
+        return (match is TextMatch);
       }
-      
-            
-      public override bool needs_target () {
+
+      public override bool needs_target ()
+      {
         return true;
       }
-      
+
       public override QueryFlags target_flags ()
       {
         return QueryFlags.CONTACTS;
       }
     }
-    
+
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (ChatActions),
-        _ ("Chat actions"),
-        _ ("Open chat, or send a message with your favorite IM"),
+        _("Chat actions"),
+        _("Open chat, or send a message with your favorite IM"),
         "empathy",
         register_plugin
       );
     }
-    
+
     static construct
     {
       register_plugin ();
     }
 
-    private Gee.List<BaseAction> actions;
+    private Gee.List<Action> actions;
 
     construct
     {
-      actions = new Gee.ArrayList<BaseAction> ();
+      actions = new Gee.ArrayList<Action> ();
 
       actions.add (new OpenChat ());
       actions.add (new SendMessage ());
@@ -160,7 +158,7 @@ namespace Synapse
     {
       bool query_empty = query.query_string == "";
       var results = new ResultSet ();
-      
+
       if (query_empty)
       {
         foreach (var action in actions)

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-03-04 23:39+0000\n"
-"PO-Revision-Date: 2011-02-24 08:52+0000\n"
+"POT-Creation-Date: 2014-02-22 20:34+0000\n"
+"PO-Revision-Date: 2013-08-06 23:06+0000\n"
 "Last-Translator: alaintxu.p <alaintxu.p@gmail.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2014-02-23 07:33+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Synapse"
@@ -27,10 +27,11 @@ msgid "Search everything you do."
 msgstr "Egiten duzun guztia bilatu."
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
+#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:244
 msgid "Activate"
 msgstr "Gaitu"
 
+#. Whooot?! This cannot be true!
 #: ../src/ui/category.vala:31 ../src/ui/category.vala:72
 #: ../src/ui/category.vala:135
 msgid "All"
@@ -50,7 +51,7 @@ msgstr "Aplikazioak"
 
 #: ../src/ui/category.vala:73 ../src/ui/category.vala:113
 msgid "Places"
-msgstr ""
+msgstr "Lekuak"
 
 #: ../src/ui/category.vala:74 ../src/ui/category.vala:116
 msgid "Documents"
@@ -71,12 +72,12 @@ msgstr "Internet"
 #. _labels.set (QueryFlags.ALL, _("All")); // Do not remove!
 #: ../src/ui/category.vala:111
 msgid "Include remote content"
-msgstr ""
+msgstr "Gehitu urruneko edukia"
 
 #. _labels.set (QueryFlags.FILES, _("Files"));
 #: ../src/ui/category.vala:121
 msgid "Uncategorized"
-msgstr ""
+msgstr "Kategoriarik gabe"
 
 #: ../src/ui/controller.vala:30
 msgid "Searching..."
@@ -84,7 +85,7 @@ msgstr "Bilatzen..."
 
 #: ../src/ui/controller.vala:31
 msgid "No results found."
-msgstr "Ez da emaitzik aurkitu."
+msgstr "Ez da emaitzarik aurkitu."
 
 #: ../src/ui/controller.vala:32
 msgid "No recent activities found."
@@ -96,9 +97,9 @@ msgstr "Idatzi bilatzeko..."
 
 #: ../src/ui/controller.vala:517
 msgid "...or press down key to browse recent activities"
-msgstr "...edo sakatu behera botoia azken jarduerak ikusteko"
+msgstr "...edo sakatu behera tekla azken jarduerak ikusteko"
 
-#: ../src/ui/view-virgilio.vala:188 ../src/ui/widgets-matchlistview.vala:923
+#: ../src/ui/view-virgilio.vala:204 ../src/ui/widgets-matchlistview.vala:936
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d / %d</b>"
@@ -157,71 +158,72 @@ msgstr ""
 
 #: ../src/ui/settings.vala:245
 msgid "Execute"
-msgstr ""
+msgstr "Exekutatu"
 
 #: ../src/ui/settings.vala:246
 msgid "Execute without hiding"
-msgstr ""
+msgstr "Exekutatu ezkutatu gabe"
 
 #: ../src/ui/settings.vala:247
 msgid "Alternative Delete"
-msgstr ""
+msgstr "Ezabatze alternatiboa"
 
 #: ../src/ui/settings.vala:248
 msgid "Next Result"
-msgstr ""
+msgstr "Hurrengo emaitza"
 
 #: ../src/ui/settings.vala:249
 msgid "Previous Result"
-msgstr ""
+msgstr "Aurreko emaitza"
 
 #: ../src/ui/settings.vala:250
 msgid "First Result"
-msgstr ""
+msgstr "Lehen emaitza"
 
 #: ../src/ui/settings.vala:251
 msgid "Last Result"
-msgstr ""
+msgstr "Azken emaitza"
 
 #: ../src/ui/settings.vala:252
 msgid "Next 5 Results"
-msgstr ""
+msgstr "Hurrengo 5 emaitzak"
 
 #: ../src/ui/settings.vala:253
 msgid "Previous 5 Results"
-msgstr ""
+msgstr "Aurreko 5 emaitzak"
 
 #: ../src/ui/settings.vala:254
 msgid "Next Category"
-msgstr ""
+msgstr "Hurrengo kategoria"
 
 #: ../src/ui/settings.vala:255
 msgid "Previous Category"
-msgstr ""
+msgstr "Aurreko kategoria"
 
 #: ../src/ui/settings.vala:256
 msgid "Next Pane"
-msgstr ""
+msgstr "Hurrengo panela"
 
 #: ../src/ui/settings.vala:257
 msgid "Previous Pane"
-msgstr ""
+msgstr "Aurreko panela"
 
 #: ../src/ui/settings.vala:258
 msgid "Paste"
-msgstr ""
+msgstr "Itsatsi"
 
 #: ../src/ui/settings.vala:259
 msgid "Paste current selection"
-msgstr ""
+msgstr "Itsatsi uneko hautapena"
 
 #: ../src/ui/settings.vala:260
+#: ../src/plugins/xnoise-media-player-plugin.vala:129
 msgid "Quit"
-msgstr ""
+msgstr "Irten"
 
 #: ../src/ui/settings.vala:274
 msgid "Shortcut already in use"
-msgstr ""
+msgstr "Laster-tekla dagoeneko hartuta"
 
 #: ../src/ui/settings.vala:300
 msgid "General"
@@ -265,21 +267,22 @@ msgstr "Lasterbidea"
 msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr "Aldatu nahi duzun lasterbidea sakatu eta lasterbide berria idatzi."
 
-#: ../src/ui/widgets-matchlistview.vala:896
-#: ../src/ui/widgets-matchlistview.vala:910
+#: ../src/ui/widgets-matchlistview.vala:909
+#: ../src/ui/widgets-matchlistview.vala:923
 msgid "No results."
-msgstr "Emaitzik ez."
+msgstr "Emaitzarik ez."
 
-#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:928
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 / %d</b>"
 
-#: ../src/ui/utils.vala:115
+#. if is home dir
+#: ../src/ui/utils.vala:132
 msgid "Home"
 msgstr "Karpeta nagusia"
 
-#: ../src/ui/utils.vala:129
+#: ../src/ui/utils.vala:146
 msgid "Root"
 msgstr ""
 
@@ -291,35 +294,35 @@ msgstr "Exekutatu"
 msgid "Run an application, action or script"
 msgstr "Aplikazio, ekintza edo script bat exekutatu"
 
-#: ../src/core/common-actions.vala:132
+#: ../src/core/common-actions.vala:133
 msgid "Run in Terminal"
 msgstr "Terminalean exekutatu"
 
-#: ../src/core/common-actions.vala:133
+#: ../src/core/common-actions.vala:134
 msgid "Run application or command in terminal"
 msgstr "Aplikazio edo komandoa terminalean exekutatu"
 
-#: ../src/core/common-actions.vala:180
+#: ../src/core/common-actions.vala:182
 msgid "Open"
 msgstr "Ireki"
 
-#: ../src/core/common-actions.vala:181
+#: ../src/core/common-actions.vala:183
 msgid "Open using default application"
 msgstr "Defektuzko aplikazioa erabiltzen zabaldu"
 
-#: ../src/core/common-actions.vala:250
+#: ../src/core/common-actions.vala:252
 msgid "Open folder"
 msgstr "Ireki karpeta"
 
-#: ../src/core/common-actions.vala:251
+#: ../src/core/common-actions.vala:253
 msgid "Open folder containing this file"
 msgstr "Fitxategi hau daukan karpeta zabaldu"
 
-#: ../src/core/common-actions.vala:290
+#: ../src/core/common-actions.vala:293
 msgid "Copy to Clipboard"
 msgstr "Kopiatu arbelean"
 
-#: ../src/core/common-actions.vala:291
+#: ../src/core/common-actions.vala:294
 msgid "Copy selection to clipboard"
 msgstr "Hautapena arbelean kopiatu"
 
@@ -334,6 +337,7 @@ msgstr "Banshee ez dago instalatuta"
 
 #: ../src/plugins/banshee-plugin.vala:141
 #: ../src/plugins/rhythmbox-plugin.vala:153
+#: ../src/plugins/xnoise-media-player-plugin.vala:179
 msgid "Play"
 msgstr "Jo"
 
@@ -343,6 +347,7 @@ msgstr "Banshee-n jotzen hasi"
 
 #: ../src/plugins/banshee-plugin.vala:169
 #: ../src/plugins/rhythmbox-plugin.vala:204
+#: ../src/plugins/xnoise-media-player-plugin.vala:234
 msgid "Pause"
 msgstr "Pausarazi"
 
@@ -352,6 +357,7 @@ msgstr "Banshee-n erreprodukzioa pausarazi"
 
 #: ../src/plugins/banshee-plugin.vala:190
 #: ../src/plugins/rhythmbox-plugin.vala:220
+#: ../src/plugins/xnoise-media-player-plugin.vala:259
 msgid "Next"
 msgstr "Hurrengoa"
 
@@ -361,6 +367,7 @@ msgstr "Banshee-ko erreprodukzio zerrendako hurrengo abestia jo"
 
 #: ../src/plugins/banshee-plugin.vala:213
 #: ../src/plugins/rhythmbox-plugin.vala:243
+#: ../src/plugins/xnoise-media-player-plugin.vala:285
 msgid "Previous"
 msgstr "Aurrekoa"
 
@@ -391,7 +398,7 @@ msgstr "Kalkulagailua"
 
 #: ../src/plugins/calculator-plugin.vala:64
 msgid "Calculate basic expressions."
-msgstr ""
+msgstr "Kalkulatu oinarrizko espresioak."
 
 #: ../src/plugins/calculator-plugin.vala:68
 msgid "bc is not installed"
@@ -399,27 +406,27 @@ msgstr "bc ez dago instalatuta"
 
 #: ../src/plugins/chat-actions-plugin.vala:42
 msgid "Open chat"
-msgstr ""
+msgstr "Ireki berriketa"
 
 #: ../src/plugins/chat-actions-plugin.vala:43
 msgid "Open a chat with selected contact"
-msgstr ""
+msgstr "Ireki berriketa hautatutako kontaktuarekin"
 
 #: ../src/plugins/chat-actions-plugin.vala:66
 msgid "Send a message"
-msgstr ""
+msgstr "Bidali mezua"
 
 #: ../src/plugins/chat-actions-plugin.vala:67
 msgid "Send a message to the contact"
-msgstr ""
+msgstr "Bidali mezua kontaktuari"
 
 #: ../src/plugins/chat-actions-plugin.vala:100
 msgid "Send message to.."
-msgstr ""
+msgstr "Bidali mezua honi..."
 
 #: ../src/plugins/chat-actions-plugin.vala:101
 msgid "Send a message to a contact"
-msgstr ""
+msgstr "Bidali mezua kontaktu bati"
 
 #: ../src/plugins/chat-actions-plugin.vala:136
 msgid "Chat actions"
@@ -427,6 +434,18 @@ msgstr ""
 
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:79
+msgid "Chromium Plugin"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:80
+msgid "Browse and open Chromium bookmarks."
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:84
+msgid "Chromium is not installed"
 msgstr ""
 
 #: ../src/plugins/command-plugin.vala:56
@@ -530,8 +549,10 @@ msgid "Gnome Screen Saver wasn't found"
 msgstr ""
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
-msgid "Improve results returned by the Zeitgeist plugin by looking "
-msgstr "Zeitgeist pluginak emandako emaitzak hobetu begiratuz "
+msgid ""
+"Improve results returned by the Zeitgeist plugin by looking for similar "
+"files on the filesystem."
+msgstr ""
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload to imgur"
@@ -593,16 +614,19 @@ msgstr "Bukatu baimentzea"
 msgid "Find bugs and branches on Launchpad."
 msgstr ""
 
+#. project link (lp:synapse)
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
 msgstr ""
 
+#. series link (lp:synapse/0.3)
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
 msgstr ""
 
+#. branch link (lp:~mhr3/synapse/lp-plugin)
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
@@ -634,6 +658,7 @@ msgstr ""
 msgid "Search the web."
 msgstr "Web-ean bilatu."
 
+#. keep in sync with the internal XMLs!
 #: ../src/plugins/opensearch.vala:264
 msgid "Google"
 msgstr "Google"
@@ -747,11 +772,15 @@ msgstr "Aukeratutako testua"
 msgid "Connect to host with SSH"
 msgstr ""
 
+#. description
+#. icon name
+#. reference to this function
+#. true if user's system has all required components which the plugin needs
 #: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr ""
 
-#: ../src/plugins/ssh-plugin.vala:198
+#: ../src/plugins/ssh-plugin.vala:197
 msgid "Connect with SSH"
 msgstr ""
 
@@ -761,7 +790,7 @@ msgstr "Eseki"
 
 #: ../src/plugins/system-management.vala:88
 msgid "Put your computer into suspend mode"
-msgstr ""
+msgstr "Ordenagailua esekitze moduan jarri"
 
 #: ../src/plugins/system-management.vala:158
 msgid "Hibernate"
@@ -795,6 +824,66 @@ msgstr "Zure ordenagailua eseki, hibernatu, berrabiarazi edo itzali."
 msgid "ConsoleKit wasn't found"
 msgstr ""
 
+#: ../src/plugins/xnoise-media-player-plugin.vala:59
+msgid "Control Xnoise media player."
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:63
+msgid "Xnoise is not installed!"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:130
+msgid "Quit Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:154
+msgid "Raise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:155
+msgid "Show Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:180
+msgid "Start playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:204
+msgid "TogglePlaying"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:205
+msgid "Start/Pause playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:235
+msgid "Pause playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:260
+msgid "Plays the next song in Xnoise's playlist"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:286
+msgid "Plays the previous song in Xnoise's playlist"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:310
+msgid "Stop"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:311
+msgid "Stops the playback of Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:336
+msgid "Play in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:337
+msgid "Queues and plays the song"
+msgstr ""
+
 #: ../src/plugins/zeitgeist-plugin.vala:158
 msgid "few moments ago"
 msgstr "duela gutxi"
@@ -803,29 +892,33 @@ msgstr "duela gutxi"
 #, c-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] "Duela minutu %d"
-msgstr[1] "Duela %d minutu"
+msgstr[0] "duela minutu %d"
+msgstr[1] "duela %d minutu"
 
 #: ../src/plugins/zeitgeist-plugin.vala:168
 #, c-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] "Duela ordu %d"
-msgstr[1] "Duela %d ordu"
+msgstr[0] "duela ordu %d"
+msgstr[1] "duela %d ordu"
 
 #: ../src/plugins/zeitgeist-plugin.vala:173
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] "Duela egun %d"
-msgstr[1] "Duela %d egun"
+msgstr[0] "duela egun %d"
+msgstr[1] "duela %d egun"
 
 #: ../src/plugins/zeitgeist-plugin.vala:178
 #, c-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
-msgstr[0] "Duela aste %d"
-msgstr[1] "Duela %d aste"
+msgstr[0] "duela aste %d"
+msgstr[1] "duela %d aste"
+
+#: ../src/plugins/zeitgeist-plugin.vala:182
+msgid "long time ago"
+msgstr ""
 
 #: ../src/plugins/zeitgeist-plugin.vala:192
 msgid "Search various items logged by Zeitgeist."

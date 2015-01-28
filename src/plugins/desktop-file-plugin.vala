@@ -21,83 +21,63 @@
 
 namespace Synapse
 {
-  public class DesktopFilePlugin: Object, Activatable, ItemProvider, ActionProvider
+  public class DesktopFilePlugin : Object, Activatable, ItemProvider, ActionProvider
   {
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
+
     }
 
-    private class DesktopFileMatch: Object, Match, ApplicationMatch
+    private class DesktopFileMatch : ApplicationMatch
     {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
+      public DesktopFileInfo desktop_info { get; construct; }
+      public string title_folded { get; construct; }
+      public string title_unaccented { get; construct; }
+      public string desktop_id { get; construct; }
+      public string exec { get; construct; }
 
-      // for ApplicationMatch
-      public AppInfo? app_info { get; set; default = null; }
-      public bool needs_terminal { get; set; default = false; }
-      public string? filename { get; construct set; }
-
-      private string? title_folded = null;
-      public unowned string get_title_folded ()
+      public DesktopFileMatch (DesktopFileInfo info)
       {
-        if (title_folded == null) title_folded = title.casefold ();
-        return title_folded;
-      }
-      
-      public string? title_unaccented { get; set; default = null; }
-      public string? desktop_id { get; set; default = null; }
-
-      public string exec { get; set; }
-
-      public DesktopFileMatch.for_info (DesktopFileInfo info)
-      {
-        Object (filename: info.filename, match_type: MatchType.APPLICATION);
-
-        init_from_info (info);
+        Object (desktop_info : info);
       }
 
-      private void init_from_info (DesktopFileInfo info)
+      construct
       {
-        this.title = info.name;
-        this.description = info.comment;
-        this.icon_name = info.icon_name;
-        this.exec = info.exec;
-        this.needs_terminal = info.needs_terminal;
-        this.title_folded = info.get_name_folded ();
-        this.title_unaccented = Utils.remove_accents (this.title_folded);
-        this.desktop_id = "application://" + info.desktop_id;
+        filename = desktop_info.filename;
+        title = desktop_info.name;
+        description = desktop_info.comment;
+        icon_name = desktop_info.icon_name;
+        exec = desktop_info.exec;
+        needs_terminal = desktop_info.needs_terminal;
+        title_folded = desktop_info.get_name_folded () ?? title.casefold ();
+        title_unaccented = Utils.remove_accents (title_folded);
+        desktop_id = "application://" + desktop_info.desktop_id;
       }
     }
 
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (DesktopFilePlugin),
         "Application Search",
-        _ ("Search for and run applications on your computer."),
+        _("Search for and run applications on your computer."),
         "system-run",
         register_plugin
       );
     }
-    
+
     static construct
     {
       register_plugin ();
     }
-    
+
     private Gee.List<DesktopFileMatch> desktop_files;
 
     construct
@@ -112,10 +92,10 @@ namespace Synapse
       dfs.reload_done.connect (() => {
         mimetype_map.clear ();
         desktop_files.clear ();
-        load_all_desktop_files ();
+        load_all_desktop_files.begin ();
       });
 
-      load_all_desktop_files ();
+      load_all_desktop_files.begin ();
     }
 
     public signal void load_complete ();
@@ -131,21 +111,21 @@ namespace Synapse
 
       foreach (DesktopFileInfo dfi in dfs.get_desktop_files ())
       {
-        desktop_files.add (new DesktopFileMatch.for_info (dfi));
+        desktop_files.add (new DesktopFileMatch (dfi));
       }
 
       loading_in_progress = false;
       load_complete ();
     }
-    
+
     private int compute_relevancy (DesktopFileMatch dfm, int base_relevancy)
     {
       var rs = RelevancyService.get_default ();
       float popularity = rs.get_application_popularity (dfm.desktop_id);
 
       int r = RelevancyService.compute_relevancy (base_relevancy, popularity);
-      Utils.Logger.debug (this, "relevancy for %s: %d", dfm.desktop_id, r);
-      
+      debug ("relevancy for %s: %d", dfm.desktop_id, r);
+
       return r;
     }
 
@@ -158,7 +138,7 @@ namespace Synapse
 
       foreach (var dfm in desktop_files)
       {
-        unowned string folded_title = dfm.get_title_folded ();
+        unowned string folded_title = dfm.title_folded;
         unowned string unaccented_title = dfm.title_unaccented;
         bool matched = false;
         // FIXME: we need to do much smarter relevancy computation in fuzzy re
@@ -174,7 +154,7 @@ namespace Synapse
           }
           else if (unaccented_title != null && matcher.key.match (unaccented_title))
           {
-            results.add (dfm, compute_relevancy (dfm, matcher.value - Match.Score.INCREMENT_SMALL));
+            results.add (dfm, compute_relevancy (dfm, matcher.value - MatchScore.INCREMENT_SMALL));
             matched = true;
             break;
           }
@@ -182,7 +162,7 @@ namespace Synapse
         if (!matched && dfm.exec.has_prefix (q.query_string))
         {
           results.add (dfm, compute_relevancy (dfm, dfm.exec == q.query_string ?
-            Match.Score.VERY_GOOD : Match.Score.AVERAGE - Match.Score.INCREMENT_SMALL));
+            MatchScore.VERY_GOOD : MatchScore.AVERAGE - MatchScore.INCREMENT_SMALL));
         }
       }
     }
@@ -201,8 +181,7 @@ namespace Synapse
       if (loading_in_progress)
       {
         // wait
-        ulong signal_id = this.load_complete.connect (() =>
-        {
+        ulong signal_id = this.load_complete.connect (() => {
           search.callback ();
         });
         yield;
@@ -222,8 +201,7 @@ namespace Synapse
       // FIXME: spawn new thread and do the search there?
       var result = new ResultSet ();
 
-      // FIXME: make sure this is one unichar, not just byte
-      if (q.query_string.length == 1)
+      if (q.query_string.char_count () == 1)
       {
         var flags = MatcherFlags.NO_SUBSTRING | MatcherFlags.NO_PARTIAL |
                     MatcherFlags.NO_FUZZY;
@@ -238,64 +216,54 @@ namespace Synapse
 
       return result;
     }
-    
-    private class OpenWithAction: Object, Match
+
+    private class OpenWithAction : Action
     {
-       // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-      
-      public DesktopFileInfo desktop_info { get; private set; }
-      
+      public DesktopFileInfo desktop_info { get; construct; }
+
       public OpenWithAction (DesktopFileInfo info)
       {
-        Object ();
-        
-        init_with_info (info);
+        Object (desktop_info : info);
       }
 
-      private void init_with_info (DesktopFileInfo info)
+      construct
       {
-        this.title = _ ("Open with %s").printf (info.name);
-        this.icon_name = info.icon_name;
-        this.description = _ ("Opens current selection using %s").printf (info.name);
-        this.desktop_info = info;
+        title = _("Open with %s").printf (desktop_info.name);
+        icon_name = desktop_info.icon_name;
+        description = _("Opens current selection using %s").printf (desktop_info.name);
       }
-      
-      protected void execute (Match? match)
+
+      public override void do_execute (Match match, Match? target = null)
       {
-        UriMatch uri_match = match as UriMatch;
+        unowned UriMatch? uri_match = match as UriMatch;
         return_if_fail (uri_match != null);
-        
+
         var f = File.new_for_uri (uri_match.uri);
         try
         {
           var app_info = new DesktopAppInfo.from_filename (desktop_info.filename);
           List<File> files = new List<File> ();
           files.prepend (f);
-          app_info.launch (files, new Gdk.AppLaunchContext ());
+          app_info.launch (files, null);
         }
         catch (Error err)
         {
           warning ("%s", err.message);
         }
       }
+
+      public override bool valid_for_match (Match match)
+      {
+        return (match is UriMatch);
+      }
     }
-    
-    private Gee.Map<string, Gee.List<OpenWithAction> > mimetype_map;
+
+    private Gee.Map<string, Gee.List<OpenWithAction>> mimetype_map;
 
     public ResultSet? find_for_match (ref Query query, Match match)
     {
-      if (match.match_type != MatchType.GENERIC_URI) return null;
-
-      var uri_match = match as UriMatch;
-      return_val_if_fail (uri_match != null, null);
-      
-      if (uri_match.mime_type == null) return null;
+      unowned UriMatch? uri_match = match as UriMatch;
+      if (uri_match == null || uri_match.mime_type == null) return null;
 
       Gee.List<OpenWithAction> ow_list = mimetype_map[uri_match.mime_type];
       /* Query DesktopFileService only if is necessary */
@@ -319,12 +287,12 @@ namespace Synapse
       else if (ow_list.size == 0) return null;
 
       var rs = new ResultSet ();
-      
+
       if (query.query_string == "")
       {
         foreach (var action in ow_list)
         {
-          rs.add (action, Match.Score.POOR);
+          rs.add (action, MatchScore.POOR);
         }
       }
       else

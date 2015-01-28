@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-03-04 23:39+0000\n"
-"PO-Revision-Date: 2012-01-21 20:48+0000\n"
+"POT-Creation-Date: 2014-02-22 20:34+0000\n"
+"PO-Revision-Date: 2012-08-02 22:16+0000\n"
 "Last-Translator: Max_ym <kontact.cat@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2012-03-06 04:59+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2014-02-23 07:34+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Synapse"
@@ -28,10 +28,11 @@ msgid "Search everything you do."
 msgstr "Пошук всього, що Вам потрібно."
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
+#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:244
 msgid "Activate"
 msgstr "Увімкнути"
 
+#. Whooot?! This cannot be true!
 #: ../src/ui/category.vala:31 ../src/ui/category.vala:72
 #: ../src/ui/category.vala:135
 msgid "All"
@@ -51,7 +52,7 @@ msgstr "Додатки"
 
 #: ../src/ui/category.vala:73 ../src/ui/category.vala:113
 msgid "Places"
-msgstr ""
+msgstr "Місця"
 
 #: ../src/ui/category.vala:74 ../src/ui/category.vala:116
 msgid "Documents"
@@ -77,7 +78,7 @@ msgstr ""
 #. _labels.set (QueryFlags.FILES, _("Files"));
 #: ../src/ui/category.vala:121
 msgid "Uncategorized"
-msgstr ""
+msgstr "Без категорій"
 
 #: ../src/ui/controller.vala:30
 msgid "Searching..."
@@ -99,7 +100,7 @@ msgstr "Друкуйте для пошуку..."
 msgid "...or press down key to browse recent activities"
 msgstr "...або натисніть клавішу \"До низу\" щоб переглянути останнє"
 
-#: ../src/ui/view-virgilio.vala:188 ../src/ui/widgets-matchlistview.vala:923
+#: ../src/ui/view-virgilio.vala:204 ../src/ui/widgets-matchlistview.vala:936
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d з %d</b>"
@@ -142,7 +143,7 @@ msgstr "Стандартно"
 
 #: ../src/ui/settings.vala:169
 msgid "Essential"
-msgstr ""
+msgstr "Невіддільний"
 
 #: ../src/ui/settings.vala:170
 msgid "Doish"
@@ -158,7 +159,7 @@ msgstr ""
 
 #: ../src/ui/settings.vala:245
 msgid "Execute"
-msgstr ""
+msgstr "Виконати"
 
 #: ../src/ui/settings.vala:246
 msgid "Execute without hiding"
@@ -166,7 +167,7 @@ msgstr ""
 
 #: ../src/ui/settings.vala:247
 msgid "Alternative Delete"
-msgstr ""
+msgstr "Альтернативне видалення"
 
 #: ../src/ui/settings.vala:248
 msgid "Next Result"
@@ -194,19 +195,19 @@ msgstr "Попередні 5 результатів"
 
 #: ../src/ui/settings.vala:254
 msgid "Next Category"
-msgstr ""
+msgstr "Наступна Категорія"
 
 #: ../src/ui/settings.vala:255
 msgid "Previous Category"
-msgstr ""
+msgstr "Попередня Категорія"
 
 #: ../src/ui/settings.vala:256
 msgid "Next Pane"
-msgstr ""
+msgstr "Наступна панель"
 
 #: ../src/ui/settings.vala:257
 msgid "Previous Pane"
-msgstr ""
+msgstr "Попередня панель"
 
 #: ../src/ui/settings.vala:258
 msgid "Paste"
@@ -217,12 +218,13 @@ msgid "Paste current selection"
 msgstr ""
 
 #: ../src/ui/settings.vala:260
+#: ../src/plugins/xnoise-media-player-plugin.vala:129
 msgid "Quit"
 msgstr "Вийти"
 
 #: ../src/ui/settings.vala:274
 msgid "Shortcut already in use"
-msgstr ""
+msgstr "Скорочення вже використовується"
 
 #: ../src/ui/settings.vala:300
 msgid "General"
@@ -267,21 +269,22 @@ msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr ""
 "Клікніть, на комбінації яку хочете змінити, та введіть нову комбінацію."
 
-#: ../src/ui/widgets-matchlistview.vala:896
-#: ../src/ui/widgets-matchlistview.vala:910
+#: ../src/ui/widgets-matchlistview.vala:909
+#: ../src/ui/widgets-matchlistview.vala:923
 msgid "No results."
 msgstr "Результати відсутні."
 
-#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:928
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 з %d</b>"
 
-#: ../src/ui/utils.vala:115
+#. if is home dir
+#: ../src/ui/utils.vala:132
 msgid "Home"
 msgstr "Домівка"
 
-#: ../src/ui/utils.vala:129
+#: ../src/ui/utils.vala:146
 msgid "Root"
 msgstr "Root"
 
@@ -293,35 +296,35 @@ msgstr "Виконати"
 msgid "Run an application, action or script"
 msgstr "Запуск програми, або виконання сценарію"
 
-#: ../src/core/common-actions.vala:132
+#: ../src/core/common-actions.vala:133
 msgid "Run in Terminal"
 msgstr "Виконати в Терміналі"
 
-#: ../src/core/common-actions.vala:133
+#: ../src/core/common-actions.vala:134
 msgid "Run application or command in terminal"
 msgstr "Запуск програми або команди в терміналі"
 
-#: ../src/core/common-actions.vala:180
+#: ../src/core/common-actions.vala:182
 msgid "Open"
 msgstr "Відкрити"
 
-#: ../src/core/common-actions.vala:181
+#: ../src/core/common-actions.vala:183
 msgid "Open using default application"
 msgstr "Відкрити в стандартній програмі"
 
-#: ../src/core/common-actions.vala:250
+#: ../src/core/common-actions.vala:252
 msgid "Open folder"
 msgstr "Відкрити теку"
 
-#: ../src/core/common-actions.vala:251
+#: ../src/core/common-actions.vala:253
 msgid "Open folder containing this file"
 msgstr "Відкрити теку де знаходиться цей файл"
 
-#: ../src/core/common-actions.vala:290
+#: ../src/core/common-actions.vala:293
 msgid "Copy to Clipboard"
 msgstr "Копіювати у буфер обміну"
 
-#: ../src/core/common-actions.vala:291
+#: ../src/core/common-actions.vala:294
 msgid "Copy selection to clipboard"
 msgstr "Копіювати виділене у буфер обміну"
 
@@ -336,6 +339,7 @@ msgstr "Banshee не встановлено"
 
 #: ../src/plugins/banshee-plugin.vala:141
 #: ../src/plugins/rhythmbox-plugin.vala:153
+#: ../src/plugins/xnoise-media-player-plugin.vala:179
 msgid "Play"
 msgstr "Грати"
 
@@ -345,6 +349,7 @@ msgstr "Почати відтворення в Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:169
 #: ../src/plugins/rhythmbox-plugin.vala:204
+#: ../src/plugins/xnoise-media-player-plugin.vala:234
 msgid "Pause"
 msgstr "Пауза"
 
@@ -354,6 +359,7 @@ msgstr "Призупинити відтворення в Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:190
 #: ../src/plugins/rhythmbox-plugin.vala:220
+#: ../src/plugins/xnoise-media-player-plugin.vala:259
 msgid "Next"
 msgstr "Наступна"
 
@@ -363,6 +369,7 @@ msgstr "Грати наступну пісню в списку відтворе�
 
 #: ../src/plugins/banshee-plugin.vala:213
 #: ../src/plugins/rhythmbox-plugin.vala:243
+#: ../src/plugins/xnoise-media-player-plugin.vala:285
 msgid "Previous"
 msgstr "Попередня"
 
@@ -401,11 +408,11 @@ msgstr "Програму bc не встановлено."
 
 #: ../src/plugins/chat-actions-plugin.vala:42
 msgid "Open chat"
-msgstr ""
+msgstr "Розпочати чат"
 
 #: ../src/plugins/chat-actions-plugin.vala:43
 msgid "Open a chat with selected contact"
-msgstr ""
+msgstr "Розпочати розмову з вибраними контактами"
 
 #: ../src/plugins/chat-actions-plugin.vala:66
 msgid "Send a message"
@@ -417,7 +424,7 @@ msgstr "Надіслати повідомлення контакту"
 
 #: ../src/plugins/chat-actions-plugin.vala:100
 msgid "Send message to.."
-msgstr ""
+msgstr "Надіслати повідомлення..."
 
 #: ../src/plugins/chat-actions-plugin.vala:101
 msgid "Send a message to a contact"
@@ -425,10 +432,24 @@ msgstr "Надіслати повідомлення контакту"
 
 #: ../src/plugins/chat-actions-plugin.vala:136
 msgid "Chat actions"
-msgstr ""
+msgstr "Дії чату"
 
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
+msgstr ""
+"Розпочати розмову або надіслати повідомлення за допомогою вашого улюбленого "
+"IM"
+
+#: ../src/plugins/chromium-plugin.vala:79
+msgid "Chromium Plugin"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:80
+msgid "Browse and open Chromium bookmarks."
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:84
+msgid "Chromium is not installed"
 msgstr ""
 
 #: ../src/plugins/command-plugin.vala:56
@@ -495,17 +516,17 @@ msgstr "Перейменувати на"
 
 #: ../src/plugins/file-op-plugin.vala:78
 msgid "Rename the file to..."
-msgstr ""
+msgstr "Перейменувати файл на..."
 
 #: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:185
 #, c-format
 msgid "File \"%s\"does not exist."
-msgstr ""
+msgstr "Файл \"%s\"не існує."
 
 #: ../src/plugins/file-op-plugin.vala:107
 #, c-format
 msgid "Cannot move \"%s\" to \"%s\""
-msgstr ""
+msgstr "Не вдалося перемістити \"%s\" до \"%s\""
 
 #: ../src/plugins/file-op-plugin.vala:137
 msgid "File Operations"
@@ -513,7 +534,7 @@ msgstr "Дії над файлами"
 
 #: ../src/plugins/file-op-plugin.vala:138
 msgid "Copy, Cut, Paste and Delete files"
-msgstr ""
+msgstr "Копіювати, Вирізати, Вставити і Видалити файли"
 
 #: ../src/plugins/gnome-screensaver-plugin.vala:59
 msgid "Lock Screen"
@@ -532,7 +553,9 @@ msgid "Gnome Screen Saver wasn't found"
 msgstr "Gnome Screen Saver не знайдено"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
-msgid "Improve results returned by the Zeitgeist plugin by looking "
+msgid ""
+"Improve results returned by the Zeitgeist plugin by looking for similar "
+"files on the filesystem."
 msgstr ""
 
 #: ../src/plugins/imgur-plugin.vala:51
@@ -595,16 +618,19 @@ msgstr "Авторизацію завершено"
 msgid "Find bugs and branches on Launchpad."
 msgstr ""
 
+#. project link (lp:synapse)
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
 msgstr ""
 
+#. series link (lp:synapse/0.3)
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
 msgstr "Launchpad: Серія %s для проекту %s"
 
+#. branch link (lp:~mhr3/synapse/lp-plugin)
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
@@ -635,6 +661,7 @@ msgstr "Неможливо знайти виконуваний файл \"locate
 msgid "Search the web."
 msgstr "Пошук в інтернеті."
 
+#. keep in sync with the internal XMLs!
 #: ../src/plugins/opensearch.vala:264
 msgid "Google"
 msgstr "Google"
@@ -748,11 +775,15 @@ msgstr "Вибраний текст"
 msgid "Connect to host with SSH"
 msgstr ""
 
+#. description
+#. icon name
+#. reference to this function
+#. true if user's system has all required components which the plugin needs
 #: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr ""
 
-#: ../src/plugins/ssh-plugin.vala:198
+#: ../src/plugins/ssh-plugin.vala:197
 msgid "Connect with SSH"
 msgstr ""
 
@@ -796,6 +827,66 @@ msgstr ""
 msgid "ConsoleKit wasn't found"
 msgstr ""
 
+#: ../src/plugins/xnoise-media-player-plugin.vala:59
+msgid "Control Xnoise media player."
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:63
+msgid "Xnoise is not installed!"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:130
+msgid "Quit Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:154
+msgid "Raise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:155
+msgid "Show Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:180
+msgid "Start playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:204
+msgid "TogglePlaying"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:205
+msgid "Start/Pause playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:235
+msgid "Pause playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:260
+msgid "Plays the next song in Xnoise's playlist"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:286
+msgid "Plays the previous song in Xnoise's playlist"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:310
+msgid "Stop"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:311
+msgid "Stops the playback of Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:336
+msgid "Play in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:337
+msgid "Queues and plays the song"
+msgstr ""
+
 #: ../src/plugins/zeitgeist-plugin.vala:158
 msgid "few moments ago"
 msgstr "кілька хвилин тому"
@@ -831,6 +922,10 @@ msgid_plural "%d weeks ago"
 msgstr[0] "%d тиждень тому"
 msgstr[1] "%d тижні тому"
 msgstr[2] "%d тижнів тому"
+
+#: ../src/plugins/zeitgeist-plugin.vala:182
+msgid "long time ago"
+msgstr ""
 
 #: ../src/plugins/zeitgeist-plugin.vala:192
 msgid "Search various items logged by Zeitgeist."

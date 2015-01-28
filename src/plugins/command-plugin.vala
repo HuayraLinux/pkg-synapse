@@ -21,41 +21,28 @@
 
 namespace Synapse
 {
-  public class CommandPlugin: Object, Activatable, ItemProvider
+  public class CommandPlugin : Object, Activatable, ItemProvider
   {
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
+
     }
 
-    private class CommandObject: Object, Match, ApplicationMatch
+    private class CommandObject : ApplicationMatch
     {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
-      // for ApplicationMatch
-      public AppInfo? app_info { get; set; default = null; }
-      public bool needs_terminal { get; set; default = false; }
-      public string? filename { get; construct set; default = null; }
       public string command { get; construct set; }
-      
+
       public CommandObject (string cmd)
       {
-        Object (title: cmd, description: _ ("Run command"), command: cmd,
+        Object (title: cmd, description: _("Run command"), command: cmd,
                 icon_name: "application-x-executable",
-                match_type: MatchType.APPLICATION,
                 needs_terminal: cmd.has_prefix ("sudo "));
 
         try
@@ -68,18 +55,18 @@ namespace Synapse
         }
       }
     }
-    
+
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (CommandPlugin),
         "Command Search",
-        _ ("Find and execute arbitrary commands."),
+        _("Find and execute arbitrary commands."),
         "system-run",
         register_plugin
       );
     }
-    
+
     static construct
     {
       register_plugin ();
@@ -101,7 +88,7 @@ namespace Synapse
         critical ("%s", err.message);
       }
     }
-    
+
     private CommandObject? create_co (string exec)
     {
       // ignore results that will be returned by DesktopFilePlugin
@@ -126,10 +113,10 @@ namespace Synapse
 
       return co;
     }
-    
+
     private void command_executed (Match match)
     {
-      CommandObject? co = match as CommandObject;
+      unowned CommandObject? co = match as CommandObject;
       if (co == null) return;
 
       past_commands.add (co.command);
@@ -158,7 +145,7 @@ namespace Synapse
         {
           if (command.has_prefix (stripped))
           {
-            result.add (create_co (command), Match.Score.AVERAGE);
+            result.add (create_co (command), MatchScore.AVERAGE);
           }
         }
 
@@ -171,15 +158,15 @@ namespace Synapse
           if (args[0] == "rm") return null;
           CommandObject? co = create_co (stripped);
           if (co == null) return null;
-          result.add (co, Match.Score.POOR);
+          result.add (co, MatchScore.POOR);
           co.executed.connect (this.command_executed);
         }
       }
       else
       {
-        result.add (create_co (stripped), Match.Score.VERY_GOOD);
+        result.add (create_co (stripped), MatchScore.VERY_GOOD);
       }
-      
+
       q.check_cancellable ();
 
       return result;

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-03-04 23:39+0000\n"
-"PO-Revision-Date: 2011-11-13 11:53+0000\n"
-"Last-Translator: Martin Maričák <Unknown>\n"
+"POT-Creation-Date: 2014-02-22 20:34+0000\n"
+"PO-Revision-Date: 2012-08-21 23:08+0000\n"
+"Last-Translator: Pavol_Ondercin <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2014-02-23 07:34+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Synapse"
@@ -24,13 +24,14 @@ msgstr "Synapse"
 
 #: ../data/synapse.desktop.in.h:2
 msgid "Search everything you do."
-msgstr ""
+msgstr "Prehľadáva všetky vaše aktivity."
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
+#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:244
 msgid "Activate"
 msgstr "Aktivovať"
 
+#. Whooot?! This cannot be true!
 #: ../src/ui/category.vala:31 ../src/ui/category.vala:72
 #: ../src/ui/category.vala:135
 msgid "All"
@@ -42,7 +43,7 @@ msgstr "Činnosti"
 
 #: ../src/ui/category.vala:70 ../src/ui/category.vala:114
 msgid "Audio"
-msgstr "Audio"
+msgstr "Zvuk"
 
 #: ../src/ui/category.vala:71 ../src/ui/category.vala:115
 msgid "Applications"
@@ -50,7 +51,7 @@ msgstr "Aplikácie"
 
 #: ../src/ui/category.vala:73 ../src/ui/category.vala:113
 msgid "Places"
-msgstr ""
+msgstr "Miesta"
 
 #: ../src/ui/category.vala:74 ../src/ui/category.vala:116
 msgid "Documents"
@@ -98,7 +99,7 @@ msgstr "Vyhľadávanie..."
 msgid "...or press down key to browse recent activities"
 msgstr "...alebo stlačením šípky dole prechádzajte posledné činnosti"
 
-#: ../src/ui/view-virgilio.vala:188 ../src/ui/widgets-matchlistview.vala:923
+#: ../src/ui/view-virgilio.vala:204 ../src/ui/widgets-matchlistview.vala:936
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d z %d</b>"
@@ -141,87 +142,88 @@ msgstr "Predvolená"
 
 #: ../src/ui/settings.vala:169
 msgid "Essential"
-msgstr ""
+msgstr "Essential"
 
 #: ../src/ui/settings.vala:170
 msgid "Doish"
-msgstr ""
+msgstr "Doish"
 
 #: ../src/ui/settings.vala:171
 msgid "Side Doish"
-msgstr ""
+msgstr "Side Doish"
 
 #: ../src/ui/settings.vala:172
 msgid "Virgilio"
-msgstr ""
+msgstr "Virgilio"
 
 #: ../src/ui/settings.vala:245
 msgid "Execute"
-msgstr ""
+msgstr "Spustiť"
 
 #: ../src/ui/settings.vala:246
 msgid "Execute without hiding"
-msgstr ""
+msgstr "Spustiť bez skrývania"
 
 #: ../src/ui/settings.vala:247
 msgid "Alternative Delete"
-msgstr ""
+msgstr "Alternatíva pre \"zmazať\""
 
 #: ../src/ui/settings.vala:248
 msgid "Next Result"
-msgstr ""
+msgstr "Ďalší výsledok"
 
 #: ../src/ui/settings.vala:249
 msgid "Previous Result"
-msgstr ""
+msgstr "Predošlý výsledok"
 
 #: ../src/ui/settings.vala:250
 msgid "First Result"
-msgstr ""
+msgstr "Prvý výsledok"
 
 #: ../src/ui/settings.vala:251
 msgid "Last Result"
-msgstr ""
+msgstr "Posledný výsledok"
 
 #: ../src/ui/settings.vala:252
 msgid "Next 5 Results"
-msgstr ""
+msgstr "Nasledujúcich 5 výsledkov"
 
 #: ../src/ui/settings.vala:253
 msgid "Previous 5 Results"
-msgstr ""
+msgstr "Predchádzajúcich 5 výsledkov"
 
 #: ../src/ui/settings.vala:254
 msgid "Next Category"
-msgstr ""
+msgstr "Nasledujúca kategória"
 
 #: ../src/ui/settings.vala:255
 msgid "Previous Category"
-msgstr ""
+msgstr "Predošlá kategória"
 
 #: ../src/ui/settings.vala:256
 msgid "Next Pane"
-msgstr ""
+msgstr "Ďalšie pole"
 
 #: ../src/ui/settings.vala:257
 msgid "Previous Pane"
-msgstr ""
+msgstr "Predchádzajúce pole"
 
 #: ../src/ui/settings.vala:258
 msgid "Paste"
-msgstr ""
+msgstr "Vložiť"
 
 #: ../src/ui/settings.vala:259
 msgid "Paste current selection"
-msgstr ""
+msgstr "Vložiť aktuálny výber"
 
 #: ../src/ui/settings.vala:260
+#: ../src/plugins/xnoise-media-player-plugin.vala:129
 msgid "Quit"
-msgstr ""
+msgstr "Ukončit"
 
 #: ../src/ui/settings.vala:274
 msgid "Shortcut already in use"
-msgstr ""
+msgstr "Klávesová skratka sa už používa"
 
 #: ../src/ui/settings.vala:300
 msgid "General"
@@ -267,23 +269,24 @@ msgstr ""
 "Kliknite na klávesovú skratku, ktorú si prajete zmeniť a stlačte novú "
 "klávesovú skratku."
 
-#: ../src/ui/widgets-matchlistview.vala:896
-#: ../src/ui/widgets-matchlistview.vala:910
+#: ../src/ui/widgets-matchlistview.vala:909
+#: ../src/ui/widgets-matchlistview.vala:923
 msgid "No results."
 msgstr "Žiadne výsledky."
 
-#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:928
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 z %d</b>"
 
-#: ../src/ui/utils.vala:115
+#. if is home dir
+#: ../src/ui/utils.vala:132
 msgid "Home"
 msgstr "Domov"
 
-#: ../src/ui/utils.vala:129
+#: ../src/ui/utils.vala:146
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: ../src/core/common-actions.vala:77
 msgid "Run"
@@ -293,142 +296,158 @@ msgstr "Spustiť"
 msgid "Run an application, action or script"
 msgstr "Spustiť aplikáciu, činnosť alebo skript"
 
-#: ../src/core/common-actions.vala:132
+#: ../src/core/common-actions.vala:133
 msgid "Run in Terminal"
 msgstr "Spustiť v termináli"
 
-#: ../src/core/common-actions.vala:133
+#: ../src/core/common-actions.vala:134
 msgid "Run application or command in terminal"
 msgstr "Spustiť aplikáciu alebo príkaz v termináli"
 
-#: ../src/core/common-actions.vala:180
+#: ../src/core/common-actions.vala:182
 msgid "Open"
 msgstr "Otvoriť"
 
-#: ../src/core/common-actions.vala:181
+#: ../src/core/common-actions.vala:183
 msgid "Open using default application"
 msgstr "Otvoriť pomocou predvolenej aplikácie"
 
-#: ../src/core/common-actions.vala:250
+#: ../src/core/common-actions.vala:252
 msgid "Open folder"
 msgstr "Otvoriť priečinok"
 
-#: ../src/core/common-actions.vala:251
+#: ../src/core/common-actions.vala:253
 msgid "Open folder containing this file"
 msgstr "Otvoriť priečinok obsahujúci tento súbor"
 
-#: ../src/core/common-actions.vala:290
+#: ../src/core/common-actions.vala:293
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Kopírovať do schránky"
 
-#: ../src/core/common-actions.vala:291
+#: ../src/core/common-actions.vala:294
 msgid "Copy selection to clipboard"
-msgstr ""
+msgstr "Kopírovať výber do schránky"
 
 #: ../src/plugins/banshee-plugin.vala:70
 msgid "Control Banshee and add items to playlists."
-msgstr ""
+msgstr "Ovláda Banshee a pridáva položky do zoznamov skladieb."
 
 #. DBusService.get_default ().name_is_activatable (BansheePlaybackController.UNIQUE_NAME), // doesn't work for banshee
 #: ../src/plugins/banshee-plugin.vala:76
 msgid "Banshee is not installed"
-msgstr ""
+msgstr "Banshee nie je nainštalované"
 
 #: ../src/plugins/banshee-plugin.vala:141
 #: ../src/plugins/rhythmbox-plugin.vala:153
+#: ../src/plugins/xnoise-media-player-plugin.vala:179
 msgid "Play"
-msgstr ""
+msgstr "Prehrať"
 
 #: ../src/plugins/banshee-plugin.vala:142
 msgid "Start playback in Banshee"
-msgstr ""
+msgstr "Spustiť prehrávanie v Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:169
 #: ../src/plugins/rhythmbox-plugin.vala:204
+#: ../src/plugins/xnoise-media-player-plugin.vala:234
 msgid "Pause"
-msgstr ""
+msgstr "Pozastaviť"
 
 #: ../src/plugins/banshee-plugin.vala:170
 msgid "Pause playback in Banshee"
-msgstr ""
+msgstr "Pozastaviť prehrávanie v Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:190
 #: ../src/plugins/rhythmbox-plugin.vala:220
+#: ../src/plugins/xnoise-media-player-plugin.vala:259
 msgid "Next"
-msgstr ""
+msgstr "Ďalšie"
 
 #: ../src/plugins/banshee-plugin.vala:191
 msgid "Plays the next song in Banshee's playlist"
-msgstr ""
+msgstr "Prehráva ďalšiu položku zoznamu skladieb v Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:213
 #: ../src/plugins/rhythmbox-plugin.vala:243
+#: ../src/plugins/xnoise-media-player-plugin.vala:285
 msgid "Previous"
-msgstr ""
+msgstr "Predchádzajúci"
 
 #: ../src/plugins/banshee-plugin.vala:214
 msgid "Plays the previous song in Banshee's playlist"
-msgstr ""
+msgstr "Prehráva predchádzajúcu položku zoznamu skladieb v Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:236
 msgid "Enqueue in Banshee"
-msgstr ""
+msgstr "Pridať do fronty v Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:237
 msgid "Add the song to Banshee playlist"
-msgstr ""
+msgstr "Pridať skladbu do zoznamu skladieb v Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:279
 msgid "Play in Banshee"
-msgstr ""
+msgstr "Prehrať pomocou Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:280
 #: ../src/plugins/rhythmbox-plugin.vala:317
 msgid "Clears the current playlist and plays the song"
-msgstr ""
+msgstr "Vyčistí aktuálny zoznam skladieb a prehrá skladbu"
 
 #: ../src/plugins/calculator-plugin.vala:63
 msgid "Calculator"
-msgstr ""
+msgstr "Kalkulačka"
 
 #: ../src/plugins/calculator-plugin.vala:64
 msgid "Calculate basic expressions."
-msgstr ""
+msgstr "Vypočíta základné výrazy"
 
 #: ../src/plugins/calculator-plugin.vala:68
 msgid "bc is not installed"
-msgstr ""
+msgstr "bc nie je nainštalované"
 
 #: ../src/plugins/chat-actions-plugin.vala:42
 msgid "Open chat"
-msgstr ""
+msgstr "Otvoriť rozhovor"
 
 #: ../src/plugins/chat-actions-plugin.vala:43
 msgid "Open a chat with selected contact"
-msgstr ""
+msgstr "Otvoriť rozhovor s vybraným kontaktom"
 
 #: ../src/plugins/chat-actions-plugin.vala:66
 msgid "Send a message"
-msgstr ""
+msgstr "Odoslať správu"
 
 #: ../src/plugins/chat-actions-plugin.vala:67
 msgid "Send a message to the contact"
-msgstr ""
+msgstr "Odoslať kontaktu správu"
 
 #: ../src/plugins/chat-actions-plugin.vala:100
 msgid "Send message to.."
-msgstr ""
+msgstr "Odoslať správu komu..."
 
 #: ../src/plugins/chat-actions-plugin.vala:101
 msgid "Send a message to a contact"
-msgstr ""
+msgstr "Odoslať kontaktu správu"
 
 #: ../src/plugins/chat-actions-plugin.vala:136
 msgid "Chat actions"
-msgstr ""
+msgstr "Možnosti rozhovoru"
 
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
+msgstr "Otvoriť rozhovor alebo odoslať správu vašim obľúbenym IM klientom"
+
+#: ../src/plugins/chromium-plugin.vala:79
+msgid "Chromium Plugin"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:80
+msgid "Browse and open Chromium bookmarks."
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:84
+msgid "Chromium is not installed"
 msgstr ""
 
 #: ../src/plugins/command-plugin.vala:56
@@ -437,11 +456,11 @@ msgstr "Spustiť príkaz"
 
 #: ../src/plugins/command-plugin.vala:77
 msgid "Find and execute arbitrary commands."
-msgstr ""
+msgstr "Nájsť a spustiť ľubovoľné príkazy"
 
 #: ../src/plugins/desktop-file-plugin.vala:90
 msgid "Search for and run applications on your computer."
-msgstr ""
+msgstr "Nájsť a spustiť aplikácie na vašom počítači."
 
 #: ../src/plugins/desktop-file-plugin.vala:263
 #, c-format
@@ -451,401 +470,484 @@ msgstr "Otvoriť pomocou %s"
 #: ../src/plugins/desktop-file-plugin.vala:265
 #, c-format
 msgid "Opens current selection using %s"
-msgstr ""
+msgstr "Otvoriť aktuálny výber použitím %s"
 
 #: ../src/plugins/devhelp-search.vala:67
 msgid "Search in Devhelp"
-msgstr ""
+msgstr "Hľadať v Devhelp"
 
 #: ../src/plugins/devhelp-search.vala:68
 msgid "Search documentation for this symbol"
-msgstr ""
+msgstr "Vyhľadať tento symbol v dokumentácii"
 
 #: ../src/plugins/devhelp-search.vala:78
 msgid "Search documentation using Devhelp."
-msgstr ""
+msgstr "Prahľadať dokumentáciu použitím Devhelp"
 
 #: ../src/plugins/devhelp-search.vala:82
 msgid "Devhelp is not installed"
-msgstr ""
+msgstr "Devhelp nie je nainštalovaný"
 
 #: ../src/plugins/dictionary.vala:67
 msgid "Define"
-msgstr ""
+msgstr "Definovať"
 
 #: ../src/plugins/dictionary.vala:68
 msgid "Look up definition in dictionary"
-msgstr ""
+msgstr "Vyhľadať definíciu v slovníku"
 
 #: ../src/plugins/dictionary.vala:78
 msgid "Look up definitions of words."
-msgstr ""
+msgstr "Vyhľadať definície slov."
 
 #: ../src/plugins/dictionary.vala:82
 msgid "Gnome Dictionary is not installed"
-msgstr ""
+msgstr "Slovník pre Gnome nie je nainštalovaný"
 
 #: ../src/plugins/directory-plugin.vala:125
 msgid "Open commonly used directories."
-msgstr ""
+msgstr "Otvoriť obyčajne používané slovníky."
 
 #: ../src/plugins/file-op-plugin.vala:77
 msgid "Rename to"
-msgstr ""
+msgstr "Premenovať na"
 
 #: ../src/plugins/file-op-plugin.vala:78
 msgid "Rename the file to..."
-msgstr ""
+msgstr "Premenovať súbor na..."
 
 #: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:185
 #, c-format
 msgid "File \"%s\"does not exist."
-msgstr ""
+msgstr "Súbor \"%s\" neexistuje."
 
 #: ../src/plugins/file-op-plugin.vala:107
 #, c-format
 msgid "Cannot move \"%s\" to \"%s\""
-msgstr ""
+msgstr "Nemôžem presunúť \"%s\" do \"%s\""
 
 #: ../src/plugins/file-op-plugin.vala:137
 msgid "File Operations"
-msgstr ""
+msgstr "Operácie so súbormi"
 
 #: ../src/plugins/file-op-plugin.vala:138
 msgid "Copy, Cut, Paste and Delete files"
-msgstr ""
+msgstr "Kopírovať, vystrihnúť, vložiť a vymazať súbory"
 
 #: ../src/plugins/gnome-screensaver-plugin.vala:59
 msgid "Lock Screen"
-msgstr ""
+msgstr "Uzamknúť obrazovku"
 
 #: ../src/plugins/gnome-screensaver-plugin.vala:60
 msgid "Locks screen and starts screensaver."
-msgstr ""
+msgstr "Uzamkne obrazovku a spustí šetrič obrazovky."
 
 #: ../src/plugins/gnome-screensaver-plugin.vala:84
 msgid "Lock screen of your computer."
-msgstr ""
+msgstr "Uzamknúť obrazovku vášho počítača."
 
 #: ../src/plugins/gnome-screensaver-plugin.vala:88
 msgid "Gnome Screen Saver wasn't found"
-msgstr ""
+msgstr "Šetrič obrazovky nebol nájdený"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
-msgid "Improve results returned by the Zeitgeist plugin by looking "
+msgid ""
+"Improve results returned by the Zeitgeist plugin by looking for similar "
+"files on the filesystem."
 msgstr ""
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload to imgur"
-msgstr ""
+msgstr "Nahrať na imgur"
 
 #: ../src/plugins/imgur-plugin.vala:52
 msgid "Upload selection to imgur image sharer"
-msgstr ""
+msgstr "Nahrať výber na službu pre zdieľanie obrázkov imgur"
 
 #: ../src/plugins/imgur-plugin.vala:164
 #: ../src/plugins/pastebin-plugin.vala:152
 msgid ""
 "The selection was successfully uploaded and its URL was copied to clipboard."
-msgstr ""
+msgstr "Výber bol úspešne nahraný a jeho URL bola skopírovaná do schránky."
 
 #: ../src/plugins/imgur-plugin.vala:168
 #: ../src/plugins/pastebin-plugin.vala:156
 msgid ""
 "An error occurred during upload, please check the log for more information."
 msgstr ""
+"Počas nahrávania sa vyskytla chyba. Skontrolujte prosím záznam (log) pre "
+"ďalšie informácie."
 
 #: ../src/plugins/imgur-plugin.vala:176
 msgid "Synapse - Imgur"
-msgstr ""
+msgstr "Synapse - Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:232
 msgid "Upload to imgur to contact.."
-msgstr ""
+msgstr "Poslať kontaktu na imgur-e.."
 
 #: ../src/plugins/imgur-plugin.vala:233
 msgid "Upload selection to imgur image sharer, and send the link to contact"
 msgstr ""
+"Nahrať výber na server pre zdieľanie obrázkov imgur a poslať odkaz kontaktu"
 
 #: ../src/plugins/imgur-plugin.vala:266
 msgid "Imgur"
-msgstr ""
+msgstr "Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:267
 msgid "Share images using imgur."
-msgstr ""
+msgstr "Zdieľať obrázky pomocou imgur."
 
 #: ../src/plugins/launchpad-plugin.vala:45
 msgid "Authorize with Launchpad"
-msgstr ""
+msgstr "Autorizovať pomocou Launchpad"
 
 #: ../src/plugins/launchpad-plugin.vala:52
 msgid ""
 "Please press the Finish button once you login to Launchpad with your web "
 "browser"
-msgstr ""
+msgstr "Stlačte prosím tlačidlo Dokončiť po prihlásení na Launchpad"
 
 #: ../src/plugins/launchpad-plugin.vala:55
 msgid "Finish authorization"
-msgstr ""
+msgstr "Dokončiť autorizáciu"
 
 #: ../src/plugins/launchpad-plugin.vala:261
 msgid "Find bugs and branches on Launchpad."
-msgstr ""
+msgstr "Vyhľadať chyby a vetvy na Launchpad"
 
+#. project link (lp:synapse)
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
-msgstr ""
+msgstr "Launchpad: Bazaar vetvy pre %s"
 
+#. series link (lp:synapse/0.3)
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
-msgstr ""
+msgstr "Launchpad: Séria %s pre projekt %s"
 
+#. branch link (lp:~mhr3/synapse/lp-plugin)
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
-msgstr ""
+msgstr "Launchpad: Bazzar vetva %s"
 
 #: ../src/plugins/launchpad-plugin.vala:341
 #, c-format
 msgid "Launchpad: Bug #%s"
-msgstr ""
+msgstr "Launchpad: Chyba číslo %s"
 
 #: ../src/plugins/locate-plugin.vala:95 ../src/plugins/locate-plugin.vala:105
 msgid "Locate"
-msgstr ""
+msgstr "Lokalizovať"
 
 #: ../src/plugins/locate-plugin.vala:96
 msgid "Locate files with this name on the filesystem"
-msgstr ""
+msgstr "Lokalizovať súbory s týmto názvom v systéme súborov"
 
 #: ../src/plugins/locate-plugin.vala:106
 msgid "Runs locate command to find files on the filesystem."
-msgstr ""
+msgstr "Spúšta lokalizačný príkaz pre hľadanie súborov v súborovom systéme."
 
 #: ../src/plugins/locate-plugin.vala:110
 msgid "Unable to find \"locate\" binary"
-msgstr ""
+msgstr "Nemožno nájsť \"lokalizovať\" v binároch"
 
 #: ../src/plugins/opensearch.vala:252
 msgid "Search the web."
-msgstr ""
+msgstr "Hľadať na internete."
 
+#. keep in sync with the internal XMLs!
 #: ../src/plugins/opensearch.vala:264
 msgid "Google"
-msgstr ""
+msgstr "Google"
 
 #: ../src/plugins/opensearch.vala:265
 msgid "Search the web using google.com"
-msgstr ""
+msgstr "Hľadať na internete pomocou google.com"
 
 #: ../src/plugins/opensearch.vala:266
 msgid "Google Maps"
-msgstr ""
+msgstr "Mapy google"
 
 #: ../src/plugins/opensearch.vala:267
 msgid "Search using Google Maps"
-msgstr ""
+msgstr "Hľadať pomocou Mapy Google"
 
 #: ../src/plugins/pastebin-plugin.vala:42
 #: ../src/plugins/pastebin-plugin.vala:262
 msgid "Pastebin"
-msgstr ""
+msgstr "Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:43
 #: ../src/plugins/pastebin-plugin.vala:229
 msgid "Pastebin selection"
-msgstr ""
+msgstr "Výber Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:164
 msgid "Synapse - Pastebin"
-msgstr ""
+msgstr "Synapse - Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:228
 msgid "Pastebin to contact.."
-msgstr ""
+msgstr "Poslať \"Patebin\" kontaktu..."
 
 #: ../src/plugins/pastebin-plugin.vala:263
 msgid "Upload files to pastebin."
-msgstr ""
+msgstr "Nahrať na Pastebin."
 
 #: ../src/plugins/pastebin-plugin.vala:267
 msgid "Unable to find \"pastebinit\" program"
-msgstr ""
+msgstr "Nemožno nájsť program \"Pastebin\""
 
 #: ../src/plugins/pidgin-plugin.vala:77
 msgid "Get access to your Pidgin contacts"
-msgstr ""
+msgstr "Povoliť prístup ku kontaktom na Pidgine"
 
 #: ../src/plugins/pidgin-plugin.vala:81
 msgid "Pidgin is not installed."
-msgstr ""
+msgstr "Pidgin nie je nainštalovaný."
 
 #: ../src/plugins/pidgin-plugin.vala:94
 msgid "Send in chat to.."
-msgstr ""
+msgstr "Poslať v správe kontaktu..."
 
 #: ../src/plugins/pidgin-plugin.vala:95
 msgid "Send selected file within Pidgin"
-msgstr ""
+msgstr "Odoslať vybraný súbor s použitím Pidginu"
 
 #: ../src/plugins/rhythmbox-plugin.vala:84
 msgid "Control Rhythmbox and add items to playlists."
-msgstr ""
+msgstr "Ovláda Rhythmbox a pridáva položky do zoznamu skladieb."
 
 #: ../src/plugins/rhythmbox-plugin.vala:88
 msgid "Rhythmbox is not installed"
-msgstr ""
+msgstr "Rhythmbox nie je nainsštalovaný"
 
 #: ../src/plugins/rhythmbox-plugin.vala:154
 msgid "Start playback in Rhythmbox"
-msgstr ""
+msgstr "Spustiť prehrávanie pomocou Rhythmboxu"
 
 #: ../src/plugins/rhythmbox-plugin.vala:205
 msgid "Pause playback in Rhythmbox"
-msgstr ""
+msgstr "Pozastaviť prehrávanie v Rhythmboxe"
 
 #: ../src/plugins/rhythmbox-plugin.vala:221
 msgid "Plays the next song in Rhythmbox's playlist"
-msgstr ""
+msgstr "Prehrať nasledujúcu skladbu v zozname skladieb Rhythmboxu"
 
 #: ../src/plugins/rhythmbox-plugin.vala:244
 msgid "Plays the previous song in Rhythmbox's playlist"
-msgstr ""
+msgstr "Prehrať predchádzajúcu skladbu v zozname skladieb Rhythmboxu"
 
 #: ../src/plugins/rhythmbox-plugin.vala:268
 msgid "Enqueue in Rhythmbox"
-msgstr ""
+msgstr "Pridať do fronty v Rhythmboxe"
 
 #: ../src/plugins/rhythmbox-plugin.vala:269
 msgid "Add the song to Rhythmbox playlist"
-msgstr ""
+msgstr "Pridať skladbu do zoznamu skladieb v Rhythmboxe"
 
 #: ../src/plugins/rhythmbox-plugin.vala:316
 msgid "Play in Rhythmbox"
-msgstr ""
+msgstr "Prehrať pomocou Rhythmboxu"
 
 #: ../src/plugins/selection-plugin.vala:55
 msgid "Selection"
-msgstr ""
+msgstr "Výber"
 
 #. plugin title
 #: ../src/plugins/selection-plugin.vala:56
 msgid "Provides actions for currently selected text."
-msgstr ""
+msgstr "Vykonáva akcie pre aktuálny výber textu."
 
 #: ../src/plugins/selection-plugin.vala:81
 msgid "Selected text"
-msgstr ""
+msgstr "Vybraný text"
 
 #. Plugin title
 #: ../src/plugins/ssh-plugin.vala:67
 msgid "Connect to host with SSH"
-msgstr ""
+msgstr "Pripojiť sa k hostu s použitím SSH"
 
+#. description
+#. icon name
+#. reference to this function
+#. true if user's system has all required components which the plugin needs
 #: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
-msgstr ""
+msgstr "ssh nie je nainštalované"
 
-#: ../src/plugins/ssh-plugin.vala:198
+#: ../src/plugins/ssh-plugin.vala:197
 msgid "Connect with SSH"
-msgstr ""
+msgstr "Pripojiť sa pomocou SSH"
 
 #: ../src/plugins/system-management.vala:87
 msgid "Suspend"
-msgstr ""
+msgstr "Úsporný režim"
 
 #: ../src/plugins/system-management.vala:88
 msgid "Put your computer into suspend mode"
-msgstr ""
+msgstr "Prepnúť váš počítač do úsporného režimu"
 
 #: ../src/plugins/system-management.vala:158
 msgid "Hibernate"
-msgstr ""
+msgstr "Dlhodobý spánok"
 
 #: ../src/plugins/system-management.vala:159
 msgid "Put your computer into hibernation mode"
-msgstr ""
+msgstr "Prepnúť váš počítač do dlhodobého spánku"
 
 #: ../src/plugins/system-management.vala:228
 msgid "Shut Down"
-msgstr ""
+msgstr "Vypnúť"
 
 #: ../src/plugins/system-management.vala:229
 msgid "Turn your computer off"
-msgstr ""
+msgstr "Vypnúť váš počítač"
 
 #: ../src/plugins/system-management.vala:283
 msgid "Restart"
-msgstr ""
+msgstr "Reštartovať"
 
 #: ../src/plugins/system-management.vala:284
 msgid "Restart your computer"
-msgstr ""
+msgstr "Reštartovať váš počítač"
 
 #: ../src/plugins/system-management.vala:339
 msgid "Suspend, hibernate, restart or shutdown your computer."
 msgstr ""
+"Prepnúť do úsporneho režimu, uspať, reštartovať alebo vypnúť váš počítač."
 
 #: ../src/plugins/system-management.vala:343
 msgid "ConsoleKit wasn't found"
-msgstr ""
+msgstr "ConsoleKit nenájdené"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:59
+msgid "Control Xnoise media player."
+msgstr "Ovláda prehrávač médií Xnoise."
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:63
+msgid "Xnoise is not installed!"
+msgstr "Xnoise nie je nainštalovaný."
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:130
+msgid "Quit Xnoise"
+msgstr "Vypnúť Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:154
+msgid "Raise"
+msgstr "Dať do popredia"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:155
+msgid "Show Xnoise"
+msgstr "Ukázať Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:180
+msgid "Start playback in Xnoise"
+msgstr "Spustiť prehrávanie pomocou Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:204
+msgid "TogglePlaying"
+msgstr "Ovládanie prehrávania"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:205
+msgid "Start/Pause playback in Xnoise"
+msgstr "Spustiť/pozastaviť prehrávanie v Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:235
+msgid "Pause playback in Xnoise"
+msgstr "Pozastaviť prehrávanie v Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:260
+msgid "Plays the next song in Xnoise's playlist"
+msgstr "Prehrať nasledujúcu položku v zozname skladieb Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:286
+msgid "Plays the previous song in Xnoise's playlist"
+msgstr "Prehrať predchádzajúcu položku v zozname skladieb Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:310
+msgid "Stop"
+msgstr "Zastaviť"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:311
+msgid "Stops the playback of Xnoise"
+msgstr "Zastaviť prehrávanie v Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:336
+msgid "Play in Xnoise"
+msgstr "Prehrať pomocou Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:337
+msgid "Queues and plays the song"
+msgstr "Pridáva a prehráva skladbu"
 
 #: ../src/plugins/zeitgeist-plugin.vala:158
 msgid "few moments ago"
-msgstr ""
+msgstr "pred malou chvíľou"
 
 #: ../src/plugins/zeitgeist-plugin.vala:163
 #, c-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "pred %d minútami"
+msgstr[1] "pred %d minútou"
+msgstr[2] "pred %d minútami"
 
 #: ../src/plugins/zeitgeist-plugin.vala:168
 #, c-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "pred %d hodinami"
+msgstr[1] "pred %d hodinou"
+msgstr[2] "pred %d hodinami"
 
 #: ../src/plugins/zeitgeist-plugin.vala:173
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "pred %d dňami"
+msgstr[1] "pred %d dňom"
+msgstr[2] "pred %d dňami"
 
 #: ../src/plugins/zeitgeist-plugin.vala:178
 #, c-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "pred %d týždňami"
+msgstr[1] "pred %d týždňom"
+msgstr[2] "pred %d týždňami"
+
+#: ../src/plugins/zeitgeist-plugin.vala:182
+msgid "long time ago"
+msgstr ""
 
 #: ../src/plugins/zeitgeist-plugin.vala:192
 msgid "Search various items logged by Zeitgeist."
-msgstr ""
+msgstr "Hľadať rôzne položky zaznamenané pluginom Zeitgeist."
 
 #: ../src/plugins/zeitgeist-plugin.vala:196
 #: ../src/plugins/zeitgeist-related.vala:112
 msgid "Zeitgeist is not installed"
-msgstr ""
+msgstr "Zeitgeist nie je nainštalovaný"
 
 #: ../src/plugins/zeitgeist-related.vala:97
 msgid "Find related"
-msgstr ""
+msgstr "Hľadať súvisiace"
 
 #: ../src/plugins/zeitgeist-related.vala:98
 msgid "Find resources related to this result"
-msgstr ""
+msgstr "Hľadať zdroje súvisiace s týmto výsledkom"
 
 #: ../src/plugins/zeitgeist-related.vala:107
 msgid "Related files"
-msgstr ""
+msgstr "Súvisiace súbory"
 
 #: ../src/plugins/zeitgeist-related.vala:108
 msgid "Finds files related to other search results using Zeitgeist."
 msgstr ""
+"Nájde súbory súvisiace s inými výsledkami vyhľadávania použitím Zeitgeist."

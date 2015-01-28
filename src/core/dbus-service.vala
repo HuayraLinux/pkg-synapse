@@ -37,15 +37,15 @@ namespace Synapse
                                                uint32 flags) throws IOError;
     public abstract async string get_name_owner (string name) throws IOError;
   }
-  
+
   public class DBusService : Object
   {
     private FreeDesktopDBus proxy;
     private Gee.Set<string> owned_names;
     private Gee.Set<string> activatable_names;
     private Gee.Set<string> system_activatable_names;
-    
-    public bool initialized { get; private set; default = false; }
+
+    private Utils.AsyncOnce<bool> init_once;
 
     // singleton that can be easily destroyed
     public static DBusService get_default ()
@@ -56,7 +56,7 @@ namespace Synapse
     private DBusService ()
     {
     }
-    
+
     private static unowned DBusService? instance;
     construct
     {
@@ -64,15 +64,16 @@ namespace Synapse
       owned_names = new Gee.HashSet<string> ();
       activatable_names = new Gee.HashSet<string> ();
       system_activatable_names = new Gee.HashSet<string> ();
+      init_once = new Utils.AsyncOnce<bool> ();
 
-      initialize ();
+      initialize.begin ();
     }
-    
+
     ~DBusService ()
     {
       instance = null;
     }
-    
+
     private void name_owner_changed (FreeDesktopDBus sender,
                                      string name,
                                      string old_owner,
@@ -91,28 +92,30 @@ namespace Synapse
         owner_changed (name, false);
       }
     }
-    
+
     public signal void owner_changed (string name, bool is_owned);
-    
+
     public bool name_has_owner (string name)
     {
       return name in owned_names;
     }
-    
+
     public bool name_is_activatable (string name)
     {
       return name in activatable_names;
     }
-    
+
     public bool service_is_available (string name)
     {
       return name in system_activatable_names;
     }
 
-    public signal void initialization_done ();
-    
-    private async void initialize ()
+    public async void initialize ()
     {
+      if (init_once.is_initialized ()) return;
+      var is_locked = yield init_once.enter ();
+      if (!is_locked) return;
+
       string[] names;
       try
       {
@@ -127,7 +130,7 @@ namespace Synapse
           if (name.has_prefix (":")) continue;
           owned_names.add (name);
         }
-        
+
         names = yield proxy.list_activatable_names ();
         foreach (unowned string session_act in names)
         {
@@ -156,9 +159,7 @@ namespace Synapse
       {
         warning ("%s", sys_err.message);
       }
-      
-      initialized = true;
-      initialization_done ();
+      init_once.leave (true);
     }
   }
 }

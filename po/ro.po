@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-03-04 23:39+0000\n"
-"PO-Revision-Date: 2012-03-17 09:18+0000\n"
-"Last-Translator: Cristian Moldovan <crismblog@facebook.com>\n"
+"POT-Creation-Date: 2014-02-22 20:34+0000\n"
+"PO-Revision-Date: 2012-03-29 18:44+0000\n"
+"Last-Translator: Cristian Moldovan <crism@gentoo-land.org>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2012-03-18 04:59+0000\n"
-"X-Generator: Launchpad (build 14951)\n"
+"X-Launchpad-Export-Date: 2014-02-23 07:34+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Synapse"
@@ -28,10 +28,11 @@ msgid "Search everything you do."
 msgstr "Cauta orice faci."
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
+#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:244
 msgid "Activate"
 msgstr "Activează"
 
+#. Whooot?! This cannot be true!
 #: ../src/ui/category.vala:31 ../src/ui/category.vala:72
 #: ../src/ui/category.vala:135
 msgid "All"
@@ -100,7 +101,7 @@ msgid "...or press down key to browse recent activities"
 msgstr ""
 "sau apasa tasta Sageata Jos pentru a naviga prin activitatiile recente"
 
-#: ../src/ui/view-virgilio.vala:188 ../src/ui/widgets-matchlistview.vala:923
+#: ../src/ui/view-virgilio.vala:204 ../src/ui/widgets-matchlistview.vala:936
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d din %d</b>"
@@ -147,15 +148,15 @@ msgstr "Esenţial"
 
 #: ../src/ui/settings.vala:170
 msgid "Doish"
-msgstr ""
+msgstr "Doish"
 
 #: ../src/ui/settings.vala:171
 msgid "Side Doish"
-msgstr ""
+msgstr "Partea Doish"
 
 #: ../src/ui/settings.vala:172
 msgid "Virgilio"
-msgstr ""
+msgstr "Virgilio"
 
 #: ../src/ui/settings.vala:245
 msgid "Execute"
@@ -218,6 +219,7 @@ msgid "Paste current selection"
 msgstr "Lipeşte selectia curenta"
 
 #: ../src/ui/settings.vala:260
+#: ../src/plugins/xnoise-media-player-plugin.vala:129
 msgid "Quit"
 msgstr "Ieșire"
 
@@ -269,21 +271,22 @@ msgstr ""
 "Faceți clic pe comanda rapidă pe care doriți să o modificați și apăsați noua "
 "comandă rapidă."
 
-#: ../src/ui/widgets-matchlistview.vala:896
-#: ../src/ui/widgets-matchlistview.vala:910
+#: ../src/ui/widgets-matchlistview.vala:909
+#: ../src/ui/widgets-matchlistview.vala:923
 msgid "No results."
 msgstr "Niciun rezultat."
 
-#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:928
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 din %d</b>"
 
-#: ../src/ui/utils.vala:115
+#. if is home dir
+#: ../src/ui/utils.vala:132
 msgid "Home"
 msgstr "Dosar personal"
 
-#: ../src/ui/utils.vala:129
+#: ../src/ui/utils.vala:146
 msgid "Root"
 msgstr "Rădăcină"
 
@@ -295,35 +298,35 @@ msgstr "Execută"
 msgid "Run an application, action or script"
 msgstr "Execută o aplicație, acțiune sau script"
 
-#: ../src/core/common-actions.vala:132
+#: ../src/core/common-actions.vala:133
 msgid "Run in Terminal"
 msgstr "Execută în terminal"
 
-#: ../src/core/common-actions.vala:133
+#: ../src/core/common-actions.vala:134
 msgid "Run application or command in terminal"
 msgstr "Execută aplicația sau comanda în terminal"
 
-#: ../src/core/common-actions.vala:180
+#: ../src/core/common-actions.vala:182
 msgid "Open"
 msgstr "Deschide"
 
-#: ../src/core/common-actions.vala:181
+#: ../src/core/common-actions.vala:183
 msgid "Open using default application"
 msgstr "Deschide utilizând aplicația implicită"
 
-#: ../src/core/common-actions.vala:250
+#: ../src/core/common-actions.vala:252
 msgid "Open folder"
 msgstr "Deschide dosar"
 
-#: ../src/core/common-actions.vala:251
+#: ../src/core/common-actions.vala:253
 msgid "Open folder containing this file"
 msgstr "Deschide dosarul care conține acest fișier"
 
-#: ../src/core/common-actions.vala:290
+#: ../src/core/common-actions.vala:293
 msgid "Copy to Clipboard"
 msgstr "Copiază în clipboard"
 
-#: ../src/core/common-actions.vala:291
+#: ../src/core/common-actions.vala:294
 msgid "Copy selection to clipboard"
 msgstr "Copiază selecția în clipboard"
 
@@ -338,6 +341,7 @@ msgstr "Banshee nu este instalat."
 
 #: ../src/plugins/banshee-plugin.vala:141
 #: ../src/plugins/rhythmbox-plugin.vala:153
+#: ../src/plugins/xnoise-media-player-plugin.vala:179
 msgid "Play"
 msgstr "Redare"
 
@@ -347,6 +351,7 @@ msgstr "Redă în Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:169
 #: ../src/plugins/rhythmbox-plugin.vala:204
+#: ../src/plugins/xnoise-media-player-plugin.vala:234
 msgid "Pause"
 msgstr "Pauză"
 
@@ -356,6 +361,7 @@ msgstr "Întrerupe redarea în Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:190
 #: ../src/plugins/rhythmbox-plugin.vala:220
+#: ../src/plugins/xnoise-media-player-plugin.vala:259
 msgid "Next"
 msgstr "Următoare"
 
@@ -365,6 +371,7 @@ msgstr "Redă melodia următoare din lista de redare a Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:213
 #: ../src/plugins/rhythmbox-plugin.vala:243
+#: ../src/plugins/xnoise-media-player-plugin.vala:285
 msgid "Previous"
 msgstr "Precedentă"
 
@@ -432,6 +439,18 @@ msgstr "Acţiuni Chat"
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
 msgstr "Deschide chat sau trimite un mesaj cu IM preferat"
+
+#: ../src/plugins/chromium-plugin.vala:79
+msgid "Chromium Plugin"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:80
+msgid "Browse and open Chromium bookmarks."
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:84
+msgid "Chromium is not installed"
+msgstr ""
 
 #: ../src/plugins/command-plugin.vala:56
 msgid "Run command"
@@ -534,7 +553,9 @@ msgid "Gnome Screen Saver wasn't found"
 msgstr "Economizorul de ecran Gnome nu a fost găsit"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
-msgid "Improve results returned by the Zeitgeist plugin by looking "
+msgid ""
+"Improve results returned by the Zeitgeist plugin by looking for similar "
+"files on the filesystem."
 msgstr ""
 
 #: ../src/plugins/imgur-plugin.vala:51
@@ -543,7 +564,7 @@ msgstr "Încărcaţi în imgur"
 
 #: ../src/plugins/imgur-plugin.vala:52
 msgid "Upload selection to imgur image sharer"
-msgstr ""
+msgstr "Încărcaţi imaginea selectată pentru a o împartasi în imgur"
 
 #: ../src/plugins/imgur-plugin.vala:164
 #: ../src/plugins/pastebin-plugin.vala:152
@@ -566,11 +587,13 @@ msgstr "Synapse - Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:232
 msgid "Upload to imgur to contact.."
-msgstr ""
+msgstr "Încărcaţi în imgur pentru a contacta .."
 
 #: ../src/plugins/imgur-plugin.vala:233
 msgid "Upload selection to imgur image sharer, and send the link to contact"
 msgstr ""
+"Încărcaţi imaginea selectată pentru a o împartasi în imgur, şi trimite link-"
+"ul pentru a contacta"
 
 #: ../src/plugins/imgur-plugin.vala:266
 msgid "Imgur"
@@ -582,13 +605,15 @@ msgstr "Partajeza imaginilor utilizând imgur."
 
 #: ../src/plugins/launchpad-plugin.vala:45
 msgid "Authorize with Launchpad"
-msgstr ""
+msgstr "Autorizeze cu Launchpad"
 
 #: ../src/plugins/launchpad-plugin.vala:52
 msgid ""
 "Please press the Finish button once you login to Launchpad with your web "
 "browser"
 msgstr ""
+"Vă rugăm să apăsaţi butonul Termina o dată ce va logati pentru in Launchpad "
+"cu browser-ul dvs."
 
 #: ../src/plugins/launchpad-plugin.vala:55
 msgid "Finish authorization"
@@ -596,27 +621,30 @@ msgstr "Termină autorizare"
 
 #: ../src/plugins/launchpad-plugin.vala:261
 msgid "Find bugs and branches on Launchpad."
-msgstr ""
+msgstr "Găsi bug-uri şi filiale pe Launchpad."
 
+#. project link (lp:synapse)
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
-msgstr ""
+msgstr "Launchpad: sucursale Bazar pentru %s"
 
+#. series link (lp:synapse/0.3)
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
-msgstr ""
+msgstr "Launchpad: Seria %s pentru proiectul %s"
 
+#. branch link (lp:~mhr3/synapse/lp-plugin)
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
-msgstr ""
+msgstr "Launchpad: Sucursala Bazar %s"
 
 #: ../src/plugins/launchpad-plugin.vala:341
 #, c-format
 msgid "Launchpad: Bug #%s"
-msgstr ""
+msgstr "Launchpad: Erori #%s"
 
 #: ../src/plugins/locate-plugin.vala:95 ../src/plugins/locate-plugin.vala:105
 msgid "Locate"
@@ -638,6 +666,7 @@ msgstr "Binarul \"locate\" nu poate fi găsit"
 msgid "Search the web."
 msgstr "Caută pe web."
 
+#. keep in sync with the internal XMLs!
 #: ../src/plugins/opensearch.vala:264
 msgid "Google"
 msgstr "Google"
@@ -657,28 +686,28 @@ msgstr "Caută folosind Google Maps"
 #: ../src/plugins/pastebin-plugin.vala:42
 #: ../src/plugins/pastebin-plugin.vala:262
 msgid "Pastebin"
-msgstr ""
+msgstr "Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:43
 #: ../src/plugins/pastebin-plugin.vala:229
 msgid "Pastebin selection"
-msgstr ""
+msgstr "Selectia Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:164
 msgid "Synapse - Pastebin"
-msgstr ""
+msgstr "Synapse - Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:228
 msgid "Pastebin to contact.."
-msgstr ""
+msgstr "Pentru a contacta Pastebin"
 
 #: ../src/plugins/pastebin-plugin.vala:263
 msgid "Upload files to pastebin."
-msgstr ""
+msgstr "Încărca fişiere în pastebin."
 
 #: ../src/plugins/pastebin-plugin.vala:267
 msgid "Unable to find \"pastebinit\" program"
-msgstr ""
+msgstr "Imposibilitatea de a găsi programul \"pastebinit\""
 
 #: ../src/plugins/pidgin-plugin.vala:77
 msgid "Get access to your Pidgin contacts"
@@ -748,13 +777,17 @@ msgstr "Text selectat"
 #. Plugin title
 #: ../src/plugins/ssh-plugin.vala:67
 msgid "Connect to host with SSH"
-msgstr ""
+msgstr "Conectarea la gazdă cu SSH"
 
+#. description
+#. icon name
+#. reference to this function
+#. true if user's system has all required components which the plugin needs
 #: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr "ssh nu este instalat"
 
-#: ../src/plugins/ssh-plugin.vala:198
+#: ../src/plugins/ssh-plugin.vala:197
 msgid "Connect with SSH"
 msgstr "Conectează-te cu SSH"
 
@@ -798,6 +831,66 @@ msgstr "Suspendă, hibernează, repornește sau oprește calculatorul."
 msgid "ConsoleKit wasn't found"
 msgstr "ConsoleKit nu a fost găsit"
 
+#: ../src/plugins/xnoise-media-player-plugin.vala:59
+msgid "Control Xnoise media player."
+msgstr "Controlul media player-ului Xnoise ."
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:63
+msgid "Xnoise is not installed!"
+msgstr "Xnoise nu este instalat!"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:130
+msgid "Quit Xnoise"
+msgstr "Iesire Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:154
+msgid "Raise"
+msgstr "Ridică"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:155
+msgid "Show Xnoise"
+msgstr "Arata Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:180
+msgid "Start playback in Xnoise"
+msgstr "Începeţi redarea în Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:204
+msgid "TogglePlaying"
+msgstr "TogglePlaying"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:205
+msgid "Start/Pause playback in Xnoise"
+msgstr "Pornire / Pauză în redarea Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:235
+msgid "Pause playback in Xnoise"
+msgstr "Pauză în redarea Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:260
+msgid "Plays the next song in Xnoise's playlist"
+msgstr "Redă melodia următoare în lista de redare Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:286
+msgid "Plays the previous song in Xnoise's playlist"
+msgstr "Redă melodia anterioară în lista de redare Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:310
+msgid "Stop"
+msgstr "Opreşte"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:311
+msgid "Stops the playback of Xnoise"
+msgstr "Opreşte redarea în Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:336
+msgid "Play in Xnoise"
+msgstr "Redă în Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:337
+msgid "Queues and plays the song"
+msgstr "Redă ultima melodie"
+
 #: ../src/plugins/zeitgeist-plugin.vala:158
 msgid "few moments ago"
 msgstr "câteva momente în urmă"
@@ -834,6 +927,10 @@ msgstr[0] "acum o săptămână"
 msgstr[1] "acum %d săptămâni"
 msgstr[2] "acum %d de săptămâni"
 
+#: ../src/plugins/zeitgeist-plugin.vala:182
+msgid "long time ago"
+msgstr ""
+
 #: ../src/plugins/zeitgeist-plugin.vala:192
 msgid "Search various items logged by Zeitgeist."
 msgstr "Caută diverse articole înregistrate de Zeitgeist."
@@ -845,11 +942,11 @@ msgstr "Zeitgeist nu este instalat"
 
 #: ../src/plugins/zeitgeist-related.vala:97
 msgid "Find related"
-msgstr ""
+msgstr "Găseste asemănatoare"
 
 #: ../src/plugins/zeitgeist-related.vala:98
 msgid "Find resources related to this result"
-msgstr ""
+msgstr "Găsiţi resurse referitoare la acest rezultat"
 
 #: ../src/plugins/zeitgeist-related.vala:107
 msgid "Related files"
@@ -857,4 +954,4 @@ msgstr "Fișiere asemănătoare"
 
 #: ../src/plugins/zeitgeist-related.vala:108
 msgid "Finds files related to other search results using Zeitgeist."
-msgstr ""
+msgstr "Găseşte fişiere legate de rezultatele de căutare folosind Zeitgeist."

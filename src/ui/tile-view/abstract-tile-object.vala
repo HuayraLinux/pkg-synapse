@@ -21,7 +21,7 @@
 
 namespace UI.Widgets
 {
-  public abstract class AbstractTileObject: Object
+  public abstract class AbstractTileObject : Object
   {
     public signal void icon_updated ();
     public signal void text_updated ();
@@ -56,7 +56,7 @@ namespace UI.Widgets
     private Gdk.Pixbuf? _force_pixbuf;
     public Gdk.Pixbuf force_pixbuf
     {
-      get 
+      get
       {
         return _force_pixbuf;
       }
