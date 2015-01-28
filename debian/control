@@ -13,8 +13,8 @@ Build-Depends: debhelper (>= 9),
  libjson-glib-dev,
  libkeybinder-3.0-dev,
  libnotify-dev 
-Vcs-Bzr: http://bazaar.launchpad.net/~gilir/synapse-project/debian-packaging
-Vcs-Browser: http://bazaar.launchpad.net/~gilir/synapse-project/debian-packaging/files
+Vcs-Git: git://anonscm.debian.org/collab-maint/synapse.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/synapse.git
 Homepage: https://launchpad.net/synapse-project
 Standards-Version: 3.9.6
 
