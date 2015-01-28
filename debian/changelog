@@ -1,7 +1,8 @@
 synapse (0.2.99.1-0.1) unstable; urgency=medium
 
-  * d/watch: updated watch
+  * Non-maintainer upload.
   * Imported Upstream version 0.2.99.1
+  * d/watch: updated watch
 
  -- Tomasz Buchert <tomasz.buchert@inria.fr>  Wed, 28 Jan 2015 21:49:11 +0100
 
