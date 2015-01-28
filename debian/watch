@@ -1,2 +1,3 @@
 version=3
-https://launchpad.net/synapse-project/+download https://launchpad.net/synapse-project/.*/synapse-(.+)\.tar.gz
+opts=pgpsigurlmangle=s/$/.asc/ \
+    https://launchpad.net/synapse-project/+download https://launchpad.net/synapse-project/.*/synapse-(.+)\.tar.(?:gz|xz|bz2)
