@@ -1,3 +1,10 @@
+synapse (0.2.99.1-0.1) unstable; urgency=medium
+
+  * d/watch: updated watch
+  * Imported Upstream version 0.2.99.1
+
+ -- Tomasz Buchert <tomasz.buchert@inria.fr>  Wed, 28 Jan 2015 21:49:11 +0100
+
 synapse (0.2.10-2) unstable; urgency=low
 
   * debian/patches:
