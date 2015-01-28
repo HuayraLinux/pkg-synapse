@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-03-04 23:39+0000\n"
-"PO-Revision-Date: 2011-08-19 16:54+0000\n"
-"Last-Translator: Petr Gajdusek <gajdusek.petr@centrum.cz>\n"
+"POT-Creation-Date: 2014-02-22 20:34+0000\n"
+"PO-Revision-Date: 2012-05-13 18:30+0000\n"
+"Last-Translator: Michal Horáček <horacekm@email.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2014-02-23 07:33+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 "Language: cs\n"
 
 #: ../data/synapse.desktop.in.h:1
@@ -30,10 +30,11 @@ msgid "Search everything you do."
 msgstr "Vyhledává ve všech Vašich činnostech."
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
+#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:244
 msgid "Activate"
 msgstr "Aktivovat"
 
+#. Whooot?! This cannot be true!
 #: ../src/ui/category.vala:31 ../src/ui/category.vala:72
 #: ../src/ui/category.vala:135
 msgid "All"
@@ -53,7 +54,7 @@ msgstr "Aplikace"
 
 #: ../src/ui/category.vala:73 ../src/ui/category.vala:113
 msgid "Places"
-msgstr ""
+msgstr "Místa"
 
 #: ../src/ui/category.vala:74 ../src/ui/category.vala:116
 msgid "Documents"
@@ -101,7 +102,7 @@ msgstr "Vyhledávejte psaním..."
 msgid "...or press down key to browse recent activities"
 msgstr "...nebo stisknutím šipky dolů procházejte nedávné aktivity"
 
-#: ../src/ui/view-virgilio.vala:188 ../src/ui/widgets-matchlistview.vala:923
+#: ../src/ui/view-virgilio.vala:204 ../src/ui/widgets-matchlistview.vala:936
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d z %d</b>"
@@ -156,7 +157,7 @@ msgstr "Jako „Do“ (panely vedle sebe)"
 
 #: ../src/ui/settings.vala:172
 msgid "Virgilio"
-msgstr ""
+msgstr "Virgilio"
 
 #: ../src/ui/settings.vala:245
 msgid "Execute"
@@ -216,11 +217,12 @@ msgstr "Vložit"
 
 #: ../src/ui/settings.vala:259
 msgid "Paste current selection"
-msgstr ""
+msgstr "Vložit současný výběr"
 
 #: ../src/ui/settings.vala:260
+#: ../src/plugins/xnoise-media-player-plugin.vala:129
 msgid "Quit"
-msgstr ""
+msgstr "Ukončit"
 
 #: ../src/ui/settings.vala:274
 msgid "Shortcut already in use"
@@ -268,21 +270,22 @@ msgstr "Klávesová zkratka"
 msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr "Klikněte na zkratku, kterou chcete změnit a stiskněte novou."
 
-#: ../src/ui/widgets-matchlistview.vala:896
-#: ../src/ui/widgets-matchlistview.vala:910
+#: ../src/ui/widgets-matchlistview.vala:909
+#: ../src/ui/widgets-matchlistview.vala:923
 msgid "No results."
 msgstr "Žádné výsledky."
 
-#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:928
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 z %d</b>"
 
-#: ../src/ui/utils.vala:115
+#. if is home dir
+#: ../src/ui/utils.vala:132
 msgid "Home"
 msgstr "Domov"
 
-#: ../src/ui/utils.vala:129
+#: ../src/ui/utils.vala:146
 msgid "Root"
 msgstr "Kořen"
 
@@ -294,35 +297,35 @@ msgstr "Spustit"
 msgid "Run an application, action or script"
 msgstr "Spustit aplikaci, činnost nebo skript"
 
-#: ../src/core/common-actions.vala:132
+#: ../src/core/common-actions.vala:133
 msgid "Run in Terminal"
 msgstr "Spustit v terminálu"
 
-#: ../src/core/common-actions.vala:133
+#: ../src/core/common-actions.vala:134
 msgid "Run application or command in terminal"
 msgstr "Spustit aplikaci nebo příkaz v terminálu"
 
-#: ../src/core/common-actions.vala:180
+#: ../src/core/common-actions.vala:182
 msgid "Open"
 msgstr "Otevřít"
 
-#: ../src/core/common-actions.vala:181
+#: ../src/core/common-actions.vala:183
 msgid "Open using default application"
 msgstr "Otevřít pomocí výchozí aplikace"
 
-#: ../src/core/common-actions.vala:250
+#: ../src/core/common-actions.vala:252
 msgid "Open folder"
 msgstr "Otevřít složku"
 
-#: ../src/core/common-actions.vala:251
+#: ../src/core/common-actions.vala:253
 msgid "Open folder containing this file"
 msgstr "Otevřít složku obsahující tento soubor"
 
-#: ../src/core/common-actions.vala:290
+#: ../src/core/common-actions.vala:293
 msgid "Copy to Clipboard"
 msgstr "Kopírovat do schránky"
 
-#: ../src/core/common-actions.vala:291
+#: ../src/core/common-actions.vala:294
 msgid "Copy selection to clipboard"
 msgstr "Vybrané zkopírovat do schránky"
 
@@ -338,6 +341,7 @@ msgstr "Banshee není nainstalován"
 
 #: ../src/plugins/banshee-plugin.vala:141
 #: ../src/plugins/rhythmbox-plugin.vala:153
+#: ../src/plugins/xnoise-media-player-plugin.vala:179
 msgid "Play"
 msgstr "Přehrát"
 
@@ -347,6 +351,7 @@ msgstr "Začít přehrávat v Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:169
 #: ../src/plugins/rhythmbox-plugin.vala:204
+#: ../src/plugins/xnoise-media-player-plugin.vala:234
 msgid "Pause"
 msgstr "Pozastavit"
 
@@ -356,6 +361,7 @@ msgstr "Pozastavit přehrávání v Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:190
 #: ../src/plugins/rhythmbox-plugin.vala:220
+#: ../src/plugins/xnoise-media-player-plugin.vala:259
 msgid "Next"
 msgstr "Další"
 
@@ -365,6 +371,7 @@ msgstr "Začít hrát následující skladbu ze seznamu skladeb v Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:213
 #: ../src/plugins/rhythmbox-plugin.vala:243
+#: ../src/plugins/xnoise-media-player-plugin.vala:285
 msgid "Previous"
 msgstr "Předchozí"
 
@@ -419,11 +426,11 @@ msgstr "Poslat zprávu kontaktu"
 
 #: ../src/plugins/chat-actions-plugin.vala:100
 msgid "Send message to.."
-msgstr ""
+msgstr "Odeslat zprávu pro.."
 
 #: ../src/plugins/chat-actions-plugin.vala:101
 msgid "Send a message to a contact"
-msgstr ""
+msgstr "Odeslat zprávu kontaktu"
 
 #: ../src/plugins/chat-actions-plugin.vala:136
 msgid "Chat actions"
@@ -432,6 +439,18 @@ msgstr "Akce rozhovoru"
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
 msgstr "Zahájit rozhovor nebo poslat zprávu přes oblíbený IM"
+
+#: ../src/plugins/chromium-plugin.vala:79
+msgid "Chromium Plugin"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:80
+msgid "Browse and open Chromium bookmarks."
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:84
+msgid "Chromium is not installed"
+msgstr ""
 
 #: ../src/plugins/command-plugin.vala:56
 msgid "Run command"
@@ -534,9 +553,10 @@ msgid "Gnome Screen Saver wasn't found"
 msgstr "Gnome Screen Saver nebyl nalezen"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
-msgid "Improve results returned by the Zeitgeist plugin by looking "
+msgid ""
+"Improve results returned by the Zeitgeist plugin by looking for similar "
+"files on the filesystem."
 msgstr ""
-"Vylepšuje výsledky vrácené modulem Zeitgeist vyhledáním podobných souborů. "
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload to imgur"
@@ -600,16 +620,19 @@ msgstr "Dokončit autorizaci"
 msgid "Find bugs and branches on Launchpad."
 msgstr "Hledá chyby a větve projektů na Launchpadu."
 
+#. project link (lp:synapse)
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
 msgstr "Launchpad: Bazaar větve pro %s"
 
+#. series link (lp:synapse/0.3)
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
 msgstr "Launchpad: Řada %s projektu %s"
 
+#. branch link (lp:~mhr3/synapse/lp-plugin)
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
@@ -640,6 +663,7 @@ msgstr "Příkaz „locate“ nebyl nalezen."
 msgid "Search the web."
 msgstr "Umožňuje vyhledávat na webu."
 
+#. keep in sync with the internal XMLs!
 #: ../src/plugins/opensearch.vala:264
 msgid "Google"
 msgstr "Google"
@@ -752,11 +776,15 @@ msgstr "Vybraný text."
 msgid "Connect to host with SSH"
 msgstr "Umožňuje připojit se k počítači pomocí SSH."
 
+#. description
+#. icon name
+#. reference to this function
+#. true if user's system has all required components which the plugin needs
 #: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr "ssh není nainstalováno"
 
-#: ../src/plugins/ssh-plugin.vala:198
+#: ../src/plugins/ssh-plugin.vala:197
 msgid "Connect with SSH"
 msgstr "Připojit pomocí SSH"
 
@@ -802,6 +830,66 @@ msgstr ""
 msgid "ConsoleKit wasn't found"
 msgstr "„ConsoleKit“ nebyl nalezen"
 
+#: ../src/plugins/xnoise-media-player-plugin.vala:59
+msgid "Control Xnoise media player."
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:63
+msgid "Xnoise is not installed!"
+msgstr "Xnoise není nainstalován!"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:130
+msgid "Quit Xnoise"
+msgstr "Ukončit Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:154
+msgid "Raise"
+msgstr "Zvýšit"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:155
+msgid "Show Xnoise"
+msgstr "Zobrazit Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:180
+msgid "Start playback in Xnoise"
+msgstr "Spustit přehrávání v Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:204
+msgid "TogglePlaying"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:205
+msgid "Start/Pause playback in Xnoise"
+msgstr "Spustit/pozastavit přehrávání v Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:235
+msgid "Pause playback in Xnoise"
+msgstr "Pozastavit přehrávání v Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:260
+msgid "Plays the next song in Xnoise's playlist"
+msgstr "Přehraje následující skladbu v seznamu Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:286
+msgid "Plays the previous song in Xnoise's playlist"
+msgstr "Přehraje předchozí skladbu v seznamu Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:310
+msgid "Stop"
+msgstr "Zastavit"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:311
+msgid "Stops the playback of Xnoise"
+msgstr "Zastaví přehrávání Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:336
+msgid "Play in Xnoise"
+msgstr "Přehrát v Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:337
+msgid "Queues and plays the song"
+msgstr ""
+
 #: ../src/plugins/zeitgeist-plugin.vala:158
 msgid "few moments ago"
 msgstr "před chvilkou"
@@ -838,6 +926,10 @@ msgstr[0] "před týdnem"
 msgstr[1] "před %d týdny"
 msgstr[2] "před %d týdny"
 
+#: ../src/plugins/zeitgeist-plugin.vala:182
+msgid "long time ago"
+msgstr ""
+
 #: ../src/plugins/zeitgeist-plugin.vala:192
 msgid "Search various items logged by Zeitgeist."
 msgstr "Hledá položky zaznamenané službou Zeitgeist."
@@ -849,16 +941,17 @@ msgstr "Zeitgeist není nainstalován"
 
 #: ../src/plugins/zeitgeist-related.vala:97
 msgid "Find related"
-msgstr ""
+msgstr "Najít související"
 
 #: ../src/plugins/zeitgeist-related.vala:98
 msgid "Find resources related to this result"
-msgstr ""
+msgstr "Najít zdroje související s tímto výsledkem"
 
 #: ../src/plugins/zeitgeist-related.vala:107
 msgid "Related files"
-msgstr ""
+msgstr "Související soubory"
 
 #: ../src/plugins/zeitgeist-related.vala:108
 msgid "Finds files related to other search results using Zeitgeist."
 msgstr ""
+"Najít soubory související s jinými výsledky hledání s použitím Zeitgeist."

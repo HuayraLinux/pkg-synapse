@@ -21,137 +21,126 @@
 
 namespace Synapse
 {
-  public class FileOpPlugin: Object, Activatable, ActionProvider
+  public class FileOpPlugin : Object, Activatable, ActionProvider
   {
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
     }
 
     public void deactivate ()
     {
-      
     }
 
-    private abstract class FileAction: Object, Match
+    private class Remove: Action
     {
-      // from Match interface
-      public string title { get; construct set; }
-      public string description { get; set; }
-      public string icon_name { get; construct set; }
-      public bool has_thumbnail { get; construct set; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
+      public Remove()
+      {
+        Object (title: _("Remove"),
+                description: _("Move to Trash"),
+                icon_name: "user-trash", has_thumbnail: false,
+                default_relevancy: MatchScore.POOR);
+      }
 
-      public int default_relevancy { get; set; }
-      public bool notify_match { get; set; default = true; }
+      public override void do_execute (Match source, Match? target = null)
+      {
+        unowned UriMatch uri_match = source as UriMatch;
+        return_if_fail (uri_match != null);
 
-      public abstract bool valid_for_match (Match match);
-      public virtual int get_relevancy_for_match (Match match)
-      {
-        return default_relevancy;
+        var f = File.new_for_uri (uri_match.uri);
+        try
+        {
+           f.trash ();
+        }
+        catch (Error err)
+        {
+          warning ("%s", err.message);
+        }
       }
-      
-      public virtual void execute_with_target (Match? source, Match? target = null)
+
+      public override bool valid_for_match (Match match)
       {
-        if (target == null) execute (source);
-        else Utils.Logger.error (this, "execute () is not implemented");
-      }
-      
-      public virtual bool needs_target () {
-        return false;
-      }
-      
-      public virtual QueryFlags target_flags ()
-      {
-        return QueryFlags.ALL;
+        return (match is UriMatch);
       }
     }
-    
-    private class RenameTo: FileAction
+
+    private class RenameTo : Action
     {
       public RenameTo ()
       {
-        Object (title: _ ("Rename to"),
-                description: _ ("Rename the file to..."),
+        Object (title: _("Rename to"),
+                description: _("Rename the file to..."),
                 icon_name: "stock_save-as", has_thumbnail: false,
-                match_type: MatchType.ACTION,
-                default_relevancy: Match.Score.AVERAGE);
+                default_relevancy: MatchScore.AVERAGE);
       }
-      
-      public override void execute_with_target (Match? source, Match? target = null)
+
+      public override void do_execute (Match source, Match? target = null)
       {
         if (target == null) return; // not possible
-        
-        UriMatch uri_match = source as UriMatch;
+
+        unowned UriMatch? uri_match = source as UriMatch;
         if (uri_match == null) return; // not possible
-        
+
         File f;
         f = File.new_for_uri (uri_match.uri);
         if (!f.query_exists ())
         {
-          Utils.Logger.warning (this, _("File \"%s\"does not exist."), uri_match.uri);
+          warning (_("File \"%s\"does not exist."), uri_match.uri);
           return;
         }
         string newpath = Path.build_filename (Path.get_dirname (f.get_path ()), target.title);
         var f2 = File.new_for_path (newpath);
-        Utils.Logger.debug (this, "Moving \"%s\" to \"%s\"", f.get_path (), newpath);
+        debug ("Moving \"%s\" to \"%s\"", f.get_path (), newpath);
         bool done = false;
         try {
           done = f.move (f2, GLib.FileCopyFlags.OVERWRITE);
         }catch (GLib.Error err) {}
         if (!done)
         {
-          Utils.Logger.warning (this, _("Cannot move \"%s\" to \"%s\""), f.get_path (), newpath);
+          warning (_("Cannot move \"%s\" to \"%s\""), f.get_path (), newpath);
         }
       }
-      
-      public override bool needs_target () {
+
+      public override bool needs_target ()
+      {
         return true;
       }
-      
+
       public override QueryFlags target_flags ()
       {
         return QueryFlags.TEXT;
       }
-      
+
       public override bool valid_for_match (Match match)
       {
-        switch (match.match_type)
-        {
-          case MatchType.GENERIC_URI:
-            UriMatch um = match as UriMatch;
-            return (um.file_type & QueryFlags.FILES) != 0;
-          default:
-            return false;
-        }
+        return (match is UriMatch && (((UriMatch) match).file_type & QueryFlags.FILES) != 0);
       }
     }
-    
+
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (FileOpPlugin),
-        _ ("File Operations"),
-        _ ("Copy, Cut, Paste and Delete files"),
+        _("File Operations"),
+        _("Copy, Cut, Paste and Delete files"),
         "stock_copy",
         register_plugin
       );
     }
-    
+
     static construct
     {
       register_plugin ();
     }
 
-    private Gee.List<FileAction> actions;
+    private Gee.List<Action> actions;
 
     construct
     {
-      actions = new Gee.ArrayList<FileAction> ();
+      actions = new Gee.ArrayList<Action> ();
 
+      actions.add (new Remove ());
       actions.add (new RenameTo ());
     }
 
@@ -159,7 +148,7 @@ namespace Synapse
     {
       bool query_empty = query.query_string == "";
       var results = new ResultSet ();
-      
+
       if (query_empty)
       {
         foreach (var action in actions)

@@ -20,10 +20,10 @@
 
 namespace Synapse
 {
-  public class ResultSet : Object, Gee.Iterable <Gee.Map.Entry <Match, int>>
+  public class ResultSet : Object, Gee.Traversable<Match>, Gee.Iterable <Gee.Map.Entry <Match, int>>
   {
-    protected Gee.Map<Match, int> matches;
-    protected Gee.Set<unowned string> uris;
+    Gee.Map<Match, int> matches;
+    Gee.Set<unowned string> uris;
 
     public ResultSet ()
     {
@@ -66,9 +66,10 @@ namespace Synapse
     {
       matches.set (match, relevancy);
 
-      if (match is UriMatch)
+      unowned UriMatch? uri_match = match as UriMatch;
+      if (uri_match != null)
       {
-        unowned string uri = (match as UriMatch).uri;
+        unowned string uri = uri_match.uri;
         if (uri != null && uri != "")
         {
           uris.add (uri);
@@ -88,13 +89,17 @@ namespace Synapse
       return uri in uris;
     }
 
+    public bool foreach (Gee.ForallFunc<Match> func)
+    {
+      return matches.keys.foreach (func);
+    }
+
     public Gee.List<Match> get_sorted_list ()
     {
       var l = new Gee.ArrayList<Gee.Map.Entry<Match, int>> ();
       l.add_all (matches.entries);
 
-      l.sort ((a, b) => 
-      {
+      l.sort ((a, b) => {
         unowned Gee.Map.Entry<Match, int> e1 = (Gee.Map.Entry<Match, int>) a;
         unowned Gee.Map.Entry<Match, int> e2 = (Gee.Map.Entry<Match, int>) b;
         int relevancy_delta = e2.value - e1.value;

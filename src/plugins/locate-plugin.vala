@@ -21,58 +21,26 @@
 
 namespace Synapse
 {
-  public class LocatePlugin: Object, Activatable, ActionProvider
+  public class LocatePlugin : Object, Activatable, ActionProvider
   {
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
+
     }
 
-    private class MatchObject: Object, Match, UriMatch
+    private class LocateItem : SearchMatch
     {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
+      public int default_relevancy { get; set; default = MatchScore.INCREMENT_SMALL; }
 
-      // for FileMatch
-      public string uri { get; set; }
-      public QueryFlags file_type { get; set; }
-      public string mime_type { get; set; }
-
-      public MatchObject (string? thumbnail_path, string? icon)
-      {
-        Object (match_type: MatchType.GENERIC_URI,
-                has_thumbnail: thumbnail_path != null,
-                icon_name: icon ?? "",
-                thumbnail_path: thumbnail_path ?? "");
-      }
-    }
-
-    private class LocateItem: Object, SearchProvider, Match, SearchMatch
-    {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
-      public int default_relevancy { get; set; default = Match.Score.INCREMENT_SMALL; }
       // for SearchMatch interface
-      public Match search_source { get; set; }
-      public async Gee.List<Match> search (string query,
+      public override async Gee.List<Match> search (string query,
                                            QueryFlags flags,
                                            ResultSet? dest_result_set,
                                            Cancellable? cancellable = null) throws SearchError
@@ -89,25 +57,24 @@ namespace Synapse
 
       public LocateItem (LocatePlugin plugin)
       {
-        Object (match_type: MatchType.SEARCH,
-                has_thumbnail: false,
+        Object (has_thumbnail: false,
                 icon_name: "search",
-                title: _ ("Locate"),
-                description: _ ("Locate files with this name on the filesystem"));
+                title: _("Locate"),
+                description: _("Locate files with this name on the filesystem"));
         this.plugin = plugin;
       }
     }
 
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (LocatePlugin),
-        _ ("Locate"),
-        _ ("Runs locate command to find files on the filesystem."),
+        _("Locate"),
+        _("Runs locate command to find files on the filesystem."),
         "search",
         register_plugin,
         Environment.find_program_in_path ("locate") != null,
-        _ ("Unable to find \"locate\" binary")
+        _("Unable to find \"locate\" binary")
       );
     }
 
@@ -137,7 +104,7 @@ namespace Synapse
       // strip query
       q.query_string = q.query_string.strip ();
       // ignore short searches
-      if (common_flags == 0 || q.query_string.length <= 1) return null;
+      if (common_flags == 0 || q.query_string.char_count () <= 1) return null;
 
       q.check_cancellable ();
 
@@ -186,12 +153,12 @@ namespace Synapse
 
       foreach (string s in uris)
       {
-        var fi = new Utils.FileInfo (s, typeof (MatchObject));
+        var fi = new Utils.FileInfo (s, typeof (UriMatch));
         yield fi.initialize ();
         if (fi.match_obj != null && fi.file_type in q.query_type)
         {
-          int relevancy = Match.Score.INCREMENT_SMALL; // FIXME: relevancy
-          if (fi.uri.has_prefix ("file:///home/")) relevancy += Match.Score.INCREMENT_MINOR;
+          int relevancy = MatchScore.INCREMENT_SMALL; // FIXME: relevancy
+          if (fi.uri.has_prefix ("file:///home/")) relevancy += MatchScore.INCREMENT_MINOR;
           result.add (fi.match_obj, relevancy);
         }
         q.check_cancellable ();
@@ -207,7 +174,7 @@ namespace Synapse
 
       var common_flags = q.query_type & our_results;
       // ignore short searches
-      if (common_flags == 0 || match.match_type != MatchType.UNKNOWN) return null;
+      if (common_flags == 0 || !(match is UnknownMatch)) return null;
 
       // strip query
       q.query_string = q.query_string.strip ();

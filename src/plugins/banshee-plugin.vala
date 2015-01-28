@@ -25,55 +25,55 @@ namespace Synapse
   interface BansheePlayerEngine : Object {
       public const string UNIQUE_NAME = "org.bansheeproject.Banshee";
       public const string OBJECT_PATH = "/org/bansheeproject/Banshee/PlayerEngine";
-      
+
       public abstract void play () throws IOError;
       public abstract void pause () throws IOError;
       public abstract void open (string uri) throws IOError;
   }
-  
+
   [DBus (name = "org.bansheeproject.Banshee.PlaybackController")]
   interface BansheePlaybackController : Object {
       public const string UNIQUE_NAME = "org.bansheeproject.Banshee";
       public const string OBJECT_PATH = "/org/bansheeproject/Banshee/PlaybackController";
-      
+
       public abstract void next (bool restart) throws IOError;
       public abstract void previous (bool restart) throws IOError;
   }
-  
+
   [DBus (name = "org.bansheeproject.Banshee.PlayQueue")]
   interface BansheePlayQueue : Object {
       public const string UNIQUE_NAME = "org.bansheeproject.Banshee";
       public const string OBJECT_PATH = "/org/bansheeproject/Banshee/SourceManager/PlayQueue";
-      
+
       public abstract void enqueue_uri (string uri, bool prepend) throws IOError;
   }
-  
-  public class BansheeActions: Object, Activatable, ItemProvider, ActionProvider
+
+  public class BansheeActions : Object, Activatable, ItemProvider, ActionProvider
   {
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
+
     }
 
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (BansheeActions),
         "Banshee",
-        _ ("Control Banshee and add items to playlists."),
+        _("Control Banshee and add items to playlists."),
         "banshee",
         register_plugin,
         Environment.find_program_in_path ("banshee") != null ||
         Environment.find_program_in_path ("banshee-1") != null,
         //DBusService.get_default ().name_is_activatable (BansheePlaybackController.UNIQUE_NAME), // doesn't work for banshee
-        _ ("Banshee is not installed")
+        _("Banshee is not installed")
       );
     }
 
@@ -82,50 +82,22 @@ namespace Synapse
       register_plugin ();
     }
 
-    private abstract class BansheeAction: Object, Match
+    private abstract class BansheeAction : Action
     {
-      // from Match interface
-      public string title { get; construct set; }
-      public string description { get; set; }
-      public string icon_name { get; construct set; }
-      public bool has_thumbnail { get; construct set; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-      
-      public int default_relevancy { get; set; }
-      
-      public abstract bool valid_for_match (Match match);
-      // stupid Vala...
-      public abstract void execute_internal (Match? match);
-      public void execute (Match? match)
-      {
-        execute_internal (match);
-      }
       public virtual int get_relevancy ()
       {
-        bool banshee_running = DBusService.get_default ().name_has_owner (
-          BansheePlayerEngine.UNIQUE_NAME);
-        return banshee_running ? default_relevancy + Match.Score.INCREMENT_LARGE : default_relevancy;
+        bool banshee_running = DBusService.get_default ().name_has_owner (BansheePlayerEngine.UNIQUE_NAME);
+        return banshee_running ? default_relevancy + MatchScore.INCREMENT_LARGE : default_relevancy;
+      }
+
+      public virtual bool action_available ()
+      {
+        return DBusService.get_default ().name_has_owner (BansheePlayerEngine.UNIQUE_NAME);
       }
     }
-    
-    private abstract class BansheeControlMatch: Object, Match
+
+    private abstract class BansheeControlMatch : ActionMatch
     {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
-      public void execute (Match? match)
-      {
-        this.do_action ();
-      }
-
-      public abstract void do_action ();
-      
       public virtual bool action_available ()
       {
         return DBusService.get_default ().name_has_owner (
@@ -134,14 +106,13 @@ namespace Synapse
     }
 
     /* MATCHES of Type.ACTION */
-    private class Play: BansheeControlMatch
+    private class Play : BansheeControlMatch
     {
       public Play ()
       {
-        Object (title: _ ("Play"),
-                description: _ ("Start playback in Banshee"),
-                icon_name: "media-playback-start", has_thumbnail: false,
-                match_type: MatchType.ACTION);
+        Object (title: _("Play"),
+                description: _("Start playback in Banshee"),
+                icon_name: "media-playback-start", has_thumbnail: false);
       }
 
       public override void do_action ()
@@ -162,14 +133,13 @@ namespace Synapse
         return true;
       }
     }
-    private class Pause: BansheeControlMatch
+    private class Pause : BansheeControlMatch
     {
       public Pause ()
       {
-        Object (title: _ ("Pause"),
-                description: _ ("Pause playback in Banshee"),
-                icon_name: "media-playback-pause", has_thumbnail: false,
-                match_type: MatchType.ACTION);
+        Object (title: _("Pause"),
+                description: _("Pause playback in Banshee"),
+                icon_name: "media-playback-pause", has_thumbnail: false);
       }
       public override void do_action ()
       {
@@ -183,14 +153,13 @@ namespace Synapse
         }
       }
     }
-    private class Next: BansheeControlMatch
+    private class Next : BansheeControlMatch
     {
       public Next ()
       {
-        Object (title: _ ("Next"),
-                description: _ ("Plays the next song in Banshee's playlist"),
-                icon_name: "media-skip-forward", has_thumbnail: false,
-                match_type: MatchType.ACTION);
+        Object (title: _("Next"),
+                description: _("Plays the next song in Banshee's playlist"),
+                icon_name: "media-skip-forward", has_thumbnail: false);
       }
 
       public override void do_action ()
@@ -199,21 +168,20 @@ namespace Synapse
           BansheePlaybackController player = Bus.get_proxy_sync (BusType.SESSION,
                                            BansheePlaybackController.UNIQUE_NAME,
                                            BansheePlaybackController.OBJECT_PATH);
-          
+
           player.next (false);
         } catch (IOError e) {
           stderr.printf ("Banshee is not available.\n%s", e.message);
         }
       }
     }
-    private class Previous: BansheeControlMatch
+    private class Previous : BansheeControlMatch
     {
       public Previous ()
       {
-        Object (title: _ ("Previous"),
-                description: _ ("Plays the previous song in Banshee's playlist"),
-                icon_name: "media-skip-backward", has_thumbnail: false,
-                match_type: MatchType.ACTION);
+        Object (title: _("Previous"),
+                description: _("Plays the previous song in Banshee's playlist"),
+                icon_name: "media-skip-backward", has_thumbnail: false);
       }
 
       public override void do_action ()
@@ -229,21 +197,20 @@ namespace Synapse
       }
     }
     /* ACTIONS FOR MP3s */
-    private class AddToPlaylist: BansheeAction
+    private class AddToPlaylist : BansheeAction
     {
       public AddToPlaylist ()
       {
-        Object (title: _ ("Enqueue in Banshee"),
-                description: _ ("Add the song to Banshee playlist"),
+        Object (title: _("Enqueue in Banshee"),
+                description: _("Add the song to Banshee playlist"),
                 icon_name: "media-playback-start", has_thumbnail: false,
-                match_type: MatchType.ACTION,
-                default_relevancy: Match.Score.AVERAGE);
+                default_relevancy: MatchScore.AVERAGE);
       }
 
-      public override void execute_internal (Match? match)
+      public override void do_execute (Match match, Match? target = null)
       {
-        return_if_fail (match.match_type == MatchType.GENERIC_URI);
-        UriMatch uri = match as UriMatch;
+        unowned UriMatch? uri = match as UriMatch;
+        return_if_fail (uri != null);
         return_if_fail ((uri.file_type & QueryFlags.AUDIO) != 0 ||
                         (uri.file_type & QueryFlags.VIDEO) != 0);
         try {
@@ -259,34 +226,28 @@ namespace Synapse
 
       public override bool valid_for_match (Match match)
       {
-        switch (match.match_type)
-        {
-          case MatchType.GENERIC_URI:
-            UriMatch uri = match as UriMatch;
-            if ((uri.file_type & QueryFlags.AUDIO) != 0)
-              return true;
-            else
-              return false;
-          default:
-            return false;
-        }
+        unowned UriMatch? uri_match = match as UriMatch;
+        if (uri_match == null)
+          return false;
+
+        return ((uri_match.file_type & QueryFlags.AUDIO) != 0 ||
+                (uri_match.file_type & QueryFlags.VIDEO) != 0);
       }
     }
-    private class PlayNow: BansheeAction
+    private class PlayNow : BansheeAction
     {
       public PlayNow ()
       {
-        Object (title: _ ("Play in Banshee"),
-                description: _ ("Clears the current playlist and plays the song"),
+        Object (title: _("Play in Banshee"),
+                description: _("Clears the current playlist and plays the song"),
                 icon_name: "media-playback-start", has_thumbnail: false,
-                match_type: MatchType.ACTION,
-                default_relevancy: Match.Score.ABOVE_AVERAGE);
+                default_relevancy: MatchScore.ABOVE_AVERAGE);
       }
 
-      public override void execute_internal (Match? match)
+      public override void do_execute (Match match, Match? target = null)
       {
-        return_if_fail (match.match_type == MatchType.GENERIC_URI);
-        UriMatch uri = match as UriMatch;
+        unowned UriMatch? uri = match as UriMatch;
+        return_if_fail (uri != null);
         return_if_fail ((uri.file_type & QueryFlags.AUDIO) != 0 ||
                         (uri.file_type & QueryFlags.VIDEO) != 0);
         try {
@@ -302,18 +263,12 @@ namespace Synapse
 
       public override bool valid_for_match (Match match)
       {
-        switch (match.match_type)
-        {
-          case MatchType.GENERIC_URI:
-            UriMatch uri = match as UriMatch;
-            if ((uri.file_type & QueryFlags.AUDIO) != 0 ||
-                (uri.file_type & QueryFlags.VIDEO) != 0)
-              return true;
-            else
-              return false;
-          default:
-            return false;
-        }
+        unowned UriMatch? uri_match = match as UriMatch;
+        if (uri_match == null)
+          return false;
+
+        return ((uri_match.file_type & QueryFlags.AUDIO) != 0 ||
+                (uri_match.file_type & QueryFlags.VIDEO) != 0);
       }
     }
     private Gee.List<BansheeAction> actions;
@@ -323,23 +278,23 @@ namespace Synapse
     {
       actions = new Gee.ArrayList<BansheeAction> ();
       matches = new Gee.ArrayList<BansheeControlMatch> ();
-      
+
       actions.add (new PlayNow());
       actions.add (new AddToPlaylist());
-      
+
       matches.add (new Play ());
       matches.add (new Pause ());
       matches.add (new Previous ());
       matches.add (new Next ());
     }
-    
+
     public async ResultSet? search (Query q) throws SearchError
     {
       // we only search for actions
       if (!(QueryFlags.ACTIONS in q.query_type)) return null;
 
       var result = new ResultSet ();
-      
+
       var matchers = Query.get_matchers_for_query (q.query_string, 0,
         RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS);
 
@@ -350,7 +305,7 @@ namespace Synapse
         {
           if (matcher.key.match (action.title))
           {
-            result.add (action, matcher.value - Match.Score.INCREMENT_SMALL);
+            result.add (action, matcher.value - MatchScore.INCREMENT_SMALL);
             break;
           }
         }
@@ -365,7 +320,7 @@ namespace Synapse
     {
       bool query_empty = query.query_string == "";
       var results = new ResultSet ();
-      
+
       if (query_empty)
       {
         foreach (var action in actions)
@@ -393,7 +348,7 @@ namespace Synapse
           }
         }
       }
-      
+
       return results;
     }
   }

@@ -19,53 +19,39 @@
  *
  */
 
-/* 
+/*
  * This plugin keeps a cache of file names for directories that are commonly
- * used. 
+ * used.
  */
 
 namespace Synapse
 {
-  public class DirectoryPlugin: Object, Activatable, ItemProvider
+  public class DirectoryPlugin : Object, Activatable, ItemProvider
   {
     public unowned DataSink data_sink { get; construct; }
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
+
     }
 
-    private class MatchObject: Object, Match, UriMatch
+    private class MatchObject : UriMatch
     {
-      // for Match interface
-      public string title { get; construct set; }
-      public string description { get; set; default = ""; }
-      public string icon_name { get; construct set; default = ""; }
-      public bool has_thumbnail { get; construct set; default = false; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
-      // for FileMatch
-      public string uri { get; set; }
-      public QueryFlags file_type { get; set; }
-      public string mime_type { get; set; }
-
       public MatchObject (string uri)
       {
-        Object (match_type: MatchType.GENERIC_URI,
-                has_thumbnail: false,
+        Object (has_thumbnail: false,
                 uri: uri,
                 file_type: QueryFlags.UNCATEGORIZED,
                 mime_type: "inode/directory");
       }
     }
-    
+
     private class DirectoryInfo
     {
       public MatchObject match_obj;
@@ -80,7 +66,7 @@ namespace Synapse
       }
 
       private bool initialized = false;
-      
+
       private const string ATTRIBUTE_CUSTOM_ICON = "metadata::custom-icon";
 
       public async void initialize ()
@@ -89,8 +75,8 @@ namespace Synapse
         var f = File.new_for_uri (match_obj.uri);
         try
         {
-          var fi = yield f.query_info_async (FILE_ATTRIBUTE_STANDARD_ICON + "," +
-                                             FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME + "," +
+          var fi = yield f.query_info_async (FileAttribute.STANDARD_ICON + "," +
+                                             FileAttribute.STANDARD_DISPLAY_NAME + "," +
                                              ATTRIBUTE_CUSTOM_ICON,
                                              0, Priority.DEFAULT, null);
           this.name = fi.get_display_name ();
@@ -107,22 +93,22 @@ namespace Synapse
         {
           warning ("%s", err.message);
         }
-        
+
         initialized = true;
       }
     }
-    
-    private class Config: ConfigObject
+
+    private class Config : ConfigObject
     {
       public bool home_dir_children_only { get; set; default = true; }
     }
-    
+
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (DirectoryPlugin),
         "Directory Search",
-        _ ("Open commonly used directories."),
+        _("Open commonly used directories."),
         "folder",
         register_plugin
       );
@@ -132,7 +118,7 @@ namespace Synapse
     {
       register_plugin ();
     }
-    
+
     private Gee.Map<unowned string, DirectoryInfo> directory_info_map;
     private Config config;
 
@@ -142,18 +128,18 @@ namespace Synapse
       var cs = ConfigService.get_default ();
       config = (Config) cs.get_config ("plugins", "directory-plugin", typeof (Config));
     }
-    
+
     protected override void constructed ()
     {
       data_sink.search_done["SynapseZeitgeistPlugin"].connect (this.zg_plugin_search_done);
     }
-    
+
     private bool xdg_indexed = false;
 
     private async void index_xdg_directories ()
     {
       if (xdg_indexed) return;
-      
+
       for (UserDirectory dir = UserDirectory.DESKTOP;
            dir <= UserDirectory.VIDEOS; //dir < UserDirectory.N_DIRECTORIES;
            dir = dir + 1)
@@ -162,30 +148,30 @@ namespace Synapse
         if (path == null) continue;
         var f = File.new_for_path (path);
         var uri = f.get_uri ();
-        if (uri in directory_info_map) continue;
+        if (directory_info_map.has_key (uri)) continue;
 
         var info = new DirectoryInfo (uri);
         yield info.initialize ();
         directory_info_map[info.match_obj.uri] = info;
       }
-      
+
       xdg_indexed = true;
     }
 
     public signal void zeitgeist_search_complete (ResultSet? rs, uint query_id);
-    
+
     private void zg_plugin_search_done (ResultSet? rs, uint query_id)
     {
       zeitgeist_search_complete (rs, query_id);
     }
-    
+
     private Gee.Collection<string> extract_directories (ResultSet rs)
     {
       Gee.Set<string> directories = new Gee.HashSet<string> ();
-      
+
       foreach (var match in rs)
       {
-        unowned UriMatch uri_match = match.key as UriMatch;
+        unowned UriMatch? uri_match = match.key as UriMatch;
         if (uri_match == null) continue;
         var f = File.new_for_uri (uri_match.uri);
         if (!f.is_native () || !f.has_parent (null)) continue;
@@ -198,9 +184,9 @@ namespace Synapse
 
       return directories;
     }
-    
+
     private string? home_dir_uri = null;
-    
+
     private string[] get_dir_parents (string dir_uri, bool include_self)
     {
       string[] dirs = {};
@@ -218,7 +204,7 @@ namespace Synapse
 
       return dirs;
     }
-    
+
     private async void process_directories (Gee.Collection<string>? dirs)
     {
       if (home_dir_uri == null)
@@ -240,14 +226,14 @@ namespace Synapse
 
       foreach (var dir in dirs)
       {
-        if (dir in directory_info_map) continue;
+        if (directory_info_map.has_key (dir)) continue;
         if (config.home_dir_children_only &&
             !dir.has_prefix (home_dir_uri)) continue;
 
         string[] directories = get_dir_parents (dir, true);
         foreach (unowned string dir_uri in directories)
         {
-          if (dir_uri in directory_info_map) continue;
+          if (directory_info_map.has_key (dir_uri)) continue;
 
           var info = new DirectoryInfo (dir_uri);
           yield info.initialize ();
@@ -268,8 +254,7 @@ namespace Synapse
       //bool folder_query_only = (q.query_type & QueryFlags.LOCAL_CONTENT) == QueryFlags.PLACES;
       // wait for our signal or cancellable
       ResultSet? zg_rs = null;
-      ulong sig_id = this.zeitgeist_search_complete.connect ((rs, q_id) =>
-      {
+      ulong sig_id = this.zeitgeist_search_complete.connect ((rs, q_id) => {
         if (q_id != query_id) return;
         // let's mine directories ZG is aware of
         if (rs != null)
@@ -279,8 +264,7 @@ namespace Synapse
         }
         search.callback ();
       });
-      ulong canc_sig_id = q.cancellable.connect (() =>
-      {
+      ulong canc_sig_id = q.cancellable.connect (() => {
         // who knows what thread this runs in
         SignalHandler.block (this, sig_id); // is this thread-safe?
         Idle.add (search.callback);
@@ -313,20 +297,20 @@ namespace Synapse
         {
           // exact match
           int relevancy1 = entry.match_obj.uri.has_prefix (home_dir_uri) ?
-            Match.Score.EXCELLENT - Match.Score.URI_PENALTY :
-            Match.Score.AVERAGE - Match.Score.URI_PENALTY;
+            MatchScore.EXCELLENT - MatchScore.URI_PENALTY :
+            MatchScore.AVERAGE - MatchScore.URI_PENALTY;
           rs.add (entry.match_obj, relevancy1);
         }
         else if (entry.name_folded.has_prefix (q.query_string_folded))
         {
           // prefix match
           int relevancy2 = entry.match_obj.uri.has_prefix (home_dir_uri) ?
-            Match.Score.VERY_GOOD - Match.Score.URI_PENALTY :
-            Match.Score.ABOVE_AVERAGE - Match.Score.URI_PENALTY;
+            MatchScore.VERY_GOOD - MatchScore.URI_PENALTY :
+            MatchScore.ABOVE_AVERAGE - MatchScore.URI_PENALTY;
           rs.add (entry.match_obj, relevancy2);
         }
       }
-      
+
       return rs;
     }
   }

@@ -21,31 +21,30 @@
 
 namespace Synapse
 {
-  public class PastebinPlugin: Object, Activatable, ActionProvider
+  public class PastebinPlugin : Object, Activatable, ActionProvider
   {
     public bool enabled { get; set; default = true; }
 
     public void activate ()
     {
-      
+
     }
 
     public void deactivate ()
     {
-      
+
     }
 
-    private class PastebinAction: BaseAction
+    private class PastebinAction : Action
     {
       public PastebinAction ()
       {
-        Object (title: _ ("Pastebin"),
-                description: _ ("Pastebin selection"),
-                match_type: MatchType.ACTION,
+        Object (title: _("Pastebin"),
+                description: _("Pastebin selection"),
                 icon_name: "document-send", has_thumbnail: false,
-                default_relevancy: Match.Score.AVERAGE);
+                default_relevancy: MatchScore.AVERAGE);
       }
-      
+
       protected async string? pastebin_file (string path)
       {
         string[] argv = {"pastebinit", "-i", path};
@@ -72,7 +71,7 @@ namespace Synapse
               complete_output += line;
             }
           } while (line != null);
-          
+
           Regex url = new Regex ("^http(s)?://.*$"); // url
           if (url.match (complete_output))
           {
@@ -85,16 +84,16 @@ namespace Synapse
         }
         catch (Error err)
         {
-          Utils.Logger.warning (this, "%s", err.message);
+          warning ("%s", err.message);
         }
-        
+
         return null;
       }
 
       protected async string? pastebin_text (string content)
       {
         string[] argv = {"pastebinit"};
-        
+
         try
         {
           Pid pid;
@@ -122,7 +121,7 @@ namespace Synapse
               complete_output += line;
             }
           } while (line != null);
-          
+
           Regex url = new Regex ("^http(s)?://.*$"); // url
           if (url.match (complete_output))
           {
@@ -135,12 +134,12 @@ namespace Synapse
         }
         catch (Error err)
         {
-          Utils.Logger.warning (this, "%s", err.message);
+          warning ("%s", err.message);
         }
-        
+
         return null;
       }
-      
+
       protected virtual void process_pastebin_result (string? url, Match? target = null)
       {
         string msg;
@@ -149,11 +148,11 @@ namespace Synapse
           var cb = Gtk.Clipboard.get (Gdk.Atom.NONE);
           cb.set_text (url, -1);
 
-          msg = _ ("The selection was successfully uploaded and its URL was copied to clipboard.");
+          msg = _("The selection was successfully uploaded and its URL was copied to clipboard.");
         }
         else
         {
-          msg = _ ("An error occurred during upload, please check the log for more information.");
+          msg = _("An error occurred during upload, please check the log for more information.");
         }
 
         try
@@ -161,7 +160,7 @@ namespace Synapse
           // yey for breaking API!
           var notification = Object.new (
             typeof (Notify.Notification),
-            summary: _ ("Synapse - Pastebin"),
+            summary: _("Synapse - Pastebin"),
             body: msg,
             icon_name: "synapse",
             null) as Notify.Notification;
@@ -170,71 +169,70 @@ namespace Synapse
         }
         catch (Error err)
         {
-          Utils.Logger.warning (this, "%s", err.message);
+          warning ("%s", err.message);
         }
       }
-      
-      public override void do_execute (Match? match, Match? target = null)
+
+      public override void do_execute (Match match, Match? target = null)
       {
-        if (match.match_type == MatchType.GENERIC_URI && match is UriMatch)
+        if (match is UriMatch)
         {
-          var uri_match = match as UriMatch;
+          unowned UriMatch uri_match = (UriMatch) match;
+
           var f = File.new_for_uri (uri_match.uri);
           string path = f.get_path ();
           if (path == null)
           {
-            Utils.Logger.warning (this, "Unable to get path for %s", uri_match.uri);
+            warning ("Unable to get path for %s", uri_match.uri);
             return;
           }
-          pastebin_file.begin (path, (obj, res) =>
-          {
+          pastebin_file.begin (path, (obj, res) => {
             string? url = pastebin_file.end (res);
             process_pastebin_result (url, target);
           });
         }
-        else if (match.match_type == MatchType.TEXT)
+        else if (match is TextMatch)
         {
-          TextMatch? text_match = match as TextMatch;
+          unowned TextMatch text_match = (TextMatch) match;
+
           string content = text_match != null ? text_match.get_text () : match.title;
-          pastebin_text.begin (content, (obj, res) =>
-          {
+          pastebin_text.begin (content, (obj, res) => {
             string? url = pastebin_text.end (res);
             process_pastebin_result (url, target);
           });
         }
       }
-      
+
       public override bool valid_for_match (Match match)
       {
-        switch (match.match_type)
-        {
-          case MatchType.TEXT:
-            return true;
-          case MatchType.GENERIC_URI:
-            var um = match as UriMatch;
-            var f = File.new_for_uri (um.uri);
-            if (f.get_path () == null) return false;
-            return ContentType.is_a (um.mime_type, "text/*");
-          default:
-            return false;
-        }
+        if (match is TextMatch)
+          return true;
+
+        unowned UriMatch um = match as UriMatch;
+        if (um == null)
+          return false;
+
+        var f = File.new_for_uri (um.uri);
+        if (f.get_path () == null)
+          return false;
+
+        return ContentType.is_a (um.mime_type, "text/*");
       }
     }
-    
+
     private class PastebinToContactAction : PastebinAction
     {
       public PastebinToContactAction ()
       {
-        Object (title: _ ("Pastebin to contact.."),
-                description: _ ("Pastebin selection"),
-                match_type: MatchType.ACTION,
+        Object (title: _("Pastebin to contact.."),
+                description: _("Pastebin selection"),
                 icon_name: "document-send", has_thumbnail: false,
-                default_relevancy: Match.Score.AVERAGE);
+                default_relevancy: MatchScore.AVERAGE);
       }
-      
+
       protected override void process_pastebin_result (string? url, Match? target = null)
       {
-        ContactMatch? contact = target as ContactMatch;
+        unowned ContactMatch? contact = target as ContactMatch;
         if (contact == null || url == null)
         {
           base.process_pastebin_result (url, null);
@@ -244,11 +242,12 @@ namespace Synapse
           contact.send_message (url, true);
         }
       }
-      
-      public override bool needs_target () {
+
+      public override bool needs_target ()
+      {
         return true;
       }
-      
+
       public override QueryFlags target_flags ()
       {
         return QueryFlags.CONTACTS;
@@ -257,14 +256,14 @@ namespace Synapse
 
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (PastebinPlugin),
-        _ ("Pastebin"),
-        _ ("Upload files to pastebin."),
+        _("Pastebin"),
+        _("Upload files to pastebin."),
         "document-send",
         register_plugin,
         Environment.find_program_in_path ("pastebinit") != null,
-        _ ("Unable to find \"pastebinit\" program")
+        _("Unable to find \"pastebinit\" program")
       );
     }
 

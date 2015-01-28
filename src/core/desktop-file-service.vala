@@ -26,24 +26,59 @@ namespace Synapse
     UNINTERESTING_ENTRY
   }
 
-  public class DesktopFileInfo: Object
+  // registered environments from http://standards.freedesktop.org/menu-spec/latest
+  [Flags]
+  public enum DesktopEnvironmentType
   {
-    // registered environments from http://standards.freedesktop.org/menu-spec/latest
-    [Flags]
-    public enum EnvironmentType
-    {
-      GNOME = 1 << 0,
-      KDE   = 1 << 1,
-      LXDE  = 1 << 2,
-      ROX   = 1 << 3,
-      XFCE  = 1 << 4,
-      OLD   = 1 << 5,
-      UNITY = 1 << 6,
+    GNOME = 1 << 0,
+    KDE   = 1 << 1,
+    LXDE  = 1 << 2,
+    MATE  = 1 << 3,
+    RAZOR = 1 << 4,
+    ROX   = 1 << 5,
+    TDE   = 1 << 6,
+    UNITY = 1 << 7,
+    XFCE  = 1 << 8,
+    EDE   = 1 << 9,
+    CINNAMON = 1 << 10,
+    PANTHEON = 1 << 11,
 
-      ALL   = 0x7F
+    OLD   = 1 << 12,
+    ALL   = 0xFFF;
+
+    public static DesktopEnvironmentType from_strings (string[] environments)
+    {
+      DesktopEnvironmentType result = 0;
+      foreach (unowned string env in environments)
+      {
+        string env_up = env.up ();
+        switch (env_up)
+        {
+          case "GNOME": result |= DesktopEnvironmentType.GNOME; break;
+          case "KDE": result |= DesktopEnvironmentType.KDE; break;
+          case "LXDE": result |= DesktopEnvironmentType.LXDE; break;
+          case "MATE": result |= DesktopEnvironmentType.MATE; break;
+          case "RAZOR": result |= DesktopEnvironmentType.RAZOR; break;
+          case "ROX": result |= DesktopEnvironmentType.ROX; break;
+          case "TDE": result |= DesktopEnvironmentType.TDE; break;
+          case "UNITY": result |= DesktopEnvironmentType.UNITY; break;
+          case "XFCE": result |= DesktopEnvironmentType.XFCE; break;
+          case "EDE": result |= DesktopEnvironmentType.EDE; break;
+          case "CINNAMON": result |= DesktopEnvironmentType.CINNAMON; break;
+          case "OLD": result |= DesktopEnvironmentType.OLD; break;
+
+          case "PANTHEON": result |= DesktopEnvironmentType.PANTHEON; break;
+
+          default: warning ("%s is not understood", env); break;
+        }
+      }
+      return result;
     }
-   
-    public string desktop_id { get; construct set; } 
+  }
+
+  public class DesktopFileInfo : Object
+  {
+    public string desktop_id { get; construct set; }
     public string name { get; construct set; }
     public string comment { get; set; default = ""; }
     public string icon_name { get; construct set; default = ""; }
@@ -57,17 +92,15 @@ namespace Synapse
     public bool is_valid { get; private set; default = true; }
 
     public string[] mime_types = null;
-    
+
     private string? name_folded = null;
     public unowned string get_name_folded ()
     {
       if (name_folded == null) name_folded = name.casefold ();
       return name_folded;
     }
-    
-    public EnvironmentType show_in { get; set; default = EnvironmentType.ALL; }
 
-    private static const string GROUP = "Desktop Entry";
+    public DesktopEnvironmentType show_in { get; set; default = DesktopEnvironmentType.ALL; }
 
     public DesktopFileInfo.for_keyfile (string path, KeyFile keyfile,
                                         string desktop_id)
@@ -77,39 +110,18 @@ namespace Synapse
       init_from_keyfile (keyfile);
     }
 
-    private EnvironmentType parse_environments (string[] environments)
-    {
-      EnvironmentType result = 0;
-      foreach (unowned string env in environments)
-      {
-        string env_up = env.up ();
-        switch (env_up)
-        {
-          case "GNOME": result |= EnvironmentType.GNOME; break;
-          case "KDE": result |= EnvironmentType.KDE; break;
-          case "LXDE": result |= EnvironmentType.LXDE; break;
-          case "XFCE": result |= EnvironmentType.XFCE; break;
-          case "ROX": result |= EnvironmentType.ROX; break;
-          case "OLD": result |= EnvironmentType.OLD; break;
-          case "UNITY": result |= EnvironmentType.UNITY; break;
-          default: warning ("%s is not understood", env); break;
-        }
-      }
-      return result;
-    }
-
     private void init_from_keyfile (KeyFile keyfile)
     {
       try
       {
-        if (keyfile.get_string (GROUP, "Type") != "Application")
+        if (keyfile.get_string (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_TYPE) != KeyFileDesktop.TYPE_APPLICATION)
         {
           throw new DesktopFileError.UNINTERESTING_ENTRY ("Not Application-type desktop entry");
         }
-        
-        if (keyfile.has_key (GROUP, "Categories"))
+
+        if (keyfile.has_key (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_CATEGORIES))
         {
-          string[] categories = keyfile.get_string_list (GROUP, "Categories");
+          string[] categories = keyfile.get_string_list (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_CATEGORIES);
           if ("Screensaver" in categories)
           {
             throw new DesktopFileError.UNINTERESTING_ENTRY ("Screensaver desktop entry");
@@ -121,50 +133,53 @@ namespace Synapse
 
         if (app_info == null)
         {
-          throw new DesktopFileError.UNINTERESTING_ENTRY ("Unable to create AppInfo");
+          throw new DesktopFileError.UNINTERESTING_ENTRY ("Unable to create AppInfo for %s".printf (filename));
         }
 
         name = app_info.get_name ();
-        exec = app_info.get_executable ();
+        exec = app_info.get_commandline ();
+        if (exec == null)
+        {
+          throw new DesktopFileError.UNINTERESTING_ENTRY ("Unable to get exec for %s".printf (name));
+        }
 
         // check for hidden desktop files
-        if (keyfile.has_key (GROUP, "Hidden") &&
-          keyfile.get_boolean (GROUP, "Hidden"))
+        if (keyfile.has_key (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_HIDDEN) &&
+          keyfile.get_boolean (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_HIDDEN))
         {
           is_hidden = true;
         }
-        if (keyfile.has_key (GROUP, "NoDisplay") &&
-          keyfile.get_boolean (GROUP, "NoDisplay"))
+        if (keyfile.has_key (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_NO_DISPLAY) &&
+          keyfile.get_boolean (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_NO_DISPLAY))
         {
           is_hidden = true;
         }
 
         comment = app_info.get_description () ?? "";
 
-        var icon = app_info.get_icon () ??
-          new ThemedIcon ("application-default-icon");
+        var icon = app_info.get_icon () ?? new ThemedIcon ("application-default-icon");
         icon_name = icon.to_string ();
 
-        if (keyfile.has_key (GROUP, "MimeType"))
+        if (keyfile.has_key (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_MIME_TYPE))
         {
-          mime_types = keyfile.get_string_list (GROUP, "MimeType");
+          mime_types = keyfile.get_string_list (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_MIME_TYPE);
         }
-        if (keyfile.has_key (GROUP, "Terminal"))
+        if (keyfile.has_key (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_TERMINAL))
         {
-          needs_terminal = keyfile.get_boolean (GROUP, "Terminal");
+          needs_terminal = keyfile.get_boolean (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_TERMINAL);
         }
-        if (keyfile.has_key (GROUP, "OnlyShowIn"))
+        if (keyfile.has_key (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_ONLY_SHOW_IN))
         {
-          show_in = parse_environments (keyfile.get_string_list (GROUP, 
-                                                                 "OnlyShowIn"));
+          show_in = DesktopEnvironmentType.from_strings (keyfile.get_string_list (KeyFileDesktop.GROUP,
+                                                                 KeyFileDesktop.KEY_ONLY_SHOW_IN));
         }
-        else if (keyfile.has_key (GROUP, "NotShowIn"))
+        else if (keyfile.has_key (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_NOT_SHOW_IN))
         {
-          var not_show = parse_environments (keyfile.get_string_list (GROUP,
-                                                                  "NotShowIn"));
-          show_in = EnvironmentType.ALL ^ not_show;
+          var not_show = DesktopEnvironmentType.from_strings (keyfile.get_string_list (KeyFileDesktop.GROUP,
+                                             KeyFileDesktop.KEY_NOT_SHOW_IN));
+          show_in = DesktopEnvironmentType.ALL ^ not_show;
         }
-        
+
         // special case these, people are using them quite often and wonder
         // why they don't appear
         if (filename.has_suffix ("gconf-editor.desktop") ||
@@ -175,7 +190,7 @@ namespace Synapse
       }
       catch (Error err)
       {
-        Utils.Logger.warning (this, "%s", err.message);
+        warning ("%s", err.message);
         is_valid = false;
       }
     }
@@ -184,7 +199,7 @@ namespace Synapse
   public class DesktopFileService : Object
   {
     private static unowned DesktopFileService? instance;
-    public bool initialized { get; private set; default = false; }
+    private Utils.AsyncOnce<bool> init_once;
 
     // singleton that can be easily destroyed
     public static DesktopFileService get_default ()
@@ -199,11 +214,11 @@ namespace Synapse
     private Gee.List<FileMonitor> directory_monitors;
     private Gee.List<DesktopFileInfo> all_desktop_files;
     private Gee.List<DesktopFileInfo> non_hidden_desktop_files;
-    private Gee.Map<unowned string, Gee.List<DesktopFileInfo> > mimetype_map;
-    private Gee.Map<string, Gee.List<DesktopFileInfo> > exec_map;
+    private Gee.Map<unowned string, Gee.List<DesktopFileInfo>> mimetype_map;
+    private Gee.Map<string, Gee.List<DesktopFileInfo>> exec_map;
     private Gee.Map<string, DesktopFileInfo> desktop_id_map;
     private Gee.MultiMap<string, string> mimetype_parent_map;
-    
+
     construct
     {
       instance = this;
@@ -212,19 +227,22 @@ namespace Synapse
       all_desktop_files = new Gee.ArrayList<DesktopFileInfo> ();
       non_hidden_desktop_files = new Gee.ArrayList<DesktopFileInfo> ();
       mimetype_parent_map = new Gee.HashMultiMap<string, string> ();
+      init_once = new Utils.AsyncOnce<bool> ();
 
-      initialize ();
+      initialize.begin ();
     }
-    
+
     ~DesktopFileService ()
     {
       instance = null;
     }
-   
-    public signal void initialization_done ();
-    
-    private async void initialize ()
+
+    public async void initialize ()
     {
+      if (init_once.is_initialized ()) return;
+      var is_locked = yield init_once.enter ();
+      if (!is_locked) return;
+
       get_environment_type ();
       DesktopAppInfo.set_desktop_env (session_type_str);
 
@@ -233,56 +251,89 @@ namespace Synapse
 
       yield load_all_desktop_files ();
 
-      initialized = true;
-      initialization_done ();
+      init_once.leave (true);
     }
-    
-    private DesktopFileInfo.EnvironmentType session_type =
-      DesktopFileInfo.EnvironmentType.GNOME;
+
+    private DesktopEnvironmentType session_type = DesktopEnvironmentType.GNOME;
     private string session_type_str = "GNOME";
-    
-    public DesktopFileInfo.EnvironmentType get_environment ()
+
+    public DesktopEnvironmentType get_environment ()
     {
       return this.session_type;
     }
-    
+
     private void get_environment_type ()
     {
-      unowned string? session_var = Environment.get_variable ("DESKTOP_SESSION");
-      
+      unowned string? session_var;
+      session_var = Environment.get_variable ("XDG_CURRENT_DESKTOP");
+      if (session_var == null)
+      {
+        session_var = Environment.get_variable ("DESKTOP_SESSION");
+      }
+
       if (session_var == null) return;
 
       string session = session_var.down ();
 
-      if (session.has_prefix ("kde"))
+      if (session.has_prefix ("unity") || session.has_prefix ("ubuntu"))
       {
-        session_type = DesktopFileInfo.EnvironmentType.KDE;
+        session_type = DesktopEnvironmentType.UNITY;
+        session_type_str = "Unity";
+      }
+      else if (session.has_prefix ("kde"))
+      {
+        session_type = DesktopEnvironmentType.KDE;
         session_type_str = "KDE";
       }
       else if (session.has_prefix ("gnome"))
       {
-        session_type = DesktopFileInfo.EnvironmentType.GNOME;
+        session_type = DesktopEnvironmentType.GNOME;
         session_type_str = "GNOME";
-      }
-      else if (session.has_prefix ("ubuntu"))
-      {
-        session_type = DesktopFileInfo.EnvironmentType.UNITY;
-        session_type_str = "Unity";
       }
       else if (session.has_prefix ("lx"))
       {
-        session_type = DesktopFileInfo.EnvironmentType.LXDE;
+        session_type = DesktopEnvironmentType.LXDE;
         session_type_str = "LXDE";
       }
       else if (session.has_prefix ("xfce"))
       {
-        session_type = DesktopFileInfo.EnvironmentType.XFCE;
+        session_type = DesktopEnvironmentType.XFCE;
         session_type_str = "XFCE";
+      }
+      else if (session.has_prefix ("mate"))
+      {
+        session_type = DesktopEnvironmentType.MATE;
+        session_type_str = "MATE";
+      }
+      else if (session.has_prefix ("razor"))
+      {
+        session_type = DesktopEnvironmentType.RAZOR;
+        session_type_str = "Razor";
+      }
+      else if (session.has_prefix ("tde"))
+      {
+        session_type = DesktopEnvironmentType.TDE;
+        session_type_str = "TDE";
       }
       else if (session.has_prefix ("rox"))
       {
-        session_type = DesktopFileInfo.EnvironmentType.ROX;
+        session_type = DesktopEnvironmentType.ROX;
         session_type_str = "ROX";
+      }
+      else if (session.has_prefix ("ede"))
+      {
+        session_type = DesktopEnvironmentType.EDE;
+        session_type_str = "EDE";
+      }
+      else if (session.has_prefix ("cinnamon"))
+      {
+        session_type = DesktopEnvironmentType.CINNAMON;
+        session_type_str = "Cinnamon";
+      }
+      else if (session.has_prefix ("pantheon"))
+      {
+        session_type = DesktopEnvironmentType.PANTHEON;
+        session_type_str = "Pantheon";
       }
       else
       {
@@ -296,14 +347,14 @@ namespace Synapse
       string? locale = Intl.setlocale (LocaleCategory.MESSAGES, null);
       if (locale == null) return null;
 
-      // even though this is what the patch in gnome-menus does, the name 
+      // even though this is what the patch in gnome-menus does, the name
       // of the file is different here (utf is uppercase)
       string filename = "desktop.%s.cache".printf (
         locale.replace (".UTF-8", ".utf8"));
 
       return Path.build_filename (dir_name, filename, null);
     }
-    
+
     private async void process_directory (File directory,
                                           string id_prefix,
                                           Gee.Set<File> monitored_dirs)
@@ -316,7 +367,7 @@ namespace Synapse
         // screensavers don't interest us, skip those
         if (path != null && path.has_suffix ("/screensavers")) return;
 
-        Utils.Logger.debug (this, "Searching for desktop files in: %s", path);
+        debug ("Searching for desktop files in: %s", path);
         bool exists = yield Utils.query_exists_async (directory);
         if (!exists) return;
         /* Check if we already scanned this directory // lp:686624 */
@@ -326,7 +377,7 @@ namespace Synapse
         }
         monitored_dirs.add (directory);
         var enumerator = yield directory.enumerate_children_async (
-          FILE_ATTRIBUTE_STANDARD_NAME + "," + FILE_ATTRIBUTE_STANDARD_TYPE,
+          FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_TYPE,
           0, 0);
         var files = yield enumerator.next_files_async (1024, 0);
         foreach (var f in files)
@@ -373,18 +424,25 @@ namespace Synapse
         dir_path = Path.build_filename (data_dir, "mime", "subclasses");
         yield load_mime_parents_from_file (dir_path);
       }
-      
+
       create_indices ();
 
       directory_monitors = new Gee.ArrayList<FileMonitor> ();
       foreach (File d in desktop_file_dirs)
       {
-        FileMonitor monitor = d.monitor_directory (0, null);
-        monitor.changed.connect (this.desktop_file_directory_changed);
-        directory_monitors.add (monitor);
+        try
+        {
+          FileMonitor monitor = d.monitor_directory (0, null);
+          monitor.changed.connect (this.desktop_file_directory_changed);
+          directory_monitors.add (monitor);
+        }
+        catch (Error err)
+        {
+          warning ("Unable to monitor directory: %s", err.message);
+        }
       }
     }
-    
+
     private uint timer_id = 0;
 
     public signal void reload_started ();
@@ -397,15 +455,14 @@ namespace Synapse
       {
         Source.remove (timer_id);
       }
-      
-      timer_id = Timeout.add (5000, () =>
-      {
+
+      timer_id = Timeout.add (5000, () => {
         timer_id = 0;
-        reload_desktop_files ();
+        reload_desktop_files.begin ();
         return false;
       });
     }
-    
+
     private async void reload_desktop_files ()
     {
       debug ("Reloading desktop files...");
@@ -448,15 +505,15 @@ namespace Synapse
         warning ("%s", err.message);
       }
     }
-    
+
     private void create_indices ()
     {
       // create mimetype maps
       mimetype_map =
-        new Gee.HashMap<unowned string, Gee.List<DesktopFileInfo> > ();
+        new Gee.HashMap<unowned string, Gee.List<DesktopFileInfo>> ();
       // and exec map
       exec_map =
-        new Gee.HashMap<string, Gee.List<DesktopFileInfo> > ();
+        new Gee.HashMap<string, Gee.List<DesktopFileInfo>> ();
       // and desktop id map
       desktop_id_map =
         new Gee.HashMap<string, DesktopFileInfo> ();
@@ -481,7 +538,7 @@ namespace Synapse
         }
         catch (RegexError err)
         {
-          Utils.Logger.error (this, "%s", err.message);
+          critical ("%s", err.message);
         }
         exec = exec.strip ();
         // update exec map
@@ -499,7 +556,7 @@ namespace Synapse
 
         // update mimetype map
         if (dfi.is_hidden || dfi.mime_types == null) continue;
-        
+
         foreach (unowned string mime_type in dfi.mime_types)
         {
           Gee.List<DesktopFileInfo>? list = mimetype_map[mime_type];
@@ -540,7 +597,7 @@ namespace Synapse
         } while (true);
       } catch (GLib.Error err) { /* can't read file */ }
     }
-    
+
     private void add_dfi_for_mime (string mime, Gee.Set<DesktopFileInfo> ret)
     {
       var dfis = mimetype_map[mime];
@@ -557,14 +614,14 @@ namespace Synapse
     {
       return non_hidden_desktop_files.read_only_view;
     }
-    
+
     // returns all desktop files available on the system (even the ones which
     // are hidden by default)
     public Gee.List<DesktopFileInfo> get_all_desktop_files ()
     {
       return all_desktop_files.read_only_view;
     }
-    
+
     public Gee.List<DesktopFileInfo> get_desktop_files_for_type (string mime_type)
     {
       var dfi_set = new Gee.HashSet<DesktopFileInfo> ();
@@ -578,7 +635,7 @@ namespace Synapse
     {
       return exec_map[exec] ?? new Gee.ArrayList<DesktopFileInfo> ();
     }
-    
+
     public DesktopFileInfo? get_desktop_file_for_id (string desktop_id)
     {
       return desktop_id_map[desktop_id];

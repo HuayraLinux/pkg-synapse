@@ -53,14 +53,14 @@ namespace Synapse
     // register your plugin in the UI
     static void register_plugin ()
     {
-      DataSink.PluginRegistry.get_default ().register_plugin (
+      PluginRegistry.get_default ().register_plugin (
         typeof (HelloWorldPlugin),
-        _ ("Hello world"), // plugin title
-        _ ("An example plugin."), // description
+        _("Hello world"), // plugin title
+        _("An example plugin."), // description
         "system-run", // icon name
         register_plugin, // reference to this function
         Environment.find_program_in_path ("ls") != null, // true if user's system has all required components which the plugin needs
-        _ ("ls is not installed") // error message
+        _("ls is not installed") // error message
       );
     }
 
@@ -70,7 +70,7 @@ namespace Synapse
       register_plugin ();
     }
 
-    // an optional method to improve the speed of searches, 
+    // an optional method to improve the speed of searches,
     // if you return false here, the search method won't be called
     // for this query
     public bool handles_query (Query query)
@@ -85,7 +85,7 @@ namespace Synapse
       {
         // if the user searches for "hello" + anything, we'll add our result
         var results = new ResultSet ();
-        results.add (new WorldMatch (), Match.Score.AVERAGE);
+        results.add (new WorldMatch (), MatchScore.AVERAGE);
 
         // make sure this method is called before returning any results
         query.check_cancellable ();
@@ -98,20 +98,11 @@ namespace Synapse
     }
 
     // define our Match object
-    private class WorldMatch : Object, Match
+    private class WorldMatch : UnknownMatch
     {
-      // from Match interface
-      public string title { get; construct set; }
-      public string description { get; set; }
-      public string icon_name { get; construct set; }
-      public bool has_thumbnail { get; construct set; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
       public WorldMatch ()
       {
-        Object (match_type: MatchType.UNKNOWN,
-                title: "HelloWorld",
+        Object (title: "HelloWorld",
                 description: "Result from HelloWorldPlugin",
                 has_thumbnail: false, icon_name: "system-run");
       }

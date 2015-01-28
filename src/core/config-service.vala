@@ -38,7 +38,7 @@ namespace Synapse
     private ConfigService ()
     {
     }
-    
+
     ~ConfigService ()
     {
       // useless cause the timer takes a reference on self
@@ -49,13 +49,13 @@ namespace Synapse
     private Json.Node root_node;
     private string config_file_name;
     private uint save_timer_id = 0;
-    
+
     construct
     {
       instance = this;
-      
+
       var parser = new Parser ();
-      config_file_name = 
+      config_file_name =
         GLib.Path.build_filename (Environment.get_user_config_dir (), "synapse",
                              "config.json");
       try
@@ -102,10 +102,10 @@ namespace Synapse
           }
         }
       }
-      
+
       return GLib.Object.new (config_type) as ConfigObject;
     }
-    
+
     /**
      * Behaves in a similar way to get_config, but it also watches for changes
      * in the returned config object and saves them back to the config file
@@ -120,10 +120,12 @@ namespace Synapse
       ConfigObject config_object = get_config (group, key, config_type);
       // make sure the lambda doesn't take a ref on the config_object
       unowned ConfigObject co = config_object;
-      co.notify.connect (() => { this.set_config (group, key, co); });
+      co.notify.connect (() => {
+        this.set_config (group, key, co);
+      });
       return config_object;
     }
-    
+
     /**
      * Stores all public properties of the object to the config file under
      * specified group and key names.
@@ -135,7 +137,7 @@ namespace Synapse
     public void set_config (string group, string key, ConfigObject cfg_obj)
     {
       unowned Json.Object obj = root_node.get_object ();
-      if (!obj.has_member (group) || 
+      if (!obj.has_member (group) ||
           obj.get_member (group).get_node_type () != NodeType.OBJECT)
       {
         // why set_object_member works, but set_member doesn't ?!
@@ -148,12 +150,12 @@ namespace Synapse
 
       Json.Node node = Json.gobject_serialize (cfg_obj);
       group_obj.set_object_member (key, node.get_object ());
-      
+
       if (save_timer_id != 0) Source.remove (save_timer_id);
       // on crap, this takes a reference on self
       save_timer_id = Timeout.add (30000, this.save_timeout);
     }
-    
+
     private bool save_timeout ()
     {
       save_timer_id = 0;
@@ -172,13 +174,20 @@ namespace Synapse
         Source.remove (save_timer_id);
         save_timer_id = 0;
       }
-      
+
       var generator = new Generator ();
       generator.pretty = true;
       generator.set_root (root_node);
 
       DirUtils.create_with_parents (GLib.Path.get_dirname (config_file_name), 0755);
-      generator.to_file (config_file_name);
+      try
+      {
+        generator.to_file (config_file_name);
+      }
+      catch (Error err)
+      {
+        warning ("%s", err.message);
+      }
     }
   }
 }

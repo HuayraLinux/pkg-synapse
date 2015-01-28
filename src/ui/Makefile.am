@@ -6,25 +6,15 @@ bin_PROGRAMS = synapse
 VAPIDIR = $(top_srcdir)/vapi
 
 synapse_VALAFLAGS = \
-	--pkg dbus-glib-1 \
-	--pkg gtk+-2.0 \
-	--pkg gdk-x11-2.0 \
-	--pkg gio-2.0 \
-	--pkg gio-unix-2.0 \
-	--pkg zeitgeist-1.0 \
-	--pkg gee-1.0 \
-	--pkg json-glib-1.0 \
-	--pkg unique-1.0 \
-	--pkg libnotify \
+	$(SYNAPSE_COMMON_VALAFLAGS) \
+	$(SYNAPSE_MODULES_VALAFLAGS) \
+	--basedir $(srcdir) \
+	--directory $(builddir) \
 	--vapidir $(top_builddir)/src/core \
 	--pkg synapse-core \
 	--vapidir $(top_builddir)/src/plugins \
 	--pkg plugins \
-	--vapidir $(top_builddir)/src/tile-view \
-	--pkg tile-view \
 	--vapidir $(VAPIDIR) \
-	--pkg gtkhotkey-1.0 \
-	$(VAPIDIR)/keysyms.vapi \
 	$(VAPIDIR)/config.vapi \
 	$(NULL)
 
@@ -33,30 +23,29 @@ synapse_CFLAGS = \
 	-include config.h -w \
 	-I$(top_builddir)/src/core \
 	-I$(top_builddir)/src/plugins \
-	-I$(top_builddir)/src/tile-view \
 	$(NULL)
 
 synapse_LDADD = \
 	$(SYNAPSE_MODULES_LIBS) \
 	$(top_builddir)/src/core/libsynapsecore.la \
 	$(top_builddir)/src/plugins/libplugins.la \
-	$(top_builddir)/src/tile-view/libtileview.la \
+	$(LIBM) \
 	$(NULL)
 
 if HAVE_INDICATOR
-synapse_VALAFLAGS += --pkg appindicator-0.1 -D HAVE_INDICATOR
+synapse_VALAFLAGS += $(APP_INDICATOR_VALAFLAGS)
 synapse_CFLAGS += $(APP_INDICATOR_CFLAGS)
 synapse_LDADD += $(APP_INDICATOR_LIBS)
 endif
 
 if HAVE_LIBREST
-synapse_VALAFLAGS += -D HAVE_LIBREST
+synapse_VALAFLAGS += $(REST_VALAFLAGS)
 synapse_CFLAGS += $(REST_CFLAGS)
 synapse_LDADD += $(REST_LIBS)
 endif
 
 if HAVE_ZEITGEIST
-synapse_VALAFLAGS += --pkg zeitgeist-1.0 -D HAVE_ZEITGEIST
+synapse_VALAFLAGS += $(ZEITGEIST_VALAFLAGS)
 synapse_CFLAGS += $(ZEITGEIST_CFLAGS)
 synapse_LDADD += $(ZEITGEIST_LIBS)
 endif
@@ -79,7 +68,10 @@ synapse_VALASOURCES = \
 	icon-cache-service.vala \
 	utils.vala \
 	settings.vala \
-	inspector.vala \
+	tile-view/abstract-tile-object.vala \
+	tile-view/tile.vala \
+	tile-view/tile-view.vala \
+	tile-view/wrap-label.vala \
 	$(NULL)
 
 GENERATED_C_FILES = $(synapse_VALASOURCES:.vala=.c)
@@ -89,7 +81,7 @@ synapse_SOURCES = $(synapse_VALASOURCES:.vala=.c)
 # flags (ie --disable-indicator won't rebuild the Vala sources)
 
 #synapse_vala.stamp: $(addprefix $(srcdir)/,$(synapse_VALASOURCES)) Makefile
-synapse_vala.stamp: $(synapse_VALASOURCES) Makefile
+synapse_vala.stamp: $(synapse_VALASOURCES) $(top_builddir)/src/core/synapse-core.vapi $(top_builddir)/src/plugins/plugins.vapi Makefile
 	$(AM_V_VALA)$(VALAC) $(synapse_VALAFLAGS) $(VALAFLAGS) -C $(filter %.vala %.c,$^)
 	$(AM_V_at)touch $@
 

@@ -23,39 +23,35 @@ using Gtk;
 
 namespace Synapse
 {
-  /* Gtk+-2.0 base class */
+  /* Gtk+-3.0 base class */
   public class Gui.View : Gtk.Window, Synapse.Gui.IView
   {
-    /* --- base class for gtk+-2.0 --- */
-    /* In ~/.config/synapse/gtkrc  use:
-       widget_class "*SynapseGui*" style : highest "synapse" 
-       and set your custom colors
-    */
-    
+    /* --- base class for gtk+-3.0 --- */
+
     protected bool is_kwin = false;
-    
+
     private void update_wm ()
     {
-      string wmname = Gdk.x11_screen_get_window_manager_name (Gdk.Screen.get_default ()).down ();
+      string wmname = Gdk.X11Screen.get_window_manager_name (Gdk.Screen.get_default ()).down ();
       this.is_kwin = wmname == "kwin";
     }
-    
+
     private Requisition req_target;
     private Requisition req_current;
-    
+
     protected Gui.Utils.ColorHelper ch;
     protected HTextSelector flag_selector;
     protected MenuButton menu;
-    
+
     protected Label spacer;
 
     protected int BORDER_RADIUS;
     protected int SHADOW_SIZE;
-    protected Gtk.StateType bg_state;
-    
+    protected Gtk.StateFlags bg_state;
+
     protected bool cache_enabled;
     protected Gee.Map<string, Cairo.Surface> bg_cache;
-    
+
     static construct
     {
       var bg_style = new GLib.ParamSpecBoolean ("use-selected-color",
@@ -123,7 +119,7 @@ namespace Synapse
                                                 "Font size of unselected categories in Pango absolute sizes (string)",
                                                 "small",
                                                 GLib.ParamFlags.READWRITE);
-      
+
       install_style_property (width);
       install_style_property (bg_style);
       install_style_property (spacing);
@@ -137,7 +133,7 @@ namespace Synapse
       install_style_property (border_radius);
       install_style_property (shadow_size);
     }
-    
+
     private Requisition old_alloc;
 
     construct
@@ -145,18 +141,18 @@ namespace Synapse
       model = controller_model;
       old_alloc = {1, 1};
       update_wm ();
-      if (is_kwin) Synapse.Utils.Logger.log (this, "Using KWin compatibility mode.");
-      
+      if (is_kwin) message ("Using KWin compatibility mode.");
+
       cache_enabled = true;
       bg_cache = new Gee.HashMap<string, Cairo.Surface> ();
-      bg_state = Gtk.StateType.SELECTED;
-      
+      bg_state = Gtk.StateFlags.SELECTED;
+
       req_target = {0, 0};
       req_current = {0, 0};
-      
-      this.style.get (typeof(Synapse.Gui.View), "border-radius", out BORDER_RADIUS);
-      this.style.get (typeof(Synapse.Gui.View), "shadow-size", out SHADOW_SIZE);
-      
+
+      style_get ("border-radius", out BORDER_RADIUS,
+        "shadow-size", out SHADOW_SIZE);
+
       this.set_app_paintable (true);
       this.skip_taskbar_hint = true;
       this.skip_pager_hint = true;
@@ -176,12 +172,12 @@ namespace Synapse
                                           | Gdk.EventMask.KEY_PRESS_MASK);
 
       Gui.Utils.ensure_transparent_bg (this);
-      
-      ch = new Gui.Utils.ColorHelper (this);
-      
+
+      ch = Gui.Utils.ColorHelper.get_default ();
+
       // only needed to execute the static construct of SmartLabel
       var initialize_smartlabel = new SmartLabel ();
-      
+
       // init the category selector
       flag_selector = new HTextSelector ();
       foreach (CategoryConfig.Category c in controller.category_config.categories)
@@ -189,89 +185,94 @@ namespace Synapse
         flag_selector.add_text (c.name);
       }
       flag_selector.selected = controller.category_config.default_category_index;
-      flag_selector.selection_changed.connect (()=>{
+      flag_selector.selection_changed.connect (() => {
         controller.category_changed_event (flag_selector.selected);
       });
-      
+
       /* Use the spacer to separate the list from the main section of the window
        * the spacer will fill up the space equal to the rounded border plus the shadow
        */
       spacer = new Label (null);
       spacer.set_size_request (1, SHADOW_SIZE + BORDER_RADIUS);
-      
+
       menu = null;
-      
+
       build_ui ();
-      
+
       composited_changed ();
 
       if (menu != null)
       {
         menu.get_menu ().show.connect (this.force_grab);
-        menu.settings_clicked.connect (()=>{ controller.show_settings_requested (); });
+        menu.settings_clicked.connect (() => {
+          controller.show_settings_requested ();
+        });
       }
+
+       // gtk3 no longer calls this itself on startup
+       style_updated ();
     }
-    
+
     protected virtual void build_ui ()
     {
-      
+
     }
-    
-    public override void size_allocate (Gdk.Rectangle alloc)
+
+    public override void size_allocate (Gtk.Allocation alloc)
     {
       base.size_allocate (alloc);
-      if (this.is_kwin && 
-          (old_alloc.width != this.allocation.width || 
-           old_alloc.height != this.allocation.height)
+
+      Gtk.Allocation allocation;
+      this.get_allocation (out allocation);
+
+      if (this.is_kwin &&
+          (old_alloc.width != allocation.width ||
+           old_alloc.height != allocation.height)
          )
       {
-        this.add_kde_compatibility (this, this.allocation.width, this.allocation.height);
+        this.add_kde_compatibility (this, allocation.width, allocation.height);
         this.old_alloc = {
-          this.allocation.width,
-          this.allocation.height
+          allocation.width,
+          allocation.height
         };
       }
     }
-    
+
     public override void composited_changed ()
     {
       Gdk.Screen screen = this.get_screen ();
       bool comp = screen.is_composited ();
-      Gdk.Colormap? cm = screen.get_rgba_colormap();
-      if (cm == null)
+      Gdk.Visual? visual = screen.get_rgba_visual();
+      if (visual == null)
       {
         comp = false;
-        cm = screen.get_rgb_colormap();
+        visual = screen.get_system_visual();
       }
-      Synapse.Utils.Logger.log (this, "Screen is%s composited.", comp ? "": " NOT");
-      this.set_colormap (cm);
+      message ("Screen is%s composited.", comp ? "": " NOT");
+      this.set_visual (visual);
 
       update_wm ();
       update_border_and_shadow ();
     }
-    
+
     protected void add_kde_compatibility (Gtk.Window window, int w, int h)
     {
       /* Fix to the horrible shadow glitches in KDE 4 */
       /* If shape mask is set, KWin will not add that horrible shadow */
-      var bitmap = new Gdk.Pixmap (null, w, h, 1);
-      var ctx = Gdk.cairo_create (bitmap);
-      ctx.set_source_rgba (0, 0, 0, 1);
-      ctx.set_operator (Cairo.Operator.SOURCE);
-      ctx.paint ();
-      window.shape_combine_mask (null, 0, 0);
-      window.shape_combine_mask ((Gdk.Bitmap*)bitmap, 0, 0);
+      var region = new Cairo.Region.rectangle ({0, 0, w, h});
+      var gdkwin = window.get_window ();
+      gdkwin.shape_combine_region (null, 0, 0);
+      gdkwin.shape_combine_region (region, 0, 0);
     }
-    
-    public override void style_set (Gtk.Style? old)
+
+    public override void style_updated ()
     {
-      base.style_set (old);
+      base.style_updated ();
       string dmax, dmin;
       bool bgselected;
-      this.style.get (typeof(Synapse.Gui.View), "use-selected-color", out bgselected);
-      this.style.get (typeof(Synapse.Gui.View), "selected-category-size", out dmax);
-      this.style.get (typeof(Synapse.Gui.View), "unselected-category-size", out dmin);
-      this.bg_state = bgselected ? StateType.SELECTED : StateType.NORMAL;
+      style_get ("use-selected-color", out bgselected, "selected-category-size", out dmax,
+        "unselected-category-size", out dmin);
+      this.bg_state = bgselected ? StateFlags.SELECTED : StateFlags.NORMAL;
       flag_selector.selected_markup = "<span size=\"%s\"><b>%s</b></span>".printf (
                                                       SmartLabel.size_to_string[SmartLabel.string_to_size (dmax)], "%s");
       flag_selector.unselected_markup = "<span size=\"%s\">%s</span>".printf (
@@ -279,14 +280,12 @@ namespace Synapse
       this.bg_cache.clear ();
       update_border_and_shadow ();
     }
-    
+
     protected void update_border_and_shadow ()
     {
       if (this.is_composited ())
       {
-        this.style.get (typeof(Synapse.Gui.View), "border-radius", out BORDER_RADIUS);
-        this.style.get (typeof(Synapse.Gui.View), "shadow-size", out SHADOW_SIZE);
-        
+        style_get ("border-radius", out BORDER_RADIUS, "shadow-size", out SHADOW_SIZE);
       }
       else
       {
@@ -300,7 +299,7 @@ namespace Synapse
       this.queue_resize ();
       this.queue_draw ();
     }
-    
+
     public override bool button_press_event (Gdk.EventButton event)
     {
       int x = (int)event.x_root;
@@ -312,40 +311,26 @@ namespace Synapse
 
       return false;
     }
-    
+
     public override bool key_press_event (Gdk.EventKey event)
     {
       this.controller.key_press_event (event);
       return false;
     }
-    
-    public override void size_request (out Requisition requisition)
+
+    public override bool draw (Cairo.Context ctx)
     {
-      base.size_request (out requisition);
-      /* if the size requested is different => redraw () */
-      if (this.is_realized () && (
-            this.allocation.height != requisition.height ||
-            this.allocation.width != requisition.width
-          ))
-      {
-        this.queue_draw ();
-      }
-    }
-    
-    public override bool expose_event (Gdk.EventExpose event)
-    {
-      Cairo.Context ctx = Gdk.cairo_create (this.window);
       ctx.set_operator (Cairo.Operator.CLEAR);
       ctx.paint ();
 
-      /* Propagate Expose */
-      this.propagate_expose (this.get_child(), event);
-      
-      ctx.rectangle (0, 0, this.allocation.width, this.allocation.height);
+      /* Propagate Draw */
+      this.propagate_draw (this.get_child(), ctx);
+
+      ctx.rectangle (0, 0, this.get_allocated_width (), this.get_allocated_height ());
       ctx.clip ();
-      
-      string key = "%dx%dx%d".printf (this.allocation.width, this.allocation.height, model.searching_for);
-      
+
+      string key = "%dx%dx%d".printf (this.get_allocated_width (), this.get_allocated_height (), model.searching_for);
+
       if (cache_enabled)
       {
         if (this.bg_cache.has_key (key))
@@ -356,8 +341,8 @@ namespace Synapse
         {
           Cairo.Surface surf = new Cairo.Surface.similar (ctx.get_target (),
                                                           Cairo.Content.COLOR_ALPHA,
-                                                          this.allocation.width,
-                                                          this.allocation.height);
+                                                          this.get_allocated_width (),
+                                                          this.get_allocated_height ());
           Cairo.Context cr = new Cairo.Context (surf);
           paint_background (cr);
           bg_cache[key] = surf;
@@ -376,12 +361,12 @@ namespace Synapse
 
       return true;
     }
-    
+
     protected virtual void prepare_results_container (out SelectionContainer? results_container,
                                                       out ResultBox results_sources,
                                                       out ResultBox results_actions,
                                                       out ResultBox results_targets,
-                                                      Gtk.StateType state_type = Gtk.StateType.NORMAL,
+                                                      Gtk.StateFlags state_type = Gtk.StateFlags.NORMAL,
                                                       bool add_to_container = true)
     {
       results_sources = new ResultBox (100);
@@ -406,15 +391,19 @@ namespace Synapse
         results_container.add (results_actions);
         results_container.add (results_targets);
       }
-      
+      else
+      {
+        results_container = null;
+      }
+
       results_sources.set_state (state_type);
       results_actions.set_state (state_type);
       results_targets.set_state (state_type);
     }
-    
+
     protected virtual void paint_background (Cairo.Context ctx)
     {
-      ch.set_source_rgba (ctx, 0.9, ch.StyleType.BG, StateType.NORMAL);
+      ch.set_source_rgba (ctx, 0.9, StyleType.BG, StateFlags.NORMAL);
       ctx.set_operator (Cairo.Operator.SOURCE);
       ctx.paint ();
     }
@@ -423,14 +412,14 @@ namespace Synapse
     {
       Gui.Utils.present_window (this);
     }
-    
+
     public virtual void summon ()
     {
       this.set_list_visible (true);
       Gui.Utils.move_window_to_center (this);
       this.set_list_visible (false);
       this.show ();
-      if (this.is_kwin) this.add_kde_compatibility (this, this.allocation.width, this.allocation.height);
+      if (this.is_kwin) this.add_kde_compatibility (this, this.get_allocated_width (), this.get_allocated_height ());
       Gui.Utils.present_window (this);
       this.queue_draw ();
       this.summoned ();
@@ -451,7 +440,7 @@ namespace Synapse
       else
         summon ();
     }
-    
+
     private string dragdrop_name = "";
     private string dragdrop_uri = "";
 
@@ -459,29 +448,29 @@ namespace Synapse
     {
       obj.set_events (obj.get_events () | Gdk.EventMask.BUTTON_PRESS_MASK);
       // D&D
-      Gtk.drag_source_set (obj, Gdk.ModifierType.BUTTON1_MASK, {}, 
-                               Gdk.DragAction.ASK | 
-                               Gdk.DragAction.COPY | 
-                               Gdk.DragAction.MOVE | 
+      Gtk.drag_source_set (obj, Gdk.ModifierType.BUTTON1_MASK, {},
+                               Gdk.DragAction.ASK |
+                               Gdk.DragAction.COPY |
+                               Gdk.DragAction.MOVE |
                                Gdk.DragAction.LINK);
       obj.button_press_event.connect (this.draggable_clicked);
       obj.drag_data_get.connect (this.draggable_get);
       obj.drag_end.connect (drag_end_handler);
       //TODO: drag data recieved => vanish
     }
-    
+
     protected void drag_end_handler (Widget w, Gdk.DragContext context)
     {
       this.force_grab ();
     }
-    
+
     private void draggable_get (Widget w, Gdk.DragContext context, SelectionData selection_data, uint info, uint time_)
     {
       /* Called at drop time */
       selection_data.set_text (dragdrop_name, -1);
       selection_data.set_uris ({dragdrop_uri});
     }
-    
+
     private bool draggable_clicked (Gtk.Widget w, Gdk.EventButton event)
     {
       var tl = new TargetList ({});
@@ -496,7 +485,7 @@ namespace Synapse
         return false;
       }
 
-      UriMatch? um = model.focus[sf].value as UriMatch;
+      unowned UriMatch? um = model.focus[sf].value as UriMatch;
       if (um == null)
       {
         dragdrop_name = "";
@@ -505,13 +494,13 @@ namespace Synapse
         Gtk.drag_source_set_icon_stock (w, Gtk.Stock.MISSING_IMAGE);
         return false;
       }
-      
+
       dragdrop_name = um.title;
       dragdrop_uri = um.uri;
       tl.add_text_targets (0);
       tl.add_uri_targets (1);
       Gtk.drag_source_set_target_list (w, tl);
-      
+
       try {
         var icon = GLib.Icon.new_for_string (um.icon_name);
         if (icon == null) return false;
@@ -521,18 +510,18 @@ namespace Synapse
 
         Gdk.Pixbuf icon_pixbuf = iconinfo.load_icon ();
         if (icon_pixbuf == null) return false;
-        
+
         Gtk.drag_source_set_icon_pixbuf (w, icon_pixbuf);
       }
       catch (GLib.Error err) {}
       return false;
     }
-    
+
     protected Synapse.Gui.Model model = null;
-    
-    public Synapse.Gui.Model controller_model {get; construct set;}
-    public Synapse.Gui.IController controller {get; construct set;}
-    
+
+    public Synapse.Gui.Model controller_model { get; construct set; }
+    public Synapse.Gui.IController controller { get; construct set; }
+
     public virtual void update_focused_source (Entry<int, Match> m){}
     public virtual void update_focused_action (Entry<int, Match> m){}
     public virtual void update_focused_target (Entry<int, Match> m){}
@@ -540,11 +529,11 @@ namespace Synapse
     public virtual void update_sources (Gee.List<Match>? list = null){}
     public virtual void update_actions (Gee.List<Match>? list = null){}
     public virtual void update_targets (Gee.List<Match>? list = null){}
-    
+
     public virtual void update_selected_category (){}
-    
+
     public virtual void update_searching_for (){}
-    
+
     public virtual bool is_list_visible (){ return true; }
     public virtual void set_list_visible (bool visible){}
     public virtual void set_throbber_visible (bool visible){}

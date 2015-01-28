@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-03-04 23:39+0000\n"
-"PO-Revision-Date: 2011-04-28 21:53+0000\n"
-"Last-Translator: Pau Iranzo <Unknown>\n"
+"POT-Creation-Date: 2014-02-22 20:34+0000\n"
+"PO-Revision-Date: 2012-08-12 14:07+0000\n"
+"Last-Translator: Javier Antonio Nisa Avila <Unknown>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2014-02-23 07:33+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Synapse"
@@ -27,10 +27,11 @@ msgid "Search everything you do."
 msgstr "Cerqueu tot allò que feu"
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
+#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:244
 msgid "Activate"
 msgstr "Activació"
 
+#. Whooot?! This cannot be true!
 #: ../src/ui/category.vala:31 ../src/ui/category.vala:72
 #: ../src/ui/category.vala:135
 msgid "All"
@@ -50,7 +51,7 @@ msgstr "Aplicacions"
 
 #: ../src/ui/category.vala:73 ../src/ui/category.vala:113
 msgid "Places"
-msgstr ""
+msgstr "Llocs"
 
 #: ../src/ui/category.vala:74 ../src/ui/category.vala:116
 msgid "Documents"
@@ -100,7 +101,7 @@ msgstr ""
 "... o premeu la tecla de cursor cap avall per navegar per les activitats "
 "recents"
 
-#: ../src/ui/view-virgilio.vala:188 ../src/ui/widgets-matchlistview.vala:923
+#: ../src/ui/view-virgilio.vala:204 ../src/ui/widgets-matchlistview.vala:936
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d de %d</b>"
@@ -143,7 +144,7 @@ msgstr "Predeterminat"
 
 #: ../src/ui/settings.vala:169
 msgid "Essential"
-msgstr ""
+msgstr "Essencial"
 
 #: ../src/ui/settings.vala:170
 msgid "Doish"
@@ -155,7 +156,7 @@ msgstr ""
 
 #: ../src/ui/settings.vala:172
 msgid "Virgilio"
-msgstr ""
+msgstr "virgili"
 
 #: ../src/ui/settings.vala:245
 msgid "Execute"
@@ -215,11 +216,12 @@ msgstr "Enganxa"
 
 #: ../src/ui/settings.vala:259
 msgid "Paste current selection"
-msgstr ""
+msgstr "Pegar selecció"
 
 #: ../src/ui/settings.vala:260
+#: ../src/plugins/xnoise-media-player-plugin.vala:129
 msgid "Quit"
-msgstr ""
+msgstr "sortir"
 
 #: ../src/ui/settings.vala:274
 msgid "Shortcut already in use"
@@ -267,23 +269,24 @@ msgstr "Drecera"
 msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr "Feu clic a la drecera que voleu canviar i premeu la drecera nova."
 
-#: ../src/ui/widgets-matchlistview.vala:896
-#: ../src/ui/widgets-matchlistview.vala:910
+#: ../src/ui/widgets-matchlistview.vala:909
+#: ../src/ui/widgets-matchlistview.vala:923
 msgid "No results."
 msgstr "Cap resultat."
 
-#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:928
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 de %d</b>"
 
-#: ../src/ui/utils.vala:115
+#. if is home dir
+#: ../src/ui/utils.vala:132
 msgid "Home"
 msgstr "Inici"
 
-#: ../src/ui/utils.vala:129
+#: ../src/ui/utils.vala:146
 msgid "Root"
-msgstr ""
+msgstr "Arrel"
 
 #: ../src/core/common-actions.vala:77
 msgid "Run"
@@ -293,35 +296,35 @@ msgstr "Executa"
 msgid "Run an application, action or script"
 msgstr "Executa una aplicació, una acció o un script"
 
-#: ../src/core/common-actions.vala:132
+#: ../src/core/common-actions.vala:133
 msgid "Run in Terminal"
 msgstr "Executa a un terminal"
 
-#: ../src/core/common-actions.vala:133
+#: ../src/core/common-actions.vala:134
 msgid "Run application or command in terminal"
 msgstr "Executa l'ordre o aplicació a un terminal"
 
-#: ../src/core/common-actions.vala:180
+#: ../src/core/common-actions.vala:182
 msgid "Open"
 msgstr "Obre"
 
-#: ../src/core/common-actions.vala:181
+#: ../src/core/common-actions.vala:183
 msgid "Open using default application"
 msgstr "Obre fent servir l'aplicació per defecte"
 
-#: ../src/core/common-actions.vala:250
+#: ../src/core/common-actions.vala:252
 msgid "Open folder"
 msgstr "Obre la carpeta"
 
-#: ../src/core/common-actions.vala:251
+#: ../src/core/common-actions.vala:253
 msgid "Open folder containing this file"
 msgstr "Obre la carpeta que conté aquest fitxer"
 
-#: ../src/core/common-actions.vala:290
+#: ../src/core/common-actions.vala:293
 msgid "Copy to Clipboard"
 msgstr "Copia al porta-retalls"
 
-#: ../src/core/common-actions.vala:291
+#: ../src/core/common-actions.vala:294
 msgid "Copy selection to clipboard"
 msgstr "Copia la selecció al porta-retalls"
 
@@ -336,6 +339,7 @@ msgstr "Banshee no està instal·lat"
 
 #: ../src/plugins/banshee-plugin.vala:141
 #: ../src/plugins/rhythmbox-plugin.vala:153
+#: ../src/plugins/xnoise-media-player-plugin.vala:179
 msgid "Play"
 msgstr "Reprodueix"
 
@@ -345,6 +349,7 @@ msgstr "Inicia la reproducció al Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:169
 #: ../src/plugins/rhythmbox-plugin.vala:204
+#: ../src/plugins/xnoise-media-player-plugin.vala:234
 msgid "Pause"
 msgstr "Fes una pausa"
 
@@ -354,6 +359,7 @@ msgstr "Posa en pausa la reproducció al Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:190
 #: ../src/plugins/rhythmbox-plugin.vala:220
+#: ../src/plugins/xnoise-media-player-plugin.vala:259
 msgid "Next"
 msgstr "Següent"
 
@@ -363,6 +369,7 @@ msgstr "Reprodueix la cançó següent a la llista de reproducció del Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:213
 #: ../src/plugins/rhythmbox-plugin.vala:243
+#: ../src/plugins/xnoise-media-player-plugin.vala:285
 msgid "Previous"
 msgstr "Anterior"
 
@@ -401,34 +408,46 @@ msgstr "El bc no està instal·lat"
 
 #: ../src/plugins/chat-actions-plugin.vala:42
 msgid "Open chat"
-msgstr ""
+msgstr "Obrir Chat"
 
 #: ../src/plugins/chat-actions-plugin.vala:43
 msgid "Open a chat with selected contact"
-msgstr ""
+msgstr "Obrir chat amb el contacte seleccionat"
 
 #: ../src/plugins/chat-actions-plugin.vala:66
 msgid "Send a message"
-msgstr ""
+msgstr "Enviar un missatge"
 
 #: ../src/plugins/chat-actions-plugin.vala:67
 msgid "Send a message to the contact"
-msgstr ""
+msgstr "Enviar un missatge al contacte"
 
 #: ../src/plugins/chat-actions-plugin.vala:100
 msgid "Send message to.."
-msgstr ""
+msgstr "Enviar un missatge per"
 
 #: ../src/plugins/chat-actions-plugin.vala:101
 msgid "Send a message to a contact"
-msgstr ""
+msgstr "Enviar un missatge per al contacte"
 
 #: ../src/plugins/chat-actions-plugin.vala:136
 msgid "Chat actions"
-msgstr ""
+msgstr "Accions de chat"
 
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
+msgstr "Obrir el Chat, o enviar un missatge amb el teu IM favorit"
+
+#: ../src/plugins/chromium-plugin.vala:79
+msgid "Chromium Plugin"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:80
+msgid "Browse and open Chromium bookmarks."
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:84
+msgid "Chromium is not installed"
 msgstr ""
 
 #: ../src/plugins/command-plugin.vala:56
@@ -491,16 +510,16 @@ msgstr "Obre els directoris més comuns."
 
 #: ../src/plugins/file-op-plugin.vala:77
 msgid "Rename to"
-msgstr ""
+msgstr "Reanomenar per"
 
 #: ../src/plugins/file-op-plugin.vala:78
 msgid "Rename the file to..."
-msgstr ""
+msgstr "Reanomenar l'arxiu per"
 
 #: ../src/plugins/file-op-plugin.vala:95 ../src/plugins/pidgin-plugin.vala:185
 #, c-format
 msgid "File \"%s\"does not exist."
-msgstr ""
+msgstr "Arxiu \"%s\" no existeix"
 
 #: ../src/plugins/file-op-plugin.vala:107
 #, c-format
@@ -509,11 +528,11 @@ msgstr ""
 
 #: ../src/plugins/file-op-plugin.vala:137
 msgid "File Operations"
-msgstr ""
+msgstr "Operaciò d'arxius"
 
 #: ../src/plugins/file-op-plugin.vala:138
 msgid "Copy, Cut, Paste and Delete files"
-msgstr ""
+msgstr "copiar, cortar, pegar y esborrar arxius"
 
 #: ../src/plugins/gnome-screensaver-plugin.vala:59
 msgid "Lock Screen"
@@ -532,9 +551,10 @@ msgid "Gnome Screen Saver wasn't found"
 msgstr "No s'ha trobat el programa d'estalvi de pantalla"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
-msgid "Improve results returned by the Zeitgeist plugin by looking "
+msgid ""
+"Improve results returned by the Zeitgeist plugin by looking for similar "
+"files on the filesystem."
 msgstr ""
-"Millora els resultats que retorna el connector del Zeitgeist en mirar "
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload to imgur"
@@ -564,11 +584,12 @@ msgstr "Synapse - Imgur"
 
 #: ../src/plugins/imgur-plugin.vala:232
 msgid "Upload to imgur to contact.."
-msgstr ""
+msgstr "pujar a imgur per compartir"
 
 #: ../src/plugins/imgur-plugin.vala:233
 msgid "Upload selection to imgur image sharer, and send the link to contact"
 msgstr ""
+"pujar selecció a imgur per compartir l'imatge, y enviar el link a un contacte"
 
 #: ../src/plugins/imgur-plugin.vala:266
 msgid "Imgur"
@@ -598,16 +619,19 @@ msgstr "Finalitza l'autorització"
 msgid "Find bugs and branches on Launchpad."
 msgstr "Troba errors i branques al Launchpad."
 
+#. project link (lp:synapse)
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
 msgstr "Launchpad: branques Bazaar per %s"
 
+#. series link (lp:synapse/0.3)
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
 msgstr "Launchpad: sèries %s per al projecte %s"
 
+#. branch link (lp:~mhr3/synapse/lp-plugin)
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
@@ -638,6 +662,7 @@ msgstr "No es pot trobar el binari «Ubica»"
 msgid "Search the web."
 msgstr "Cerca al web."
 
+#. keep in sync with the internal XMLs!
 #: ../src/plugins/opensearch.vala:264
 msgid "Google"
 msgstr "Google"
@@ -686,7 +711,7 @@ msgstr ""
 
 #: ../src/plugins/pidgin-plugin.vala:81
 msgid "Pidgin is not installed."
-msgstr ""
+msgstr "Pidgin no es troba instal·lat"
 
 #: ../src/plugins/pidgin-plugin.vala:94
 msgid "Send in chat to.."
@@ -694,7 +719,7 @@ msgstr ""
 
 #: ../src/plugins/pidgin-plugin.vala:95
 msgid "Send selected file within Pidgin"
-msgstr ""
+msgstr "Enviar arxiu seleccionat amb Pidgin"
 
 #: ../src/plugins/rhythmbox-plugin.vala:84
 msgid "Control Rhythmbox and add items to playlists."
@@ -752,11 +777,15 @@ msgstr "Text seleccionat"
 msgid "Connect to host with SSH"
 msgstr "Connecta a l'amfitrió per SSH"
 
+#. description
+#. icon name
+#. reference to this function
+#. true if user's system has all required components which the plugin needs
 #: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr "ssh no està instal·lat"
 
-#: ../src/plugins/ssh-plugin.vala:198
+#: ../src/plugins/ssh-plugin.vala:197
 msgid "Connect with SSH"
 msgstr "Connecta amb SSH"
 
@@ -800,6 +829,66 @@ msgstr "Atura temporalment, hiberna, reinicia o atura el vostre ordinador."
 msgid "ConsoleKit wasn't found"
 msgstr "No s'ha trobat ConsoleKit"
 
+#: ../src/plugins/xnoise-media-player-plugin.vala:59
+msgid "Control Xnoise media player."
+msgstr "Control Xnoise media player"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:63
+msgid "Xnoise is not installed!"
+msgstr "Xnoise no es troba instal·lat"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:130
+msgid "Quit Xnoise"
+msgstr "Esborrar Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:154
+msgid "Raise"
+msgstr "Puja"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:155
+msgid "Show Xnoise"
+msgstr "Visualitzar Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:180
+msgid "Start playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:204
+msgid "TogglePlaying"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:205
+msgid "Start/Pause playback in Xnoise"
+msgstr "Iniciar/parar reproducción en Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:235
+msgid "Pause playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:260
+msgid "Plays the next song in Xnoise's playlist"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:286
+msgid "Plays the previous song in Xnoise's playlist"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:310
+msgid "Stop"
+msgstr "Aturar"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:311
+msgid "Stops the playback of Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:336
+msgid "Play in Xnoise"
+msgstr "Reproduïr en Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:337
+msgid "Queues and plays the song"
+msgstr "Posar a la cola i reproduïr la canció"
+
 #: ../src/plugins/zeitgeist-plugin.vala:158
 msgid "few moments ago"
 msgstr "fa uns moments"
@@ -831,6 +920,10 @@ msgid "%d week ago"
 msgid_plural "%d weeks ago"
 msgstr[0] "fa %d setmana"
 msgstr[1] "fa %d setmanes"
+
+#: ../src/plugins/zeitgeist-plugin.vala:182
+msgid "long time ago"
+msgstr ""
 
 #: ../src/plugins/zeitgeist-plugin.vala:192
 msgid "Search various items logged by Zeitgeist."

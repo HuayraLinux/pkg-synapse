@@ -22,12 +22,29 @@
 
 namespace Synapse.Gui
 {
+  public enum StyleType
+  {
+    BG,
+    FG,
+    BASE,
+    TEXT
+  }
+
+  public enum Mod
+  {
+    NORMAL,
+    LIGHTER,
+    LIGHTEST,
+    DARKER,
+    DARKEST,
+    INVERTED
+  }
+
   namespace Utils
   {
-    private static Gdk.Pixmap transparent_pixmap = null;
     private static string home_directory = null;
     private static long home_directory_length = 0;
-    
+
     public static string markup_string_with_search (string text,
       string pattern, string size = "xx-large", bool show_not_found = false)
     {
@@ -88,23 +105,22 @@ namespace Synapse.Gui
            return markup.printf (Markup.escape_text(text));
       }
     }
-    
+
     public static string get_printable_description (Match match)
     {
-      UriMatch? m = match as UriMatch;
-      
-      if (m == null || m.match_type != MatchType.GENERIC_URI)
+      unowned UriMatch? m = match as UriMatch;
+      if (m == null)
       {
         return match.description; // not an UriMatch
       }
-      
+
       if (!m.uri.has_prefix("file://")) return m.uri; //fix only local files
-      
+
       //unowned string? desc = m.get_data<string> ("printable-description");
       //if (desc != null) return desc; // already fixed
 
       string desc_fixed = m.description;
-      
+
       if (home_directory == null)
       {
         home_directory = Environment.get_home_dir ();
@@ -129,7 +145,7 @@ namespace Synapse.Gui
           desc_fixed = _("Root") + desc_fixed;
         }
       }
-      
+
       // convert "/" to " > "
       string[] parts = Regex.split_simple ("/", desc_fixed);
       desc_fixed = string.joinv (" > ", parts);
@@ -138,7 +154,7 @@ namespace Synapse.Gui
 
       return desc_fixed;
     }
-    
+
     public static void update_layout_rtl (Pango.Layout layout, Gtk.TextDirection rtl)
     {
       /* set_auto_dir (false) to handle mixed rtl/ltr text */
@@ -155,7 +171,7 @@ namespace Synapse.Gui
       }
       layout.context_changed ();
     }
-    
+
     public static void get_draw_position (out int x, out int y,
                                           out int width, out int height,
                                           Pango.Layout layout, bool rtl,
@@ -166,75 +182,68 @@ namespace Synapse.Gui
 
       Pango.Rectangle logical_rect;
       layout.get_pixel_extents (null, out logical_rect);
-      
+
       layout.get_pixel_size (out width, out height);
-      
+
       y = (int) (yalign * (area_height - height));
       x = (int) (xalign * (area_width - width));
-      
+
       if (rtl)
         x = int.min (x, area_width);
       else
         x = int.max (x, 0);
       x -= logical_rect.x;
     }
-    
+
     public static void make_transparent_bg (Gtk.Widget widget)
     {
-      unowned Gdk.Window window = widget.get_window ();
+      var window = widget.get_window ();
       if (window == null) return;
-      
+
       if (widget.is_composited ())
       {
-        if (transparent_pixmap == null)
-        {
-          transparent_pixmap = new Gdk.Pixmap (window, 1, 1, -1);
-          var cr = Gdk.cairo_create (transparent_pixmap);
-          cr.set_operator (Cairo.Operator.CLEAR);
-          cr.paint ();
-        }
-        window.set_back_pixmap (transparent_pixmap, false);
+        window.set_background_rgba ({0, 0, 0, 0});
       }
     }
-    
-    private static void on_style_set (Gtk.Widget widget, Gtk.Style? prev_style)
+
+    private static void on_style_updated (Gtk.Widget widget)
     {
-      if (widget.get_realized ()) 
+      if (widget.get_realized ())
       {
         make_transparent_bg (widget);
         widget.queue_draw ();
       }
     }
-    
+
     private static void on_composited_change (Gtk.Widget widget)
     {
       if (widget.is_composited ()) make_transparent_bg (widget);
-      else widget.modify_bg (Gtk.StateType.NORMAL, null);
+      else widget.override_background_color (Gtk.StateFlags.NORMAL, null);
     }
-    
+
     public static void ensure_transparent_bg (Gtk.Widget widget)
     {
       if (widget.get_realized ()) make_transparent_bg (widget);
-      
+
       widget.realize.disconnect (make_transparent_bg);
-      widget.style_set.disconnect (on_style_set);
+      widget.style_updated.disconnect (on_style_updated);
       widget.composited_changed.disconnect (on_composited_change);
-      
+
       widget.realize.connect (make_transparent_bg);
-      widget.style_set.connect (on_style_set);
+      widget.style_updated.connect (on_style_updated);
       widget.composited_changed.connect (on_composited_change);
     }
-    
-    private static Gdk.Rectangle get_current_monitor_geometry (Gdk.Screen screen) 
+
+    private static Gdk.Rectangle get_current_monitor_geometry (Gdk.Screen screen)
     {
       var display = screen.get_display ();
       int x = 0, y = 0;
       Gdk.Screen screen_for_pointer = null;
-      display.get_pointer (out screen_for_pointer, out x, out y, null);
-      
+      display.get_device_manager ().get_client_pointer ().get_position (out screen_for_pointer, out x, out y);
+
       Gdk.Rectangle rect = {0, 0};
       screen_for_pointer.get_monitor_geometry (screen_for_pointer.get_monitor_at_point (x, y), out rect);
-      
+
       return rect;
     }
     public static void move_window_to_center (Gtk.Window win)
@@ -243,16 +252,12 @@ namespace Synapse.Gui
       if (screen == null)
         return;
       var rect = get_current_monitor_geometry (screen);
-      Gtk.Requisition req = {0, 0};
-      win.size_request (out req);
-      win.move (rect.x + (rect.width - req.width) / 2, rect.y + (rect.height - req.height) / 2);
-    }
 
-    public static void gdk_color_to_rgb (Gdk.Color col, out double r, out double g, out double b)
-    {
-      r = col.red / (double)65535;
-      g = col.green / (double)65535;
-      b = col.blue / (double)65535;
+      int width, height;
+      win.get_preferred_width (out width, null);
+      win.get_preferred_height (out height, null);
+      win.move (rect.x + (rect.width - width) / 2,
+          rect.y + (rect.height - height) / 2);
     }
 
     public static void rgb_invert_color (ref double r, ref double g, ref double b)
@@ -261,7 +266,7 @@ namespace Synapse.Gui
       if (g >= 0.5) g /= 4; else g = 1 - g / 4;
       if (b >= 0.5) b /= 4; else b = 1 - b / 4;
     }
-    
+
     public static void cairo_arrow (Cairo.Context ctx, bool rtl, double x, double y, double w, double h)
     {
       double xh = x + w / 2;
@@ -281,7 +286,7 @@ namespace Synapse.Gui
       }
       ctx.close_path ();
     }
-    
+
     public static void cairo_rounded_rect (Cairo.Context ctx, double x, double y, double w, double h, double r)
     {
       double y2 = y+h, x2 = x+w;
@@ -291,7 +296,7 @@ namespace Synapse.Gui
       ctx.arc (x2-r, y2-r, r, 0, Math.PI * 0.5);
       ctx.arc (x+r, y2-r, r, Math.PI * 0.5, Math.PI);
     }
-    
+
     private static void add_shadow_stops (Cairo.Pattern pat, double r, double g, double b, double size, double alpha)
     {
       /* Let's make a nice shadow */
@@ -326,9 +331,9 @@ namespace Synapse.Gui
          |                       |
          |                       | 3
           \_____________________/  4
-          
+
       x->1 2                    3 4
-      */ 
+      */
       Cairo.Pattern pat;
       /* Top left corner */
       ctx.save ();
@@ -402,42 +407,55 @@ namespace Synapse.Gui
       ctx.clip ();
       ctx.paint ();
       ctx.restore ();
-      
+
       ctx.restore ();
     }
-    public class ColorHelper 
+
+    public class ColorHelper
     {
-      public enum StyleType
-      {
-        BG,
-        FG,
-        BASE,
-        TEXT
-      }
-      public enum Mod
-      {
-        NORMAL,
-        LIGHTER,
-        LIGHTEST,
-        DARKER,
-        DARKEST,
-        INVERTED
-      }
-
       private Gee.Map <string, Color> colormap;
-      private Gtk.Widget widget;
+      private Gtk.StyleContext fg_context;
+      private Gtk.StyleContext bg_context;
 
-      public ColorHelper (Gtk.Widget for_widget)
+      private string current_theme;
+
+      private static ColorHelper? instance = null;
+      public static ColorHelper get_default ()
+      {
+        if (instance == null)
+          instance = new ColorHelper ();
+        return instance;
+      }
+
+      private ColorHelper ()
       {
         this.colormap = new Gee.HashMap <string, Color> ();
-        this.widget = for_widget;
-        this.widget.style_set.connect (()=>{
-          colormap.clear ();
-        });
+
+        //FIXME get ourselves a number of dummy widgets
+        // messing with stylecontexts directly resulted in deep frustation
+        var window = new Gtk.Window ();
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var label = new Gtk.Label (null);
+        window.add (box);
+        box.pack_start (label);
+        fg_context = label.get_style_context ();
+        bg_context = window.get_style_context ();
+
+        current_theme = Gtk.Settings.get_default ().gtk_theme_name;
+        Gtk.Settings.get_default ().notify["gtk-theme-name"].connect (theme_changed);
       }
-      
+
+      private void theme_changed (Object o, ParamSpec p)
+      {
+        var new_theme = ((Gtk.Settings) o).gtk_theme_name;
+        if (new_theme == current_theme)
+          return;
+        current_theme = new_theme;
+        colormap.clear ();
+      }
+
       public void get_color_colorized (ref double red, ref double green, ref double blue,
-                                       StyleType t, Gtk.StateType st, Mod mod = Mod.NORMAL)
+                                       StyleType t, Gtk.StateFlags st, Mod mod = Mod.NORMAL)
       {
         Color col = get_color_from_map (t, st, mod);
         double r = red, g = green, b = blue;
@@ -446,8 +464,8 @@ namespace Synapse.Gui
         green = g;
         blue = b;
       }
-      
-      private Color get_color_from_map (StyleType t, Gtk.StateType st, Mod mod)
+
+      private Color get_color_from_map (StyleType t, Gtk.StateFlags st, Mod mod)
       {
         Color col;
         string key = "%d%d%d".printf (t, st, mod);
@@ -458,17 +476,14 @@ namespace Synapse.Gui
           col = new Color ();
           switch (t)
           {
+            //FIXME no base and foreground colors in gtk3 anymore
             case StyleType.BG:
-              col.init_from_gdk_color (widget.style.bg[st]);
-              break;
-            case StyleType.FG:
-              col.init_from_gdk_color (widget.style.fg[st]);
-              break;
             case StyleType.BASE:
-              col.init_from_gdk_color (widget.style.base[st]);
+              col.init_from_gdk_color (bg_context.get_background_color (st));
               break;
             case StyleType.TEXT:
-              col.init_from_gdk_color (widget.style.text[st]);
+            case StyleType.FG:
+              col.init_from_gdk_color (fg_context.get_color (st));
               break;
           }
           col.apply_mod (mod);
@@ -476,18 +491,21 @@ namespace Synapse.Gui
         }
         return col;
       }
-      public void set_source_rgba (Cairo.Context ctx, double alpha, StyleType t, Gtk.StateType st, Mod mod = Mod.NORMAL)
+
+      public void set_source_rgba (Cairo.Context ctx, double alpha, StyleType t, Gtk.StateFlags st, Mod mod = Mod.NORMAL)
       {
         Color col = get_color_from_map (t, st, mod);
         ctx.set_source_rgba (col.r, col.g, col.b, alpha);
       }
-      public void add_color_stop_rgba (Cairo.Pattern pat, double val, double alpha, StyleType t, Gtk.StateType st, Mod mod = Mod.NORMAL)
+
+      public void add_color_stop_rgba (Cairo.Pattern pat, double val, double alpha, StyleType t, Gtk.StateFlags st, Mod mod = Mod.NORMAL)
       {
         Color col = get_color_from_map (t, st, mod);
         pat.add_color_stop_rgba (val, col.r, col.g, col.b, alpha);
       }
-      public void get_rgb_from_mix (StyleType t, Gtk.StateType st, Mod mod,
-                                    StyleType t2, Gtk.StateType st2, Mod mod2,
+
+      public void get_rgb_from_mix (StyleType t, Gtk.StateFlags st, Mod mod,
+                                    StyleType t2, Gtk.StateFlags st2, Mod mod2,
                                     double mix_pct,
                                     out double r, out double g, out double b)
       {
@@ -495,19 +513,21 @@ namespace Synapse.Gui
         Color col2 = get_color_from_map (t2, st2, mod2);
         col.mix (col2, mix_pct, out r, out g, out b);
       }
-      public void get_rgb (out double r, out double g, out double b, StyleType t, Gtk.StateType st, Mod mod = Mod.NORMAL)
+
+      public void get_rgb (out double r, out double g, out double b, StyleType t, Gtk.StateFlags st, Mod mod = Mod.NORMAL)
       {
         Color col = get_color_from_map (t, st, mod);
         r = col.r;
         g = col.g;
         b = col.b;
       }
-      public bool is_dark_color (StyleType t, Gtk.StateType st, Mod mod = Mod.NORMAL)
+
+      public bool is_dark_color (StyleType t, Gtk.StateFlags st, Mod mod = Mod.NORMAL)
       {
         Color col = get_color_from_map (t, st, mod);
         return col.is_dark_color ();
       }
-      
+
       private class Color
       {
         public double r;
@@ -519,11 +539,13 @@ namespace Synapse.Gui
           this.g = 0;
           this.b = 0;
         }
-        public void init_from_gdk_color (Gdk.Color col)
+        public void init_from_gdk_color (Gdk.RGBA col)
         {
-          gdk_color_to_rgb (col, out this.r, out this.g, out this.b);
+          this.r = col.red;
+          this.g = col.green;
+          this.b = col.blue;
         }
-        
+
         /*
         public void clone (Color col)
         {
@@ -531,7 +553,7 @@ namespace Synapse.Gui
           this.g = col.g;
           this.b = col.b;
         }
-        
+
         public void init_from_rgb (double r, double g, double b)
         {
           this.r = r;
@@ -573,7 +595,7 @@ namespace Synapse.Gui
               break;
           }
         }
-        
+
         public bool is_dark_color ()
         {
           double h;
@@ -583,24 +605,24 @@ namespace Synapse.Gui
           h = r;
           l = g;
           s = b;
-          
+
           murrine_rgb_to_hls (&h, &l, &s);
           return l < 0.40;
         }
-        
+
         public static void colorize (double *r, double *g, double *b,
                                      double cr, double cg, double cb)
         {
           if (!(*r == *g && *g == *b)) return; //nothing to do
           murrine_rgb_to_hls (r, g, b);
           murrine_rgb_to_hls (&cr, &cg, &cb);
-          
+
           *r = cr;
           *b = *b * 0.25 + cb * 0.85;
           *g = *g * 0.4 + cg * 0.6;
-          
+
           murrine_hls_to_rgb (r, g, b);
-        }        
+        }
         /* RGB / HLS utils - from Murrine gtk-engine:
          * Copyright (C) 2006-2007-2008-2009 Andrea Cimitan
          */
@@ -768,7 +790,7 @@ namespace Synapse.Gui
           blue  = b;
 
           murrine_rgb_to_hls (&red, &green, &blue);
-          
+
           k -= 1.0;
 
           green += k;
@@ -791,18 +813,18 @@ namespace Synapse.Gui
         }
       }
     }
-    
+
     public static bool is_point_in_mask (Gtk.Widget w, int x, int y)
     {
-      if (x < 0 || y < 0 || x >= w.allocation.width || y >= w.allocation.height) return false;
+      if (x < 0 || y < 0 || x >= w.get_allocated_width () || y >= w.get_allocated_height ()) return false;
       if (!w.is_composited ()) return true;
-      
+
       // create an image surface to hold the rendered window
-      Cairo.ImageSurface mask = new Cairo.ImageSurface (Cairo.Format.ARGB32, w.allocation.width, w.allocation.height);
+      Cairo.ImageSurface mask = new Cairo.ImageSurface (Cairo.Format.ARGB32, w.get_allocated_width (), w.get_allocated_height ());
       Cairo.Context cr = new Cairo.Context (mask);
       cr.set_operator (Cairo.Operator.SOURCE);
       // copy the window content into the mask
-      Cairo.Context ctx = Gdk.cairo_create (w.window);
+      Cairo.Context ctx = Gdk.cairo_create (w.get_window ());
       cr.set_source_surface (ctx.get_target (), 0 ,0);
       cr.paint ();
       // check if the point alpha is != 0
@@ -819,10 +841,10 @@ namespace Synapse.Gui
       window.get_window ().raise ();
       window.get_window ().focus (timestamp);
 
-      if (Synapse.Utils.Logger.debug_enabled ()) return;
+      if (Synapse.Utils.Logger.DisplayLevel == Synapse.Utils.Logger.LogLevel.DEBUG) return;
       // grab
       int i = 0;
-      Timeout.add (100, ()=>{
+      Timeout.add (100, () => {
         if (i >= 100)
           return false;
         ++i;
@@ -832,31 +854,44 @@ namespace Synapse.Gui
     /* Code from Gnome-Do */
     public static void unpresent_window (Gtk.Window window)
     {
-      if (Synapse.Utils.Logger.debug_enabled ()) return;
+      if (Synapse.Utils.Logger.DisplayLevel == Synapse.Utils.Logger.LogLevel.DEBUG) return;
       uint32 time = Gtk.get_current_event_time();
 
-      Gdk.pointer_ungrab (time);
-      Gdk.keyboard_ungrab (time);
+      var pointer = Gdk.Display.get_default ().get_device_manager ().get_client_pointer ();
+      var keyboard = pointer.associated_device;
+
+      pointer.ungrab (time);
+      if (keyboard != null)
+        keyboard.ungrab (time);
       Gtk.grab_remove (window);
     }
     /* Code from Gnome-Do */
     private static bool try_grab_window (Gtk.Window window)
     {
       uint time = Gtk.get_current_event_time();
-      if (Gdk.pointer_grab (window.get_window(),
+      var pointer = Gdk.Display.get_default ().get_device_manager ().get_client_pointer ();
+      var keyboard = pointer.associated_device;
+
+      if (pointer.grab (window.get_window(),
+            Gdk.GrabOwnership.NONE,
             true,
             Gdk.EventMask.BUTTON_PRESS_MASK |
             Gdk.EventMask.BUTTON_RELEASE_MASK |
             Gdk.EventMask.POINTER_MOTION_MASK,
             null,
-            null,
             time) == Gdk.GrabStatus.SUCCESS)
       {
-        if (Gdk.keyboard_grab (window.get_window(), true, time) == Gdk.GrabStatus.SUCCESS) {
+        if (keyboard != null && keyboard.grab (window.get_window(),
+              Gdk.GrabOwnership.NONE,
+              true,
+              Gdk.EventMask.KEY_PRESS_MASK |
+              Gdk.EventMask.KEY_RELEASE_MASK,
+              null,
+              time) == Gdk.GrabStatus.SUCCESS) {
           Gtk.grab_add (window);
           return true;
         } else {
-          Gdk.pointer_ungrab (time);
+          pointer.ungrab (time);
           return false;
         }
       }

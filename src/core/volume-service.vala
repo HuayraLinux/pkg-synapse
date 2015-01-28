@@ -53,16 +53,13 @@ namespace Synapse
     {
       vm = VolumeMonitor.get ();
 
-      vm.volume_added.connect ((volume) => 
-      {
+      vm.volume_added.connect ((volume) => {
         volumes[volume] = new VolumeObject (volume);
       });
-      vm.volume_removed.connect ((volume) =>
-      {
-        volumes.remove (volume);
+      vm.volume_removed.connect ((volume) => {
+        volumes.unset (volume);
       });
-      vm.mount_added.connect ((mount) => 
-      {
+      vm.mount_added.connect ((mount) => {
         var volume = mount.get_volume ();
         if (volume == null) return;
 
@@ -114,20 +111,8 @@ namespace Synapse
       return null;
     }
 
-    public class VolumeObject: Object, Match, UriMatch
+    public class VolumeObject : UriMatch
     {
-      public string title { get; construct set; }
-      public string description { get; set; }
-      public string icon_name { get; construct set; }
-      public bool has_thumbnail { get; construct set; }
-      public string thumbnail_path { get; construct set; }
-      public MatchType match_type { get; construct set; }
-
-      // UriMatch
-      public string uri { get; set; }
-      public QueryFlags file_type { get; set; }
-      public string mime_type { get; set; }
-
       private ulong changed_signal_id;
 
       private GLib.Volume _volume;
@@ -141,10 +126,12 @@ namespace Synapse
           description = ""; // FIXME
           icon_name = value.get_icon ().to_string ();
           has_thumbnail = false;
-          match_type = value.get_mount () != null ?
-            MatchType.GENERIC_URI : MatchType.ACTION;
+          // FIXME
+          //match_type = value.get_mount () != null ?
+          //  MatchType.GENERIC_URI : MatchType.ACTION;
 
-          if (match_type == MatchType.GENERIC_URI)
+          //if (match_type == MatchType.GENERIC_URI)
+          if (value.get_mount () != null)
           {
             uri = value.get_mount ().get_root ().get_uri ();
             file_type = QueryFlags.PLACES;
@@ -160,7 +147,7 @@ namespace Synapse
             changed_signal_id = _volume.changed.connect (this.update_state);
           }
 
-          Utils.Logger.debug (this, "vo[%p]: %s [%s], has_mount: %d, uri: %s", this, title, icon_name, (value.get_mount () != null ? 1 : 0), uri);
+          debug ("vo[%p]: %s [%s], has_mount: %d, uri: %s", this, title, icon_name, (value.get_mount () != null ? 1 : 0), uri);
         }
       }
 
@@ -183,7 +170,8 @@ namespace Synapse
       {
         if (changed_signal_id != 0)
         {
-          SignalHandler.disconnect (_volume, changed_signal_id);
+          //FIXME leeds to lock up
+          //SignalHandler.disconnect (_volume, changed_signal_id);
           changed_signal_id = 0;
         }
       }

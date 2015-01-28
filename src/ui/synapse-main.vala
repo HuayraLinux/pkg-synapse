@@ -25,7 +25,7 @@ using UI;
 
 namespace Synapse
 {
-  public class UILauncher: GLib.Object
+  public class UILauncher : GLib.Object
   {
     private static bool is_startup = false;
     const OptionEntry[] options =
@@ -38,12 +38,12 @@ namespace Synapse
         null
       }
     };
-    
+
     private SettingsWindow settings;
     private DataSink data_sink;
     private Gui.KeyComboConfig key_combo_config;
     private Gui.CategoryConfig category_config;
-    private GtkHotkey.Info? hotkey;
+    private string current_shortcut;
     private ConfigService config;
 #if HAVE_INDICATOR
     private AppIndicator.Indicator indicator;
@@ -51,7 +51,7 @@ namespace Synapse
     private StatusIcon status_icon;
 #endif
     private Gui.IController controller;
-    
+
     public UILauncher ()
     {
       config = ConfigService.get_default ();
@@ -62,15 +62,16 @@ namespace Synapse
       register_plugins ();
       settings = new SettingsWindow (data_sink, key_combo_config);
       settings.keybinding_changed.connect (this.change_keyboard_shortcut);
-      
+
+      Keybinder.init ();
       bind_keyboard_shortcut ();
-      
-      controller = GLib.Object.new (typeof (Gui.Controller), 
+
+      controller = GLib.Object.new (typeof (Gui.Controller),
                                     "data-sink", data_sink,
                                     "key-combo-config", key_combo_config,
                                     "category-config", category_config) as Gui.IController;
 
-      controller.show_settings_requested.connect (()=>{
+      controller.show_settings_requested.connect (() => {
         settings.show ();
         uint32 timestamp = Gtk.get_current_event_time ();
         /* Make sure that the settings window is showed */
@@ -84,33 +85,34 @@ namespace Synapse
       init_ui (settings.get_current_theme ());
 
       if (!is_startup) controller.summon_or_vanish ();
-      
+
       settings.theme_selected.connect (init_ui);
       init_indicator ();
     }
-    
+
     private void init_ui (Type t)
     {
       controller.set_view (t);
     }
-    
+
     ~UILauncher ()
     {
       config.save ();
     }
-    
+
     private void init_indicator ()
     {
       var indicator_menu = new Gtk.Menu ();
-      var activate_item = new ImageMenuItem.with_label (_ ("Activate"));
+      var activate_item = new ImageMenuItem.with_label (_("Activate"));
       activate_item.set_image (new Gtk.Image.from_stock (Gtk.Stock.EXECUTE, Gtk.IconSize.MENU));
-      activate_item.activate.connect (() =>
-      {
-        show_ui (Gtk.get_current_event_time ());
+      activate_item.activate.connect (() => {
+        show_ui ();
       });
       indicator_menu.append (activate_item);
       var settings_item = new ImageMenuItem.from_stock (Gtk.Stock.PREFERENCES, null);
-      settings_item.activate.connect (() => { settings.show (); });
+      settings_item.activate.connect (() => {
+        settings.show ();
+      });
       indicator_menu.append (settings_item);
       indicator_menu.append (new SeparatorMenuItem ());
       var quit_item = new ImageMenuItem.from_stock (Gtk.Stock.QUIT, null);
@@ -122,36 +124,32 @@ namespace Synapse
       // Why Category.OTHER? See >
       // https://bugs.launchpad.net/synapse-project/+bug/685634/comments/13
       indicator = new AppIndicator.Indicator ("synapse", "synapse",
-                                              AppIndicator.Category.OTHER);
+                                              AppIndicator.IndicatorCategory.OTHER);
 
       indicator.set_menu (indicator_menu);
-      if (settings.indicator_active) indicator.set_status (AppIndicator.Status.ACTIVE);
+      if (settings.indicator_active) indicator.set_status (AppIndicator.IndicatorStatus.ACTIVE);
 
-      settings.notify["indicator-active"].connect (() =>
-      {
+      settings.notify["indicator-active"].connect (() => {
         indicator.set_status (settings.indicator_active ?
-          AppIndicator.Status.ACTIVE : AppIndicator.Status.PASSIVE);
+          AppIndicator.IndicatorStatus.ACTIVE : AppIndicator.IndicatorStatus.PASSIVE);
       });
 #else
       status_icon = new StatusIcon.from_icon_name ("synapse");
 
-      status_icon.popup_menu.connect ((icon, button, event_time) =>
-      {
+      status_icon.popup_menu.connect ((icon, button, event_time) => {
         indicator_menu.popup (null, null, status_icon.position_menu, button, event_time);
       });
-      status_icon.activate.connect (() =>
-      {
-        show_ui (Gtk.get_current_event_time ());
+      status_icon.activate.connect (() => {
+        show_ui ();
       });
       status_icon.set_visible (settings.indicator_active);
-      
-      settings.notify["indicator-active"].connect (() =>
-      {
+
+      settings.notify["indicator-active"].connect (() => {
         status_icon.set_visible (settings.indicator_active);
       });
 #endif
     }
-    
+
     private void register_plugins ()
     {
       // while we don't install proper plugin .so files, we'll do it this way
@@ -164,6 +162,7 @@ namespace Synapse
         // item providing plugins
         typeof (DesktopFilePlugin),
         typeof (HybridSearchPlugin),
+        typeof (GnomeBookmarksPlugin),
         typeof (GnomeSessionPlugin),
         typeof (GnomeScreenSaverPlugin),
         typeof (SystemManagementPlugin),
@@ -176,9 +175,10 @@ namespace Synapse
         typeof (SelectionPlugin),
         typeof (SshPlugin),
         typeof (XnoiseActions),
-        // typeof (FileOpPlugin),
-        // typeof (PidginPlugin),
-        // typeof (ChatActions),
+        typeof (ChromiumPlugin),
+        typeof (FileOpPlugin),
+        typeof (PidginPlugin),
+        typeof (ChatActions),
 #if HAVE_ZEITGEIST
         typeof (ZeitgeistPlugin),
         typeof (ZeitgeistRelated),
@@ -198,83 +198,31 @@ namespace Synapse
         data_sink.register_static_plugin (t);
       }
     }
-    
-    protected void show_ui (uint32 event_time)
+
+    protected void show_ui ()
     {
-      //if (this.ui == null) return;
-      //this.ui.show_hide_with_time (event_time);
       if (this.controller == null) return;
       this.controller.summon_or_vanish ();
     }
-    
+
     private void bind_keyboard_shortcut ()
     {
-      var registry = GtkHotkey.Registry.get_default ();
-      try
-      {
-        if (registry.has_hotkey ("synapse", "activate"))
-        {
-          hotkey = registry.get_hotkey ("synapse", "activate");
-        }
-        else
-        {
-          hotkey = new GtkHotkey.Info ("synapse", "activate",
-                                       "<Control>space", null);
-          registry.store_hotkey (hotkey);
-        }
-        Utils.Logger.log (this, "Binding activation to %s", hotkey.signature);
-        settings.set_keybinding (hotkey.signature, false);
-        hotkey.bind ();
-        hotkey.activated.connect ((event_time) => { this.show_ui (event_time); });
-      }
-      catch (Error err)
-      {
-        warning ("%s", err.message);
-        var d = new MessageDialog (settings.visible ? settings : null, 0, MessageType.ERROR, 
-                                     ButtonsType.CLOSE,
-                                     "%s", err.message);
-        d.run ();
-        d.destroy ();
-      }/* */
+      current_shortcut = key_combo_config.activate;
+      message ("Binding activation to %s", current_shortcut);
+      settings.set_keybinding (current_shortcut, false);
+      Keybinder.bind (current_shortcut, handle_shortcut, this);
     }
-    
+
+    static void handle_shortcut (string key, void* data)
+    {
+      ((UILauncher)data).show_ui ();
+    }
+
     private void change_keyboard_shortcut (string key)
     {
-      var registry = GtkHotkey.Registry.get_default ();
-      try
-      {
-        if (hotkey.is_bound ()) hotkey.unbind ();
-      }
-      catch (Error err)
-      {
-        warning ("%s", err.message);
-      }
-      
-      try
-      {
-        if (registry.has_hotkey ("synapse", "activate"))
-        {
-          registry.delete_hotkey ("synapse", "activate");
-        }
-        
-        if (key != "")
-        {
-          hotkey = new GtkHotkey.Info ("synapse", "activate",
-                                       key, null);
-          registry.store_hotkey (hotkey);
-          hotkey.bind ();
-          hotkey.activated.connect ((event_time) => { this.show_ui (event_time); });
-        }
-      }
-      catch (Error err)
-      {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog (this.settings, 0,
-          Gtk.MessageType.WARNING, Gtk.ButtonsType.OK,
-          "%s", err.message
-        );
-        dialog.run ();
-        dialog.destroy ();
-      }
+      Keybinder.unbind (current_shortcut, handle_shortcut);
+      current_shortcut = key;
+      Keybinder.bind (current_shortcut, handle_shortcut, this);
     }
 
     public void run ()
@@ -286,7 +234,7 @@ namespace Synapse
 
     private static void load_custom_style ()
     {
-      string custom_gtkrc = 
+      string custom_gtkrc =
         Path.build_filename (Environment.get_user_config_dir (),
                              "synapse",
                              "gtkrc");
@@ -316,7 +264,8 @@ namespace Synapse
     }
     public static int main (string[] argv)
     {
-      Utils.Logger.log (null, "Starting up...");
+      Utils.Logger.initialize ();
+      message ("Starting up...");
       ibus_fix ();
       Intl.bindtextdomain ("synapse", Config.DATADIR + "/locale");
       var context = new OptionContext (" - Synapse");
@@ -330,27 +279,19 @@ namespace Synapse
         load_custom_style ();
         Gtk.init (ref argv);
         Notify.init ("synapse");
-        
-        var app = new Unique.App ("org.gnome.Synapse", null);
-        if (app.is_running)
-        {
-          Utils.Logger.log (null, "Synapse is already running, activating...");
-          app.send_message (Unique.Command.ACTIVATE, null);
+
+        var app = new GLib.Application ("org.gnome.Synapse", ApplicationFlags.FLAGS_NONE);
+        if (!app.register () || app.get_is_remote ()) {
+          message ("Synapse is already running, activating...");
+          app.activate ();
         }
         else
         {
           var launcher = new UILauncher ();
-          app.message_received.connect ((cmd, data, event_time) =>
-          {
-            if (cmd == Unique.Command.ACTIVATE)
-            {
-              launcher.show_ui (event_time);
-
-              return Unique.Response.OK;
-            }
-
-            return Unique.Response.PASSTHROUGH;
+          app.activate.connect (() => {
+            launcher.show_ui ();
           });
+
           launcher.run ();
         }
       }

@@ -7,36 +7,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-03-04 23:39+0000\n"
-"PO-Revision-Date: 2011-04-04 14:07+0000\n"
-"Last-Translator: Reda Lazri (rAX) <Unknown>\n"
+"POT-Creation-Date: 2014-02-22 20:34+0000\n"
+"PO-Revision-Date: 2013-09-17 00:52+0000\n"
+"Last-Translator: سند العتيبي <0sanad0@gmail.com>\n"
 "Language-Team: Badry Darkoush\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2014-02-23 07:33+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 "Language: ar\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Synapse"
-msgstr ""
+msgstr "سيّناپس"
 
 #: ../data/synapse.desktop.in.h:2
 msgid "Search everything you do."
 msgstr "ابحث في كل شيء تفعله."
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
+#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:244
 msgid "Activate"
 msgstr "تفعيل"
 
+#. Whooot?! This cannot be true!
 #: ../src/ui/category.vala:31 ../src/ui/category.vala:72
 #: ../src/ui/category.vala:135
 msgid "All"
-msgstr "الجميع"
+msgstr "جميع"
 
 #: ../src/ui/category.vala:69 ../src/ui/category.vala:112
 msgid "Actions"
@@ -44,78 +45,78 @@ msgstr "إجراءات"
 
 #: ../src/ui/category.vala:70 ../src/ui/category.vala:114
 msgid "Audio"
-msgstr "الصوت"
+msgstr "صوت"
 
 #: ../src/ui/category.vala:71 ../src/ui/category.vala:115
 msgid "Applications"
-msgstr "التطبيقات"
+msgstr "تطبيقات"
 
 #: ../src/ui/category.vala:73 ../src/ui/category.vala:113
 msgid "Places"
-msgstr ""
+msgstr "أماكن"
 
 #: ../src/ui/category.vala:74 ../src/ui/category.vala:116
 msgid "Documents"
-msgstr "المستندات"
+msgstr "مستندات"
 
 #: ../src/ui/category.vala:75 ../src/ui/category.vala:117
 msgid "Images"
-msgstr "الصور"
+msgstr "صور"
 
 #: ../src/ui/category.vala:76 ../src/ui/category.vala:118
 msgid "Video"
-msgstr "االمرئيات"
+msgstr "ڤيديو"
 
 #: ../src/ui/category.vala:77 ../src/ui/category.vala:119
 msgid "Internet"
-msgstr "الإنترنت"
+msgstr "إنترنت"
 
 #. _labels.set (QueryFlags.ALL, _("All")); // Do not remove!
 #: ../src/ui/category.vala:111
 msgid "Include remote content"
-msgstr ""
+msgstr "ضمن محتوى بعيد"
 
 #. _labels.set (QueryFlags.FILES, _("Files"));
 #: ../src/ui/category.vala:121
 msgid "Uncategorized"
-msgstr ""
+msgstr "غير مصنف"
 
 #: ../src/ui/controller.vala:30
 msgid "Searching..."
-msgstr "يجري البحث..."
+msgstr "يبحث..."
 
 #: ../src/ui/controller.vala:31
 msgid "No results found."
-msgstr "لم يتم العثور على أي نتيجة."
+msgstr "لا توجد نتائج."
 
 #: ../src/ui/controller.vala:32
 msgid "No recent activities found."
-msgstr "لم يتم العثور على أي أنشطة."
+msgstr "لا توجد نشاطات حديثة."
 
 #: ../src/ui/controller.vala:33
 msgid "Type to search..."
-msgstr "إكتب هنا للبحث..."
+msgstr "أكتب للبحث..."
 
 #: ../src/ui/controller.vala:517
 msgid "...or press down key to browse recent activities"
 msgstr "...أو اضغط اي زر لتصفح آخر الأنشطة"
 
-#: ../src/ui/view-virgilio.vala:188 ../src/ui/widgets-matchlistview.vala:923
+#: ../src/ui/view-virgilio.vala:204 ../src/ui/widgets-matchlistview.vala:936
 #, c-format
 msgid "<b>%d of %d</b>"
-msgstr "<b>%d من %d</b>"
+msgstr "<b>%d of %d</b>"
 
 #: ../src/ui/settings.vala:48
 msgid "Status"
-msgstr "الوضع"
+msgstr "حالة"
 
 #: ../src/ui/settings.vala:50
 msgid "Enable this plugin"
-msgstr "تفعيل هذه الإضافة"
+msgstr "فَعْلّ هذه الإضافة"
 
 #: ../src/ui/settings.vala:51
 msgid "Disable this plugin"
-msgstr "إلغاء تفعيل هذه الإض"
+msgstr "عطلّ هذه الإضافة"
 
 #: ../src/ui/settings.vala:57
 msgid "About this plugin"
@@ -127,43 +128,43 @@ msgstr "ضبط الإضافة"
 
 #: ../src/ui/settings.vala:88 ../src/ui/settings.vala:465
 msgid "Disabled"
-msgstr "`لغاء التفعيل"
+msgstr "مُعَطلّ"
 
 #: ../src/ui/settings.vala:92
 msgid "Enabled"
-msgstr "تفعيل"
+msgstr "مُفَعلّ"
 
 #: ../src/ui/settings.vala:146
 msgid "Synapse - Settings"
-msgstr "إعدادات - Synapse"
+msgstr "إعدادات - سيّناپس"
 
 #: ../src/ui/settings.vala:168
 msgid "Default"
-msgstr "الافتراضي"
+msgstr "إفتراضيّ"
 
 #: ../src/ui/settings.vala:169
 msgid "Essential"
-msgstr ""
+msgstr "أساسية"
 
 #: ../src/ui/settings.vala:170
 msgid "Doish"
-msgstr ""
+msgstr "دوويش"
 
 #: ../src/ui/settings.vala:171
 msgid "Side Doish"
-msgstr ""
+msgstr "الجانب Doish"
 
 #: ../src/ui/settings.vala:172
 msgid "Virgilio"
-msgstr ""
+msgstr "ڤيرجيليو"
 
 #: ../src/ui/settings.vala:245
 msgid "Execute"
-msgstr "تنفيذ"
+msgstr "نفذ"
 
 #: ../src/ui/settings.vala:246
 msgid "Execute without hiding"
-msgstr "تنفيذ بدون إخفاء"
+msgstr "تنفيذ دون إخفاء"
 
 #: ../src/ui/settings.vala:247
 msgid "Alternative Delete"
@@ -215,11 +216,12 @@ msgstr "لصق"
 
 #: ../src/ui/settings.vala:259
 msgid "Paste current selection"
-msgstr ""
+msgstr "لصق التحديد الحالي"
 
 #: ../src/ui/settings.vala:260
+#: ../src/plugins/xnoise-media-player-plugin.vala:129
 msgid "Quit"
-msgstr ""
+msgstr "غادر"
 
 #: ../src/ui/settings.vala:274
 msgid "Shortcut already in use"
@@ -231,33 +233,33 @@ msgstr "عام"
 
 #: ../src/ui/settings.vala:301
 msgid "Plugins"
-msgstr "الإضافات"
+msgstr "ملحقات"
 
 #: ../src/ui/settings.vala:307
 msgid "Behavior & Look"
-msgstr "المظهر و طريقة العمل"
+msgstr "سلوك & مظهر"
 
 #: ../src/ui/settings.vala:319
 msgid "Theme:"
-msgstr "المظهر:"
+msgstr "سِمة:"
 
 #. Autostart checkbox
 #: ../src/ui/settings.vala:324
 msgid "Startup on login"
-msgstr "أبدأ عند نسجيل الدخول"
+msgstr "بدء مع الولوج"
 
 #. Notification icon
 #: ../src/ui/settings.vala:330
 msgid "Show notification icon"
-msgstr "أظهر أيقونة الإشعار"
+msgstr "عرض أيقونة التنبيهات"
 
 #: ../src/ui/settings.vala:345
 msgid "Shortcuts"
-msgstr "الاختصارات"
+msgstr "إختصارات"
 
 #: ../src/ui/settings.vala:367
 msgid "Action"
-msgstr "أفعال"
+msgstr "إجراء"
 
 #: ../src/ui/settings.vala:404
 msgid "Shortcut"
@@ -265,25 +267,26 @@ msgstr "إختصار"
 
 #: ../src/ui/settings.vala:423
 msgid "Click the shortcut you wish to change and press the new shortcut."
-msgstr "اختر الاختصار الذي تود تغييره ثم اختر اختصار جديد."
+msgstr "أنقر على الاختصار الذي ترغب بتغييره ثم أضغط اختصار جديد."
 
-#: ../src/ui/widgets-matchlistview.vala:896
-#: ../src/ui/widgets-matchlistview.vala:910
+#: ../src/ui/widgets-matchlistview.vala:909
+#: ../src/ui/widgets-matchlistview.vala:923
 msgid "No results."
-msgstr "لا يوجد نتائج."
+msgstr "لا توجد نتائج."
 
-#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:928
 #, c-format
 msgid "<b>1 of %d</b>"
-msgstr ""
+msgstr "<b>1 of %d</b>"
 
-#: ../src/ui/utils.vala:115
+#. if is home dir
+#: ../src/ui/utils.vala:132
 msgid "Home"
 msgstr "الصفحة الرئيسية"
 
-#: ../src/ui/utils.vala:129
+#: ../src/ui/utils.vala:146
 msgid "Root"
-msgstr ""
+msgstr "الجذر"
 
 #: ../src/core/common-actions.vala:77
 msgid "Run"
@@ -291,37 +294,37 @@ msgstr "تشغيل"
 
 #: ../src/core/common-actions.vala:78
 msgid "Run an application, action or script"
-msgstr "تشغيل هذا البرنامج, الفعل أو السكربت"
-
-#: ../src/core/common-actions.vala:132
-msgid "Run in Terminal"
-msgstr "التشغيل في الطرفية"
+msgstr "شغل تطبيق، إجراء أو سكربت"
 
 #: ../src/core/common-actions.vala:133
+msgid "Run in Terminal"
+msgstr "شغل في الطرفية"
+
+#: ../src/core/common-actions.vala:134
 msgid "Run application or command in terminal"
-msgstr "تشغيل التطبيق أو الأمر في الطرفية"
+msgstr "شغل تطبيق أو أمر في الطرفية"
 
-#: ../src/core/common-actions.vala:180
+#: ../src/core/common-actions.vala:182
 msgid "Open"
-msgstr "إفتح"
+msgstr "فتح"
 
-#: ../src/core/common-actions.vala:181
+#: ../src/core/common-actions.vala:183
 msgid "Open using default application"
-msgstr "الفتح باستخدام التطبيق الافتراضي"
+msgstr "فتح باستخدام تطبيق الافتراضي"
 
-#: ../src/core/common-actions.vala:250
+#: ../src/core/common-actions.vala:252
 msgid "Open folder"
 msgstr "فتح مجلد"
 
-#: ../src/core/common-actions.vala:251
+#: ../src/core/common-actions.vala:253
 msgid "Open folder containing this file"
-msgstr "فتح المجلد الذي يحوي هذا الملف"
+msgstr "فتح مجلد الذي يحوي هذا ملف"
 
-#: ../src/core/common-actions.vala:290
+#: ../src/core/common-actions.vala:293
 msgid "Copy to Clipboard"
 msgstr "انسخ إلى الحافظة"
 
-#: ../src/core/common-actions.vala:291
+#: ../src/core/common-actions.vala:294
 msgid "Copy selection to clipboard"
 msgstr "انسخ المختار إلى الحافظة"
 
@@ -336,6 +339,7 @@ msgstr "برنامج Banshee ليس مثبت على الجهاز"
 
 #: ../src/plugins/banshee-plugin.vala:141
 #: ../src/plugins/rhythmbox-plugin.vala:153
+#: ../src/plugins/xnoise-media-player-plugin.vala:179
 msgid "Play"
 msgstr "شغّل"
 
@@ -345,8 +349,9 @@ msgstr "أبدأ التشغيل في Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:169
 #: ../src/plugins/rhythmbox-plugin.vala:204
+#: ../src/plugins/xnoise-media-player-plugin.vala:234
 msgid "Pause"
-msgstr "توقيف مؤقت"
+msgstr "ألبث"
 
 #: ../src/plugins/banshee-plugin.vala:170
 msgid "Pause playback in Banshee"
@@ -354,6 +359,7 @@ msgstr "توقيف مؤقت للتشغيل في Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:190
 #: ../src/plugins/rhythmbox-plugin.vala:220
+#: ../src/plugins/xnoise-media-player-plugin.vala:259
 msgid "Next"
 msgstr "التالي"
 
@@ -363,6 +369,7 @@ msgstr "تشغيل الأغنية التالية في قائمة تشغيل Bans
 
 #: ../src/plugins/banshee-plugin.vala:213
 #: ../src/plugins/rhythmbox-plugin.vala:243
+#: ../src/plugins/xnoise-media-player-plugin.vala:285
 msgid "Previous"
 msgstr "السابق"
 
@@ -401,27 +408,27 @@ msgstr "بي-سي ليس منصباً"
 
 #: ../src/plugins/chat-actions-plugin.vala:42
 msgid "Open chat"
-msgstr ""
+msgstr "فتح المحادثة"
 
 #: ../src/plugins/chat-actions-plugin.vala:43
 msgid "Open a chat with selected contact"
-msgstr ""
+msgstr "فتح المحادثة مع الأشخاص المعينة"
 
 #: ../src/plugins/chat-actions-plugin.vala:66
 msgid "Send a message"
-msgstr ""
+msgstr "أرسل رسالة"
 
 #: ../src/plugins/chat-actions-plugin.vala:67
 msgid "Send a message to the contact"
-msgstr ""
+msgstr "إرسال رسالة إلى جهة الإتصال"
 
 #: ../src/plugins/chat-actions-plugin.vala:100
 msgid "Send message to.."
-msgstr ""
+msgstr "أرسل رسالة إلى..."
 
 #: ../src/plugins/chat-actions-plugin.vala:101
 msgid "Send a message to a contact"
-msgstr ""
+msgstr "أرسل رسالة إلى صلة ما"
 
 #: ../src/plugins/chat-actions-plugin.vala:136
 msgid "Chat actions"
@@ -429,6 +436,18 @@ msgstr ""
 
 #: ../src/plugins/chat-actions-plugin.vala:137
 msgid "Open chat, or send a message with your favorite IM"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:79
+msgid "Chromium Plugin"
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:80
+msgid "Browse and open Chromium bookmarks."
+msgstr ""
+
+#: ../src/plugins/chromium-plugin.vala:84
+msgid "Chromium is not installed"
 msgstr ""
 
 #: ../src/plugins/command-plugin.vala:56
@@ -532,8 +551,10 @@ msgid "Gnome Screen Saver wasn't found"
 msgstr "شاشة توقف جنوم غير موجودة"
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
-msgid "Improve results returned by the Zeitgeist plugin by looking "
-msgstr "حِّسن النتائج عن طريق اضافة زيتجيست "
+msgid ""
+"Improve results returned by the Zeitgeist plugin by looking for similar "
+"files on the filesystem."
+msgstr ""
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload to imgur"
@@ -593,16 +614,19 @@ msgstr ""
 msgid "Find bugs and branches on Launchpad."
 msgstr ""
 
+#. project link (lp:synapse)
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
 msgstr ""
 
+#. series link (lp:synapse/0.3)
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
 msgstr ""
 
+#. branch link (lp:~mhr3/synapse/lp-plugin)
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
@@ -633,6 +657,7 @@ msgstr ""
 msgid "Search the web."
 msgstr "أبحث على الويب."
 
+#. keep in sync with the internal XMLs!
 #: ../src/plugins/opensearch.vala:264
 msgid "Google"
 msgstr "Google"
@@ -729,7 +754,7 @@ msgstr "تشغيل في Rhythmbox"
 
 #: ../src/plugins/selection-plugin.vala:55
 msgid "Selection"
-msgstr ""
+msgstr "إختيار"
 
 #. plugin title
 #: ../src/plugins/selection-plugin.vala:56
@@ -738,18 +763,22 @@ msgstr ""
 
 #: ../src/plugins/selection-plugin.vala:81
 msgid "Selected text"
-msgstr ""
+msgstr "النص المحدد"
 
 #. Plugin title
 #: ../src/plugins/ssh-plugin.vala:67
 msgid "Connect to host with SSH"
 msgstr ""
 
+#. description
+#. icon name
+#. reference to this function
+#. true if user's system has all required components which the plugin needs
 #: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr ""
 
-#: ../src/plugins/ssh-plugin.vala:198
+#: ../src/plugins/ssh-plugin.vala:197
 msgid "Connect with SSH"
 msgstr ""
 
@@ -793,6 +822,66 @@ msgstr ""
 msgid "ConsoleKit wasn't found"
 msgstr ""
 
+#: ../src/plugins/xnoise-media-player-plugin.vala:59
+msgid "Control Xnoise media player."
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:63
+msgid "Xnoise is not installed!"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:130
+msgid "Quit Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:154
+msgid "Raise"
+msgstr "رفع"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:155
+msgid "Show Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:180
+msgid "Start playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:204
+msgid "TogglePlaying"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:205
+msgid "Start/Pause playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:235
+msgid "Pause playback in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:260
+msgid "Plays the next song in Xnoise's playlist"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:286
+msgid "Plays the previous song in Xnoise's playlist"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:310
+msgid "Stop"
+msgstr "توقف"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:311
+msgid "Stops the playback of Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:336
+msgid "Play in Xnoise"
+msgstr ""
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:337
+msgid "Queues and plays the song"
+msgstr ""
+
 #: ../src/plugins/zeitgeist-plugin.vala:158
 msgid "few moments ago"
 msgstr "منذ دقائق معدودة"
@@ -825,6 +914,10 @@ msgid_plural "%d weeks ago"
 msgstr[0] "%d أسبوع"
 msgstr[1] "%d أسابيع"
 
+#: ../src/plugins/zeitgeist-plugin.vala:182
+msgid "long time ago"
+msgstr ""
+
 #: ../src/plugins/zeitgeist-plugin.vala:192
 msgid "Search various items logged by Zeitgeist."
 msgstr "البحث ضمن العناصر المسجلة من قبل Zeitgeist."
@@ -844,8 +937,8 @@ msgstr ""
 
 #: ../src/plugins/zeitgeist-related.vala:107
 msgid "Related files"
-msgstr ""
+msgstr "الملفات ذات الصلة"
 
 #: ../src/plugins/zeitgeist-related.vala:108
 msgid "Finds files related to other search results using Zeitgeist."
-msgstr ""
+msgstr "البحث عن الملفات الاخرى ذات الصلة أنظر نتائج البحث باستخدام المنقب."

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-03-04 23:39+0000\n"
-"PO-Revision-Date: 2011-10-08 11:29+0000\n"
-"Last-Translator: Mathieu MD <Unknown>\n"
+"POT-Creation-Date: 2014-02-22 20:34+0000\n"
+"PO-Revision-Date: 2014-04-13 19:33+0000\n"
+"Last-Translator: Aibara Iduas <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2012-03-06 04:58+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2014-04-14 05:46+0000\n"
+"X-Generator: Launchpad (build 16976)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Synapse"
@@ -27,10 +27,11 @@ msgid "Search everything you do."
 msgstr "Recherchez tout ce que vous faites."
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:105 ../src/ui/settings.vala:244
+#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:244
 msgid "Activate"
 msgstr "Activer"
 
+#. Whooot?! This cannot be true!
 #: ../src/ui/category.vala:31 ../src/ui/category.vala:72
 #: ../src/ui/category.vala:135
 msgid "All"
@@ -99,7 +100,7 @@ msgid "...or press down key to browse recent activities"
 msgstr ""
 "... ou appuyez sur la touche bas pour naviguer dans les activités récentes"
 
-#: ../src/ui/view-virgilio.vala:188 ../src/ui/widgets-matchlistview.vala:923
+#: ../src/ui/view-virgilio.vala:204 ../src/ui/widgets-matchlistview.vala:936
 #, c-format
 msgid "<b>%d of %d</b>"
 msgstr "<b>%d de %d</b>"
@@ -217,6 +218,7 @@ msgid "Paste current selection"
 msgstr "Coller la sélection actuelle"
 
 #: ../src/ui/settings.vala:260
+#: ../src/plugins/xnoise-media-player-plugin.vala:129
 msgid "Quit"
 msgstr "Quitter"
 
@@ -267,21 +269,22 @@ msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr ""
 "Cliquez sur le raccourci que vous voulez changer et appuyez sur le nouveau."
 
-#: ../src/ui/widgets-matchlistview.vala:896
-#: ../src/ui/widgets-matchlistview.vala:910
+#: ../src/ui/widgets-matchlistview.vala:909
+#: ../src/ui/widgets-matchlistview.vala:923
 msgid "No results."
 msgstr "Aucun résultat."
 
-#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:928
 #, c-format
 msgid "<b>1 of %d</b>"
 msgstr "<b>1 de %d</b>"
 
-#: ../src/ui/utils.vala:115
+#. if is home dir
+#: ../src/ui/utils.vala:132
 msgid "Home"
-msgstr "Dossier Personnel"
+msgstr "Dossier personnel"
 
-#: ../src/ui/utils.vala:129
+#: ../src/ui/utils.vala:146
 msgid "Root"
 msgstr "Dossier racine"
 
@@ -293,35 +296,35 @@ msgstr "Exécuter"
 msgid "Run an application, action or script"
 msgstr "Exécuter une application, une action ou un script"
 
-#: ../src/core/common-actions.vala:132
+#: ../src/core/common-actions.vala:133
 msgid "Run in Terminal"
 msgstr "Exécuter dans un terminal"
 
-#: ../src/core/common-actions.vala:133
+#: ../src/core/common-actions.vala:134
 msgid "Run application or command in terminal"
 msgstr "Exécuter l'application ou la commande dans le terminal"
 
-#: ../src/core/common-actions.vala:180
+#: ../src/core/common-actions.vala:182
 msgid "Open"
 msgstr "Ouvrir"
 
-#: ../src/core/common-actions.vala:181
+#: ../src/core/common-actions.vala:183
 msgid "Open using default application"
 msgstr "Ouvrir en utilisant l'application par défaut"
 
-#: ../src/core/common-actions.vala:250
+#: ../src/core/common-actions.vala:252
 msgid "Open folder"
 msgstr "Ouvrir le dossier"
 
-#: ../src/core/common-actions.vala:251
+#: ../src/core/common-actions.vala:253
 msgid "Open folder containing this file"
 msgstr "Ouvrir le dossier contenant ce fichier"
 
-#: ../src/core/common-actions.vala:290
+#: ../src/core/common-actions.vala:293
 msgid "Copy to Clipboard"
 msgstr "Copier vers le presse-papiers"
 
-#: ../src/core/common-actions.vala:291
+#: ../src/core/common-actions.vala:294
 msgid "Copy selection to clipboard"
 msgstr "Copier la sélection vers le presse-papier"
 
@@ -336,6 +339,7 @@ msgstr "Banshee n'est pas installé"
 
 #: ../src/plugins/banshee-plugin.vala:141
 #: ../src/plugins/rhythmbox-plugin.vala:153
+#: ../src/plugins/xnoise-media-player-plugin.vala:179
 msgid "Play"
 msgstr "Lecture"
 
@@ -345,6 +349,7 @@ msgstr "Lancez la lecture dans Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:169
 #: ../src/plugins/rhythmbox-plugin.vala:204
+#: ../src/plugins/xnoise-media-player-plugin.vala:234
 msgid "Pause"
 msgstr "Pause"
 
@@ -354,6 +359,7 @@ msgstr "Pause de la lecture dans Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:190
 #: ../src/plugins/rhythmbox-plugin.vala:220
+#: ../src/plugins/xnoise-media-player-plugin.vala:259
 msgid "Next"
 msgstr "Suivant"
 
@@ -363,6 +369,7 @@ msgstr "Joue le morceau suivant de la playlist de Banshee"
 
 #: ../src/plugins/banshee-plugin.vala:213
 #: ../src/plugins/rhythmbox-plugin.vala:243
+#: ../src/plugins/xnoise-media-player-plugin.vala:285
 msgid "Previous"
 msgstr "Précédent"
 
@@ -431,6 +438,18 @@ msgstr "Action de discussion"
 msgid "Open chat, or send a message with your favorite IM"
 msgstr ""
 "Ouvrir le chat / envoyer un message avec votre messagerie instantanée"
+
+#: ../src/plugins/chromium-plugin.vala:79
+msgid "Chromium Plugin"
+msgstr "Plugin Chromium"
+
+#: ../src/plugins/chromium-plugin.vala:80
+msgid "Browse and open Chromium bookmarks."
+msgstr "Naviguer et ouvrir les marque-pages de Chrome."
+
+#: ../src/plugins/chromium-plugin.vala:84
+msgid "Chromium is not installed"
+msgstr "Chromium n'est pas installé"
 
 #: ../src/plugins/command-plugin.vala:56
 msgid "Run command"
@@ -533,9 +552,12 @@ msgid "Gnome Screen Saver wasn't found"
 msgstr "L'économiseur d'écran Gnome n'a pas été trouvé."
 
 #: ../src/plugins/hybrid-search-plugin.vala:86
-msgid "Improve results returned by the Zeitgeist plugin by looking "
+msgid ""
+"Improve results returned by the Zeitgeist plugin by looking for similar "
+"files on the filesystem."
 msgstr ""
-"Améliorer les résultats retournés par le plugin Zeitgeist en recherchant "
+"Améliorer les résultats renvoyés par le plugin Zeitgeist par la recherche de "
+"fichiers similaires sur le système de fichiers."
 
 #: ../src/plugins/imgur-plugin.vala:51
 msgid "Upload to imgur"
@@ -603,16 +625,19 @@ msgstr "Terminer l'autorisation"
 msgid "Find bugs and branches on Launchpad."
 msgstr "Trouver des bogues et des branches sur Launchpad"
 
+#. project link (lp:synapse)
 #: ../src/plugins/launchpad-plugin.vala:312
 #, c-format
 msgid "Launchpad: Bazaar branches for %s"
 msgstr "Launchpad: Branches Bazaar pour %s"
 
+#. series link (lp:synapse/0.3)
 #: ../src/plugins/launchpad-plugin.vala:319
 #, c-format
 msgid "Launchpad: Series %s for Project %s"
 msgstr "Launchpad: Série %s pour project %s"
 
+#. branch link (lp:~mhr3/synapse/lp-plugin)
 #: ../src/plugins/launchpad-plugin.vala:326
 #, c-format
 msgid "Launchpad: Bazaar branch %s"
@@ -645,6 +670,7 @@ msgstr "Impossible de tourver le binaire \"locate\""
 msgid "Search the web."
 msgstr "Rechercher sur le Web"
 
+#. keep in sync with the internal XMLs!
 #: ../src/plugins/opensearch.vala:264
 msgid "Google"
 msgstr "Google"
@@ -757,11 +783,15 @@ msgstr "Texte sélectionné"
 msgid "Connect to host with SSH"
 msgstr "Se connecter à l'hôte avec SSH"
 
+#. description
+#. icon name
+#. reference to this function
+#. true if user's system has all required components which the plugin needs
 #: ../src/plugins/ssh-plugin.vala:72
 msgid "ssh is not installed"
 msgstr "SSH n'est pas installé"
 
-#: ../src/plugins/ssh-plugin.vala:198
+#: ../src/plugins/ssh-plugin.vala:197
 msgid "Connect with SSH"
 msgstr "Se connecter en SSH"
 
@@ -805,6 +835,66 @@ msgstr "Mettre en veille, hiberner, redémarrer ou éteindre votre ordinateur."
 msgid "ConsoleKit wasn't found"
 msgstr "ConsoleKit est introuvable"
 
+#: ../src/plugins/xnoise-media-player-plugin.vala:59
+msgid "Control Xnoise media player."
+msgstr "Contrôle du lecteur multimédia Xnoise."
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:63
+msgid "Xnoise is not installed!"
+msgstr "Xnoise n'est pas installé!"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:130
+msgid "Quit Xnoise"
+msgstr "Quitter Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:154
+msgid "Raise"
+msgstr "Augmenter"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:155
+msgid "Show Xnoise"
+msgstr "Afficher Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:180
+msgid "Start playback in Xnoise"
+msgstr "Démarrer la lecture dans Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:204
+msgid "TogglePlaying"
+msgstr "Mettre en pause"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:205
+msgid "Start/Pause playback in Xnoise"
+msgstr "Lire/Pause la lecture dans Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:235
+msgid "Pause playback in Xnoise"
+msgstr "Mettre en pause la lecture dans Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:260
+msgid "Plays the next song in Xnoise's playlist"
+msgstr "Lire le morceau suivant de la liste de lecture de Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:286
+msgid "Plays the previous song in Xnoise's playlist"
+msgstr "Lire le morceau précédant de la liste de lecture de Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:310
+msgid "Stop"
+msgstr "Arréter"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:311
+msgid "Stops the playback of Xnoise"
+msgstr "Arrêter la lecture dans Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:336
+msgid "Play in Xnoise"
+msgstr "Lire dans Xnoise"
+
+#: ../src/plugins/xnoise-media-player-plugin.vala:337
+msgid "Queues and plays the song"
+msgstr "Mettre dans la file et lire le morceau"
+
 #: ../src/plugins/zeitgeist-plugin.vala:158
 msgid "few moments ago"
 msgstr "il y a peu de temps"
@@ -836,6 +926,10 @@ msgid "%d week ago"
 msgid_plural "%d weeks ago"
 msgstr[0] "il y a %d semaine"
 msgstr[1] "il y a %d semaines"
+
+#: ../src/plugins/zeitgeist-plugin.vala:182
+msgid "long time ago"
+msgstr "très longtemps"
 
 #: ../src/plugins/zeitgeist-plugin.vala:192
 msgid "Search various items logged by Zeitgeist."

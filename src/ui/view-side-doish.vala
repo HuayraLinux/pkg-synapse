@@ -28,9 +28,9 @@ namespace Synapse.Gui
   public class ViewSideDoish : Synapse.Gui.View
   {
     construct {
-      
+
     }
-    
+
     static construct
     {
       /* Override here style properties */
@@ -65,24 +65,20 @@ namespace Synapse.Gui
       install_style_property (width);
       install_style_property (spacing);
     }
-    
-    public override void style_set (Gtk.Style? old)
+
+    public override void style_updated ()
     {
-      base.style_set (old);
+      base.style_updated ();
 
       int spacing, icon_size, width;
       string tmax, tmin, dmax, dmin;
-      this.style.get (typeof(Synapse.Gui.ViewSideDoish), "ui-width", out width);
-      this.style.get (typeof(Synapse.Gui.ViewSideDoish), "pane-spacing", out spacing);
-      this.style.get (typeof(Synapse.Gui.ViewSideDoish), "icon-size", out icon_size);
-      this.style.get (typeof(Synapse.Gui.ViewSideDoish), "title-size", out tmax);
-      this.style.get (typeof(Synapse.Gui.ViewSideDoish), "title-min-size", out tmin);
-      this.style.get (typeof(Synapse.Gui.ViewSideDoish), "description-size", out dmax);
-      this.style.get (typeof(Synapse.Gui.ViewSideDoish), "description-min-size", out dmin);
-      
+      style_get ("ui-width", out width, "pane-spacing", out spacing, "icon-size", out icon_size,
+          "title-size", out tmax, "title-min-size", out tmin, "description-size", out dmax,
+          "description-min-size", out dmin);
+
       sp1.set_size_request (spacing, -1);
       sp2.set_size_request (spacing, -1);
-      
+
       container.set_size_request (width, -1);
       action_label.set_size_request ((width - spacing) / 2 - icon_size - 10, -1);
       target_container.set_size_request (width / 2, -1);
@@ -100,34 +96,34 @@ namespace Synapse.Gui
       description_label.size = SmartLabel.string_to_size (dmax);
       description_label.min_size = SmartLabel.string_to_size (dmin);
     }
-    
+
     private NamedIcon source_icon;
     private NamedIcon action_icon;
     private NamedIcon target_icon;
-    
+
     private SmartLabel source_label;
     private SmartLabel action_label;
     private SmartLabel target_label;
     private SmartLabel description_label;
 
     private SelectionContainer results_container;
-    
+
     private ResultBox results_sources;
     private ResultBox results_actions;
     private ResultBox results_targets;
-    
+
     private MenuThrobber menuthrobber;
-    
+
     private Box target_container;
     private Box container;
-    
+
     private Box spane; //source and action panes
     private Box apane;
     private Box tpane;
-    
+
     private Label sp1;
     private Label sp2;
-    
+
     protected override void build_ui ()
     {
       /* Icons */
@@ -137,89 +133,88 @@ namespace Synapse.Gui
       source_icon.set_icon_name ("search", IconSize.DND);
       action_icon.clear ();
       target_icon.set_icon_name ("");
-      
+
       source_icon.set_pixel_size (48);
       action_icon.set_pixel_size (48);
       target_icon.set_pixel_size (48);
-      
+
       /* Labels */
       source_label = new SmartLabel ();
       source_label.set_ellipsize (Pango.EllipsizeMode.END);
       source_label.size = SmartLabel.Size.MEDIUM;
       source_label.min_size = SmartLabel.Size.SMALL;
-      source_label.set_state (StateType.SELECTED);
+      source_label.set_state_flags (StateFlags.SELECTED, false);
       source_label.xalign = 0.0f;
       source_label.yalign = 0.5f;
       action_label = new SmartLabel ();
       action_label.set_ellipsize (Pango.EllipsizeMode.END);
       action_label.size = SmartLabel.Size.MEDIUM;
       action_label.min_size = SmartLabel.Size.SMALL;
-      action_label.set_state (StateType.SELECTED);
+      action_label.set_state_flags (StateFlags.SELECTED, false);
       action_label.xalign = 0.0f;
       action_label.yalign = 0.5f;
       target_label = new SmartLabel ();
       target_label.set_ellipsize (Pango.EllipsizeMode.END);
       target_label.size = SmartLabel.Size.MEDIUM;
       target_label.min_size = SmartLabel.Size.SMALL;
-      target_label.set_state (StateType.SELECTED);
+      target_label.set_state_flags (StateFlags.SELECTED, false);
       target_label.xalign = 0.0f;
       target_label.yalign = 0.5f;
       description_label = new SmartLabel ();
       description_label.size = SmartLabel.Size.SMALL;
       description_label.set_animation_enabled (true);
-      description_label.set_state (StateType.SELECTED);
+      description_label.set_state_flags (StateFlags.SELECTED, false);
       description_label.xalign = 0.5f;
-      
+
       /* Categories - Throbber and menu */ //#0C71D6
-      var categories_hbox = new HBox (false, 0);
+      var categories_hbox = new Box (Gtk.Orientation.HORIZONTAL, 0);
 
       menuthrobber = new MenuThrobber ();
-      menuthrobber.set_state (StateType.SELECTED);
+      menuthrobber.set_state_flags (StateFlags.SELECTED, false);
       menu = (MenuButton) menuthrobber;
       menuthrobber.set_size_request (14, 14);
-      menuthrobber.button_scale = 0.75;
 
       categories_hbox.pack_start (flag_selector);
       categories_hbox.pack_start (menuthrobber, false);
 
       flag_selector.selected_markup = "<span size=\"small\"><b>%s</b></span>";
       flag_selector.unselected_markup = "<span size=\"x-small\">%s</span>";
-      flag_selector.set_state (StateType.SELECTED);
+      flag_selector.set_state_flags (StateFlags.SELECTED, false);
 
-      var hbox_panes = new HBox (false, 0);
+      var hbox_panes = new Box (Gtk.Orientation.HORIZONTAL, 0);
 
       /* PANES */
       sp1 = new Label (null);
       sp2 = new Label (null);
 
       /* Source Pane */
-      spane = new HBox (false, 0);
+      spane = new Box (Gtk.Orientation.HORIZONTAL, 0);
       spane.border_width = 5;
       var sensitive = new SensitiveWidget (source_icon);
       this.make_draggable (sensitive);
       spane.pack_start (sensitive, false);
       spane.pack_start (source_label, true, true, 3);
-      
+
       /* Action Pane */
-      apane = new HBox (false, 0);
+      apane = new Box (Gtk.Orientation.HORIZONTAL, 0);
       apane.border_width = 5;
       apane.pack_start (action_icon, false);
       apane.pack_start (action_label, false, false, 3);
-      
+
       hbox_panes.pack_start (spane, true);
       hbox_panes.pack_start (sp1, false);
       hbox_panes.pack_start (apane, false);
 
       /* Target Pane */
-      tpane = new HBox (false, 0);
+      tpane = new Box (Gtk.Orientation.HORIZONTAL, 0);
       tpane.border_width = 5;
       sensitive = new SensitiveWidget (target_icon);
       this.make_draggable (sensitive);
       tpane.pack_start (sensitive, false);
       tpane.pack_start (target_label, true, true, 3);
-      
-      target_container = new VBox (false, 0);
-      var hb = new HBox (false, 0);
+
+      target_container = new Box (Gtk.Orientation.VERTICAL, 0);
+      var hb = new Box (Gtk.Orientation.HORIZONTAL, 0);
       hb.pack_start (sp2, false);
       hb.pack_start (tpane);
       target_container.pack_start (new CloneWidget (categories_hbox), false);
@@ -228,40 +223,40 @@ namespace Synapse.Gui
 
       /* list */
       this.prepare_results_container (out results_container, out results_sources,
-                                      out results_actions, out results_targets, StateType.SELECTED);
+                                      out results_actions, out results_targets, StateFlags.SELECTED);
 
-      container = new VBox (false, 0);
+      container = new Box (Gtk.Orientation.VERTICAL, 0);
       container.pack_start (categories_hbox, false);
       container.pack_start (hbox_panes, false, true, 5);
       container.pack_start (description_label, false);
       container.pack_start (spacer, false);
       container.pack_start (results_container, false);
-      
-      var main_container = new HBox (false, 0);
+
+      var main_container = new Box (Gtk.Orientation.HORIZONTAL, 0);
       main_container.pack_start (container, false);
       main_container.pack_start (target_container, false);
-      
+
       main_container.show_all ();
       results_container.hide ();
-      
+
       this.add (main_container);
     }
-    
+
     public override bool is_list_visible ()
     {
       return results_container.visible;
     }
-    
+
     public override void set_list_visible (bool visible)
     {
       results_container.visible = visible;
     }
-    
+
     public override void set_throbber_visible (bool visible)
     {
       menuthrobber.active = visible;
     }
-    
+
     public override void update_searching_for ()
     {
       update_labels ();
@@ -269,66 +264,78 @@ namespace Synapse.Gui
       action_label.visible = model.searching_for > SearchingFor.SOURCES;
       queue_draw ();
     }
-    
+
     public override void update_selected_category ()
     {
       flag_selector.selected = model.selected_category;
     }
-    
+
     protected override void paint_background (Cairo.Context ctx)
     {
       bool comp = this.is_composited ();
       double r = 0, b = 0, g = 0;
 
+      Gtk.Allocation spacer_allocation, flag_selector_allocation,
+        spane_allocation, apane_allocation, target_container_allocation,
+        tpane_allocation;
+      spacer.get_allocation (out spacer_allocation);
+      flag_selector.get_allocation (out flag_selector_allocation);
+      spane.get_allocation (out spane_allocation);
+      apane.get_allocation (out apane_allocation);
+      target_container.get_allocation (out target_container_allocation);
+      tpane.get_allocation (out tpane_allocation);
+
       if (is_list_visible () || (!comp))
       {
         if (comp && is_list_visible ())
         {
+          Gtk.Allocation results_container_allocation;
+          results_container.get_allocation (out results_container_allocation);
           ctx.translate (0.5, 0.5);
           ctx.set_operator (Operator.OVER);
-          Utils.cairo_make_shadow_for_rect (ctx, results_container.allocation.x,
-                                                 results_container.allocation.y,
-                                                 results_container.allocation.width - 1,
-                                                 results_container.allocation.height - 1,
+          Utils.cairo_make_shadow_for_rect (ctx, results_container_allocation.x,
+                                                 results_container_allocation.y,
+                                                 results_container_allocation.width - 1,
+                                                 results_container_allocation.height - 1,
                                                  0, r, g, b, SHADOW_SIZE);
           ctx.translate (-0.5, -0.5);
         }
         ctx.set_operator (Operator.SOURCE);
-        ch.set_source_rgba (ctx, 1.0, ch.StyleType.BASE, Gtk.StateType.NORMAL);
-        ctx.rectangle (spacer.allocation.x, spacer.allocation.y + BORDER_RADIUS, spacer.allocation.width, SHADOW_SIZE);
+        ch.set_source_rgba (ctx, 1.0, StyleType.BASE, Gtk.StateFlags.NORMAL);
+        ctx.rectangle (spacer_allocation.x, spacer_allocation.y + BORDER_RADIUS, spacer_allocation.width, SHADOW_SIZE);
         ctx.fill ();
       }
 
-      int width = this.allocation.width;
-      int height = spacer.allocation.y + BORDER_RADIUS + SHADOW_SIZE;
-      
+      int width = this.get_allocated_width ();
+      int height = spacer_allocation.y + BORDER_RADIUS + SHADOW_SIZE;
+
       // pattern
       Pattern pat = new Pattern.linear(0, 0, 0, height);
       r = g = b = 0.12;
-      ch.get_color_colorized (ref r, ref g, ref b, ch.StyleType.BG, StateType.SELECTED);
+      ch.get_color_colorized (ref r, ref g, ref b, StyleType.BG, StateFlags.SELECTED);
       pat.add_color_stop_rgba (0.0, r, g, b, 0.95);
       r = g = b = 0.4;
-      ch.get_color_colorized (ref r, ref g, ref b, ch.StyleType.BG, StateType.SELECTED);
+      ch.get_color_colorized (ref r, ref g, ref b, StyleType.BG, StateFlags.SELECTED);
       pat.add_color_stop_rgba (1.0, r, g, b, 1.0);
-      
+
       r = g = b = 0.0;
 
       if (target_container.visible)
       {
-        width -= target_container.allocation.width;
+        width -= target_container_allocation.width;
         // draw background
         ctx.save ();
         ctx.translate (0.5, 0.5);
         ctx.set_operator (Operator.OVER);
-        Utils.cairo_make_shadow_for_rect (ctx, target_container.allocation.x - BORDER_RADIUS, 
-                                               tpane.allocation.y,
-                                               target_container.allocation.width - 1 + BORDER_RADIUS,
-                                               tpane.allocation.height - 1, 15, r, g, b, SHADOW_SIZE);
+        Utils.cairo_make_shadow_for_rect (ctx, target_container_allocation.x - BORDER_RADIUS,
+                                               tpane_allocation.y,
+                                               target_container_allocation.width - 1 + BORDER_RADIUS,
+                                               tpane_allocation.height - 1, 15, r, g, b, SHADOW_SIZE);
         ctx.translate (-0.5, -0.5);
-        Utils.cairo_rounded_rect (ctx, target_container.allocation.x - BORDER_RADIUS, 
-                                       tpane.allocation.y,
-                                       target_container.allocation.width + BORDER_RADIUS,
-                                       tpane.allocation.height, 15);
+        Utils.cairo_rounded_rect (ctx, target_container_allocation.x - BORDER_RADIUS,
+                                       tpane_allocation.y,
+                                       target_container_allocation.width + BORDER_RADIUS,
+                                       tpane_allocation.height, 15);
         ctx.set_operator (Operator.SOURCE);
         ctx.set_source (pat);
         ctx.clip ();
@@ -336,22 +343,22 @@ namespace Synapse.Gui
         if (model.searching_for == SearchingFor.TARGETS)
         {
           ctx.set_operator (Cairo.Operator.OVER);
-          Utils.cairo_rounded_rect (ctx, tpane.allocation.x,
-                                         tpane.allocation.y,
-                                         tpane.allocation.width,
-                                         tpane.allocation.height,
+          Utils.cairo_rounded_rect (ctx, tpane_allocation.x - tpane.border_width,
+                                         tpane_allocation.y - tpane.border_width,
+                                         tpane_allocation.width + tpane.border_width * 2,
+                                         tpane_allocation.height + tpane.border_width * 2,
                                          15);
           ch.set_source_rgba (ctx, 0.3,
-                              ch.StyleType.FG, StateType.SELECTED);
+                              StyleType.FG, StateFlags.SELECTED);
           ctx.clip ();
           ctx.paint ();
         }
         ctx.restore ();
       }
 
-      int delta = flag_selector.allocation.y - BORDER_RADIUS;
+      int delta = flag_selector_allocation.y - BORDER_RADIUS;
       if (!comp) delta = 0;
-      
+
       ctx.save ();
       ctx.translate (SHADOW_SIZE, delta);
       width -= SHADOW_SIZE * 2;
@@ -361,13 +368,13 @@ namespace Synapse.Gui
       ctx.set_operator (Operator.OVER);
       Utils.cairo_make_shadow_for_rect (ctx, 0, 0, width - 1, height - 1, BORDER_RADIUS, r, g, b, SHADOW_SIZE);
       ctx.translate (-0.5, -0.5);
-      
+
       Utils.cairo_rounded_rect (ctx, 0, 0, width, height, BORDER_RADIUS);
       ctx.set_source (pat);
       ctx.set_operator (Operator.SOURCE);
       ctx.clip ();
       ctx.paint ();
-      
+
       // reflection
       ctx.set_operator (Operator.OVER);
       ctx.new_path ();
@@ -385,34 +392,34 @@ namespace Synapse.Gui
       ctx.paint ();
 
       ctx.restore ();
-      
+
       // icon bgs
       ctx.set_operator (Operator.OVER);
       ctx.save ();
-      Utils.cairo_rounded_rect (ctx, spane.allocation.x,
-                                     spane.allocation.y,
-                                     spane.allocation.width,
-                                     spane.allocation.height,
+      Utils.cairo_rounded_rect (ctx, spane_allocation.x - spane.border_width,
+                                     spane_allocation.y - spane.border_width,
+                                     spane_allocation.width + spane.border_width * 2,
+                                     spane_allocation.height + spane.border_width * 2,
                                      15);
       ch.set_source_rgba (ctx, model.searching_for == SearchingFor.SOURCES ? 0.3 : 0.08,
-                          ch.StyleType.FG, StateType.SELECTED);
+                          StyleType.FG, StateFlags.SELECTED);
       ctx.clip ();
       ctx.paint ();
       ctx.restore ();
-      
+
       ctx.save ();
-      Utils.cairo_rounded_rect (ctx, apane.allocation.x,
-                                     apane.allocation.y,
-                                     apane.allocation.width,
-                                     apane.allocation.height,
+      Utils.cairo_rounded_rect (ctx, apane_allocation.x - apane.border_width,
+                                     apane_allocation.y - apane.border_width,
+                                     apane_allocation.width + apane.border_width * 2,
+                                     apane_allocation.height + apane.border_width * 2,
                                      15);
       ch.set_source_rgba (ctx, model.searching_for == SearchingFor.ACTIONS ? 0.3 : 0.08,
-                          ch.StyleType.FG, StateType.SELECTED);
+                          StyleType.FG, StateFlags.SELECTED);
       ctx.clip ();
       ctx.paint ();
       ctx.restore ();
     }
-    
+
     private void update_labels ()
     {
       var focus = model.get_actual_focus ();
@@ -420,19 +427,19 @@ namespace Synapse.Gui
       {
         if (controller.is_in_initial_state ())
         {
-          source_label.set_text (controller.TYPE_TO_SEARCH);
-          description_label.set_text (controller.DOWN_TO_SEE_RECENT);
+          source_label.set_text (IController.TYPE_TO_SEARCH);
+          description_label.set_text (IController.DOWN_TO_SEE_RECENT);
         }
         else if (controller.searched_for_recent ())
         {
-          description_label.set_text (controller.NO_RECENT_ACTIVITIES);
+          description_label.set_text (IController.NO_RECENT_ACTIVITIES);
         }
         else
         {
           if (this.menuthrobber.active)
-            description_label.set_text (controller.SEARCHING);
+            description_label.set_text (IController.SEARCHING);
           else
-            description_label.set_text (controller.NO_RESULTS);
+            description_label.set_text (IController.NO_RESULTS);
         }
       }
       else
@@ -449,7 +456,7 @@ namespace Synapse.Gui
       }
       target_container.visible = model.needs_target ();
     }
-    
+
     public override void update_focused_source (Entry<int, Match> m)
     {
       if (controller.is_in_initial_state ()) source_icon.set_icon_name ("search");
@@ -465,7 +472,7 @@ namespace Synapse.Gui
       source_label.set_markup (Utils.markup_string_with_search (m.value == null ? "" : m.value.title, this.model.query[SearchingFor.SOURCES], ""));
       if (model.searching_for == SearchingFor.SOURCES) update_labels ();
     }
-    
+
     public override void update_focused_action (Entry<int, Match> m)
     {
       if (controller.is_in_initial_state () ||
@@ -485,13 +492,13 @@ namespace Synapse.Gui
       action_label.set_markup (Utils.markup_string_with_search (m.value == null ? "" : m.value.title, this.model.query[SearchingFor.ACTIONS], ""));
       if (model.searching_for == SearchingFor.ACTIONS) update_labels ();
     }
-    
+
     public override void update_focused_target (Entry<int, Match> m)
     {
       if (m.value == null) target_icon.set_icon_name ("");
       else
       {
-        if (m.value is DefaultMatch)
+        if (m.value is UnknownMatch)
           target_icon.set_icon_name ("text-plain");
         else
         {
@@ -505,7 +512,7 @@ namespace Synapse.Gui
       target_label.set_markup (Utils.markup_string_with_search (m.value == null ? "" : m.value.title, this.model.query[SearchingFor.TARGETS], ""));
       if (model.searching_for == SearchingFor.TARGETS) update_labels ();
     }
-    
+
     public override void update_sources (Gee.List<Match>? list = null)
     {
       results_sources.update_matches (list);

@@ -42,8 +42,8 @@ namespace Synapse
      *    SUPER = OR ([categories, ...]);
      *
      *
-     * Remember: 
-     *   if you add or remove a category, 
+     * Remember:
+     *   if you add or remove a category,
      *   change labels in UIInterface.CategoryConfig.init_labels
      *
      */
@@ -51,29 +51,29 @@ namespace Synapse
     UNCATEGORIZED   = 1 << 1,
 
     APPLICATIONS    = 1 << 2,
-    
+
     ACTIONS         = 1 << 3,
-    
-      AUDIO           = 1 << 4,
-      VIDEO           = 1 << 5,
-      DOCUMENTS       = 1 << 6,
-      IMAGES          = 1 << 7,
+
+    AUDIO           = 1 << 4,
+    VIDEO           = 1 << 5,
+    DOCUMENTS       = 1 << 6,
+    IMAGES          = 1 << 7,
     FILES           = AUDIO | VIDEO | DOCUMENTS | IMAGES,
-    
+
     PLACES          = 1 << 8,
 
     // FIXME: shouldn't this be FILES | INCLUDE_REMOTE?
     INTERNET        = 1 << 9,
-    
+
     // FIXME: Text Query flag? kinda weird, why do we have this here?
     TEXT            = 1 << 10,
-    
+
     CONTACTS        = 1 << 11,
 
     ALL           = 0xFFFFFFFF,
     LOCAL_CONTENT = ALL ^ QueryFlags.INCLUDE_REMOTE
   }
-  
+
   [Flags]
   public enum MatcherFlags
   {
@@ -124,7 +124,7 @@ namespace Synapse
     {
       /* create a couple of regexes and try to help with matching
        * match with these regular expressions (with descending score):
-       * 1) ^query$
+       * 1) ^query
        * 2) ^query
        * 3) \bquery
        * 4) split to words and seach \bword1.+\bword2 (if there are 2+ words)
@@ -141,7 +141,7 @@ namespace Synapse
       try
       {
         re = new Regex ("^(%s)$".printf (Regex.escape_string (query)), flags);
-        results[re] = Match.Score.HIGHEST;
+        results[re] = MatchScore.HIGHEST;
       }
       catch (RegexError err)
       {
@@ -150,7 +150,7 @@ namespace Synapse
       try
       {
         re = new Regex ("^(%s)".printf (Regex.escape_string (query)), flags);
-        results[re] = Match.Score.EXCELLENT;
+        results[re] = MatchScore.EXCELLENT;
       }
       catch (RegexError err)
       {
@@ -159,7 +159,7 @@ namespace Synapse
       try
       {
         re = new Regex ("\\b(%s)".printf (Regex.escape_string (query)), flags);
-        results[re] = Match.Score.VERY_GOOD;
+        results[re] = MatchScore.VERY_GOOD;
       }
       catch (RegexError err)
       {
@@ -180,7 +180,7 @@ namespace Synapse
         try
         {
           re = new Regex (pattern, flags);
-          results[re] = Match.Score.GOOD;
+          results[re] = MatchScore.GOOD;
         }
         catch (RegexError err)
         {
@@ -198,7 +198,7 @@ namespace Synapse
             try
             {
               re = new Regex (reversed, flags);
-              results[re] = Match.Score.GOOD - Match.Score.INCREMENT_MINOR;
+              results[re] = MatchScore.GOOD - MatchScore.INCREMENT_MINOR;
             }
             catch (RegexError err)
             {
@@ -218,7 +218,7 @@ namespace Synapse
             try
             {
               re = new Regex (any_order, flags);
-              results[re] = Match.Score.AVERAGE + Match.Score.INCREMENT_MINOR;
+              results[re] = MatchScore.AVERAGE + MatchScore.INCREMENT_MINOR;
             }
             catch (RegexError err)
             {
@@ -226,13 +226,13 @@ namespace Synapse
           }
         }
       }
-      
+
       if (!(MatcherFlags.NO_SUBSTRING in match_flags))
       {
         try
         {
           re = new Regex ("(%s)".printf (Regex.escape_string (query)), flags);
-          results[re] = Match.Score.BELOW_AVERAGE;
+          results[re] = MatchScore.BELOW_AVERAGE;
         }
         catch (RegexError err)
         {
@@ -256,7 +256,7 @@ namespace Synapse
         try
         {
           re = new Regex (pattern, flags);
-          results[re] = Match.Score.ABOVE_AVERAGE;
+          results[re] = MatchScore.ABOVE_AVERAGE;
         }
         catch (RegexError err)
         {
@@ -270,7 +270,7 @@ namespace Synapse
         try
         {
           re = new Regex (pattern, flags);
-          results[re] = Match.Score.POOR;
+          results[re] = MatchScore.POOR;
         }
         catch (RegexError err)
         {
@@ -282,8 +282,7 @@ namespace Synapse
       // FIXME: why it doesn't work without this?
       sorted_results.set_data ("entries-ref", entries);
       sorted_results.add_all (entries);
-      sorted_results.sort ((a, b) =>
-      {
+      sorted_results.sort ((a, b) => {
         unowned Gee.Map.Entry<Regex, int> e1 = (Gee.Map.Entry<Regex, int>) a;
         unowned Gee.Map.Entry<Regex, int> e2 = (Gee.Map.Entry<Regex, int>) b;
         return e2.value - e1.value;
