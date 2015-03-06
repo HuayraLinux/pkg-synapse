@@ -10,7 +10,7 @@ synapse (0.2.99.1-0.1) unstable; urgency=medium
   * d/rules: fix Lintian's duplicate-changelog-files
   * d/rules: add --parallel to dh
 
- -- Tomasz Buchert <tomasz.buchert@inria.fr>  Wed, 28 Jan 2015 21:49:11 +0100
+ -- Tomasz Buchert <tomasz@debian.org>  Wed, 28 Jan 2015 21:49:11 +0100
 
 synapse (0.2.10-2) unstable; urgency=low
 
