@@ -1,7 +1,7 @@
-synapse (0.2.99.1-0.1) unstable; urgency=medium
+synapse (0.2.99.1-1) unstable; urgency=medium
 
-  * Non-maintainer upload.
   * Imported Upstream version 0.2.99.1
+  * Switch to a new maintainer (thanks Julien!)
   * d/control: update dependencies
   * d/watch: updated to support more tarball types
   * d/copyright: update copyrights
@@ -10,7 +10,7 @@ synapse (0.2.99.1-0.1) unstable; urgency=medium
   * d/rules: fix Lintian's duplicate-changelog-files
   * d/rules: add --parallel to dh
 
- -- Tomasz Buchert <tomasz@debian.org>  Wed, 28 Jan 2015 21:49:11 +0100
+ -- Tomasz Buchert <tomasz@debian.org>  Sun, 08 Mar 2015 21:23:16 +0100
 
 synapse (0.2.10-2) unstable; urgency=low
 
