@@ -1,7 +1,7 @@
 Source: synapse
 Section: utils
 Priority: optional
-Maintainer: Julien Lavergne <julien.lavergne@gmail.com>
+Maintainer: Tomasz Buchert <tomasz@debian.org>
 Build-Depends: debhelper (>= 9),
  intltool,
  pkg-config,
