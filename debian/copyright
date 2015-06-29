@@ -46,7 +46,7 @@ Copyright:
 License: GPL-3+
 
 Files: debian/*
-Copyright: 
+Copyright:
  2010, Michal Hruby <michal.mhr@gmail.com>,
  2010, Julien Lavergne <gilir@ubuntu.com>,
  2015, Tomasz Buchert <tomasz@debian.org>
@@ -67,7 +67,7 @@ License: GPL-3+
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Comment: On Debian systems, the complete text of the GNU General
  Public License can be found in `/usr/share/common-licenses/GPL-3’.
- 
+
 License: LGPL-2.1+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -116,4 +116,3 @@ License: GPL-2+
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 Comment: On Debian systems, the complete text of the GNU General
  Public License can be found in `/usr/share/common-licenses/GPL-2’.
-
