@@ -3,6 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Tomasz Buchert <tomasz@debian.org>
 Build-Depends: debhelper (>= 9),
+               dh-autoreconf,
                intltool,
                libdbus-glib-1-dev,
                libgee-0.8-dev,
