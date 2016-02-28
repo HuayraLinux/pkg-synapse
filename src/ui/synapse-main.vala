@@ -19,10 +19,6 @@
  *
  */
 
-using Gtk;
-using Synapse.Gui;
-using UI;
-
 namespace Synapse
 {
   public class UILauncher : GLib.Object
@@ -39,7 +35,7 @@ namespace Synapse
       }
     };
 
-    private SettingsWindow settings;
+    private Gui.SettingsWindow settings;
     private DataSink data_sink;
     private Gui.KeyComboConfig key_combo_config;
     private Gui.CategoryConfig category_config;
@@ -48,7 +44,7 @@ namespace Synapse
 #if HAVE_INDICATOR
     private AppIndicator.Indicator indicator;
 #else
-    private StatusIcon status_icon;
+    private Gtk.StatusIcon status_icon;
 #endif
     private Gui.IController controller;
 
@@ -60,7 +56,7 @@ namespace Synapse
       category_config = (Gui.CategoryConfig) config.get_config ("ui", "categories", typeof (Gui.CategoryConfig));
       key_combo_config.update_bindings ();
       register_plugins ();
-      settings = new SettingsWindow (data_sink, key_combo_config);
+      settings = new Gui.SettingsWindow (data_sink, key_combo_config);
       settings.keybinding_changed.connect (this.change_keyboard_shortcut);
 
       Keybinder.init ();
@@ -103,19 +99,19 @@ namespace Synapse
     private void init_indicator ()
     {
       var indicator_menu = new Gtk.Menu ();
-      var activate_item = new ImageMenuItem.with_label (_("Activate"));
+      var activate_item = new Gtk.ImageMenuItem.with_label (_("Activate"));
       activate_item.set_image (new Gtk.Image.from_stock (Gtk.Stock.EXECUTE, Gtk.IconSize.MENU));
       activate_item.activate.connect (() => {
         show_ui ();
       });
       indicator_menu.append (activate_item);
-      var settings_item = new ImageMenuItem.from_stock (Gtk.Stock.PREFERENCES, null);
+      var settings_item = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.PREFERENCES, null);
       settings_item.activate.connect (() => {
         settings.show ();
       });
       indicator_menu.append (settings_item);
-      indicator_menu.append (new SeparatorMenuItem ());
-      var quit_item = new ImageMenuItem.from_stock (Gtk.Stock.QUIT, null);
+      indicator_menu.append (new Gtk.SeparatorMenuItem ());
+      var quit_item = new Gtk.ImageMenuItem.from_stock (Gtk.Stock.QUIT, null);
       quit_item.activate.connect (Gtk.main_quit);
       indicator_menu.append (quit_item);
       indicator_menu.show_all ();
@@ -134,7 +130,7 @@ namespace Synapse
           AppIndicator.IndicatorStatus.ACTIVE : AppIndicator.IndicatorStatus.PASSIVE);
       });
 #else
-      status_icon = new StatusIcon.from_icon_name ("synapse");
+      status_icon = new Gtk.StatusIcon.from_icon_name ("synapse");
 
       status_icon.popup_menu.connect ((icon, button, event_time) => {
         indicator_menu.popup (null, null, status_icon.position_menu, button, event_time);
@@ -164,7 +160,7 @@ namespace Synapse
         typeof (HybridSearchPlugin),
         typeof (GnomeBookmarksPlugin),
         typeof (GnomeSessionPlugin),
-        typeof (GnomeScreenSaverPlugin),
+        typeof (ScreenSaverPlugin),
         typeof (SystemManagementPlugin),
         typeof (CommandPlugin),
         typeof (RhythmboxActions),
@@ -179,6 +175,7 @@ namespace Synapse
         typeof (FileOpPlugin),
         typeof (PidginPlugin),
         typeof (ChatActions),
+        typeof (ZealPlugin),
 #if HAVE_ZEITGEIST
         typeof (ZeitgeistPlugin),
         typeof (ZeitgeistRelated),
@@ -262,12 +259,18 @@ namespace Synapse
       ibus_no_snooper = ibus_no_snooper + "synapse";
       GLib.Environment.set_variable ("IBUS_NO_SNOOPER_APPS", ibus_no_snooper, true);
     }
+
     public static int main (string[] argv)
     {
       Utils.Logger.initialize ();
       message ("Starting up...");
       ibus_fix ();
-      Intl.bindtextdomain ("synapse", Config.DATADIR + "/locale");
+
+      Intl.setlocale (LocaleCategory.ALL, "");
+      Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.DATADIR + "/locale");
+      Intl.bind_textdomain_codeset (Config.GETTEXT_PACKAGE, "UTF-8");
+      Intl.textdomain (Config.GETTEXT_PACKAGE);
+
       var context = new OptionContext (" - Synapse");
       context.add_main_entries (options, null);
       context.add_group (Gtk.get_option_group (false));

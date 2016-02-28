@@ -91,6 +91,7 @@ namespace Synapse
     public bool is_hidden { get; private set; default = false; }
     public bool is_valid { get; private set; default = true; }
 
+    public string[] actions = null;
     public string[] mime_types = null;
 
     private string? name_folded = null;
@@ -179,6 +180,8 @@ namespace Synapse
                                              KeyFileDesktop.KEY_NOT_SHOW_IN));
           show_in = DesktopEnvironmentType.ALL ^ not_show;
         }
+        if (keyfile.has_key (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_ACTIONS))
+          actions = keyfile.get_string_list (KeyFileDesktop.GROUP, KeyFileDesktop.KEY_ACTIONS);
 
         // special case these, people are using them quite often and wonder
         // why they don't appear
@@ -255,7 +258,7 @@ namespace Synapse
     }
 
     private DesktopEnvironmentType session_type = DesktopEnvironmentType.GNOME;
-    private string session_type_str = "GNOME";
+    private unowned string session_type_str = "GNOME";
 
     public DesktopEnvironmentType get_environment ()
     {
@@ -344,7 +347,7 @@ namespace Synapse
     private string? get_cache_file_name (string dir_name)
     {
       // FIXME: should we use this? it's Ubuntu-specific
-      string? locale = Intl.setlocale (LocaleCategory.MESSAGES, null);
+      unowned string? locale = Intl.setlocale (LocaleCategory.MESSAGES, null);
       if (locale == null) return null;
 
       // even though this is what the patch in gnome-menus does, the name

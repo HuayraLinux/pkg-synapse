@@ -74,8 +74,7 @@ namespace Synapse
 
           try
           {
-            var display = Gdk.Display.get_default ();
-            app.launch (null, display.get_app_launch_context ());
+            app.launch (null, Gdk.Display.get_default ().get_app_launch_context ());
 
             RelevancyService.get_default ().application_launched (app);
           }
@@ -92,6 +91,25 @@ namespace Synapse
         {
           ((Action) match).do_execute (match, target);
         }
+        else if (match is UriMatch)
+        {
+          try
+          {
+            unowned string uri = ((UriMatch) match).uri;
+            if (uri.has_prefix ("file:"))
+            {
+              File file = File.new_for_uri (uri);
+              AppInfo app = AppInfo.create_from_commandline (
+                file.get_path (), file.get_basename (),
+                AppInfoCreateFlags.NONE);
+              app.launch (null, Gdk.Display.get_default ().get_app_launch_context ());
+            }
+          }
+          catch (Error err)
+          {
+            warning ("%s", err.message);
+          }
+        }
         else
         {
           warning ("'%s' is not be handled here", match.title);
@@ -100,6 +118,16 @@ namespace Synapse
 
       public override bool valid_for_match (Match match)
       {
+        if (match is UriMatch)
+        {
+          unowned string uri = ((UriMatch) match).uri;
+          if (uri.has_prefix ("file:"))
+          {
+            string path = File.new_for_uri (uri).get_path ();
+            return (FileUtils.test (path, FileTest.IS_EXECUTABLE) && !FileUtils.test (path, FileTest.IS_DIR));
+          }
+        }
+
         return (match is Action ||
                 match is ActionMatch ||
                (match is ApplicationMatch && !(((ApplicationMatch) match).needs_terminal)));
@@ -130,8 +158,26 @@ namespace Synapse
             AppInfo app = AppInfo.create_from_commandline (
               original.get_commandline (), original.get_name (),
               AppInfoCreateFlags.NEEDS_TERMINAL);
-            var display = Gdk.Display.get_default ();
-            app.launch (null, display.get_app_launch_context ());
+            app.launch (null, Gdk.Display.get_default ().get_app_launch_context ());
+          }
+          catch (Error err)
+          {
+            warning ("%s", err.message);
+          }
+        }
+        else if (match is UriMatch)
+        {
+          try
+          {
+            unowned string uri = ((UriMatch) match).uri;
+            if (uri.has_prefix ("file:"))
+            {
+              File file = File.new_for_uri (uri);
+              AppInfo app = AppInfo.create_from_commandline (
+                file.get_path (), file.get_basename (),
+                AppInfoCreateFlags.NEEDS_TERMINAL);
+              app.launch (null, Gdk.Display.get_default ().get_app_launch_context ());
+            }
           }
           catch (Error err)
           {
@@ -142,6 +188,15 @@ namespace Synapse
 
       public override bool valid_for_match (Match match)
       {
+        if (match is UriMatch)
+        {
+          unowned string uri = ((UriMatch) match).uri;
+          if (uri.has_prefix ("file:"))
+          {
+            string path = File.new_for_uri (uri).get_path ();
+            return (FileUtils.test (path, FileTest.IS_EXECUTABLE) && !FileUtils.test (path, FileTest.IS_DIR));
+          }
+        }
         return (match is ApplicationMatch);
       }
     }
@@ -230,8 +285,7 @@ namespace Synapse
           var app_info = f.query_default_handler (null);
           List<File> files = new List<File> ();
           files.prepend (f);
-          var display = Gdk.Display.get_default ();
-          app_info.launch (files, display.get_app_launch_context ());
+          app_info.launch (files, Gdk.Display.get_default ().get_app_launch_context ());
         }
         catch (Error err)
         {

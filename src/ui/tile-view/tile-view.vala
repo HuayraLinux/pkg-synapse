@@ -19,14 +19,12 @@
  *
  */
 
-using Gtk;
-
 namespace UI.Widgets
 {
-  public class TileView : EventBox
+  public class TileView : Gtk.EventBox
   {
     private List<Tile> tiles = new List<Tile> ();
-    private Box box = new Box (Gtk.Orientation.VERTICAL, 0);
+    private Gtk.Box box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
     public int icon_size { get; construct set; default = 48; }
 
@@ -158,10 +156,10 @@ namespace UI.Widgets
     public virtual void on_tile_size_allocated (Gtk.Widget w, Gtk.Allocation alloc)
     {
       Tile tile = w as Tile;
-      ScrolledWindow? scroll = null;
+      Gtk.ScrolledWindow? scroll = null;
 
       scroll = this.get_parent () == null ?
-        null : this.get_parent ().get_parent () as ScrolledWindow;
+        null : this.get_parent ().get_parent () as Gtk.ScrolledWindow;
       if (scroll == null)
       {
         return;
@@ -172,11 +170,9 @@ namespace UI.Widgets
         return;
       }
 
-      var va = Gdk.Rectangle ();
-      va.x = 0;
-      va.y = (int) scroll.get_vadjustment ().get_value ();
-      va.width = alloc.width;
-      va.height = this.get_parent ().get_allocated_height ();
+      unowned Gtk.Adjustment scroll_vadj = scroll.get_vadjustment ();
+      Gdk.Rectangle va = {0, (int) scroll_vadj.get_value (),
+        alloc.width, this.get_parent ().get_allocated_height ()};
 
       var va_region = new Cairo.Region.rectangle (va);
       if (va_region.contains_rectangle ((Cairo.RectangleInt)alloc) != Cairo.RegionOverlap.IN)
@@ -192,7 +188,7 @@ namespace UI.Widgets
           delta = alloc.y - va.y;
         }
 
-        scroll.get_vadjustment ().set_value (va.y + delta);
+        scroll_vadj.set_value (va.y + delta);
         this.queue_draw ();
       }
     }

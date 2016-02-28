@@ -19,8 +19,6 @@
  *
  */
 
-using Gtk;
-
 namespace Synapse
 {
   /* Gtk+-3.0 base class */
@@ -32,18 +30,20 @@ namespace Synapse
 
     private void update_wm ()
     {
-      string wmname = Gdk.X11Screen.get_window_manager_name (Gdk.Screen.get_default ()).down ();
+      unowned Gdk.X11.Screen? x11_screen = (Gdk.Screen.get_default () as Gdk.X11.Screen);
+      if (x11_screen == null) return;
+      string wmname = x11_screen.get_window_manager_name ().down ();
       this.is_kwin = wmname == "kwin";
     }
 
-    private Requisition req_target;
-    private Requisition req_current;
+    private Gtk.Requisition req_target;
+    private Gtk.Requisition req_current;
 
     protected Gui.Utils.ColorHelper ch;
     protected HTextSelector flag_selector;
     protected MenuButton menu;
 
-    protected Label spacer;
+    protected Gtk.Label spacer;
 
     protected int BORDER_RADIUS;
     protected int SHADOW_SIZE;
@@ -134,7 +134,7 @@ namespace Synapse
       install_style_property (shadow_size);
     }
 
-    private Requisition old_alloc;
+    private Gtk.Requisition old_alloc;
 
     construct
     {
@@ -147,8 +147,8 @@ namespace Synapse
       bg_cache = new Gee.HashMap<string, Cairo.Surface> ();
       bg_state = Gtk.StateFlags.SELECTED;
 
-      req_target = {0, 0};
-      req_current = {0, 0};
+      req_target = {};
+      req_current = {};
 
       style_get ("border-radius", out BORDER_RADIUS,
         "shadow-size", out SHADOW_SIZE);
@@ -192,7 +192,7 @@ namespace Synapse
       /* Use the spacer to separate the list from the main section of the window
        * the spacer will fill up the space equal to the rounded border plus the shadow
        */
-      spacer = new Label (null);
+      spacer = new Gtk.Label (null);
       spacer.set_size_request (1, SHADOW_SIZE + BORDER_RADIUS);
 
       menu = null;
@@ -272,7 +272,7 @@ namespace Synapse
       bool bgselected;
       style_get ("use-selected-color", out bgselected, "selected-category-size", out dmax,
         "unselected-category-size", out dmin);
-      this.bg_state = bgselected ? StateFlags.SELECTED : StateFlags.NORMAL;
+      this.bg_state = bgselected ? Gtk.StateFlags.SELECTED : Gtk.StateFlags.NORMAL;
       flag_selector.selected_markup = "<span size=\"%s\"><b>%s</b></span>".printf (
                                                       SmartLabel.size_to_string[SmartLabel.string_to_size (dmax)], "%s");
       flag_selector.unselected_markup = "<span size=\"%s\">%s</span>".printf (
@@ -320,16 +320,19 @@ namespace Synapse
 
     public override bool draw (Cairo.Context ctx)
     {
+      Gtk.Allocation allocation;
+      get_allocation (out allocation);
+
       ctx.set_operator (Cairo.Operator.CLEAR);
       ctx.paint ();
 
       /* Propagate Draw */
       this.propagate_draw (this.get_child(), ctx);
 
-      ctx.rectangle (0, 0, this.get_allocated_width (), this.get_allocated_height ());
+      ctx.rectangle (0, 0, allocation.width, allocation.height);
       ctx.clip ();
 
-      string key = "%dx%dx%d".printf (this.get_allocated_width (), this.get_allocated_height (), model.searching_for);
+      string key = "%dx%dx%d".printf (allocation.width, allocation.height, model.searching_for);
 
       if (cache_enabled)
       {
@@ -341,8 +344,8 @@ namespace Synapse
         {
           Cairo.Surface surf = new Cairo.Surface.similar (ctx.get_target (),
                                                           Cairo.Content.COLOR_ALPHA,
-                                                          this.get_allocated_width (),
-                                                          this.get_allocated_height ());
+                                                          allocation.width,
+                                                          allocation.height);
           Cairo.Context cr = new Cairo.Context (surf);
           paint_background (cr);
           bg_cache[key] = surf;
@@ -362,7 +365,17 @@ namespace Synapse
       return true;
     }
 
-    protected virtual void prepare_results_container (out SelectionContainer? results_container,
+    protected void connect_handlers (MatchListView view)
+    {
+      /* regrab mouse after drag */
+      view.drag_end.connect (drag_end_handler);
+      /* listen on scroll / click / dblclick */
+      view.selected_index_changed.connect (controller.selected_index_changed_event);
+      view.fire_item.connect (controller.fire_focus);
+      view.fire_item_context_switch.connect (controller.fire_focus_context_switch_event);
+    }
+
+    protected void prepare_results_container (out SelectionContainer? results_container,
                                                       out ResultBox results_sources,
                                                       out ResultBox results_actions,
                                                       out ResultBox results_targets,
@@ -372,17 +385,14 @@ namespace Synapse
       results_sources = new ResultBox (100);
       results_actions = new ResultBox (100);
       results_targets = new ResultBox (100);
-      /* regrab mouse after drag */
-      results_sources.get_match_list_view ().drag_end.connect (drag_end_handler);
-      results_actions.get_match_list_view ().drag_end.connect (drag_end_handler);
-      results_targets.get_match_list_view ().drag_end.connect (drag_end_handler);
-      /* listen on scroll / click / dblclick */
-      results_sources.get_match_list_view ().selected_index_changed.connect (controller.selected_index_changed_event);
-      results_actions.get_match_list_view ().selected_index_changed.connect (controller.selected_index_changed_event);
-      results_targets.get_match_list_view ().selected_index_changed.connect (controller.selected_index_changed_event);
-      results_sources.get_match_list_view ().fire_item.connect (controller.fire_focus);
-      results_actions.get_match_list_view ().fire_item.connect (controller.fire_focus);
-      results_targets.get_match_list_view ().fire_item.connect (controller.fire_focus);
+
+      var results_sources_view = results_sources.get_match_list_view ();
+      var results_actions_view = results_actions.get_match_list_view ();
+      var results_targets_view = results_targets.get_match_list_view ();
+
+      connect_handlers (results_sources_view);
+      connect_handlers (results_actions_view);
+      connect_handlers (results_targets_view);
 
       if (add_to_container)
       {
@@ -403,7 +413,7 @@ namespace Synapse
 
     protected virtual void paint_background (Cairo.Context ctx)
     {
-      ch.set_source_rgba (ctx, 0.9, StyleType.BG, StateFlags.NORMAL);
+      ch.set_source_rgba (ctx, 0.9, StyleType.BG, Gtk.StateFlags.NORMAL);
       ctx.set_operator (Cairo.Operator.SOURCE);
       ctx.paint ();
     }
@@ -419,7 +429,12 @@ namespace Synapse
       Gui.Utils.move_window_to_center (this);
       this.set_list_visible (false);
       this.show ();
-      if (this.is_kwin) this.add_kde_compatibility (this, this.get_allocated_width (), this.get_allocated_height ());
+      if (this.is_kwin)
+      {
+        Gtk.Allocation allocation;
+        get_allocation (out allocation);
+        this.add_kde_compatibility (this, allocation.width, allocation.height);
+      }
       Gui.Utils.present_window (this);
       this.queue_draw ();
       this.summoned ();
@@ -444,7 +459,7 @@ namespace Synapse
     private string dragdrop_name = "";
     private string dragdrop_uri = "";
 
-    protected void make_draggable (EventBox obj)
+    protected void make_draggable (Gtk.EventBox obj)
     {
       obj.set_events (obj.get_events () | Gdk.EventMask.BUTTON_PRESS_MASK);
       // D&D
@@ -459,12 +474,12 @@ namespace Synapse
       //TODO: drag data recieved => vanish
     }
 
-    protected void drag_end_handler (Widget w, Gdk.DragContext context)
+    protected void drag_end_handler (Gtk.Widget w, Gdk.DragContext context)
     {
       this.force_grab ();
     }
 
-    private void draggable_get (Widget w, Gdk.DragContext context, SelectionData selection_data, uint info, uint time_)
+    private void draggable_get (Gtk.Widget w, Gdk.DragContext context, Gtk.SelectionData selection_data, uint info, uint time_)
     {
       /* Called at drop time */
       selection_data.set_text (dragdrop_name, -1);
@@ -473,7 +488,7 @@ namespace Synapse
 
     private bool draggable_clicked (Gtk.Widget w, Gdk.EventButton event)
     {
-      var tl = new TargetList ({});
+      var tl = new Gtk.TargetList ({});
       var sf = model.searching_for;
       if (sf == SearchingFor.ACTIONS) sf = SearchingFor.SOURCES;
       if (model.focus[sf].value == null)
