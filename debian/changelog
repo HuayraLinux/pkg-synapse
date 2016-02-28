@@ -1,3 +1,13 @@
+synapse (0.2.99.2-1) unstable; urgency=medium
+
+  * d/control: bump std-ver to 3.9.7 (no changes needed)
+  * d/*.menu: drop menu file per the bug #741573
+  * d/control: update vcs-browser
+  * d/rules: use autoreconf
+  * Imported Upstream version 0.2.99.2
+
+ -- Tomasz Buchert <tomasz@debian.org>  Sun, 28 Feb 2016 14:13:52 +0100
+
 synapse (0.2.99.1-1) unstable; urgency=medium
 
   * Imported Upstream version 0.2.99.1
