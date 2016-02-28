@@ -241,7 +241,7 @@ namespace Synapse.Gui
       Gdk.Screen screen_for_pointer = null;
       display.get_device_manager ().get_client_pointer ().get_position (out screen_for_pointer, out x, out y);
 
-      Gdk.Rectangle rect = {0, 0};
+      Gdk.Rectangle rect = {};
       screen_for_pointer.get_monitor_geometry (screen_for_pointer.get_monitor_at_point (x, y), out rect);
 
       return rect;
@@ -816,11 +816,14 @@ namespace Synapse.Gui
 
     public static bool is_point_in_mask (Gtk.Widget w, int x, int y)
     {
-      if (x < 0 || y < 0 || x >= w.get_allocated_width () || y >= w.get_allocated_height ()) return false;
+      Gtk.Allocation allocation;
+      w.get_allocation (out allocation);
+
+      if (x < 0 || y < 0 || x >= allocation.width || y >= allocation.height) return false;
       if (!w.is_composited ()) return true;
 
       // create an image surface to hold the rendered window
-      Cairo.ImageSurface mask = new Cairo.ImageSurface (Cairo.Format.ARGB32, w.get_allocated_width (), w.get_allocated_height ());
+      Cairo.ImageSurface mask = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
       Cairo.Context cr = new Cairo.Context (mask);
       cr.set_operator (Cairo.Operator.SOURCE);
       // copy the window content into the mask

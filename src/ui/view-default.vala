@@ -19,10 +19,6 @@
  *
  */
 
-using Gee;
-using Gtk;
-using Cairo;
-
 namespace Synapse.Gui
 {
   public class ViewDefault : Synapse.Gui.View
@@ -77,7 +73,7 @@ namespace Synapse.Gui
 
     private SchemaContainer icon_container;
 
-    private Box container;
+    private Gtk.Box container;
 
     private SelectionContainer results_container;
 
@@ -89,12 +85,12 @@ namespace Synapse.Gui
 
     protected override void build_ui ()
     {
-      container = new Box (Gtk.Orientation.VERTICAL, 0);
+      container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
       /* Icons */
       source_icon = new NamedIcon ();
       action_icon = new NamedIcon ();
       target_icon = new NamedIcon ();
-      source_icon.set_icon_name ("search", IconSize.DND);
+      source_icon.set_icon_name ("search", Gtk.IconSize.DND);
       action_icon.clear ();
       target_icon.set_icon_name ("");
 
@@ -148,7 +144,7 @@ namespace Synapse.Gui
       adescription_label.size = SmartLabel.Size.SMALL;
 
       /* Categories - Throbber and menu */ //#0C71D6
-      var categories_hbox = new Box (Gtk.Orientation.HORIZONTAL, 0);
+      var categories_hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
       menuthrobber = new MenuThrobber ();
       menu = (MenuButton) menuthrobber;
@@ -157,7 +153,7 @@ namespace Synapse.Gui
       categories_hbox.pack_start (flag_selector);
       categories_hbox.pack_start (menuthrobber, false);
 
-      var vb = new Box (Gtk.Orientation.VERTICAL, 0);
+      var vb = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
       vb.pack_end (description_label, false);
       var fi = new FakeInput ();
       fi.border_radius = 5;
@@ -168,9 +164,9 @@ namespace Synapse.Gui
 
       var sensitive = new SensitiveWidget (icon_container);
       this.make_draggable (sensitive);
-      var lvb = new Box (Gtk.Orientation.VERTICAL, 0);
+      var lvb = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
       lvb.pack_start (sensitive, false);
-      var lhb = new Box (Gtk.Orientation.HORIZONTAL, 10);
+      var lhb = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
       lhb.pack_end (adescription_label, false);
       lhb.pack_end (ldescription_label);
       lvb.pack_start (lhb, false);
@@ -179,7 +175,7 @@ namespace Synapse.Gui
       flag_selector.unselected_markup = "<span size=\"x-small\">%s</span>";
 
       /* Top Container */
-      var hb = new Box (Gtk.Orientation.HORIZONTAL, 5);
+      var hb = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 5);
 
       hb.pack_start (lvb, false);
       hb.pack_start (vb, true);
@@ -189,7 +185,7 @@ namespace Synapse.Gui
 
       /* list */
       this.prepare_results_container (out results_container, out results_sources,
-                                      out results_actions, out results_targets, StateFlags.SELECTED);
+                                      out results_actions, out results_targets, Gtk.StateFlags.SELECTED);
       container.pack_start (results_container, false);
 
       container.show_all ();
@@ -241,7 +237,7 @@ namespace Synapse.Gui
           Gtk.Allocation results_container_allocation;
           results_container.get_allocation (out results_container_allocation);
           ctx.translate (0.5, 0.5);
-          ctx.set_operator (Operator.OVER);
+          ctx.set_operator (Cairo.Operator.OVER);
           Utils.cairo_make_shadow_for_rect (ctx, results_container_allocation.x,
                                                  results_container_allocation.y,
                                                  results_container_allocation.width - 1,
@@ -249,7 +245,7 @@ namespace Synapse.Gui
                                                  0, r, g, b, SHADOW_SIZE);
           ctx.translate (-0.5, -0.5);
         }
-        ctx.set_operator (Operator.SOURCE);
+        ctx.set_operator (Cairo.Operator.SOURCE);
         ch.set_source_rgba (ctx, 1.0, StyleType.BASE, Gtk.StateFlags.NORMAL);
         ctx.rectangle (spacer_allocation.x, spacer_allocation.y + BORDER_RADIUS, spacer_allocation.width, SHADOW_SIZE);
         ctx.fill ();
@@ -267,13 +263,13 @@ namespace Synapse.Gui
       height -= SHADOW_SIZE + delta;
       // shadow
       ctx.translate (0.5, 0.5);
-      ctx.set_operator (Operator.OVER);
+      ctx.set_operator (Cairo.Operator.OVER);
       Utils.cairo_make_shadow_for_rect (ctx, 0, 0, width - 1, height - 1, BORDER_RADIUS, r, g, b, SHADOW_SIZE);
       ctx.translate (-0.5, -0.5);
 
       ctx.save ();
       // pattern
-      Pattern pat = new Pattern.linear(0, 0, 0, height);
+      Cairo.Pattern pat = new Cairo.Pattern.linear(0, 0, 0, height);
       if (this.bg_state == Gtk.StateFlags.SELECTED)
       {
         r = g = b = 0.5;
@@ -291,7 +287,7 @@ namespace Synapse.Gui
       }
       Utils.cairo_rounded_rect (ctx, 0, 0, width, height, BORDER_RADIUS);
       ctx.set_source (pat);
-      ctx.set_operator (Operator.SOURCE);
+      ctx.set_operator (Cairo.Operator.SOURCE);
       ctx.clip ();
       ctx.paint ();
       ctx.restore ();

@@ -19,10 +19,6 @@
  *
  */
 
-using Gtk;
-using Cairo;
-using Gee;
-
 namespace Synapse.Gui
 {
   public class MatchViewRenderer : MatchListView.MatchViewRendererBase
@@ -132,7 +128,7 @@ namespace Synapse.Gui
     {
       string s = "%s\n%s".printf (title_markup, description_markup);
       Markup.printf_escaped (s, " &#21271;", " &#21271;");
-      var layout = this.get_layout ();
+      unowned Pango.Layout layout = this.get_layout ();
       layout.set_markup (s, -1);
       int width = 0, height = 0;
       layout.get_pixel_size (out width, out height);
@@ -199,7 +195,7 @@ namespace Synapse.Gui
       {
         s = Markup.printf_escaped (title_markup, m.title);
       }
-      var layout = this.get_layout ();
+      unowned Pango.Layout layout = this.get_layout ();
       layout.set_markup (s, -1);
       layout.set_ellipsize (Pango.EllipsizeMode.END);
       layout.set_width (Pango.SCALE * width);
@@ -400,8 +396,9 @@ namespace Synapse.Gui
       {
         // calculate here the new row height
         this.rtl = this.get_direction ();
-        Utils.update_layout_rtl (this.get_layout (), rtl);
-        this.get_layout ().set_ellipsize (Pango.EllipsizeMode.END);
+        unowned Pango.Layout layout = this.get_layout ();
+        Utils.update_layout_rtl (layout, rtl);
+        layout.set_ellipsize (Pango.EllipsizeMode.END);
         this.row_height_cached = calculate_row_height ();
         this.queue_resize (); // queue_resize, so MatchListView will query for new row_height_request
       }
@@ -573,7 +570,10 @@ namespace Synapse.Gui
 
     private void update_target_offsets ()
     {
-      int visible_items = this.get_allocated_height () / this.row_height;
+      Gtk.Allocation allocation;
+      get_allocation (out allocation);
+
+      int visible_items = allocation.height / this.row_height;
 
       switch (this.behavior)
       {
@@ -589,11 +589,11 @@ namespace Synapse.Gui
           }
           else if (this.goto_index >= ( this.items.size - 1 - (visible_items / 2) ))
           {
-            this.toffset = this.row_height * this.items.size - this.get_allocated_height ();
+            this.toffset = this.row_height * this.items.size - allocation.height;
           }
           else
           {
-            this.toffset = this.row_height * this.goto_index - this.get_allocated_height () / 2 + this.row_height / 2;
+            this.toffset = this.row_height * this.goto_index - allocation.height / 2 + this.row_height / 2;
           }
           break;
       }
@@ -628,8 +628,11 @@ namespace Synapse.Gui
 
     public override bool draw (Cairo.Context ctx)
     {
+      Gtk.Allocation allocation;
+      get_allocation (out allocation);
+
       /* Clip */
-      ctx.rectangle (0, 0, this.get_allocated_width (), this.get_allocated_height ());
+      ctx.rectangle (0, 0, allocation.width, allocation.height);
       ctx.clip ();
       ctx.set_operator (Cairo.Operator.OVER);
 
@@ -643,7 +646,7 @@ namespace Synapse.Gui
 
       ctx.set_font_options (this.get_screen().get_font_options());
 
-      int visible_items = this.get_allocated_height () / this.row_height + 2;
+      int visible_items = allocation.height / this.row_height + 2;
       int i = get_item_at_pos (0);
       visible_items += i;
 
@@ -651,17 +654,14 @@ namespace Synapse.Gui
 
       if (this.select_index >= 0 && this.selection_enabled)
       {
-        if (this.soffset > (-this.row_height) && this.soffset < this.get_allocated_height ())
+        if (this.soffset > (-this.row_height) && this.soffset < allocation.height)
         {
-          Gtk.Allocation allocation;
-          this.get_allocation (out allocation);
-
           ypos = int.max (this.soffset, 0);
-          var context = get_style_context ();
+          unowned Gtk.StyleContext context = get_style_context ();
           context.save ();
           context.set_state (Gtk.StateFlags.SELECTED);
           context.render_background (ctx, 0, ypos,
-                                     this.get_allocated_width (), this.row_height);
+                                     allocation.width, this.row_height);
           context.restore ();
         }
       }
@@ -669,10 +669,10 @@ namespace Synapse.Gui
       for (; i < visible_items && i < this.items.size; ++i)
       {
         ypos = i * this.row_height - this.offset;
-        if (ypos > this.get_allocated_height ()) break;
+        if (ypos > allocation.height) break;
         ctx.save ();
         ctx.translate (0, ypos);
-        ctx.rectangle (0, 0, this.get_allocated_width (), this.row_height);
+        ctx.rectangle (0, 0, allocation.width, this.row_height);
         ctx.clip ();
         pct = 1.0;
         if (this.selection_enabled && i == select_index)
@@ -682,7 +682,7 @@ namespace Synapse.Gui
           if (pct == 0.0) pct = (Math.fabs (this.tsoffset - this.soffset) / this.row_height);
           pct = 2.0 - double.min (1.0 , pct);
         }
-        renderer.render_match (ctx, this.items.get (i), this.get_allocated_width (), this.row_height, this.use_base_colors, pct);
+        renderer.render_match (ctx, this.items.get (i), allocation.width, this.row_height, this.use_base_colors, pct);
         ctx.restore ();
       }
 
@@ -709,6 +709,7 @@ namespace Synapse.Gui
     // Fired when user changes selection interacting with the list
     public signal void selected_index_changed (int new_index);
     public signal void fire_item ();
+    public signal void fire_item_context_switch ();
 
     private int dragdrop_target_item = 0;
     private string dragdrop_name = "";
@@ -717,7 +718,7 @@ namespace Synapse.Gui
     {
       if (this.tid != 0) return true;
       this.dragdrop_target_item = get_item_at_pos ((int)event.y);
-      var tl = new TargetList ({});
+      var tl = new Gtk.TargetList ({});
 
       if (this.items == null || this.items.size <= this.dragdrop_target_item)
       {
@@ -730,11 +731,18 @@ namespace Synapse.Gui
 
       if (this.selection_enabled)
       {
-        if (event.type == Gdk.EventType.2BUTTON_PRESS &&
-            this.select_index == this.dragdrop_target_item)
+        if ((event.type == Gdk.EventType.BUTTON_PRESS || event.type == Gdk.EventType.2BUTTON_PRESS)
+          && this.select_index == this.dragdrop_target_item)
         {
           this.set_indexes (this.dragdrop_target_item, this.dragdrop_target_item);
-          this.fire_item ();
+          if (event.type == Gdk.EventType.2BUTTON_PRESS)
+          {
+            this.fire_item ();
+          }
+          else if (event.type == Gdk.EventType.BUTTON_PRESS && event.button == 3)
+          {
+            this.fire_item_context_switch ();
+          }
           return true; //Fire item! So we don't need to drag things!
         }
         else
@@ -785,7 +793,7 @@ namespace Synapse.Gui
       return true;
     }
 
-    public override void drag_data_get (Gdk.DragContext context, SelectionData selection_data, uint info, uint time_)
+    public override void drag_data_get (Gdk.DragContext context, Gtk.SelectionData selection_data, uint info, uint time_)
     {
       /* Called at drop time */
       selection_data.set_text (dragdrop_name, -1);
@@ -793,15 +801,15 @@ namespace Synapse.Gui
     }
   }
 
-  public class ResultBox : EventBox
+  public class ResultBox : Gtk.EventBox
   {
     private const int VISIBLE_RESULTS = 5;
     private const int ICON_SIZE = 36;
     private int mwidth;
     private int nrows;
 
-    private Box vbox;
-    private Box status_box;
+    private Gtk.Box vbox;
+    private Gtk.Box status_box;
 
     private Utils.ColorHelper ch;
 
@@ -840,14 +848,12 @@ namespace Synapse.Gui
 
     private MatchListView view;
     private MatchViewRenderer rend;
-    private Label status;
-    private Label logo;
+    private Gtk.Label status;
 
     public new void set_state (Gtk.StateFlags state)
     {
       base.set_state_flags (state, false);
       status.set_state_flags (Gtk.StateFlags.NORMAL, true);
-      logo.set_state_flags (Gtk.StateFlags.NORMAL, true);
     }
 
     public override bool draw (Cairo.Context ctx)
@@ -860,9 +866,9 @@ namespace Synapse.Gui
 
         ctx.set_operator (Cairo.Operator.OVER);
         /* Prepare bg's colors using GtkStyleContext */
-        Pattern pat = new Pattern.linear(0, 0, 0, status.get_allocated_height ());
+        Cairo.Pattern pat = new Cairo.Pattern.linear(0, 0, 0, status.get_allocated_height ());
 
-        StateFlags t = this.get_state_flags ();
+        Gtk.StateFlags t = this.get_state_flags ();
         ch.add_color_stop_rgba (pat, 0.0, 0.95, StyleType.BG, t);
         ch.add_color_stop_rgba (pat, 1.0, 0.95, StyleType.BG, t, Mod.DARKER);
         /* Prepare and draw top bg's rect */
@@ -897,22 +903,18 @@ namespace Synapse.Gui
       view = new MatchListView (rend);
       view.min_visible_rows = this.nrows;
 
-      vbox = new Box (Gtk.Orientation.VERTICAL, 0);
+      vbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
       vbox.border_width = 0;
       this.add (vbox);
       vbox.pack_start (view);
-      status_box = new Box (Gtk.Orientation.HORIZONTAL, 0);
+      status_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
       status_box.set_size_request (-1, 15);
       vbox.pack_start (status_box, false);
-      status = new Label (null);
+      status = new Gtk.Label (null);
       status.set_alignment (0, 0);
       status.set_markup (Markup.printf_escaped ("<b>%s</b>", _("No results.")));
-      logo = new Label (null);
-      logo.set_alignment (1, 0);
-      logo.set_markup (Markup.printf_escaped ("<i>%s</i>", Config.RELEASE_NAME));
       status_box.pack_start (status, false, false, 10);
-      status_box.pack_start (new Label (null), true, false);
-      status_box.pack_start (logo, false, false, 10);
+      status_box.pack_start (new Gtk.Label (null), true, false);
     }
 
     public void update_matches (Gee.List<Synapse.Match>? rs)

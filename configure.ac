@@ -1,4 +1,4 @@
-AC_INIT([synapse], [0.2.99.1])
+AC_INIT([synapse], [0.2.99.2])
 AC_DEFINE(RELEASE_NAME, "Cholecystokinin", "Codename of this release")
 
 AC_PREREQ([2.65])
@@ -10,7 +10,7 @@ AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([1.11 tar-ustar dist-xz no-dist-gzip -Wno-portability subdir-objects])
 
-AM_MAINTAINER_MODE
+AM_MAINTAINER_MODE([enable])
 
 dnl ==============================================
 dnl Translation support
@@ -26,6 +26,8 @@ PKG_PROG_PKG_CONFIG([0.21])
 AC_PROG_INSTALL
 AC_PROG_CC
 AM_PROG_CC_C_O
+
+LT_PREREQ([2.2.6])
 LT_INIT
 
 LT_LIB_M
@@ -33,7 +35,7 @@ LT_LIB_M
 dnl ==============================================
 dnl Check for Vala
 dnl ==============================================
-AM_PROG_VALAC([0.16.0])
+AM_PROG_VALAC([0.24.0])
 if test "x$VALAC" = "x"; then
 	AC_MSG_ERROR([You need Vala compiler])
 fi
@@ -43,7 +45,7 @@ AM_SILENT_RULES([yes])
 dnl ==============================================
 dnl Check that we meet the dependencies
 dnl ==============================================
-MIN_GLIB_VERSION=2.28.0
+MIN_GLIB_VERSION=2.40.0
 MIN_GTK_VERSION=3.0.0
 MIN_ZEITGEIST_VERSION=0.9.14
 MIN_GEE_VERSION=0.5.2
@@ -72,7 +74,7 @@ SYNAPSE_MODULES_VALAFLAGS=" --pkg gdk-x11-3.0 \
   --pkg libnotify"
 AC_SUBST(SYNAPSE_MODULES_VALAFLAGS)
 
-SYNAPSE_COMMON_VALAFLAGS=" --target-glib=2.28 --thread -g"
+SYNAPSE_COMMON_VALAFLAGS=" --target-glib=2.40 --thread -g"
 AC_SUBST(SYNAPSE_COMMON_VALAFLAGS)
 
 AC_ARG_ENABLE(librest,

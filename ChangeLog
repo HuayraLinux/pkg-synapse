@@ -1,3 +1,178 @@
+2016-02-28  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	Release 0.2.99.2
+
+2016-02-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Bump to 2016
+
+2016-02-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Show release-name in about-dialog only
+
+2016-02-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	src: Drop last usages of "using *;"
+
+2016-02-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	src: Drop "using Cairo;"
+
+2016-02-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	src: Drop "using Gtk;"
+
+2016-02-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	src: Drop "using Zeitgeist;"
+
+2016-02-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	src: Drop "using Json;"
+
+2016-02-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	src: Drop "using Gee;"
+
+2016-02-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	desktop-file-plugin: correct ApplicationsMatch to DesktopFileMatch
+
+2016-02-26  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	po: Update translations
+
+2016-02-26  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	plugins: Add suport for MATE Screensaver
+
+2015-11-30  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	debian: Bump build-deps accordingly
+
+2015-11-30  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	core/query: Cache and reuse Regex.escape_string (query)
+
+2015-11-30  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui/controller: Some optimization accessing model.query[] in search*()
+
+2015-11-16  Jeremy Munsch  <jeremy.munsch@gmail.com>
+
+	ui: Improve mouse navigation support
+
+2015-11-20  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	file-op-plugin: Only allow local files for Remove-action
+
+2015-11-19  Jeremy Munsch  <jeremy.munsch@gmail.com>
+
+	Add shortcut ctrl+backspace for delete word
+
+2015-11-18  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	common-actions: Allow Runner/TerminalRunner only for non-directory
+	files
+
+2015-11-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	core: Avoid taking reference on default GdkDisplay
+
+2015-11-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	tile: Fix regression of r623
+
+2015-11-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	view-base: Verify presence of GdkX11Screen before using it
+
+2015-11-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	widgets: Cache struct in loop
+
+2015-11-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Clean up struct initializations
+
+2015-11-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Use some unowned variables
+
+2015-11-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Fix usage of get_state_flags()
+
+2015-11-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Use some unowned variables
+
+2015-11-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Use get_allocation() instead of multiple calls to get_allocated_*()
+
+2015-11-15  Jeremy Munsch  <jeremy.munsch@gmail.com>
+
+	chromium: Set mime-type of BookmarkMatch
+
+2015-11-14  Jeremy Munsch  <jeremy.munsch@gmail.com>
+
+	Add support for "Additional applications actions"
+
+	Source and evaluate "Desktop Action" groups in desktop-files.
+
+2015-11-14  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	build: Bump requirements glib-2.0 >= 2.40, valac >= 0.24.0
+
+2015-11-14  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	build: Drop optional dependency on gnome-common
+
+2015-11-14  Jeremy Munsch  <jeremy.munsch@gmail.com>
+
+	core: Handle UriMatches pointing to executable files
+
+2015-10-05  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	main: Properly setup internationalization
+
+2015-09-29  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	dictionary: Add support for "mate-dictionary"
+
+2015-09-29  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	calculator: Make sure that only the result will be copied into
+	clipboard
+
+	This was a regression r583 which resulted in copying the whole input
+	including the concated result.
+
+2015-07-23  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	desktop-file-service: Avoid some string copying
+
+2015-07-21  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	po: Update translation template
+
+2015-07-21  Jeremy Munsch  <jeremy.munsch@gmail.com>
+
+	Add Zeal Offline Documentation plugin
+
+2015-07-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Fix build with valac >= 0.28
+
+2015-07-15  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	build: Some more cleaning
+
+2015-04-27  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	po: Update translations
+
 2015-01-28  Rico Tzschichholz  <ricotz@ubuntu.com>
 
 	Release 0.2.99.1

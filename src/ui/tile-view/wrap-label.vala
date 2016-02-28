@@ -19,11 +19,9 @@
  *
  */
 
-using Gtk;
-
 namespace UI.Widgets
 {
-  public class WrapLabel : Label
+  public class WrapLabel : Gtk.Label
   {
     private float orig_yalign = 0.5f;
     private bool _wrap = false;
@@ -38,8 +36,8 @@ namespace UI.Widgets
         this.max_width_chars = _wrap ? -1 : 10;
         this.set_ellipsize (_wrap ? Pango.EllipsizeMode.NONE :
                                     Pango.EllipsizeMode.END);
-        if (!_wrap) orig_yalign = this.yalign;
-        this.yalign = _wrap ? 0.0f : orig_yalign;
+        if (!_wrap) orig_yalign = ((Gtk.Misc) this).yalign;
+        ((Gtk.Misc) this).yalign = _wrap ? 0.0f : orig_yalign;
         this.queue_resize ();
       }
     }
@@ -54,7 +52,7 @@ namespace UI.Widgets
 
     protected override void size_allocate (Gtk.Allocation allocation)
     {
-      var layout = this.get_layout ();
+      unowned Pango.Layout layout = this.get_layout ();
       layout.set_width (allocation.width * Pango.SCALE);
 
       int lw, lh;

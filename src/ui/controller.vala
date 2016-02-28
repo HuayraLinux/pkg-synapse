@@ -19,8 +19,6 @@
  *
  */
 
-using Gee;
-
 namespace Synapse.Gui
 {
   public class Controller : IController, Object
@@ -125,6 +123,10 @@ namespace Synapse.Gui
       this.execute (true);
     }
 
+    public void fire_focus_context_switch_event ()
+    {
+      this.fetch_command (KeyComboConfig.Commands.NEXT_PANE);
+    }
 
     /* selected_index_changed should be fired when users clicks on an item in the list */
     /* Model.focus[Model.searching_for] will be changed */
@@ -231,22 +233,40 @@ namespace Synapse.Gui
       }
     }
 
+    protected void search_delete_word ()
+    {
+      SearchingFor mode = model.searching_for;
+      unowned string needle = model.query[mode];
+
+      if (needle == "") return;
+      model.query[mode] = Synapse.Utils.remove_last_word (needle);
+
+      search (mode);
+    }
+
     protected void search_add_delete_char (string? newchar = null)
     {
+      SearchingFor mode = model.searching_for;
+      unowned string needle = model.query[mode];
+
       if (newchar == null)
       {
         // delete
-        if (model.query[model.searching_for] == "") return;
-        model.query[model.searching_for] =
-          Synapse.Utils.remove_last_unichar (model.query[model.searching_for]);
+        if (needle == "") return;
+        model.query[mode] = Synapse.Utils.remove_last_unichar (needle);
       }
       else
       {
         // add
-        model.query[model.searching_for] =
-              model.query[model.searching_for] + newchar;
+        model.query[mode] = needle + newchar;
       }
-      switch (model.searching_for)
+
+      search (mode);
+    }
+    
+    void search (SearchingFor mode)
+    {
+      switch (mode)
       {
         case SearchingFor.SOURCES:
           search_for_matches (SearchingFor.SOURCES);
@@ -298,6 +318,9 @@ namespace Synapse.Gui
             break;
           case KeyComboConfig.Commands.SEARCH_DELETE_CHAR:
             search_add_delete_char ();
+            break;
+          case KeyComboConfig.Commands.SEARCH_DELETE_WORD:
+            search_delete_word ();
             break;
           case KeyComboConfig.Commands.CLEAR_SEARCH_OR_HIDE:
             clear_search_or_hide_pressed ();
