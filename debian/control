@@ -17,7 +17,7 @@ Build-Depends: debhelper (>= 9),
 Vcs-Git: git://anonscm.debian.org/collab-maint/synapse.git
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/synapse.git
 Homepage: https://launchpad.net/synapse-project
-Standards-Version: 3.9.7
+Standards-Version: 3.9.8
 
 Package: synapse
 Architecture: any
