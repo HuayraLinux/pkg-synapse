@@ -1,10 +1,12 @@
 synapse (0.2.99.2-3) unstable; urgency=medium
 
+  * d/patches: import changes from bzr repo to fix FTBFS (Closes: #871057)
   * d/control: use debhelper 10
   * d/watch: use watch version 4
   * d/rules: drop obsolete dbg package
+  * Bumped Standards-Version to 4.0.0 (no changes needed)
 
- -- Tomasz Buchert <tomasz@debian.org>  Sun, 18 Dec 2016 14:09:59 +0100
+ -- Tomasz Buchert <tomasz@debian.org>  Tue, 19 Sep 2017 01:08:00 +0200
 
 synapse (0.2.99.2-2) unstable; urgency=medium
 
