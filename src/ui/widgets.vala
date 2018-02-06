@@ -53,7 +53,7 @@ namespace Synapse.Gui
 
   public class SmartLabel : Gtk.Misc
   {
-    public static const string[] size_to_string = {
+    public const string[] size_to_string = {
       "xx-small",
       "x-small",
       "small",
@@ -73,7 +73,7 @@ namespace Synapse.Gui
       return s;
     }
 
-    protected static const double[] size_to_scale = {
+    protected const double[] size_to_scale = {
       Pango.Scale.XX_SMALL,
       Pango.Scale.X_SMALL,
       Pango.Scale.SMALL,
@@ -115,8 +115,8 @@ namespace Synapse.Gui
     private Pango.EllipsizeMode ellipsize = Pango.EllipsizeMode.NONE;
 
     private uint tid = 0;
-    private static const int INITIAL_TIMEOUT = 1750;
-    private static const int SPACING = 50;
+    private const int INITIAL_TIMEOUT = 1750;
+    private const int SPACING = 50;
     private int offset = 0;
     private bool animate = false;
 
@@ -1143,7 +1143,7 @@ namespace Synapse.Gui
       artists += "Ian Cylkowski <designbyizo@gmail.com>";
       GLib.Object (artists : artists,
                    authors : devs,
-                   copyright : "Copyright (C) 2010-2016 " + string.joinv ("\n", devs),
+                   copyright : "Copyright (C) 2010-2018 " + string.joinv ("\n", devs),
                    program_name: "Synapse",
                    logo_icon_name : "synapse",
                    version: Config.VERSION + "\n" + Config.RELEASE_NAME,

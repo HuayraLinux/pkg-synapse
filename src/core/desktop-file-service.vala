@@ -42,8 +42,9 @@ namespace Synapse
     EDE   = 1 << 9,
     CINNAMON = 1 << 10,
     PANTHEON = 1 << 11,
-
     OLD   = 1 << 12,
+    UBUNTU = 1 << 13,
+
     ALL   = 0xFFF;
 
     public static DesktopEnvironmentType from_strings (string[] environments)
@@ -55,6 +56,10 @@ namespace Synapse
         switch (env_up)
         {
           case "GNOME": result |= DesktopEnvironmentType.GNOME; break;
+          case "GNOME-FLASHBACK": result = DesktopEnvironmentType.GNOME; break;
+          case "GNOME-XORG": result = DesktopEnvironmentType.GNOME; break;
+          case "UBUNTU": result = DesktopEnvironmentType.UBUNTU; break;
+          case "UBUNTU-XORG": result = DesktopEnvironmentType.UBUNTU; break;
           case "KDE": result |= DesktopEnvironmentType.KDE; break;
           case "LXDE": result |= DesktopEnvironmentType.LXDE; break;
           case "MATE": result |= DesktopEnvironmentType.MATE; break;
@@ -278,7 +283,12 @@ namespace Synapse
 
       string session = session_var.down ();
 
-      if (session.has_prefix ("unity") || session.has_prefix ("ubuntu"))
+      if (session.has_prefix ("ubuntu"))
+      {
+        session_type = DesktopEnvironmentType.UBUNTU;
+        session_type_str = "Ubuntu";
+      }
+      else if (session.has_prefix ("unity"))
       {
         session_type = DesktopEnvironmentType.UNITY;
         session_type_str = "Unity";

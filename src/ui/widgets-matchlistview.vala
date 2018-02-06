@@ -249,8 +249,8 @@ namespace Synapse.Gui
   {
     /* Animation stuffs */
     private uint tid;
-    private static const int ANIM_TIMEOUT = 1000 / 25;
-    private static const int ANIM_STEPS = 180 / ANIM_TIMEOUT;
+    private const int ANIM_TIMEOUT = 1000 / 25;
+    private const int ANIM_STEPS = 180 / ANIM_TIMEOUT;
     public bool animation_enabled {
       get; set; default = true;
     }
@@ -659,9 +659,12 @@ namespace Synapse.Gui
           ypos = int.max (this.soffset, 0);
           unowned Gtk.StyleContext context = get_style_context ();
           context.save ();
+          context.add_class("view");
           context.set_state (Gtk.StateFlags.SELECTED);
           context.render_background (ctx, 0, ypos,
                                      allocation.width, this.row_height);
+          context.render_frame (ctx, 0, ypos,
+                                allocation.width, this.row_height);
           context.restore ();
         }
       }
@@ -863,6 +866,10 @@ namespace Synapse.Gui
         Gtk.Allocation allocation, status_allocation;
         this.get_allocation (out allocation);
         status.get_allocation (out status_allocation);
+
+        /* Clip */
+        ctx.rectangle (0, 0, allocation.width, allocation.height);
+        ctx.clip ();
 
         ctx.set_operator (Cairo.Operator.OVER);
         /* Prepare bg's colors using GtkStyleContext */

@@ -427,7 +427,7 @@ namespace Synapse.Gui
       plugin_tab.pack_start (scroll);
 
       /* Button */
-      var bbox = new Gtk.HButtonBox ();
+      var bbox = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
       bbox.set_layout (Gtk.ButtonBoxStyle.END);
       var close_button = new Gtk.Button.from_stock (Gtk.Stock.CLOSE);
       close_button.clicked.connect (() => {

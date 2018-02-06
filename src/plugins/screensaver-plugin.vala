@@ -76,6 +76,7 @@ namespace Synapse
           ScreenSaverPlugin.mate_lock_screen ();
           break;
         case DesktopEnvironmentType.GNOME:
+        case DesktopEnvironmentType.UBUNTU:
         default:
           ScreenSaverPlugin.gnome_lock_screen ();
           break;
@@ -118,6 +119,7 @@ namespace Synapse
           is_supported = DBusService.get_default ().name_is_activatable (MateScreenSaver.UNIQUE_NAME);
           break;
         case DesktopEnvironmentType.GNOME:
+        case DesktopEnvironmentType.UBUNTU:
           is_supported = DBusService.get_default ().name_is_activatable (GnomeScreenSaver.UNIQUE_NAME);
           break;
       }
