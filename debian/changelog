@@ -1,3 +1,10 @@
+synapse (0.2.99.3-1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Imported Upstream version 0.2.99.3
+
+ -- Ignacio Losiggio <iglosiggio@gmail.com>  Tue, 06 Feb 2018 14:28:08 -0300
+
 synapse (0.2.99.2-3) unstable; urgency=medium
 
   * d/patches: import changes from bzr repo to fix FTBFS (Closes: #871057)
