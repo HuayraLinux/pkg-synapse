@@ -1,4 +1,4 @@
-AC_INIT([synapse], [0.2.99.2])
+AC_INIT([synapse], [0.2.99.3])
 AC_DEFINE(RELEASE_NAME, "Cholecystokinin", "Codename of this release")
 
 AC_PREREQ([2.65])
@@ -19,13 +19,16 @@ dnl ==============================================
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, ["$GETTEXT_PACKAGE"], [Define the gettext package to be used])
-IT_PROG_INTLTOOL([0.35.0])
+
+AM_GNU_GETTEXT_VERSION([0.19.6])
+AM_GNU_GETTEXT([external])
 
 PKG_PROG_PKG_CONFIG([0.21])
 
 AC_PROG_INSTALL
 AC_PROG_CC
 AM_PROG_CC_C_O
+
 
 LT_PREREQ([2.2.6])
 LT_INIT

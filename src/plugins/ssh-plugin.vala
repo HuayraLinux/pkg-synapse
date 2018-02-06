@@ -168,17 +168,7 @@ namespace Synapse
 
       public override void do_action ()
       {
-        try
-        {
-          AppInfo ai = AppInfo.create_from_commandline (
-            "ssh %s".printf (this.title),
-            "ssh", AppInfoCreateFlags.NEEDS_TERMINAL);
-          ai.launch (null, null);
-        }
-        catch (Error err)
-        {
-          warning ("%s", err.message);
-        }
+        Utils.open_command_line ("ssh %s".printf (title), null, true);
       }
 
       public SshHost (string host_name)

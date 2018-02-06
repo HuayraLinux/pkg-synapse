@@ -7,481 +7,482 @@ msgid ""
 msgstr ""
 "Project-Id-Version: synapse-project\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-30 14:48+0000\n"
-"PO-Revision-Date: 2013-11-29 20:51+0000\n"
-"Last-Translator: Akela <sdakela@gmail.com>\n"
+"POT-Creation-Date: 2017-02-18 21:40+0000\n"
+"PO-Revision-Date: 2017-09-11 12:55+0000\n"
+"Last-Translator: Pavan Kumar D <pavaneluru@gmail.com>\n"
 "Language-Team: Telugu <te@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-01 05:19+0000\n"
-"X-Generator: Launchpad (build 17850)\n"
+"X-Launchpad-Export-Date: 2017-09-12 05:19+0000\n"
+"X-Generator: Launchpad (build 18449)\n"
 
 #: ../data/synapse.desktop.in.h:1
 msgid "Synapse"
-msgstr "Synapse"
+msgstr "సైనాప్స్"
 
 #: ../data/synapse.desktop.in.h:2
 msgid "Search everything you do."
-msgstr "ప్రతిదీ వెతకండి."
+msgstr "కావలసినదేదయినా వెతకండి."
 
 #. activate has to stay in first position!
-#: ../src/ui/synapse-main.vala:106 ../src/ui/settings.vala:240
+#: ../src/ui/synapse-main.vala:102 ../src/ui/settings.vala:237
 msgid "Activate"
-msgstr "చైతన్యపరచు"
+msgstr "క్రియాశీలించు"
 
 #. Whooot?! This cannot be true!
-#: ../src/ui/category.vala:31 ../src/ui/category.vala:71
-#: ../src/ui/category.vala:135
+#: ../src/ui/category.vala:29 ../src/ui/category.vala:69
+#: ../src/ui/category.vala:133
 msgid "All"
 msgstr "అన్నీ"
 
-#: ../src/ui/category.vala:68 ../src/ui/category.vala:112
+#: ../src/ui/category.vala:66 ../src/ui/category.vala:110
 msgid "Actions"
 msgstr "చర్యలు"
 
-#: ../src/ui/category.vala:69 ../src/ui/category.vala:114
+#: ../src/ui/category.vala:67 ../src/ui/category.vala:112
 msgid "Audio"
 msgstr "ధ్వని"
 
-#: ../src/ui/category.vala:70 ../src/ui/category.vala:115
+#: ../src/ui/category.vala:68 ../src/ui/category.vala:113
 msgid "Applications"
-msgstr ""
+msgstr "అనువర్తనాలు"
 
-#: ../src/ui/category.vala:72 ../src/ui/category.vala:113
+#: ../src/ui/category.vala:70 ../src/ui/category.vala:111
 msgid "Places"
-msgstr ""
+msgstr "స్థలములు"
 
-#: ../src/ui/category.vala:73 ../src/ui/category.vala:116
+#: ../src/ui/category.vala:71 ../src/ui/category.vala:114
 msgid "Documents"
 msgstr "పత్రాలు"
 
-#: ../src/ui/category.vala:74 ../src/ui/category.vala:117
+#: ../src/ui/category.vala:72 ../src/ui/category.vala:115
 msgid "Images"
 msgstr "చిత్రాలు"
 
-#: ../src/ui/category.vala:75 ../src/ui/category.vala:118
+#: ../src/ui/category.vala:73 ../src/ui/category.vala:116
 msgid "Video"
-msgstr "వీడియో"
+msgstr "దృశ్యకం"
 
-#: ../src/ui/category.vala:76
+#: ../src/ui/category.vala:74
 msgid "Contacts"
-msgstr ""
+msgstr "పరిచయాలు"
 
-#: ../src/ui/category.vala:77 ../src/ui/category.vala:119
+#: ../src/ui/category.vala:75 ../src/ui/category.vala:117
 msgid "Internet"
-msgstr "ఇంటర్‌నెట్"
+msgstr "అంతర్జాలం"
 
 #. _labels.set (QueryFlags.ALL, _("All")); // Do not remove!
-#: ../src/ui/category.vala:111
+#: ../src/ui/category.vala:109
 msgid "Include remote content"
-msgstr ""
+msgstr "దూరపు విషయాన్ని కలుపు"
 
 #. _labels.set (QueryFlags.FILES, _("Files"));
-#: ../src/ui/category.vala:121
+#: ../src/ui/category.vala:119
 msgid "Uncategorized"
-msgstr "వర్గీకరించనివి"
+msgstr "అవర్గీకృతం"
 
-#: ../src/ui/controller.vala:30
+#: ../src/ui/controller.vala:28
 msgid "Searching..."
 msgstr "శోధిస్తోంది..."
 
-#: ../src/ui/controller.vala:31
+#: ../src/ui/controller.vala:29
 msgid "No results found."
 msgstr "ఫలితాలేమీ దొరకలేదు."
 
-#: ../src/ui/controller.vala:32
+#: ../src/ui/controller.vala:30
 msgid "No recent activities found."
-msgstr ""
+msgstr "ఇటీవలి కార్యాచరణలు కనుగొనబడలేదు"
 
-#: ../src/ui/controller.vala:33
+#: ../src/ui/controller.vala:31
 msgid "Type to search..."
 msgstr "వెతకడానికి టైపు చేయండి..."
 
-#: ../src/ui/controller.vala:542
+#: ../src/ui/controller.vala:548
 msgid "...or press down key to browse recent activities"
-msgstr ""
+msgstr ".. లేదా ఇటీవలి కార్యకలాపాలను బ్రౌజ్ చేయడానికి మిటని నొక్కండి"
 
-#: ../src/ui/view-virgilio.vala:208 ../src/ui/widgets-matchlistview.vala:948
+#: ../src/ui/view-virgilio.vala:199 ../src/ui/widgets-matchlistview.vala:938
 #, c-format
 msgid "<b>%d of %d</b>"
-msgstr ""
+msgstr "<b>%d లో %d</b>"
+
+#: ../src/ui/settings.vala:45
+msgid "Status"
+msgstr "స్థితి"
+
+#: ../src/ui/settings.vala:47
+msgid "Enable this plugin"
+msgstr "ఈ ప్లగిన్ ను సశక్తపర్చు"
 
 #: ../src/ui/settings.vala:48
-msgid "Status"
-msgstr ""
-
-#: ../src/ui/settings.vala:50
-msgid "Enable this plugin"
-msgstr ""
-
-#: ../src/ui/settings.vala:51
 msgid "Disable this plugin"
-msgstr ""
+msgstr "ఈ ప్లగిన్ ను అశక్తపర్చు"
 
-#: ../src/ui/settings.vala:57
+#: ../src/ui/settings.vala:54
 msgid "About this plugin"
-msgstr ""
+msgstr "ఈ ప్లగిన్ గురించి"
 
-#: ../src/ui/settings.vala:71 ../src/ui/settings.vala:207
+#: ../src/ui/settings.vala:68 ../src/ui/settings.vala:204
 msgid "Configure plugin"
-msgstr ""
+msgstr "ప్లగిన్ ఆకృతీకరన"
 
-#: ../src/ui/settings.vala:86 ../src/ui/settings.vala:455
+#: ../src/ui/settings.vala:83 ../src/ui/settings.vala:452
 msgid "Disabled"
-msgstr ""
+msgstr "అచేతనమైనది"
 
-#: ../src/ui/settings.vala:90
+#: ../src/ui/settings.vala:87
 msgid "Enabled"
-msgstr ""
+msgstr "చేతనమైనది"
 
-#: ../src/ui/settings.vala:144
+#: ../src/ui/settings.vala:141
 msgid "Synapse - Settings"
-msgstr ""
+msgstr "సైనిప్స అమరికలు"
+
+#: ../src/ui/settings.vala:166
+msgid "Default"
+msgstr "అప్రమేయం"
+
+#: ../src/ui/settings.vala:167
+msgid "Essential"
+msgstr "అవసరమైన"
+
+#: ../src/ui/settings.vala:168
+msgid "Doish"
+msgstr "Doish"
 
 #: ../src/ui/settings.vala:169
-msgid "Default"
-msgstr ""
+msgid "Side Doish"
+msgstr "Side Doish"
 
 #: ../src/ui/settings.vala:170
-msgid "Essential"
-msgstr ""
-
-#: ../src/ui/settings.vala:171
-msgid "Doish"
-msgstr ""
-
-#: ../src/ui/settings.vala:172
-msgid "Side Doish"
-msgstr ""
-
-#: ../src/ui/settings.vala:173
 msgid "Virgilio"
-msgstr ""
+msgstr "Virgilio"
+
+#: ../src/ui/settings.vala:238
+msgid "Execute"
+msgstr "అమలుపరుచు"
+
+#: ../src/ui/settings.vala:239
+msgid "Execute without hiding"
+msgstr "మూయకుండా అమలుపరుచు"
+
+#: ../src/ui/settings.vala:240
+msgid "Alternative Delete"
+msgstr "ప్రత్యామ్నాయ తొలగింపు"
 
 #: ../src/ui/settings.vala:241
-msgid "Execute"
-msgstr ""
+msgid "Next Result"
+msgstr "తదుపరి ఫలితం"
 
 #: ../src/ui/settings.vala:242
-msgid "Execute without hiding"
-msgstr ""
+msgid "Previous Result"
+msgstr "మునుపటి ఫలితం"
 
 #: ../src/ui/settings.vala:243
-msgid "Alternative Delete"
-msgstr ""
+msgid "First Result"
+msgstr "తొలి ఫలితం"
 
 #: ../src/ui/settings.vala:244
-msgid "Next Result"
-msgstr ""
+msgid "Last Result"
+msgstr "తుది ఫలితం"
 
 #: ../src/ui/settings.vala:245
-msgid "Previous Result"
-msgstr ""
+msgid "Next 5 Results"
+msgstr "తదుపరి 5 ఫలితాలు"
 
 #: ../src/ui/settings.vala:246
-msgid "First Result"
-msgstr ""
+msgid "Previous 5 Results"
+msgstr "మునుపటి 5 ఫలితాలు"
 
 #: ../src/ui/settings.vala:247
-msgid "Last Result"
-msgstr ""
+msgid "Next Category"
+msgstr "తదుపరి వర్గం"
 
 #: ../src/ui/settings.vala:248
-msgid "Next 5 Results"
-msgstr ""
+msgid "Previous Category"
+msgstr "మునుపటి వర్గం"
 
 #: ../src/ui/settings.vala:249
-msgid "Previous 5 Results"
-msgstr ""
+msgid "Next Pane"
+msgstr "తదుపరి పేన్"
 
 #: ../src/ui/settings.vala:250
-msgid "Next Category"
-msgstr ""
+msgid "Previous Pane"
+msgstr "మునుపటి పేన్"
 
 #: ../src/ui/settings.vala:251
-msgid "Previous Category"
-msgstr ""
+msgid "Paste"
+msgstr "అచ్చువేయి"
 
 #: ../src/ui/settings.vala:252
-msgid "Next Pane"
-msgstr ""
+msgid "Paste current selection"
+msgstr "ప్రస్తుత ఎంపికను అచ్చువేయి"
 
 #: ../src/ui/settings.vala:253
-msgid "Previous Pane"
-msgstr ""
-
-#: ../src/ui/settings.vala:254
-msgid "Paste"
-msgstr ""
-
-#: ../src/ui/settings.vala:255
-msgid "Paste current selection"
-msgstr ""
-
-#: ../src/ui/settings.vala:256
 #: ../src/plugins/xnoise-media-player-plugin.vala:94
 msgid "Quit"
-msgstr ""
+msgstr "నిష్క్రమించు"
 
-#: ../src/ui/settings.vala:270
+#: ../src/ui/settings.vala:267
 msgid "Shortcut already in use"
-msgstr ""
+msgstr "సత్వరమార్గం ఇప్పటికే ఉపయోగంలో ఉంది"
 
-#: ../src/ui/settings.vala:296
+#: ../src/ui/settings.vala:293
 msgid "General"
-msgstr ""
+msgstr "సాదారణ"
 
-#: ../src/ui/settings.vala:297
+#: ../src/ui/settings.vala:294
 msgid "Plugins"
-msgstr ""
+msgstr "ప్లగిన్‌లు"
 
-#: ../src/ui/settings.vala:303
+#: ../src/ui/settings.vala:300
 msgid "Behavior & Look"
-msgstr ""
+msgstr "రూపు, ప్రవర్తనలు"
 
-#: ../src/ui/settings.vala:315
+#: ../src/ui/settings.vala:312
 msgid "Theme:"
-msgstr ""
+msgstr "నేపథ్యం"
 
 #. Autostart checkbox
-#: ../src/ui/settings.vala:320
+#: ../src/ui/settings.vala:317
 msgid "Startup on login"
-msgstr ""
+msgstr "లాగిన్ తోపాటు మొదలుపెట్టు"
 
 #. Notification icon
-#: ../src/ui/settings.vala:326
+#: ../src/ui/settings.vala:323
 msgid "Show notification icon"
-msgstr ""
+msgstr "ప్రకటన చిహ్నాన్ని చూపు."
 
-#: ../src/ui/settings.vala:340
+#: ../src/ui/settings.vala:337
 msgid "Shortcuts"
-msgstr ""
+msgstr "సత్వరమార్గాలు"
 
-#: ../src/ui/settings.vala:359
+#: ../src/ui/settings.vala:356
 msgid "Action"
-msgstr ""
+msgstr "చర్య"
 
-#: ../src/ui/settings.vala:392
+#: ../src/ui/settings.vala:389
 msgid "Shortcut"
-msgstr ""
+msgstr "సత్వరమార్గం"
 
-#: ../src/ui/settings.vala:411
+#: ../src/ui/settings.vala:408
 msgid "Click the shortcut you wish to change and press the new shortcut."
 msgstr ""
+"మీరు మార్చాలనుకున్న సత్వరమార్గాన్ని వొత్తి, కొత్త సత్వరమార్గాన్ని నొక్కండి."
 
-#: ../src/ui/widgets-matchlistview.vala:921
-#: ../src/ui/widgets-matchlistview.vala:935
+#: ../src/ui/widgets-matchlistview.vala:915
+#: ../src/ui/widgets-matchlistview.vala:925
 msgid "No results."
-msgstr ""
+msgstr "ఏ ఫలితాలు లేవు."
 
-#: ../src/ui/widgets-matchlistview.vala:940
+#: ../src/ui/widgets-matchlistview.vala:930
 #, c-format
 msgid "<b>1 of %d</b>"
-msgstr ""
+msgstr "<b>%d లో 1</b>"
 
 #. if is home dir
 #: ../src/ui/utils.vala:131
 msgid "Home"
-msgstr ""
+msgstr "ముంగిలి"
 
 #: ../src/ui/utils.vala:145
 msgid "Root"
-msgstr ""
+msgstr "మూలము"
 
 #: ../src/core/common-actions.vala:60
 msgid "Run"
-msgstr ""
+msgstr "అమలు"
 
 #: ../src/core/common-actions.vala:61
 msgid "Run an application, action or script"
-msgstr ""
+msgstr "అనువర్తనం, చర్య లేదా లిపిని అమలు చేయండి"
 
 #: ../src/core/common-actions.vala:141
 msgid "Run in Terminal"
-msgstr ""
+msgstr "అంతిమంలో అమలు చెయ్యి"
 
 #: ../src/core/common-actions.vala:142
 msgid "Run application or command in terminal"
-msgstr ""
+msgstr "అనువర్తనం లేదా ఆదేశాన్ని అంతిమంలో అమలు చెయ్యి"
 
 #: ../src/core/common-actions.vala:208
 msgid "Open"
-msgstr ""
+msgstr "తెరువు"
 
 #: ../src/core/common-actions.vala:209
 msgid "Open using default application"
-msgstr ""
+msgstr "అప్రమేయ అనువర్తనంతో తెరవండి"
 
 #: ../src/core/common-actions.vala:270
 msgid "Open folder"
-msgstr ""
+msgstr "సంచయం తెరువు"
 
 #: ../src/core/common-actions.vala:271
 msgid "Open folder containing this file"
-msgstr ""
+msgstr "ఈ దస్త్రం ఉన్న సంచయం తెరువు"
 
 #: ../src/core/common-actions.vala:311
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "క్లిప్‌బోర్డు పై నకలు తీయి"
 
 #: ../src/core/common-actions.vala:312
 msgid "Copy selection to clipboard"
-msgstr ""
+msgstr "ఎంపికను క్లిప్‌బోర్డు పై నకలు తీయి"
 
 #: ../src/plugins/banshee-plugin.vala:70
 msgid "Control Banshee and add items to playlists."
-msgstr ""
+msgstr "బెన్షి నియంత్రణ మరియు అంశాలను పాటలజాబితాలో చేర్చండి."
 
 #. DBusService.get_default ().name_is_activatable (BansheePlaybackController.UNIQUE_NAME), // doesn't work for banshee
 #: ../src/plugins/banshee-plugin.vala:76
 msgid "Banshee is not installed"
-msgstr ""
+msgstr "బెన్షి స్థాపితం కాలేదు"
 
 #: ../src/plugins/banshee-plugin.vala:113
 #: ../src/plugins/rhythmbox-plugin.vala:119
 #: ../src/plugins/xnoise-media-player-plugin.vala:140
 msgid "Play"
-msgstr ""
+msgstr "ఆడు"
 
 #: ../src/plugins/banshee-plugin.vala:114
 msgid "Start playback in Banshee"
-msgstr ""
+msgstr "బెన్షిలొ పాట మొదలుపెట్టు"
 
 #: ../src/plugins/banshee-plugin.vala:140
 #: ../src/plugins/rhythmbox-plugin.vala:145
 #: ../src/plugins/xnoise-media-player-plugin.vala:191
 msgid "Pause"
-msgstr ""
+msgstr "నిలుపు"
 
 #: ../src/plugins/banshee-plugin.vala:141
 msgid "Pause playback in Banshee"
-msgstr ""
+msgstr "బెన్షిలొ పాట ఆపు"
 
 #: ../src/plugins/banshee-plugin.vala:160
 #: ../src/plugins/rhythmbox-plugin.vala:171
 #: ../src/plugins/xnoise-media-player-plugin.vala:214
 msgid "Next"
-msgstr ""
+msgstr "తదుపరి"
 
 #: ../src/plugins/banshee-plugin.vala:161
 msgid "Plays the next song in Banshee's playlist"
-msgstr ""
+msgstr "బెన్షి పాటలజాబితాలో తదుపరి పాట వినిపించు"
 
 #: ../src/plugins/banshee-plugin.vala:182
 #: ../src/plugins/rhythmbox-plugin.vala:196
 #: ../src/plugins/xnoise-media-player-plugin.vala:238
 msgid "Previous"
-msgstr ""
+msgstr "మునుపటి"
 
 #: ../src/plugins/banshee-plugin.vala:183
 msgid "Plays the previous song in Banshee's playlist"
-msgstr ""
+msgstr "బెన్షి పాటలజాబితాలో మునుపటి పాట వినిపించు"
 
 #: ../src/plugins/banshee-plugin.vala:204
 msgid "Enqueue in Banshee"
-msgstr ""
+msgstr "వరుసలోని క్రమీకరించు"
 
 #: ../src/plugins/banshee-plugin.vala:205
 msgid "Add the song to Banshee playlist"
-msgstr ""
+msgstr "బెన్షి పాటలజాబితాలో పాటను చేర్చు"
 
 #: ../src/plugins/banshee-plugin.vala:241
 msgid "Play in Banshee"
-msgstr ""
+msgstr "బెన్షిలో వినిపించు"
 
 #: ../src/plugins/banshee-plugin.vala:242
 #: ../src/plugins/rhythmbox-plugin.vala:265
 msgid "Clears the current playlist and plays the song"
-msgstr ""
+msgstr "ప్రస్తుత పాటలజాబితాను తొలగించి పాటను వినిపించు"
 
 #: ../src/plugins/calculator-plugin.vala:59
 msgid "Calculator"
-msgstr ""
+msgstr "గణనపరికరం"
 
 #: ../src/plugins/calculator-plugin.vala:60
 msgid "Calculate basic expressions."
-msgstr ""
+msgstr "గణనపరికరం ప్రాథమిక సమాసాలు"
 
 #: ../src/plugins/calculator-plugin.vala:64
 msgid "bc is not installed"
-msgstr ""
+msgstr "bc స్థావితం కాలేదు"
 
 #: ../src/plugins/chat-actions-plugin.vala:42
 msgid "Open chat"
-msgstr ""
+msgstr "పిచ్చాపాటి తెరువు"
 
 #: ../src/plugins/chat-actions-plugin.vala:43
 msgid "Open a chat with selected contact"
-msgstr ""
+msgstr "ఎంచిన పరిచయంతొ పిచ్చాపాటి తెరువు"
 
 #: ../src/plugins/chat-actions-plugin.vala:65
 msgid "Send a message"
-msgstr ""
+msgstr "సందేశాన్ని పంపండి"
 
 #: ../src/plugins/chat-actions-plugin.vala:66
 msgid "Send a message to the contact"
-msgstr ""
+msgstr "పరిచయానికి సందేశాన్ని పంపండి"
 
 #: ../src/plugins/chat-actions-plugin.vala:99
 msgid "Send message to.."
-msgstr ""
+msgstr "సందేశాన్ని పంపండి..."
 
 #: ../src/plugins/chat-actions-plugin.vala:100
 msgid "Send a message to a contact"
-msgstr ""
+msgstr "ఈ పరిచయానికి సందేశాన్ని పంపండి"
 
 #: ../src/plugins/chat-actions-plugin.vala:134
 msgid "Chat actions"
-msgstr ""
+msgstr "పిచ్చాపాటి చర్యలు"
 
 #: ../src/plugins/chat-actions-plugin.vala:135
 msgid "Open chat, or send a message with your favorite IM"
-msgstr ""
+msgstr "పిచ్చాపాటి తెరువు, లేదా మీ అభిమాన IMతో సందేశాన్ని పంపండి"
 
 #: ../src/plugins/chromium-plugin.vala:66
 msgid "Chromium Plugin"
-msgstr ""
+msgstr "క్రోమియం ప్లగిన్"
 
 #: ../src/plugins/chromium-plugin.vala:67
 msgid "Browse and open Chromium bookmarks."
-msgstr ""
+msgstr "బ్రౌజ్ మరియు క్రోమియం బుక్ మార్క్లను తెరవండి"
 
 #: ../src/plugins/chromium-plugin.vala:71
 msgid "Chromium is not installed"
-msgstr ""
+msgstr "క్రోమియం స్థాపితం కాలేదు"
 
 #: ../src/plugins/command-plugin.vala:44
 msgid "Run command"
-msgstr ""
+msgstr "ఆదెశం అమలు"
 
 #: ../src/plugins/command-plugin.vala:64
 msgid "Find and execute arbitrary commands."
-msgstr ""
+msgstr "కనుగొనండి మరియు  అనియత ఆదేశాలసు ఆమలుపర్చండి"
 
 #: ../src/plugins/desktop-file-plugin.vala:70
 msgid "Search for and run applications on your computer."
-msgstr ""
+msgstr "మీ కంప్యూటర్లో అనువర్తనాల కోసం శోధించండి మరియు అమలు చేయండి."
 
 #: ../src/plugins/desktop-file-plugin.vala:232
 #, c-format
 msgid "Open with %s"
-msgstr ""
+msgstr "%s‍తో తెరువు"
 
 #: ../src/plugins/desktop-file-plugin.vala:234
 #, c-format
 msgid "Opens current selection using %s"
-msgstr ""
+msgstr "ప్రస్తుత ఎంపీకను %s‍తో తెరువు."
 
 #: ../src/plugins/desktop-file-plugin.vala:280
 #, c-format
 msgid "Launch action '%s'"
-msgstr ""
+msgstr "%s చర్యను ప్రారంభించండి"
 
 #: ../src/plugins/devhelp-search.vala:59
 msgid "Search in Devhelp"
-msgstr ""
+msgstr "డెవ్ సహాయంలో వెతకండి"
 
 #: ../src/plugins/devhelp-search.vala:60
 msgid "Search documentation for this symbol"
@@ -493,11 +494,11 @@ msgstr ""
 
 #: ../src/plugins/devhelp-search.vala:74
 msgid "Devhelp is not installed"
-msgstr ""
+msgstr "Devhelp సంస్థాపించిలేదు"
 
 #: ../src/plugins/dictionary.vala:61
 msgid "Define"
-msgstr ""
+msgstr "నిర్వచించు"
 
 #: ../src/plugins/dictionary.vala:62
 msgid "Look up definition in dictionary"
@@ -517,7 +518,7 @@ msgstr ""
 
 #: ../src/plugins/file-op-plugin.vala:40
 msgid "Remove"
-msgstr ""
+msgstr "తొలగించు"
 
 #: ../src/plugins/file-op-plugin.vala:41
 msgid "Move to Trash"
@@ -525,52 +526,36 @@ msgstr ""
 
 #: ../src/plugins/file-op-plugin.vala:72
 msgid "Rename to"
-msgstr ""
+msgstr "పేరు మార్చు"
 
 #: ../src/plugins/file-op-plugin.vala:73
 msgid "Rename the file to..."
-msgstr ""
+msgstr "దస్త్రం పేరు మార్చు"
 
 #: ../src/plugins/file-op-plugin.vala:89 ../src/plugins/pidgin-plugin.vala:171
 #, c-format
 msgid "File \"%s\"does not exist."
-msgstr ""
+msgstr "దస్త్రం %s లేదు"
 
 #: ../src/plugins/file-op-plugin.vala:101
 #, c-format
 msgid "Cannot move \"%s\" to \"%s\""
-msgstr ""
+msgstr "%s నుంచి %s కు తరలించలేము"
 
 #: ../src/plugins/file-op-plugin.vala:125
 msgid "File Operations"
-msgstr ""
+msgstr "దస్త్ర పరిక్రియలు"
 
 #: ../src/plugins/file-op-plugin.vala:126
 msgid "Copy, Cut, Paste and Delete files"
-msgstr ""
+msgstr "దస్త్ర నకలు, కత్తిరింవు, అచ్చు మరియు తొలగింపు."
 
 #: ../src/plugins/gnome-bookmarks-plugin.vala:61
 msgid "GNOME Bookmarks Plugin"
-msgstr ""
+msgstr "జీనోమ్ బుక్మార్కుల ఫ్లగిన్"
 
 #: ../src/plugins/gnome-bookmarks-plugin.vala:62
 msgid "Browse and open GNOME bookmarks."
-msgstr ""
-
-#: ../src/plugins/gnome-screensaver-plugin.vala:51
-msgid "Lock Screen"
-msgstr ""
-
-#: ../src/plugins/gnome-screensaver-plugin.vala:52
-msgid "Locks screen and starts screensaver."
-msgstr ""
-
-#: ../src/plugins/gnome-screensaver-plugin.vala:80
-msgid "Lock screen of your computer."
-msgstr ""
-
-#: ../src/plugins/gnome-screensaver-plugin.vala:84
-msgid "Gnome Screen Saver wasn't found"
 msgstr ""
 
 #: ../src/plugins/hybrid-search-plugin.vala:62
@@ -587,14 +572,12 @@ msgstr ""
 msgid "Upload selection to imgur image sharer"
 msgstr ""
 
-#: ../src/plugins/imgur-plugin.vala:162
-#: ../src/plugins/pastebin-plugin.vala:151
+#: ../src/plugins/imgur-plugin.vala:162 ../src/plugins/pastebin-plugin.vala:151
 msgid ""
 "The selection was successfully uploaded and its URL was copied to clipboard."
 msgstr ""
 
-#: ../src/plugins/imgur-plugin.vala:166
-#: ../src/plugins/pastebin-plugin.vala:155
+#: ../src/plugins/imgur-plugin.vala:166 ../src/plugins/pastebin-plugin.vala:155
 msgid ""
 "An error occurred during upload, please check the log for more information."
 msgstr ""
@@ -705,6 +688,36 @@ msgstr ""
 msgid "Search using Google Maps"
 msgstr ""
 
+#: ../src/plugins/pass-plugin.vala:31
+msgid "Copy decrypted PGP password to clipboard"
+msgstr ""
+
+#: ../src/plugins/pass-plugin.vala:56
+#, c-format
+msgid "Copied %s password to clipboard"
+msgstr ""
+
+#: ../src/plugins/pass-plugin.vala:59
+#, c-format
+msgid "Unable to decrypt %s password"
+msgstr ""
+
+#: ../src/plugins/pass-plugin.vala:65
+msgid "Synapse - Pass"
+msgstr ""
+
+#: ../src/plugins/pass-plugin.vala:105
+msgid "Pass Integration"
+msgstr ""
+
+#: ../src/plugins/pass-plugin.vala:106
+msgid "Quickly place passwords from your password store in the clipboard."
+msgstr ""
+
+#: ../src/plugins/pass-plugin.vala:110
+msgid "pass is not installed"
+msgstr ""
+
 #: ../src/plugins/pastebin-plugin.vala:42
 #: ../src/plugins/pastebin-plugin.vala:261
 msgid "Pastebin"
@@ -783,6 +796,22 @@ msgstr ""
 msgid "Play in Rhythmbox"
 msgstr ""
 
+#: ../src/plugins/screensaver-plugin.vala:60
+msgid "Lock Screen"
+msgstr ""
+
+#: ../src/plugins/screensaver-plugin.vala:61
+msgid "Locks screen and starts screensaver."
+msgstr ""
+
+#: ../src/plugins/screensaver-plugin.vala:128
+msgid "Lock screen of your computer."
+msgstr ""
+
+#: ../src/plugins/screensaver-plugin.vala:132
+msgid "Screensaver wasn't found"
+msgstr ""
+
 #: ../src/plugins/selection-plugin.vala:55
 msgid "Selection"
 msgstr ""
@@ -797,7 +826,7 @@ msgid "Selected text"
 msgstr ""
 
 #. Plugin title
-#: ../src/plugins/ssh-plugin.vala:67
+#: ../src/plugins/ssh-plugin.vala:65
 msgid "Connect to host with SSH"
 msgstr ""
 
@@ -805,11 +834,11 @@ msgstr ""
 #. icon name
 #. reference to this function
 #. true if user's system has all required components which the plugin needs
-#: ../src/plugins/ssh-plugin.vala:72
+#: ../src/plugins/ssh-plugin.vala:70
 msgid "ssh is not installed"
 msgstr ""
 
-#: ../src/plugins/ssh-plugin.vala:190
+#: ../src/plugins/ssh-plugin.vala:188
 msgid "Connect with SSH"
 msgstr ""
 
@@ -954,23 +983,23 @@ msgid "Search various items logged by Zeitgeist."
 msgstr ""
 
 #: ../src/plugins/zeitgeist-plugin.vala:200
-#: ../src/plugins/zeitgeist-related.vala:79
+#: ../src/plugins/zeitgeist-related.vala:77
 msgid "Zeitgeist is not installed"
 msgstr ""
 
-#: ../src/plugins/zeitgeist-related.vala:64
+#: ../src/plugins/zeitgeist-related.vala:62
 msgid "Find related"
 msgstr ""
 
-#: ../src/plugins/zeitgeist-related.vala:65
+#: ../src/plugins/zeitgeist-related.vala:63
 msgid "Find resources related to this result"
 msgstr ""
 
-#: ../src/plugins/zeitgeist-related.vala:74
+#: ../src/plugins/zeitgeist-related.vala:72
 msgid "Related files"
 msgstr ""
 
-#: ../src/plugins/zeitgeist-related.vala:75
+#: ../src/plugins/zeitgeist-related.vala:73
 msgid "Finds files related to other search results using Zeitgeist."
 msgstr ""
 

@@ -1,3 +1,75 @@
+2018-02-04  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	Release 0.2.99.3
+
+2018-02-03  Jeremy Munsch  <jeremy.munsch@gmail.com>
+
+	core: Add generic method open_command_line() and use it in ssh-plugin
+
+2018-02-03  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	core: Add some more desktop session types
+
+	"gnome-flashback", "gnome-xorg", "ubuntu" and "ubuntu-xorg"
+
+2018-02-03  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Don't use deprecated HButtonBox
+
+2018-02-03  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	po: Update translation template
+
+2018-02-03  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	Drop intltool requirement and use gettext >= 0.19.6 only
+
+2018-02-03  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	po: Fix plural form errors
+
+2018-02-03  Israel (isrrios)
+
+	ui: Fix window background drawing
+
+2018-02-03  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	po: Update translations
+
+2018-02-03  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Bump to 2018
+
+2017-06-16  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	Fix some valac warnings
+
+2017-02-18  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	po: Update translations
+
+2016-10-06  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	Fix non-matching generic types of interface implementations
+
+2016-09-29  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	Fix non-matching generic types
+
+2016-04-01  Michael Aquilina  <michaelaquilina@gmail.com>
+
+	Add pass plugin
+
+2016-03-08  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	main: Properly construct OptionEntry
+
+	Stop using an empty string where is getting treated as translateable.
+
+2016-03-02  Rico Tzschichholz  <ricotz@ubuntu.com>
+
+	ui: Set and update client-window of Gtk.IMMulticontext
+
 2016-02-28  Rico Tzschichholz  <ricotz@ubuntu.com>
 
 	Release 0.2.99.2
